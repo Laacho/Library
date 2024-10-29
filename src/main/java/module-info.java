@@ -15,9 +15,12 @@ module bg.tu_varna.sit.library {
     requires static lombok;
     requires java.naming;
     requires java.sql;
+    requires annotations;
+    requires java.validation;
 
     exports bg.tu_varna.sit.library.application;
     opens bg.tu_varna.sit.library.application to javafx.fxml;
+
     exports bg.tu_varna.sit.library.presentation.controllers;
     opens bg.tu_varna.sit.library.presentation.controllers to javafx.fxml;
 
