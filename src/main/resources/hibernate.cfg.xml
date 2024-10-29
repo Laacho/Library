@@ -12,6 +12,19 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.id.new_generator_mappings">true</property>
-        <mapping class="bg.tu_varna.sit.library.data.entities.Test"/>
+
+        <mapping class="bg.tu_varna.sit.library.data.entities.Location"/>
+        <mapping class="bg.tu_varna.sit.library.data.entities.Archived"/>
+        <mapping class="bg.tu_varna.sit.library.data.entities.Author"/>
+        <mapping class="bg.tu_varna.sit.library.data.entities.Book"/>
+        <mapping class="bg.tu_varna.sit.library.data.entities.DiscardedBooks"/>
+        <mapping class="bg.tu_varna.sit.library.data.entities.Genre"/>
+
+        <mapping class="bg.tu_varna.sit.library.data.entities.Publisher"/>
+        <mapping class="bg.tu_varna.sit.library.data.entities.ReaderProfile"/>
+        <mapping class="bg.tu_varna.sit.library.data.entities.User"/>
+        <mapping class="bg.tu_varna.sit.library.data.entities.UserCredentials"/>
+
+
     </session-factory>
 </hibernate-configuration>

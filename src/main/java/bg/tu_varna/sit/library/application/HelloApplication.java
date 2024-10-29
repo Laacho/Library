@@ -5,9 +5,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.hibernate.Session;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.DriverManager;
+import java.util.Map;
 
 public class HelloApplication extends Application {
     @Override
