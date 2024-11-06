@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox stylesheets="@../css/file.css" fx:controller="bg.tu_varna.sit.library.presentation.controllers.HelloController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="376.0" prefWidth="151.0">
+         <children>
+            <ImageView fitHeight="244.0" fitWidth="358.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../login/images/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane styleClass="anchor-pane" prefHeight="480.0" prefWidth="800.0" style="-fx-background-color: rgba(23,132,245,0.58);">
+         <children>
+            <Button stylesheets="@../css/file.css" styleClass="button" onAction="#onButton1Click" fx:id="button1" layoutX="95.0" layoutY="322.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="181.0" text="Login" />
+            <Button stylesheets="@../css/file.css" styleClass="button" layoutX="289.0" layoutY="322.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="181.0" text="Register" />
+            <Label stylesheets="@../css/file.css" styleClass="welcome-text" alignment="CENTER" contentDisplay="CENTER" layoutX="148.0" layoutY="55.0" prefHeight="237.0" prefWidth="255.0" text="WELCOME TO OUR APP" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Segoe Print" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>

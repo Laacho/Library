@@ -23,7 +23,7 @@ public class Connection {
         return sessionFactory.openSession();
     }
 
-    public static void openSessionClose() {
+    public static void closeSession() {
         sessionFactory.close();
     }
 }

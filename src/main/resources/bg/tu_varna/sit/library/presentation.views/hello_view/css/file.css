@@ -1,0 +1,37 @@
+/* styles.css */
+
+/* Бутон */
+.button {
+    -fx-background-color: #4a90e2; /* син цвят */
+    -fx-text-fill: #ffffff; /* бял текст */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 3);
+}
+
+.button:hover {
+    -fx-background-color: #357ABD; /* по-тъмен син цвят при задържане */
+}
+
+.button:pressed {
+    -fx-background-color: #2C6BA6; /* още по-тъмен син при клик */
+}
+
+/* Стил за приветствения текст */
+.welcome-text {
+    -fx-font-size: 28px;
+    -fx-font-family: "Arial";
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.3, 0, 3);
+    -fx-alignment: center;
+}
+
+/* Стил за AnchorPane фона */
+.anchor-pane {
+    -fx-background-color: #E0F7FA; /* лек син фон за елегантен вид */
+    -fx-padding: 20px;
+}
