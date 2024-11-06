@@ -17,6 +17,7 @@ module bg.tu_varna.sit.library {
     requires java.sql;
     requires annotations;
     requires java.validation;
+    requires log4j;
 
     exports bg.tu_varna.sit.library.application;
     opens bg.tu_varna.sit.library.application to javafx.fxml;
