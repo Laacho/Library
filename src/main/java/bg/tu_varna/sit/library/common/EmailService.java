@@ -8,8 +8,8 @@ import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.mailer.MailerBuilder;
 
 public class EmailService {
-    private static final String SENDER_EMAIL = "libraryssuport@gmail.com";
-    private static final String APP_PASSWORD = "geckssjtlbatcfus";
+    private static final String SENDER_EMAIL = System.getProperty("EMAIL");
+    private static final String APP_PASSWORD = System.getProperty("APP_PASSWORD");
     private static final int LENGTH_VERIFICATION_CODE = 6;
 
     public void sendMail(String recipientEmail) {
@@ -31,7 +31,7 @@ public class EmailService {
 
     private static Email buildEmail(String recipientEmail, String htmlContent) {
         return EmailBuilder.startingBlank()
-                .from("Test", SENDER_EMAIL)
+                .from("Library", SENDER_EMAIL)
                 .to(recipientEmail)
                 .withSubject("Your Verification Code")
                 .withHTMLText(htmlContent)

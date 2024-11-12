@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Archived;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ArchivedRepository;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -12,6 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class ArchivedRepositoryImpl implements ArchivedRepository {
+    private static final Logger log= Logger.getLogger(ArchivedRepositoryImpl.class);
+
     @Override
     public Long save(Archived entity) {
         Session session = Connection.openSession();
@@ -20,8 +23,9 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
         try {
             result = (Long) session.save(entity);
             transaction.commit();
+            log.info("Successfully saved " + entity);
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+           log.error("Archive add error: "+ex.getMessage());
         } finally {
             session.close();
         }
@@ -37,8 +41,9 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
                 session.save(entity);
             }
             transaction.commit();
+            log.info("Successfully saved all entities");
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            log.error("Archive add error: "+ex.getMessage());
         } finally {
             session.close();
         }
@@ -55,9 +60,9 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Get all list");
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Get Task error: " + ex.getMessage());
         } finally {
             session.close();
         }
@@ -73,9 +78,9 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
             String jpql = "SELECT a FROM Archived a";
             list.addAll(session.createQuery(jpql, Archived.class).getResultList());
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Successfully retrieved information");
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+             log.error("Error: " + ex.getMessage());
         } finally {
             session.close();
         }
@@ -96,9 +101,9 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
                 throw new RuntimeException();
             }
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Deleted successfully");
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Deleting error: " + ex.getMessage());
         } finally {
             session.close();
         }

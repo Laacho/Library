@@ -3,6 +3,7 @@ package bg.tu_varna.sit.library.data.repositories.implementations;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserRepository;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserRepositoryImpl implements UserRepository {
+    private static final Logger log=Logger.getLogger(UserRepositoryImpl.class);
     @Override
     public Long save(User entity) {
         Session session = Connection.openSession();
@@ -20,8 +22,10 @@ public class UserRepositoryImpl implements UserRepository {
         try {
             result = (Long) session.save(entity);
             transaction.commit();
+            log.info("User saved");
         }catch (Exception ex){
             System.out.println(ex.getMessage());
+            log.error("Error while saving entity: "+entity,ex);
         }finally {
            session.close();
         }
@@ -37,8 +41,9 @@ public class UserRepositoryImpl implements UserRepository {
                 session.save(entity);
             }
             transaction.commit();
+            log.info("Users saved");
         }catch (Exception ex){
-            System.out.println(ex.getMessage());
+            log.error("Error while saving entities: "+entities,ex);
         }finally {
             session.close();
         }
@@ -55,10 +60,9 @@ public class UserRepositoryImpl implements UserRepository {
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
-
-            // log.info("Get all list");
+            log.info("User found with id: "+id);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while fetching user: "+id,ex);
         } finally {
             session.close();
         }
@@ -73,10 +77,10 @@ public class UserRepositoryImpl implements UserRepository {
         try {
             String jpql = "SELECT u FROM User u";
             list.addAll(session.createQuery(jpql, User.class).getResultList());
-            // log.info("Get all list");
             transaction.commit();
+            log.info("Users found");
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while fetching users: "+ex,ex);
         } finally {
             session.close();
         }
@@ -97,9 +101,9 @@ public class UserRepositoryImpl implements UserRepository {
                 throw new RuntimeException();
             }
             transaction.commit();
-            // log.info("Get all list");
+            log.info("User deleted: "+id);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while fetching user: "+id,ex);
         } finally {
             session.close();
         }

@@ -18,6 +18,7 @@ public class Hasher {
             return Base64.getEncoder().encodeToString(hashedBytes);
         } catch (NoSuchAlgorithmException e) {
             log.error("Password hashing failed: " + e.getMessage());
+            //todo show Alert
             throw new RuntimeException(e);
         }
     }
@@ -26,4 +27,5 @@ public class Hasher {
         String hashedInputPassword = hashPassword(enteredPassword);
         return hashedInputPassword.equals(storedHash);
     }
+
 }

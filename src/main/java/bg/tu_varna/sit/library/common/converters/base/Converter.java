@@ -1,4 +1,4 @@
-package bg.tu_varna.sit.library.common.converters.common;
+package bg.tu_varna.sit.library.common.converters.base;
 
 //F=From
 //T=to

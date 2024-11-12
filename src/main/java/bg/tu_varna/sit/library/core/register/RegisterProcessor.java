@@ -1,7 +1,6 @@
 package bg.tu_varna.sit.library.core.register;
 
-import bg.tu_varna.sit.library.common.Hasher;
-import bg.tu_varna.sit.library.common.converters.common.ConversionService;
+import bg.tu_varna.sit.library.common.converters.base.ConversionService;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;

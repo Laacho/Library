@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserCredentialsRepositoryImpl implements UserCredentialsRepository {
+    private static final Logger log =Logger.getLogger(UserCredentialsRepositoryImpl.class);
     @Override
     public Long save(UserCredentials entity) {
         Session session = Connection.openSession();
@@ -20,9 +22,10 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
         try {
             result = (Long) session.save(entity);
             transaction.commit();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        } finally {
+            log.info("Successfully saved entity: "+entity);
+        } catch (Exception ex){
+            log.error("Error saving entity: "+entity);
+        }finally {
             session.close();
         }
         return result;
@@ -38,7 +41,7 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
             }
             transaction.commit();
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            log.error("Error saving entities: "+entities);
         } finally {
             session.close();
         }
@@ -55,9 +58,9 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Successfully saved entity: "+result);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error saving entity: "+result,ex);
         } finally {
             session.close();
         }
@@ -73,9 +76,9 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
             String jpql = "SELECT u FROM UserCredentials u";
             list.addAll(session.createQuery(jpql, UserCredentials.class).getResultList());
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Successfully saved entities: "+list);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error saving entities: "+list,ex);
         } finally {
             session.close();
         }
@@ -95,10 +98,10 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
                 //todo replace with better exception
                 throw new RuntimeException();
             }
+            log.info("Successfully deleted entity: "+result);
             transaction.commit();
-            // log.info("Get all list");
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error saving entity: "+result,ex);
         } finally {
             session.close();
         }

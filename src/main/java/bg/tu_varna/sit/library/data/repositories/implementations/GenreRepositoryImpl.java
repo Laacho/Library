@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Genre;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.GenreRepository;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class GenreRepositoryImpl implements GenreRepository {
+    private static final Logger log=Logger.getLogger(GenreRepositoryImpl.class);
     @Override
     public Long save(Genre entity) {
         Session session = Connection.openSession();
@@ -20,8 +22,9 @@ public class GenreRepositoryImpl implements GenreRepository {
         try {
             result = (Long) session.save(entity);
             transaction.commit();
+            log.info("Successfully saved entity");
         }catch (Exception ex){
-            System.out.println(ex.getMessage());
+            log.error("Error saving entity", ex);
         }finally {
             session.close();
         }
@@ -37,8 +40,9 @@ public class GenreRepositoryImpl implements GenreRepository {
                 session.save(entity);
             }
             transaction.commit();
+            log.info("Successfully saved entities");
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            log.error("Error saving entities", ex);
         } finally {
             session.close();
         }
@@ -57,7 +61,7 @@ public class GenreRepositoryImpl implements GenreRepository {
             transaction.commit();
             // log.info("Get all list");
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error finding entity by id", ex);
         } finally {
             session.close();
         }
@@ -73,9 +77,9 @@ public class GenreRepositoryImpl implements GenreRepository {
             String jpql = "SELECT g FROM Genre g";
             list.addAll(session.createQuery(jpql, Genre.class).getResultList());
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Successfully found entities");
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error finding entities", ex);
         } finally {
             session.close();
         }
@@ -96,9 +100,10 @@ public class GenreRepositoryImpl implements GenreRepository {
                 throw new RuntimeException();
             }
             transaction.commit();
-            // log.info("Get all list");
+
+            log.info("Successfully deleted entity by id: " + id);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error deleting entity by id", ex);
         } finally {
             session.close();
         }

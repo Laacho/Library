@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.DiscardedBooks;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.DiscardedBooksRepository;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
+    private static final Logger log=Logger.getLogger(DiscardedBooksRepositoryImpl.class);
     @Override
     public Long save(DiscardedBooks entity) {
         Session session = Connection.openSession();
@@ -20,8 +22,9 @@ public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
         try {
             result = (Long) session.save(entity);
             transaction.commit();
+            log.info("Successfully saved entity" + entity);
         }catch (Exception ex){
-            System.out.println(ex.getMessage());
+            log.error("Error while saving entity" + entity);
         }finally {
             session.close();
         }
@@ -38,7 +41,7 @@ public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
             }
             transaction.commit();
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            log.error("Error while saving entities" + entities);
         } finally {
             session.close();
         }
@@ -55,9 +58,9 @@ public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Successfully find entity by id" + id);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while finding entity by id" + id);
         } finally {
             session.close();
         }
@@ -73,9 +76,9 @@ public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
             String jpql = "SELECT d FROM DiscardedBooks d";
             list.addAll(session.createQuery(jpql, DiscardedBooks.class).getResultList());
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Successfully find entities");
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while finding entities");
         } finally {
             session.close();
         }
@@ -96,9 +99,9 @@ public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
                 throw new RuntimeException();
             }
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Successfully deleted entity by id" + id);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while deleting entity by id" + id);
         } finally {
             session.close();
         }

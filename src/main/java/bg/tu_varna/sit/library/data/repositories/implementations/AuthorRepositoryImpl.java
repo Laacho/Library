@@ -4,14 +4,17 @@ import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Author;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.AuthorRepository;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class AuthorRepositoryImpl implements AuthorRepository {
+    private static final Logger log = Logger.getLogger(AuthorRepositoryImpl.class);
     @Override
     public Long save(Author entity) {
         Session session = Connection.openSession();
@@ -20,9 +23,10 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         try {
             result = (Long) session.save(entity);
             transaction.commit();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        } finally {
+            log.info("Author saved successfully");
+        } catch (Exception ex){
+            log.error("Error while saving author ", ex);
+        }finally {
             session.close();
         }
         return result;
@@ -37,8 +41,9 @@ public class AuthorRepositoryImpl implements AuthorRepository {
                 session.save(entity);
             }
             transaction.commit();
+            log.info("Authors saved successfully");
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            log.error("Error while saving authors ", ex);
         } finally {
             session.close();
         }
@@ -57,7 +62,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
             transaction.commit();
             // log.info("Get all list");
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while fetching author ", ex);
         } finally {
             session.close();
         }
@@ -73,9 +78,9 @@ public class AuthorRepositoryImpl implements AuthorRepository {
             String jpql = "SELECT a FROM Author a";
             list.addAll(session.createQuery(jpql, Author.class).getResultList());
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Authors found");
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while fetching authors ", ex);
         } finally {
             session.close();
         }
@@ -96,9 +101,9 @@ public class AuthorRepositoryImpl implements AuthorRepository {
                 throw new RuntimeException();
             }
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Author deleted successfully");
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while deleting author ", ex);
         } finally {
             session.close();
         }
