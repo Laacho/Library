@@ -11,6 +11,7 @@ import javax.validation.constraints.Min;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder(toBuilder = true)
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

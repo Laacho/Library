@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder(toBuilder = true)
 public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

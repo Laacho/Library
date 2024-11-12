@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder(toBuilder = true)
 public class DiscardedBooks {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

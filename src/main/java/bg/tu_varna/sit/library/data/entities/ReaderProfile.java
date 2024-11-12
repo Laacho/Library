@@ -13,6 +13,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder(toBuilder = true)
 public class ReaderProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
