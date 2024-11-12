@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.presentation.controllers;
 
-import bg.tu_varna.sit.library.common.converters.common.ConversionService;
+import bg.tu_varna.sit.library.common.converters.base.ConversionService;
 import bg.tu_varna.sit.library.core.register.RegisterProcessor;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentialsRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserRepositoryImpl;

@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Publisher;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.PublisherRepository;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class PublisherRepositoryImpl implements PublisherRepository {
+    private static final Logger log = Logger.getLogger(PublisherRepositoryImpl.class);
     @Override
     public Long save(Publisher entity) {
         Session session = Connection.openSession();
@@ -20,8 +22,9 @@ public class PublisherRepositoryImpl implements PublisherRepository {
         try {
             result = (Long) session.save(entity);
             transaction.commit();
+            log.info("Successfully saved entity "+entity);
         }catch (Exception ex){
-            System.out.println(ex.getMessage());
+            log.error("Error saving entity "+entity, ex);
         }finally {
             session.close();
         }
@@ -37,8 +40,9 @@ public class PublisherRepositoryImpl implements PublisherRepository {
                 session.save(entity);
             }
             transaction.commit();
+            log.info("Successfully saved entities "+entities);
         }catch (Exception ex){
-            System.out.println(ex.getMessage());
+            log.error("Error saving entities "+entities, ex);
         }finally {
             session.close();
         }
@@ -55,9 +59,9 @@ public class PublisherRepositoryImpl implements PublisherRepository {
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Successfully find publisher with id "+id);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error finding publisher with id "+id, ex);
         } finally {
             session.close();
         }
@@ -73,9 +77,9 @@ public class PublisherRepositoryImpl implements PublisherRepository {
             String jpql = "SELECT p FROM Publisher p";
             list.addAll(session.createQuery(jpql, Publisher.class).getResultList());
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Successfully found publishers");
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error finding publishers", ex);
         } finally {
             session.close();
         }
@@ -96,9 +100,9 @@ public class PublisherRepositoryImpl implements PublisherRepository {
                 throw new RuntimeException();
             }
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Successfully deleted publisher with id "+id);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error deleting publisher with id "+id, ex);
         } finally {
             session.close();
         }

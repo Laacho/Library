@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.core.register;
 
-import bg.tu_varna.sit.library.common.converters.common.ConversionService;
+import bg.tu_varna.sit.library.common.converters.base.ConversionService;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

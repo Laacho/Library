@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.ReaderProfile;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ReaderProfileRepository;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ReaderProfileRepositoryImpl implements ReaderProfileRepository {
+    private static final Logger log = Logger.getLogger(ReaderProfileRepositoryImpl.class);
     @Override
     public Long save(ReaderProfile entity) {
         Session session = Connection.openSession();
@@ -20,8 +22,9 @@ public class ReaderProfileRepositoryImpl implements ReaderProfileRepository {
         try {
             result = (Long) session.save(entity);
             transaction.commit();
+            log.info("Successfully saved entity: " + entity);
         }catch (Exception ex){
-            System.out.println(ex.getMessage());
+            log.error("Error while saving entity" + entity,ex);
         }finally {
             session.close();
         }
@@ -37,8 +40,9 @@ public class ReaderProfileRepositoryImpl implements ReaderProfileRepository {
                 session.save(entity);
             }
             transaction.commit();
+            log.info("Successfully saved entities: " + entities);
         }catch (Exception ex){
-            System.out.println(ex.getMessage());
+            log.error("Error while saving entities" + entities);
         }finally {
             session.close();
         }
@@ -55,9 +59,9 @@ public class ReaderProfileRepositoryImpl implements ReaderProfileRepository {
                     .setParameter("id", id)
                     .getSingleResult());
            transaction.commit();
-            // log.info("Get all list");
+            log.info("Successfully find entity by id: " + id);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while fetching entity by id" + id,ex);
         } finally {
             session.close();
         }
@@ -73,9 +77,9 @@ public class ReaderProfileRepositoryImpl implements ReaderProfileRepository {
             String jpql = "SELECT r FROM ReaderProfile r";
             list.addAll(session.createQuery(jpql, ReaderProfile.class).getResultList());
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Successfully find entities: " + list);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while fetching entities" + list);
         } finally {
             session.close();
         }
@@ -96,9 +100,9 @@ public class ReaderProfileRepositoryImpl implements ReaderProfileRepository {
                 throw new RuntimeException();
             }
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Successfully deleted entity by id: " + id);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while deleting entity by id" + id,ex);
         } finally {
             session.close();
         }

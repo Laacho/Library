@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Location;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.LocationRepository;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class LocationRepositoryImpl implements LocationRepository {
+    private static final Logger log=Logger.getLogger(LocationRepositoryImpl.class);
     @Override
     public Long save(Location entity) {
         Session session = Connection.openSession();
@@ -20,8 +22,9 @@ public class LocationRepositoryImpl implements LocationRepository {
         try {
             result = (Long) session.save(entity);
             transaction.commit();
+            log.info("Successfully added entity");
         }catch (Exception ex){
-            System.out.println(ex.getMessage());
+            log.error("Error while saving entity", ex);
         }finally {
             session.close();
         }
@@ -37,8 +40,9 @@ public class LocationRepositoryImpl implements LocationRepository {
                 session.save(entity);
             }
             transaction.commit();
+            log.info("Successfully saved entities");
         }catch (Exception ex){
-            System.out.println(ex.getMessage());
+            log.error("Error while saving entities", ex);
         }finally {
             session.close();
         }
@@ -55,9 +59,9 @@ public class LocationRepositoryImpl implements LocationRepository {
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Successfully found entity with id " + id);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while finding entity with id " + id, ex);
         } finally {
             session.close();
         }
@@ -73,9 +77,10 @@ public class LocationRepositoryImpl implements LocationRepository {
             String jpql = "SELECT l FROM Location l";
             list.addAll(session.createQuery(jpql, Location.class).getResultList());
             transaction.commit();
-            // log.info("Get all list");
+
+            log.info("Successfully found entities");
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while finding entities", ex);
         } finally {
             session.close();
         }
@@ -96,9 +101,9 @@ public class LocationRepositoryImpl implements LocationRepository {
                 throw new RuntimeException();
             }
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Successfully deleted entity with id " + id);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while deleting entity with id " + id, ex);
         } finally {
             session.close();
         }

@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.BookRepository;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class BookRepositoryImpl implements BookRepository {
+    private static final Logger log = Logger.getLogger(BookRepositoryImpl.class);
     @Override
     public Long save(Book entity) {
         Session session = Connection.openSession();
@@ -20,8 +22,9 @@ public class BookRepositoryImpl implements BookRepository {
         try {
             result = (Long) session.save(entity);
             transaction.commit();
+            log.info("Book saved: " + entity);
         }catch (Exception ex){
-            System.out.println(ex.getMessage());
+            log.error("Error while saving book: " + entity, ex);
         }finally {
             session.close();
         }
@@ -37,8 +40,9 @@ public class BookRepositoryImpl implements BookRepository {
                 session.save(entity);
             }
             transaction.commit();
+            log.info("Books saved: " + entities);
         }catch (Exception ex){
-            System.out.println(ex.getMessage());
+            log.error("Error while saving books: " + entities, ex);
         }finally {
             session.close();
         }
@@ -55,9 +59,9 @@ public class BookRepositoryImpl implements BookRepository {
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Book found: " + result);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while finding book: " + id, ex);
         } finally {
             session.close();
         }
@@ -73,9 +77,9 @@ public class BookRepositoryImpl implements BookRepository {
             String jpql = "SELECT b FROM Book b";
             list.addAll(session.createQuery(jpql, Book.class).getResultList());
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Books found: " + list);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while finding books", ex);
         } finally {
             session.close();
         }
@@ -96,9 +100,9 @@ public class BookRepositoryImpl implements BookRepository {
                 throw new RuntimeException();
             }
             transaction.commit();
-            // log.info("Get all list");
+            log.info("Book deleted: " + result);
         } catch (Exception ex) {
-            // log.error("Get Task error: " + ex.getMessage());
+            log.error("Error while deleting book: " + id, ex);
         } finally {
             session.close();
         }

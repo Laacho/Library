@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.common.converters.register;
 
-import bg.tu_varna.sit.library.common.converters.common.Converter;
+import bg.tu_varna.sit.library.common.converters.base.Converter;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.models.register.RegisterInputModel;
 

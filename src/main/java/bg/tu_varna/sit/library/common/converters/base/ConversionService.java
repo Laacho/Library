@@ -1,4 +1,4 @@
-package bg.tu_varna.sit.library.common.converters.common;
+package bg.tu_varna.sit.library.common.converters.base;
 
 import java.util.HashMap;
 import java.util.Map;
