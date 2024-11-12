@@ -2,6 +2,7 @@ package bg.tu_varna.sit.library.data.repositories.implementations;
 
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Archived;
+import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ArchivedRepository;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -12,17 +13,19 @@ import java.util.Optional;
 
 public class ArchivedRepositoryImpl implements ArchivedRepository {
     @Override
-    public void save(Archived entity) {
+    public Long save(Archived entity) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
+        Long result = null;
         try {
-            session.save(entity);
+            result = (Long) session.save(entity);
+            transaction.commit();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
+        return result;
     }
 
     @Override
@@ -33,11 +36,11 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
             for (Archived entity : entities) {
                 session.save(entity);
             }
+            transaction.commit();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
     }
 
@@ -47,14 +50,16 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
         Transaction transaction = session.beginTransaction();
         Optional<Archived> result = null;
         try {
-            String jpql = "SELECT a FROM Archived a WHERE a.id = ?" + id;
-            result = Optional.ofNullable(session.createQuery(jpql, Archived.class).getSingleResult());
+            String jpql = "SELECT a FROM Archived a WHERE a.id = :id";
+            result = Optional.ofNullable(session.createQuery(jpql, Archived.class)
+                    .setParameter("id", id)
+                    .getSingleResult());
+            transaction.commit();
             // log.info("Get all list");
         } catch (Exception ex) {
             // log.error("Get Task error: " + ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
         return result;
     }
@@ -67,12 +72,12 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
         try {
             String jpql = "SELECT a FROM Archived a";
             list.addAll(session.createQuery(jpql, Archived.class).getResultList());
+            transaction.commit();
             // log.info("Get all list");
         } catch (Exception ex) {
             // log.error("Get Task error: " + ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
         return Optional.of(list);
     }
@@ -90,12 +95,12 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
                 //todo replace with better exception
                 throw new RuntimeException();
             }
+            transaction.commit();
             // log.info("Get all list");
         } catch (Exception ex) {
             // log.error("Get Task error: " + ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
         return archived;
     }

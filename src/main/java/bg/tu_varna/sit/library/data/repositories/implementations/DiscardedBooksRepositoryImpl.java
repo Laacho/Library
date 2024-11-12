@@ -1,10 +1,8 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
 import bg.tu_varna.sit.library.data.access.Connection;
-import bg.tu_varna.sit.library.data.entities.Archived;
-import bg.tu_varna.sit.library.data.entities.Author;
 import bg.tu_varna.sit.library.data.entities.DiscardedBooks;
-import bg.tu_varna.sit.library.data.entities.UserCredentials;
+import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.DiscardedBooksRepository;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -15,17 +13,19 @@ import java.util.Optional;
 
 public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
     @Override
-    public void save(DiscardedBooks entity) {
+    public Long save(DiscardedBooks entity) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
+        Long result = null;
         try {
-            session.save(entity);
+            result = (Long) session.save(entity);
+            transaction.commit();
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
+        return result;
     }
 
     @Override
@@ -36,11 +36,11 @@ public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
             for (DiscardedBooks entity : entities) {
                 session.save(entity);
             }
-        }catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }finally {
             transaction.commit();
-            Connection.closeSession();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            session.close();
         }
     }
 
@@ -50,14 +50,16 @@ public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
         Transaction transaction = session.beginTransaction();
         Optional<DiscardedBooks> result = null;
         try {
-            String jpql = "SELECT d FROM DiscardedBooks d WHERE a.id = ?" + id;
-            result = Optional.ofNullable(session.createQuery(jpql, DiscardedBooks.class).getSingleResult());
+            String jpql = "SELECT d FROM DiscardedBooks d WHERE d.id = :id";
+            result = Optional.ofNullable(session.createQuery(jpql, DiscardedBooks.class)
+                    .setParameter("id", id)
+                    .getSingleResult());
+            transaction.commit();
             // log.info("Get all list");
         } catch (Exception ex) {
             // log.error("Get Task error: " + ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
         return result;
     }
@@ -70,12 +72,12 @@ public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
         try {
             String jpql = "SELECT d FROM DiscardedBooks d";
             list.addAll(session.createQuery(jpql, DiscardedBooks.class).getResultList());
+            transaction.commit();
             // log.info("Get all list");
         } catch (Exception ex) {
             // log.error("Get Task error: " + ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
         return Optional.of(list);
     }
@@ -93,12 +95,12 @@ public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
                 //todo replace with better exception
                 throw new RuntimeException();
             }
+            transaction.commit();
             // log.info("Get all list");
         } catch (Exception ex) {
             // log.error("Get Task error: " + ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
         return result;
     }

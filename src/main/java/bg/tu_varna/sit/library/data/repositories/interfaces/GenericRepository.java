@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GenericRepository<T> {
-    void save(T entity);
+    Long save(T entity);
     void saveAll(List<T> entities);
 
     Optional<T> findById(Long id);
