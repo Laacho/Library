@@ -13,29 +13,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloController {
+public class HelloController extends Controller {
     @FXML
-    private Label welcomeText;
-    @FXML
-    private Button button1;
-    private Parent root;
-    private Scene scene;
-    private Stage stage;
-
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    protected void changeHomeViewToLoginView(ActionEvent actionEvent) throws IOException {
+        super.setPath("/bg/tu_varna/sit/library/presentation.views/login/pages/login-view.fxml");
+        changeScene(actionEvent);
     }
-
     @FXML
-    protected void onButton1Click(ActionEvent actionEvent) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/bg/tu_varna/sit/library/presentation.views/login/pages/login-view.fxml"));
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setMaxHeight(600);
-        stage.setMaxWidth(800);
-        scene = new Scene(root,stage.getMaxWidth(),stage.getMaxHeight());
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+    protected void changeHomeViewToRegisterView(ActionEvent actionEvent) throws IOException {
+        super.setPath("/bg/tu_varna/sit/library/presentation.views/register/pages/register-view.fxml");
+        changeScene(actionEvent);
     }
 }
