@@ -2,6 +2,7 @@ package bg.tu_varna.sit.library.data.repositories.implementations;
 
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Author;
+import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.AuthorRepository;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -12,17 +13,19 @@ import java.util.Optional;
 
 public class AuthorRepositoryImpl implements AuthorRepository {
     @Override
-    public void save(Author entity) {
+    public Long save(Author entity) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
+        Long result = null;
         try {
-            session.save(entity);
-        }catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }finally {
+            result = (Long) session.save(entity);
             transaction.commit();
-            Connection.closeSession();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            session.close();
         }
+        return result;
     }
 
     @Override
@@ -33,11 +36,11 @@ public class AuthorRepositoryImpl implements AuthorRepository {
             for (Author entity : entities) {
                 session.save(entity);
             }
-        }catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }finally {
             transaction.commit();
-            Connection.closeSession();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            session.close();
         }
     }
 
@@ -47,14 +50,16 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         Transaction transaction = session.beginTransaction();
         Optional<Author> result = null;
         try {
-            String jpql = "SELECT a FROM Author a WHERE a.id = ?" + id;
-            result = Optional.ofNullable(session.createQuery(jpql, Author.class).getSingleResult());
+            String jpql = "SELECT a FROM Author a WHERE a.id = :id";
+            result = Optional.ofNullable(session.createQuery(jpql, Author.class)
+                    .setParameter("id", id)
+                    .getSingleResult());
+            transaction.commit();
             // log.info("Get all list");
         } catch (Exception ex) {
             // log.error("Get Task error: " + ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
         return result;
     }
@@ -67,12 +72,12 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         try {
             String jpql = "SELECT a FROM Author a";
             list.addAll(session.createQuery(jpql, Author.class).getResultList());
+            transaction.commit();
             // log.info("Get all list");
         } catch (Exception ex) {
             // log.error("Get Task error: " + ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
         return Optional.of(list);
     }
@@ -90,12 +95,12 @@ public class AuthorRepositoryImpl implements AuthorRepository {
                 //todo replace with better exception
                 throw new RuntimeException();
             }
+            transaction.commit();
             // log.info("Get all list");
         } catch (Exception ex) {
             // log.error("Get Task error: " + ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
         return result;
     }

@@ -2,6 +2,7 @@ package bg.tu_varna.sit.library.data.repositories.implementations;
 
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Genre;
+import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.GenreRepository;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -12,17 +13,19 @@ import java.util.Optional;
 
 public class GenreRepositoryImpl implements GenreRepository {
     @Override
-    public void save(Genre entity) {
+    public Long save(Genre entity) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
+        Long result = null;
         try {
-            session.save(entity);
+            result = (Long) session.save(entity);
+            transaction.commit();
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
+        return result;
     }
 
     @Override
@@ -33,11 +36,11 @@ public class GenreRepositoryImpl implements GenreRepository {
             for (Genre entity : entities) {
                 session.save(entity);
             }
-        }catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }finally {
             transaction.commit();
-            Connection.closeSession();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            session.close();
         }
     }
 
@@ -47,14 +50,16 @@ public class GenreRepositoryImpl implements GenreRepository {
         Transaction transaction = session.beginTransaction();
         Optional<Genre> result = null;
         try {
-            String jpql = "SELECT g FROM Genre g WHERE a.id = ?" + id;
-            result = Optional.ofNullable(session.createQuery(jpql, Genre.class).getSingleResult());
+            String jpql = "SELECT g FROM Genre g WHERE g.id = :id";
+            result = Optional.ofNullable(session.createQuery(jpql, Genre.class)
+                    .setParameter("id", id)
+                    .getSingleResult());
+            transaction.commit();
             // log.info("Get all list");
         } catch (Exception ex) {
             // log.error("Get Task error: " + ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
         return result;
     }
@@ -67,12 +72,12 @@ public class GenreRepositoryImpl implements GenreRepository {
         try {
             String jpql = "SELECT g FROM Genre g";
             list.addAll(session.createQuery(jpql, Genre.class).getResultList());
+            transaction.commit();
             // log.info("Get all list");
         } catch (Exception ex) {
             // log.error("Get Task error: " + ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
         return Optional.of(list);
     }
@@ -90,12 +95,12 @@ public class GenreRepositoryImpl implements GenreRepository {
                 //todo replace with better exception
                 throw new RuntimeException();
             }
+            transaction.commit();
             // log.info("Get all list");
         } catch (Exception ex) {
             // log.error("Get Task error: " + ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
         return result;
     }

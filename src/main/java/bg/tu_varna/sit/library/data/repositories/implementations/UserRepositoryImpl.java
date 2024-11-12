@@ -6,23 +6,26 @@ import bg.tu_varna.sit.library.data.repositories.interfaces.UserRepository;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class UserRepositoryImpl implements UserRepository {
     @Override
-    public void save(User entity) {
+    public Long save(User entity) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
+        Long result = null;
         try {
-            session.save(entity);
+            result = (Long) session.save(entity);
+            transaction.commit();
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {
-            transaction.commit();
-            Connection.closeSession();
+           session.close();
         }
+        return result;
     }
 
     @Override
@@ -33,11 +36,11 @@ public class UserRepositoryImpl implements UserRepository {
             for (User entity : entities) {
                 session.save(entity);
             }
+            transaction.commit();
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
     }
 
@@ -47,14 +50,17 @@ public class UserRepositoryImpl implements UserRepository {
         Transaction transaction = session.beginTransaction();
         Optional<User> result = null;
         try {
-            String jpql = "SELECT u FROM User u WHERE a.id = ?" + id;
-            result = Optional.ofNullable(session.createQuery(jpql, User.class).getSingleResult());
+            String jpql = "SELECT u FROM User u WHERE u.id = :id";
+            result = Optional.ofNullable(session.createQuery(jpql, User.class)
+                    .setParameter("id", id)
+                    .getSingleResult());
+            transaction.commit();
+
             // log.info("Get all list");
         } catch (Exception ex) {
             // log.error("Get Task error: " + ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
         return result;
     }
@@ -68,11 +74,11 @@ public class UserRepositoryImpl implements UserRepository {
             String jpql = "SELECT u FROM User u";
             list.addAll(session.createQuery(jpql, User.class).getResultList());
             // log.info("Get all list");
+            transaction.commit();
         } catch (Exception ex) {
             // log.error("Get Task error: " + ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
         return Optional.of(list);
     }
@@ -90,12 +96,12 @@ public class UserRepositoryImpl implements UserRepository {
                 //todo replace with better exception
                 throw new RuntimeException();
             }
+            transaction.commit();
             // log.info("Get all list");
         } catch (Exception ex) {
             // log.error("Get Task error: " + ex.getMessage());
         } finally {
-            transaction.commit();
-            Connection.closeSession();
+            session.close();
         }
         return result;
     }
