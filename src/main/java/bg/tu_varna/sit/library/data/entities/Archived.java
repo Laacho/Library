@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Table(name = "archived")
 @Getter
 @Setter
+@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class Archived {
