@@ -1,6 +1,16 @@
 package bg.tu_varna.sit.library.application;
 
+import bg.tu_varna.sit.library.common.SingletonFactory;
+import bg.tu_varna.sit.library.common.converters.base.ConversionService;
+import bg.tu_varna.sit.library.common.converters.register.FromRegisterInputModelToUser;
+import bg.tu_varna.sit.library.common.converters.register.FromRegisterInputModelToUserCredentials;
+import bg.tu_varna.sit.library.common.converters.register.FromStringToRegisterOutputModel;
 import bg.tu_varna.sit.library.data.access.Connection;
+import bg.tu_varna.sit.library.data.entities.User;
+import bg.tu_varna.sit.library.data.entities.UserCredentials;
+import bg.tu_varna.sit.library.data.repositories.implementations.*;
+import bg.tu_varna.sit.library.models.register.RegisterInputModel;
+import bg.tu_varna.sit.library.models.register.RegisterOutputModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -29,4 +39,13 @@ public class HelloApplication extends Application {
         launch();
     }
 
+    @Override
+    public void init() throws Exception {
+        super.init();
+        SingletonFactory.init();
+        ConversionService singletonInstance = SingletonFactory.getSingletonInstance(ConversionService.class);
+        singletonInstance.addConverter(RegisterInputModel.class,User.class,new FromRegisterInputModelToUser());
+        singletonInstance.addConverter(RegisterInputModel.class, UserCredentials.class,new FromRegisterInputModelToUserCredentials());
+        singletonInstance.addConverter(String.class, RegisterOutputModel.class,new FromStringToRegisterOutputModel());
+    }
 }

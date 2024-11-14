@@ -1,9 +1,9 @@
 package bg.tu_varna.sit.library.presentation.controllers;
 
+import bg.tu_varna.sit.library.common.SingletonFactory;
 import bg.tu_varna.sit.library.common.converters.base.ConversionService;
 import bg.tu_varna.sit.library.core.register.RegisterProcessor;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentialsRepositoryImpl;
-import bg.tu_varna.sit.library.data.repositories.implementations.UserRepositoryImpl;
 import bg.tu_varna.sit.library.models.ExceptionManager;
 import bg.tu_varna.sit.library.models.register.RegisterInputModel;
 import bg.tu_varna.sit.library.models.register.RegisterOutputModel;
@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class RegisterController extends Controller {
 
@@ -30,7 +32,7 @@ public class RegisterController extends Controller {
     private PasswordField password;
 
     public RegisterController() {
-        this.registerProcessor = new RegisterProcessor(new ConversionService(),new UserCredentialsRepositoryImpl(),new UserRepositoryImpl(),new ExceptionManager());
+        this.registerProcessor = SingletonFactory.getSingletonInstance(RegisterProcessor.class);
     }
 
     @FXML

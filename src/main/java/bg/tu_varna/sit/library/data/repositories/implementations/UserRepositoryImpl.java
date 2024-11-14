@@ -1,5 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
+import bg.tu_varna.sit.library.common.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserRepository;
@@ -7,13 +8,14 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Singleton
 public class UserRepositoryImpl implements UserRepository {
     private static final Logger log=Logger.getLogger(UserRepositoryImpl.class);
+    private UserRepositoryImpl(){};
     @Override
     public Long save(User entity) {
         Session session = Connection.openSession();
@@ -24,7 +26,6 @@ public class UserRepositoryImpl implements UserRepository {
             transaction.commit();
             log.info("User saved");
         }catch (Exception ex){
-            System.out.println(ex.getMessage());
             log.error("Error while saving entity: "+entity,ex);
         }finally {
            session.close();
