@@ -1,8 +1,8 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
+import bg.tu_varna.sit.library.common.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Genre;
-import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.GenreRepository;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -11,9 +11,10 @@ import org.hibernate.Transaction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Singleton
 public class GenreRepositoryImpl implements GenreRepository {
     private static final Logger log=Logger.getLogger(GenreRepositoryImpl.class);
+    private GenreRepositoryImpl(){};
     @Override
     public Long save(Genre entity) {
         Session session = Connection.openSession();

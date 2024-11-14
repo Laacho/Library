@@ -1,20 +1,20 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
+import bg.tu_varna.sit.library.common.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Author;
-import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.AuthorRepository;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Singleton
 public class AuthorRepositoryImpl implements AuthorRepository {
     private static final Logger log = Logger.getLogger(AuthorRepositoryImpl.class);
+    private AuthorRepositoryImpl(){};
     @Override
     public Long save(Author entity) {
         Session session = Connection.openSession();

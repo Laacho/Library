@@ -1,8 +1,8 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
+import bg.tu_varna.sit.library.common.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.ReaderProfile;
-import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ReaderProfileRepository;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -11,9 +11,10 @@ import org.hibernate.Transaction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Singleton
 public class ReaderProfileRepositoryImpl implements ReaderProfileRepository {
     private static final Logger log = Logger.getLogger(ReaderProfileRepositoryImpl.class);
+    private ReaderProfileRepositoryImpl(){};
     @Override
     public Long save(ReaderProfile entity) {
         Session session = Connection.openSession();

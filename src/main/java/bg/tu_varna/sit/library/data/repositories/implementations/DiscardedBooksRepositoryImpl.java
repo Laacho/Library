@@ -1,8 +1,8 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
+import bg.tu_varna.sit.library.common.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.DiscardedBooks;
-import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.DiscardedBooksRepository;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -11,9 +11,10 @@ import org.hibernate.Transaction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Singleton
 public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
     private static final Logger log=Logger.getLogger(DiscardedBooksRepositoryImpl.class);
+    private DiscardedBooksRepositoryImpl(){};
     @Override
     public Long save(DiscardedBooks entity) {
         Session session = Connection.openSession();

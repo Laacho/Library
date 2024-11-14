@@ -12,11 +12,9 @@ public class EmailService {
     private static final String APP_PASSWORD = System.getProperty("APP_PASSWORD");
     private static final int LENGTH_VERIFICATION_CODE = 6;
 
-    public void sendMail(String recipientEmail) {
+    public static void sendMail(String recipientEmail) {
         String htmlContent = buildHTMLContent();
-
         Email email = buildEmail(recipientEmail, htmlContent);
-
         sendVerificationEmail(email);
     }
 
@@ -38,7 +36,7 @@ public class EmailService {
                 .buildEmail();
     }
 
-    private @NotNull String buildHTMLContent() {
+    private static @NotNull String buildHTMLContent() {
         String verificationCode = generateVerificationCode();
         return "<html>" +
                 "<body style='margin: 0; padding: 0; font-family: Arial, sans-serif; background: linear-gradient(to bottom, #87CEEB, #FFFFFF); color: #333;'>" +
@@ -63,7 +61,7 @@ public class EmailService {
                 "</html>";
     }
 
-    private String generateVerificationCode() {
+    private static String generateVerificationCode() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         return RandomStringUtils.random(LENGTH_VERIFICATION_CODE, characters);
     }
