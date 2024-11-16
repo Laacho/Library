@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.models;
 
-import bg.tu_varna.sit.library.common.annotations.Singleton;
+import bg.tu_varna.sit.library.utils.annotations.Singleton;
 
 @Singleton
 public class ExceptionManager {

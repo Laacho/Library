@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
-import bg.tu_varna.sit.library.common.annotations.Singleton;
+import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Genre;
 import bg.tu_varna.sit.library.data.repositories.interfaces.GenreRepository;
@@ -53,7 +53,7 @@ public class GenreRepositoryImpl implements GenreRepository {
     public Optional<Genre> findById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<Genre> result = null;
+        Optional<Genre> result = Optional.empty();
         try {
             String jpql = "SELECT g FROM Genre g WHERE g.id = :id";
             result = Optional.ofNullable(session.createQuery(jpql, Genre.class)
@@ -91,7 +91,7 @@ public class GenreRepositoryImpl implements GenreRepository {
     public Optional<Genre> deleteById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<Genre> result = null;
+        Optional<Genre> result = Optional.empty();
         try {
             result = findById(id);
             if (result.isPresent())

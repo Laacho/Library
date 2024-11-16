@@ -1,7 +1,7 @@
-package bg.tu_varna.sit.library.common;
+package bg.tu_varna.sit.library.utils;
 
-import bg.tu_varna.sit.library.common.annotations.Processor;
-import bg.tu_varna.sit.library.common.annotations.Singleton;
+import bg.tu_varna.sit.library.utils.annotations.Processor;
+import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import org.jetbrains.annotations.Nullable;
 import org.reflections.Reflections;
 
@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class SingletonFactory {
-    private static Map<Class<?>, Object> singletonInstances = new HashMap<>();
-
+    private static Map<Class<?>, Object> singletonInstances;
+    private SingletonFactory(){}
 
     public static <T> T getSingletonInstance(Class<T> clazz) {
         if (singletonInstances.containsKey(clazz)) {
@@ -24,6 +24,7 @@ public class SingletonFactory {
 
     @Nullable
     public static <T> void init() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        singletonInstances = new HashMap<>();
         Reflections reflections = new Reflections("bg.tu_varna.sit.library");
         Set<Class<?>> typesAnnotatedWith = reflections.getTypesAnnotatedWith(Singleton.class);
         makeInstance(typesAnnotatedWith);

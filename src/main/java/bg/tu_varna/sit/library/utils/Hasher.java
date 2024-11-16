@@ -1,4 +1,4 @@
-package bg.tu_varna.sit.library.common;
+package bg.tu_varna.sit.library.utils;
 
 
 import org.apache.log4j.Logger;

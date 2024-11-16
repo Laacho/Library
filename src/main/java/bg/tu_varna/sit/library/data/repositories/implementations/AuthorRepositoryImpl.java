@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
-import bg.tu_varna.sit.library.common.annotations.Singleton;
+import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Author;
 import bg.tu_varna.sit.library.data.repositories.interfaces.AuthorRepository;
@@ -53,10 +53,10 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     public Optional<Author> findById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<Author> result = null;
+        Optional<Author> result = Optional.empty();
         try {
             String jpql = "SELECT a FROM Author a WHERE a.id = :id";
-            result = Optional.ofNullable(session.createQuery(jpql, Author.class)
+            result = Optional.of(session.createQuery(jpql, Author.class)
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
@@ -91,7 +91,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     public Optional<Author> deleteById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<Author> result = null;
+        Optional<Author> result = Optional.empty();
         try {
             result = findById(id);
             if (result.isPresent())

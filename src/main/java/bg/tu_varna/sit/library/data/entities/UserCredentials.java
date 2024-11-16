@@ -30,6 +30,8 @@ public class UserCredentials {
     private String password;
     @Column(nullable = false)
     private Boolean verified;
+    @Column(name = "verification_code")
+    private String verificationCode;
     @FutureOrPresent
     private LocalDate dateOfVerification;
     @Email

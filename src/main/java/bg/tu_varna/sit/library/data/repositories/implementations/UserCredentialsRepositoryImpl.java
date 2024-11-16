@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
-import bg.tu_varna.sit.library.common.annotations.Singleton;
+import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
@@ -52,10 +52,10 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
     public Optional<UserCredentials> findById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<UserCredentials> result = null;
+        Optional<UserCredentials> result = Optional.empty();
         try {
             String jpql = "SELECT u FROM User u WHERE u.id = :id";
-            result = Optional.ofNullable(session.createQuery(jpql, UserCredentials.class)
+            result = Optional.of(session.createQuery(jpql, UserCredentials.class)
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
@@ -90,7 +90,7 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
     public Optional<UserCredentials> deleteById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<UserCredentials> result = null;
+        Optional<UserCredentials> result = Optional.empty();
         try {
             result = findById(id);
             if (result.isPresent())
@@ -113,10 +113,10 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
     public Optional<UserCredentials> findByUsername(String username) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<UserCredentials> result = null;
+        Optional<UserCredentials> result = Optional.empty();
         try {
             String jpql = "SELECT u FROM UserCredentials u WHERE u.username = :username";
-            result = Optional.ofNullable(session.createQuery(jpql, UserCredentials.class)
+            result = Optional.of(session.createQuery(jpql, UserCredentials.class)
                     .setParameter("username", username)
                     .getSingleResult());
             transaction.commit();
@@ -132,10 +132,10 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
     public Optional<UserCredentials> findByEmail(String email) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<UserCredentials> result = null;
+        Optional<UserCredentials> result = Optional.empty();
         try {
             String jpql = "SELECT u FROM UserCredentials u WHERE u.email = :email";
-            result = Optional.ofNullable(session.createQuery(jpql, UserCredentials.class)
+            result = Optional.of(session.createQuery(jpql, UserCredentials.class)
                     .setParameter("email", email)
                     .getSingleResult());
             transaction.commit();

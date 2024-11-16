@@ -1,14 +1,13 @@
 package bg.tu_varna.sit.library.application;
 
-import bg.tu_varna.sit.library.common.SingletonFactory;
-import bg.tu_varna.sit.library.common.converters.base.ConversionService;
-import bg.tu_varna.sit.library.common.converters.register.FromRegisterInputModelToUser;
-import bg.tu_varna.sit.library.common.converters.register.FromRegisterInputModelToUserCredentials;
-import bg.tu_varna.sit.library.common.converters.register.FromStringToRegisterOutputModel;
+import bg.tu_varna.sit.library.utils.SingletonFactory;
+import bg.tu_varna.sit.library.utils.converters.base.ConversionService;
+import bg.tu_varna.sit.library.utils.converters.register.FromRegisterInputModelToUser;
+import bg.tu_varna.sit.library.utils.converters.register.FromRegisterInputModelToUserCredentials;
+import bg.tu_varna.sit.library.utils.converters.register.FromStringToRegisterOutputModel;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
-import bg.tu_varna.sit.library.data.repositories.implementations.*;
 import bg.tu_varna.sit.library.models.register.RegisterInputModel;
 import bg.tu_varna.sit.library.models.register.RegisterOutputModel;
 import javafx.application.Application;

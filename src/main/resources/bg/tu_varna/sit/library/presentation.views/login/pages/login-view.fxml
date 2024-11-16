@@ -13,7 +13,7 @@
                   <Image url="@../../login/images/logo.png" />
                </image>
             </ImageView>
-            <Button fx:id="backButton" onAction="#onBackButtonClick" layoutX="27.0" layoutY="26.0" mnemonicParsing="false" text="&lt;-" styleClass="button" stylesheets="@../../hello_view/css/file.css" />
+            <Button fx:id="backButton" onAction="#changeToHomeView" layoutX="27.0" layoutY="26.0" mnemonicParsing="false" text="&lt;-" styleClass="button" stylesheets="@../../hello_view/css/file.css" />
          </children>
       </AnchorPane>
       <TextField layoutX="470.0" layoutY="191.0" prefHeight="51.0" prefWidth="244.0" promptText="Enter here..." styleClass="welcome-text" stylesheets="@../../hello_view/css/file.css" />
