@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
-import bg.tu_varna.sit.library.common.annotations.Singleton;
+import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.DiscardedBooks;
 import bg.tu_varna.sit.library.data.repositories.interfaces.DiscardedBooksRepository;
@@ -52,10 +52,10 @@ public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
     public Optional<DiscardedBooks> findById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<DiscardedBooks> result = null;
+        Optional<DiscardedBooks> result = Optional.empty();
         try {
             String jpql = "SELECT d FROM DiscardedBooks d WHERE d.id = :id";
-            result = Optional.ofNullable(session.createQuery(jpql, DiscardedBooks.class)
+            result = Optional.of(session.createQuery(jpql, DiscardedBooks.class)
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
@@ -90,7 +90,7 @@ public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
     public Optional<DiscardedBooks> deleteById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<DiscardedBooks> result = null;
+        Optional<DiscardedBooks> result = Optional.empty();
         try {
             result = findById(id);
             if (result.isPresent())

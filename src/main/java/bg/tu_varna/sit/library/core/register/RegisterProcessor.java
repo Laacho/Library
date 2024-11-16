@@ -1,8 +1,8 @@
 package bg.tu_varna.sit.library.core.register;
 
-import bg.tu_varna.sit.library.common.EmailService;
-import bg.tu_varna.sit.library.common.annotations.Processor;
-import bg.tu_varna.sit.library.common.SingletonFactory;
+import bg.tu_varna.sit.library.utils.EmailService;
+import bg.tu_varna.sit.library.utils.annotations.Processor;
+import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentialsRepositoryImpl;
@@ -43,24 +43,33 @@ public class RegisterProcessor extends BaseProcessor implements RegisterOperatio
                     Long id = userRepository.save(build);
                     User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException());
                     UserCredentials converted = conversionService.convert(input, UserCredentials.class);
-                    UserCredentials userCredentials = converted.toBuilder().user(user).build();
+                    String verificationCode = EmailService.generateVerificationCode();
+                    UserCredentials userCredentials = buildUserCredentialsWithUserAndVerificationCode(converted, user, verificationCode);
                     userCredentialsRepository.save(userCredentials);
-                    EmailService.sendMail(userCredentials.getEmail());
+                    EmailService.sendMail(userCredentials.getEmail(), verificationCode);
                     return conversionService.convert("Successfully", RegisterOutputModel.class);
                 }).toEither()
                 .mapLeft(exceptionManager::handle);
 
     }
 
+    private UserCredentials buildUserCredentialsWithUserAndVerificationCode(UserCredentials converted, User user, String verificationCode) {
+        UserCredentials userCredentials = converted.toBuilder().
+                user(user).
+                verificationCode(verificationCode).
+                build();
+        return userCredentials;
+    }
+
     private void checkForExistingUsername(RegisterInputModel input) {
         Optional<UserCredentials> searchedForExistingUsername = userCredentialsRepository.findByUsername(input.getUsername());
-        if (searchedForExistingUsername != null)
+        if (searchedForExistingUsername.isPresent())
             throw new RuntimeException();//todo;
     }
 
     private void checkForExistingEmail(RegisterInputModel input) {
         Optional<UserCredentials> searchedForExistingEmail = userCredentialsRepository.findByEmail(input.getEmail());
-        if (searchedForExistingEmail != null)
+        if (searchedForExistingEmail.isPresent())
             throw new RuntimeException();//todo
     }
 }

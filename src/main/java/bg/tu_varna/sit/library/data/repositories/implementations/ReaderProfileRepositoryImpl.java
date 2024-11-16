@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
-import bg.tu_varna.sit.library.common.annotations.Singleton;
+import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.ReaderProfile;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ReaderProfileRepository;
@@ -53,10 +53,10 @@ public class ReaderProfileRepositoryImpl implements ReaderProfileRepository {
     public Optional<ReaderProfile> findById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<ReaderProfile> result = null;
+        Optional<ReaderProfile> result = Optional.empty();
         try {
             String jpql = "SELECT r FROM ReaderProfile r WHERE r.id = :id";
-            result = Optional.ofNullable(session.createQuery(jpql, ReaderProfile.class)
+            result = Optional.of(session.createQuery(jpql, ReaderProfile.class)
                     .setParameter("id", id)
                     .getSingleResult());
            transaction.commit();
@@ -91,7 +91,7 @@ public class ReaderProfileRepositoryImpl implements ReaderProfileRepository {
     public Optional<ReaderProfile> deleteById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<ReaderProfile> result = null;
+        Optional<ReaderProfile> result = Optional.empty();
         try {
             result = findById(id);
             if (result.isPresent())

@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
-import bg.tu_varna.sit.library.common.annotations.Singleton;
+import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.data.repositories.interfaces.BookRepository;
@@ -53,10 +53,10 @@ public class BookRepositoryImpl implements BookRepository {
     public Optional<Book> findById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<Book> result = null;
+        Optional<Book> result = Optional.empty();
         try {
             String jpql = "SELECT b FROM Book b WHERE b.id = :id";
-            result = Optional.ofNullable(session.createQuery(jpql, Book.class)
+            result = Optional.of(session.createQuery(jpql, Book.class)
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
@@ -91,7 +91,7 @@ public class BookRepositoryImpl implements BookRepository {
     public Optional<Book> deleteById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<Book> result = null;
+        Optional<Book> result = Optional.empty();
         try {
             result = findById(id);
             if (result.isPresent())

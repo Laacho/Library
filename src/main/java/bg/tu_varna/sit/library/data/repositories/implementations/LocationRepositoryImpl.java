@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
-import bg.tu_varna.sit.library.common.annotations.Singleton;
+import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Location;
 import bg.tu_varna.sit.library.data.repositories.interfaces.LocationRepository;
@@ -53,10 +53,10 @@ public class LocationRepositoryImpl implements LocationRepository {
     public Optional<Location> findById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<Location> result = null;
+        Optional<Location> result = Optional.empty();
         try {
             String jpql = "SELECT l FROM Location l WHERE l.id = :id";
-            result = Optional.ofNullable(session.createQuery(jpql, Location.class)
+            result = Optional.of(session.createQuery(jpql, Location.class)
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
@@ -92,7 +92,7 @@ public class LocationRepositoryImpl implements LocationRepository {
     public Optional<Location> deleteById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<Location> result = null;
+        Optional<Location> result = Optional.empty();
         try {
             result = findById(id);
             if (result.isPresent())

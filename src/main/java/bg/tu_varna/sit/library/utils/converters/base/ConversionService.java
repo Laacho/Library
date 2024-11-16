@@ -1,6 +1,6 @@
-package bg.tu_varna.sit.library.common.converters.base;
+package bg.tu_varna.sit.library.utils.converters.base;
 
-import bg.tu_varna.sit.library.common.annotations.Singleton;
+import bg.tu_varna.sit.library.utils.annotations.Singleton;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
-import bg.tu_varna.sit.library.common.annotations.Singleton;
+import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Archived;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ArchivedRepository;
@@ -54,10 +54,10 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
     public Optional<Archived> findById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<Archived> result = null;
+        Optional<Archived> result = Optional.empty();
         try {
             String jpql = "SELECT a FROM Archived a WHERE a.id = :id";
-            result = Optional.ofNullable(session.createQuery(jpql, Archived.class)
+            result = Optional.of(session.createQuery(jpql, Archived.class)
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
@@ -92,7 +92,7 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
     public Optional<Archived> deleteById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<Archived> archived = null;
+        Optional<Archived> archived = Optional.empty();
         try {
             archived = findById(id);
             if (archived.isPresent())

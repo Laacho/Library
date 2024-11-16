@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
-import bg.tu_varna.sit.library.common.annotations.Singleton;
+import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserRepository;
@@ -54,10 +54,10 @@ public class UserRepositoryImpl implements UserRepository {
     public Optional<User> findById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<User> result = null;
+        Optional<User> result = Optional.empty();
         try {
             String jpql = "SELECT u FROM User u WHERE u.id = :id";
-            result = Optional.ofNullable(session.createQuery(jpql, User.class)
+            result = Optional.of(session.createQuery(jpql, User.class)
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
@@ -92,7 +92,7 @@ public class UserRepositoryImpl implements UserRepository {
     public Optional<User> deleteById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<User> result = null;
+        Optional<User> result = Optional.empty();
         try {
             result = findById(id);
             if (result.isPresent())

@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
-import bg.tu_varna.sit.library.common.annotations.Singleton;
+import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Publisher;
 import bg.tu_varna.sit.library.data.repositories.interfaces.PublisherRepository;
@@ -53,10 +53,10 @@ public class PublisherRepositoryImpl implements PublisherRepository {
     public Optional<Publisher> findById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<Publisher> result = null;
+        Optional<Publisher> result = Optional.empty();
         try {
             String jpql = "SELECT p FROM Publisher p WHERE p.id = :id";
-            result = Optional.ofNullable(session.createQuery(jpql, Publisher.class)
+            result = Optional.of(session.createQuery(jpql, Publisher.class)
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
@@ -91,7 +91,7 @@ public class PublisherRepositoryImpl implements PublisherRepository {
     public Optional<Publisher> deleteById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<Publisher> result = null;
+        Optional<Publisher> result = Optional.empty();
         try {
             result = findById(id);
             if (result.isPresent())
