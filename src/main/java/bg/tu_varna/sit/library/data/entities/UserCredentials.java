@@ -3,8 +3,7 @@ package bg.tu_varna.sit.library.data.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -37,6 +36,12 @@ public class UserCredentials {
     @Email
     @Column(nullable = false)
     private String email;
-
+    @Column(nullable = false)
+    private Boolean admin;
+    @Column()
+    @Min(value = 0)
+    @Max(value = 10)
+    @Digits(integer = 1, fraction = 1)
+    private Double rating;
 
 }

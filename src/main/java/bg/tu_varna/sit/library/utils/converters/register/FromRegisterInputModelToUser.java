@@ -8,7 +8,6 @@ public class FromRegisterInputModelToUser implements Converter<RegisterInputMode
     @Override
     public User convert(RegisterInputModel source) {
         return User.builder()
-                .admin(false)
                 .birthdate(source.getBirthdate())
                 .firstName(source.getFirstName())
                 .lastName(source.getLastName())

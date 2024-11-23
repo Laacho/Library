@@ -1,7 +1,10 @@
 package bg.tu_varna.sit.library.application;
 
+import bg.tu_varna.sit.library.models.login.LoginOutputModel;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.converters.base.ConversionService;
+import bg.tu_varna.sit.library.utils.converters.login.FromUserCredentialsToUserSession;
+import bg.tu_varna.sit.library.utils.converters.login.FromUserSessionToLoginOutputModel;
 import bg.tu_varna.sit.library.utils.converters.register.FromRegisterInputModelToUser;
 import bg.tu_varna.sit.library.utils.converters.register.FromRegisterInputModelToUserCredentials;
 import bg.tu_varna.sit.library.utils.converters.register.FromStringToRegisterOutputModel;
@@ -10,6 +13,7 @@ import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.models.register.RegisterInputModel;
 import bg.tu_varna.sit.library.models.register.RegisterOutputModel;
+import bg.tu_varna.sit.library.utils.session.UserSession;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -46,5 +50,7 @@ public class HelloApplication extends Application {
         singletonInstance.addConverter(RegisterInputModel.class,User.class,new FromRegisterInputModelToUser());
         singletonInstance.addConverter(RegisterInputModel.class, UserCredentials.class,new FromRegisterInputModelToUserCredentials());
         singletonInstance.addConverter(String.class, RegisterOutputModel.class,new FromStringToRegisterOutputModel());
+        singletonInstance.addConverter(UserSession.class, LoginOutputModel.class,new FromUserSessionToLoginOutputModel());
+        singletonInstance.addConverter(UserCredentials.class, UserSession.class,new FromUserCredentialsToUserSession());
     }
 }

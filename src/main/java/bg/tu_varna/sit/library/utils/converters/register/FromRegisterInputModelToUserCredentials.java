@@ -13,6 +13,7 @@ public class FromRegisterInputModelToUserCredentials implements Converter<Regist
                 .password(Hasher.hashPassword(source.getPassword()))
                 .username(source.getUsername())
                 .verified(false)
+                .admin(false)
                 .build();
     }
 }

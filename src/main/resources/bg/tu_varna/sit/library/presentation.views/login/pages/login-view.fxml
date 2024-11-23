@@ -16,11 +16,11 @@
             <Button fx:id="backButton" onAction="#changeToHomeView" layoutX="27.0" layoutY="26.0" mnemonicParsing="false" text="&lt;-" styleClass="button" stylesheets="@../../hello_view/css/file.css" />
          </children>
       </AnchorPane>
-      <TextField layoutX="470.0" layoutY="191.0" prefHeight="51.0" prefWidth="244.0" promptText="Enter here..." styleClass="welcome-text" stylesheets="@../../hello_view/css/file.css" />
+      <TextField fx:id="username" layoutX="470.0" layoutY="191.0" prefHeight="51.0" prefWidth="244.0" promptText="Enter here..." styleClass="welcome-text" stylesheets="@../../hello_view/css/file.css" />
       <Label alignment="CENTER" layoutX="282.0" layoutY="187.0" prefHeight="57.0" prefWidth="166.0" styleClass="welcome-text" stylesheets="@../../hello_view/css/file.css" text="username" />
       <Label alignment="CENTER" layoutX="290.0" layoutY="291.0" prefHeight="39.0" prefWidth="150.0" styleClass="welcome-text" stylesheets="@../../hello_view/css/file.css" text="password" />
-      <Button layoutX="400.0" layoutY="427.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="201.0" styleClass="button" stylesheets="@../../hello_view/css/file.css" text="Login" />
-      <PasswordField layoutX="470.0" layoutY="282.0" prefHeight="57.0" prefWidth="244.0" promptText="Enter here..." styleClass="welcome-text" stylesheets="@../../hello_view/css/file.css" />
+      <Button layoutX="400.0" layoutY="427.0" onAction="#login" mnemonicParsing="false" prefHeight="79.0" prefWidth="201.0" styleClass="button" stylesheets="@../../hello_view/css/file.css" text="Login" />
+      <PasswordField fx:id="password" layoutX="470.0" layoutY="282.0" prefHeight="57.0" prefWidth="244.0" promptText="Enter here..." styleClass="welcome-text" stylesheets="@../../hello_view/css/file.css" />
       <Label layoutX="325.0" layoutY="75.0" prefHeight="89.0" prefWidth="406.0" styleClass="welcome-text" stylesheets="@../../hello_view/css/file.css" text="Please enter your username and password" textAlignment="CENTER" wrapText="true" />
    </children>
 </AnchorPane>

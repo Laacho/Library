@@ -26,13 +26,7 @@ public class User {
     private String lastName;
     @Past(message = "date must be in the past")
     private LocalDate birthdate;
-    @Column(nullable = false)
-    private Boolean admin;
-    @Column()
-    @Min(value = 0)
-    @Max(value = 10)
-    @Digits(integer = 1, fraction = 1)
-    private Double rating;
+
     @OneToOne(mappedBy = "user")
     private UserCredentials userCredentials;
 

@@ -1,5 +1,8 @@
 package bg.tu_varna.sit.library.presentation.controllers;
 
+import bg.tu_varna.sit.library.models.base.OperationOutput;
+import bg.tu_varna.sit.library.models.register.RegisterOutputModel;
+import io.vavr.control.Either;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,4 +41,11 @@ public class Controller {
         changeScene(actionEvent);
     }
 
+    public  void handleEither(Either<Exception, ? extends OperationOutput> result)  {
+        if (result.isLeft()) {
+            throw new RuntimeException();
+            //throw result.getLeft()
+        }
+
+    }
 }
