@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 public class LoginController extends Controller {
         private final LoginProcessor processor;
 
+
         @FXML
         private TextField username;
         @FXML
