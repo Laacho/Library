@@ -1,7 +1,6 @@
 package bg.tu_varna.sit.library.presentation.controllers;
 
 import bg.tu_varna.sit.library.models.base.OperationOutput;
-import bg.tu_varna.sit.library.models.register.RegisterOutputModel;
 import io.vavr.control.Either;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,6 +39,7 @@ public class Controller {
         setPath("/bg/tu_varna/sit/library/presentation.views/hello_view/pages/hello-view.fxml");
         changeScene(actionEvent);
     }
+
 
     public  void handleEither(Either<Exception, ? extends OperationOutput> result)  {
         if (result.isLeft()) {

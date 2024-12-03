@@ -109,4 +109,24 @@ public class PublisherRepositoryImpl implements PublisherRepository {
         }
         return result;
     }
+
+    @Override
+    public Optional<Publisher> findByName(String name) {
+        Session session = Connection.openSession();
+        Transaction transaction = session.beginTransaction();
+        Optional<Publisher> result = Optional.empty();
+        try{
+            String jpql = "SELECT p FROM Publisher p WHERE p.name = :name";
+            result=Optional.of(session.createQuery(jpql,Publisher.class)
+                    .setParameter("name",name)
+                    .getSingleResult());
+            transaction.commit();
+        }catch (Exception ex){
+            log.error("Error finding publisher with name "+name, ex);
+        }
+        finally {
+            session.close();
+        }
+        return result;
+    }
 }

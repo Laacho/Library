@@ -1,7 +1,13 @@
 package bg.tu_varna.sit.library.application;
 
+import bg.tu_varna.sit.library.data.entities.Book;
+import bg.tu_varna.sit.library.data.entities.Genre;
+import bg.tu_varna.sit.library.models.addBook.AddBookInputModel;
+import bg.tu_varna.sit.library.models.addGenre.CheckGenreInputModel;
 import bg.tu_varna.sit.library.models.login.LoginOutputModel;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
+import bg.tu_varna.sit.library.utils.converters.addBook.FromAddBookInputToBook;
+import bg.tu_varna.sit.library.utils.converters.addGenre.FromAddGenreInputToGenre;
 import bg.tu_varna.sit.library.utils.converters.base.ConversionService;
 import bg.tu_varna.sit.library.utils.converters.login.FromUserCredentialsToUserSession;
 import bg.tu_varna.sit.library.utils.converters.login.FromUserSessionToLoginOutputModel;
@@ -52,5 +58,7 @@ public class HelloApplication extends Application {
         singletonInstance.addConverter(String.class, RegisterOutputModel.class,new FromStringToRegisterOutputModel());
         singletonInstance.addConverter(UserSession.class, LoginOutputModel.class,new FromUserSessionToLoginOutputModel());
         singletonInstance.addConverter(UserCredentials.class, UserSession.class,new FromUserCredentialsToUserSession());
+        singletonInstance.addConverter(CheckGenreInputModel.class, Genre.class,new FromAddGenreInputToGenre());
+        singletonInstance.addConverter(AddBookInputModel.class, Book.class,new FromAddBookInputToBook());
     }
 }

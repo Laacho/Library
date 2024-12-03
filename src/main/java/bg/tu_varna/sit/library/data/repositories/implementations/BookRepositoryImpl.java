@@ -1,5 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
+import bg.tu_varna.sit.library.data.entities.Genre;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Book;
@@ -105,6 +106,48 @@ public class BookRepositoryImpl implements BookRepository {
         } catch (Exception ex) {
             log.error("Error while deleting book: " + id, ex);
         } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    @Override
+    public List<Book> findBookContainingText(String text) {
+        Session session = Connection.openSession();
+        Transaction transaction = session.beginTransaction();
+        List<Book> result = new ArrayList<>();
+        try{
+            String jpql="SELECT b FROM Book b WHERE b.title LIKE %:text% ";
+            result.addAll(session.createQuery(jpql, Book.class)
+                    .setParameter("text",text)
+                    .getResultList());
+            transaction.commit();
+            log.info("Successfully retrieved result");
+        }
+        catch (Exception ex){
+            log.error("Error while finding book: " + text, ex);
+        }
+        finally {
+            session.close();
+        }
+        return result;
+    }
+
+    @Override
+    public List<Book> findByGenre(Genre genre) {
+        Session session = Connection.openSession();
+        Transaction transaction = session.beginTransaction();
+        List<Book> result = new ArrayList<>();
+        try{
+            String jpql="SELECT b FROM Book b WHERE b.genre = :genre";
+            result.addAll(session.createQuery(jpql,Book.class)
+                    .setParameter("genre",genre.getId())
+                    .getResultList());
+            log.info("Successfully retrieved result");
+        }catch (Exception ex){
+            log.error("Error while finding book: " + genre, ex);
+        }
+        finally {
             session.close();
         }
         return result;

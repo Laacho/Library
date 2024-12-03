@@ -11,10 +11,16 @@ import org.hibernate.Transaction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @Singleton
 public class LocationRepositoryImpl implements LocationRepository {
-    private static final Logger log=Logger.getLogger(LocationRepositoryImpl.class);
-    private LocationRepositoryImpl(){};
+    private static final Logger log = Logger.getLogger(LocationRepositoryImpl.class);
+
+    private LocationRepositoryImpl() {
+    }
+
+    ;
+
     @Override
     public Long save(Location entity) {
         Session session = Connection.openSession();
@@ -24,9 +30,9 @@ public class LocationRepositoryImpl implements LocationRepository {
             result = (Long) session.save(entity);
             transaction.commit();
             log.info("Successfully added entity");
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Error while saving entity", ex);
-        }finally {
+        } finally {
             session.close();
         }
         return result;
@@ -42,9 +48,9 @@ public class LocationRepositoryImpl implements LocationRepository {
             }
             transaction.commit();
             log.info("Successfully saved entities");
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Error while saving entities", ex);
-        }finally {
+        } finally {
             session.close();
         }
     }
@@ -105,6 +111,26 @@ public class LocationRepositoryImpl implements LocationRepository {
             log.info("Successfully deleted entity with id " + id);
         } catch (Exception ex) {
             log.error("Error while deleting entity with id " + id, ex);
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    @Override
+    public Optional<Location> findByNameAndRow(String name, Long row) {
+        Session session = Connection.openSession();
+        Transaction transaction = session.beginTransaction();
+        Optional<Location> result = Optional.empty();
+        try {
+            String jpql = "SELECT l FROM Location l WHERE l.shelf = :name and l.rowNum = :row";
+            result = Optional.of(session.createQuery(jpql, Location.class)
+                    .setParameter("name", name)
+                    .setParameter("row", row)
+                    .getSingleResult());
+            transaction.commit();
+        } catch (Exception ex) {
+            log.error("Error while finding entity with name " + name, ex);
         } finally {
             session.close();
         }

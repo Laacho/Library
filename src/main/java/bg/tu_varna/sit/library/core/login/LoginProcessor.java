@@ -1,9 +1,11 @@
-package bg.tu_varna.sit.library.core.register;
+package bg.tu_varna.sit.library.core.login;
 
+import bg.tu_varna.sit.library.core.BaseProcessor;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentialsRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserRepositoryImpl;
+import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
 import bg.tu_varna.sit.library.models.ExceptionManager;
 import bg.tu_varna.sit.library.models.login.LoginInputModel;
 import bg.tu_varna.sit.library.models.login.LoginOperationModel;
@@ -16,20 +18,16 @@ import io.vavr.control.Either;
 import io.vavr.control.Try;
 import org.apache.log4j.Logger;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Optional;
 
 @Processor
 public class LoginProcessor extends BaseProcessor implements LoginOperationModel {
-    private final UserCredentialsRepositoryImpl userCredentialsRepository;
-    private final UserRepositoryImpl userRepository;
+    private final UserCredentialsRepository userCredentialsRepository;
     private final ExceptionManager exceptionManager;
     private static final Logger log = Logger.getLogger(LoginProcessor.class);
 
     private LoginProcessor() {
         super();
-        this.userRepository = SingletonFactory.getSingletonInstance(UserRepositoryImpl.class);
         this.userCredentialsRepository = SingletonFactory.getSingletonInstance(UserCredentialsRepositoryImpl.class);
         this.exceptionManager = SingletonFactory.getSingletonInstance(ExceptionManager.class);
     }
@@ -40,13 +38,8 @@ public class LoginProcessor extends BaseProcessor implements LoginOperationModel
         return Try.of(() -> {
                     UserCredentials userCredentials = checkIfUsernameExists(input.getUsername());
                     checkIfPasswordMatches(userCredentials.getPassword(), input.getPassword());
-                    
-                    User user = userCredentials.getUser();
-                    UserSession result = conversionService.convert(userCredentials, UserSession.class).toBuilder()
-                            .firstName(user.getFirstName())
-                            .lastName(user.getLastName())
-                            .birthdate(user.getBirthdate())
-                            .build();
+                    UserSession result = conversionService.convert(userCredentials, UserSession.class);
+                    SingletonFactory.add(UserSession.class, result);
                     log.info("Successfully logged in user with username: " + input.getUsername() + " and password: " + input.getPassword());
                     return conversionService.convert(result, LoginOutputModel.class);
                 }).toEither()

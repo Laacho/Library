@@ -16,6 +16,9 @@ public class FromUserCredentialsToUserSession implements Converter<UserCredentia
                 .verified(source.getVerified())
                 .rating(source.getRating())
                 .verificationCode(source.getVerificationCode())
+                .firstName(source.getUser().getFirstName())
+                .lastName(source.getUser().getLastName())
+                .birthdate(source.getUser().getBirthdate())
                 .build();
     }
 }

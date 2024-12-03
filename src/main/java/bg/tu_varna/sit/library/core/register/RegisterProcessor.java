@@ -1,5 +1,6 @@
 package bg.tu_varna.sit.library.core.register;
 
+import bg.tu_varna.sit.library.core.BaseProcessor;
 import bg.tu_varna.sit.library.utils.EmailService;
 import bg.tu_varna.sit.library.utils.annotations.Processor;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
@@ -23,15 +24,12 @@ import java.util.Optional;
 public class RegisterProcessor extends BaseProcessor implements RegisterOperationModel {
     private final UserCredentialsRepository userCredentialsRepository;
     private final UserRepository userRepository;
-    private final ExceptionManager exceptionManager;
 
 
     private RegisterProcessor() {
         super();
         this.userCredentialsRepository = SingletonFactory.getSingletonInstance(UserCredentialsRepositoryImpl.class);
         this.userRepository = SingletonFactory.getSingletonInstance(UserRepositoryImpl.class);
-        this.exceptionManager = SingletonFactory.getSingletonInstance(ExceptionManager.class);
-        ;
     }
 
     @Override
