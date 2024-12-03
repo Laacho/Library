@@ -41,5 +41,8 @@ public class SingletonFactory {
             singletonInstances.put(singletonClass, o);
         }
     }
+    public static <T> void add(Class<T> tClass, T object) {
+        singletonInstances.put(tClass, object);
+    }
 
 }

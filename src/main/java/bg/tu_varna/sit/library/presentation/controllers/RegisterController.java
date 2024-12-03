@@ -1,5 +1,6 @@
 package bg.tu_varna.sit.library.presentation.controllers;
 
+import bg.tu_varna.sit.library.models.register.RegisterOperationModel;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.core.register.RegisterProcessor;
 import bg.tu_varna.sit.library.models.register.RegisterInputModel;
@@ -12,7 +13,7 @@ import javafx.scene.control.TextField;
 
 public class RegisterController extends Controller {
 
-    private final RegisterProcessor registerProcessor;
+    private final RegisterOperationModel registerProcessor;
     @FXML
     private TextField email;
     @FXML

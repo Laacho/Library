@@ -23,6 +23,7 @@ module bg.tu_varna.sit.library {
     requires org.simplejavamail.core;
     requires org.simplejavamail;
     requires org.reflections;
+    requires java.desktop;
 
     exports bg.tu_varna.sit.library.application;
     opens bg.tu_varna.sit.library.application to javafx.fxml;

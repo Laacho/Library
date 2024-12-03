@@ -56,7 +56,7 @@ public class GenreRepositoryImpl implements GenreRepository {
         Optional<Genre> result = Optional.empty();
         try {
             String jpql = "SELECT g FROM Genre g WHERE g.id = :id";
-            result = Optional.ofNullable(session.createQuery(jpql, Genre.class)
+            result = Optional.of(session.createQuery(jpql, Genre.class)
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
@@ -106,6 +106,28 @@ public class GenreRepositoryImpl implements GenreRepository {
         } catch (Exception ex) {
             log.error("Error deleting entity by id", ex);
         } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    @Override
+    public Optional<Genre> findByName(String name) {
+        Session session = Connection.openSession();
+        Transaction transaction = session.beginTransaction();
+        Optional<Genre> result = Optional.empty();
+        try{
+            String jpql = "SELECT g FROM Genre g WHERE name = :name";
+            result= Optional.of(session.createQuery(jpql, Genre.class)
+                    .setParameter("name",name)
+                    .getSingleResult());
+            transaction.commit();
+            log.info("Successfully found entity by name: " + name);
+        }
+        catch (Exception ex){
+            log.error("Error finding entity by name", ex);
+        }
+        finally {
             session.close();
         }
         return result;
