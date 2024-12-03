@@ -14,6 +14,7 @@ import bg.tu_varna.sit.library.models.ExceptionManager;
 import bg.tu_varna.sit.library.models.register.RegisterInputModel;
 import bg.tu_varna.sit.library.models.register.RegisterOperationModel;
 import bg.tu_varna.sit.library.models.register.RegisterOutputModel;
+import bg.tu_varna.sit.library.utils.session.UserSession;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 
@@ -45,6 +46,8 @@ public class RegisterProcessor extends BaseProcessor implements RegisterOperatio
                     UserCredentials userCredentials = buildUserCredentialsWithUserAndVerificationCode(converted, user, verificationCode);
                     userCredentialsRepository.save(userCredentials);
                     EmailService.sendMail(userCredentials.getEmail(), verificationCode);
+                    UserSession userSession = conversionService.convert(userCredentials, UserSession.class);
+                    SingletonFactory.add(UserSession.class,userSession);
                     return conversionService.convert("Successfully", RegisterOutputModel.class);
                 }).toEither()
                 .mapLeft(exceptionManager::handle);
@@ -52,11 +55,10 @@ public class RegisterProcessor extends BaseProcessor implements RegisterOperatio
     }
 
     private UserCredentials buildUserCredentialsWithUserAndVerificationCode(UserCredentials converted, User user, String verificationCode) {
-        UserCredentials userCredentials = converted.toBuilder().
+        return converted.toBuilder().
                 user(user).
                 verificationCode(verificationCode).
                 build();
-        return userCredentials;
     }
 
     private void checkForExistingUsername(RegisterInputModel input) {

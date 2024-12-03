@@ -26,7 +26,6 @@ public class User {
     private String lastName;
     @Past(message = "date must be in the past")
     private LocalDate birthdate;
-
     @OneToOne(mappedBy = "user")
     private UserCredentials userCredentials;
 

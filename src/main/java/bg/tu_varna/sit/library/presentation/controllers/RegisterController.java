@@ -6,10 +6,13 @@ import bg.tu_varna.sit.library.core.register.RegisterProcessor;
 import bg.tu_varna.sit.library.models.register.RegisterInputModel;
 import bg.tu_varna.sit.library.models.register.RegisterOutputModel;
 import io.vavr.control.Either;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
 
 public class RegisterController extends Controller {
 
@@ -32,7 +35,7 @@ public class RegisterController extends Controller {
     }
 
     @FXML
-    public void register() {
+    public void register(ActionEvent actionEvent) throws IOException {
         RegisterInputModel build = RegisterInputModel.builder()
                 .birthdate(birthdate.getValue())
                 .password(password.getText())
@@ -42,7 +45,10 @@ public class RegisterController extends Controller {
                 .username(username.getText())
                 .build();
         Either<Exception, RegisterOutputModel> process = registerProcessor.process(build);
-        System.out.println(process.get());
+        if(process.isRight()){
+            setPath("/bg/tu_varna/sit/library/presentation.views/confirm_registration/pages/confirm-registration.fxml");
+            changeScene(actionEvent);
+        }
     }
 
 }

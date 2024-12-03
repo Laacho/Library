@@ -25,5 +25,8 @@ public class Author {
     @ManyToMany(mappedBy = "authors")
     private Set<Book> books;
 
-
+    @Override
+    public String toString() {
+        return firstName +" "+lastName;
+    }
 }

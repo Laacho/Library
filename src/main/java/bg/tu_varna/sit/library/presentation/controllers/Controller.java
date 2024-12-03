@@ -27,7 +27,7 @@ public class Controller {
         root = FXMLLoader.load(getClass().getResource(path));
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setMaxHeight(600);
-        stage.setMaxWidth(800);
+        stage.setMaxWidth(1000);
         scene = new Scene(root,stage.getMaxWidth(),stage.getMaxHeight());
         stage.setScene(scene);
         stage.setResizable(false);

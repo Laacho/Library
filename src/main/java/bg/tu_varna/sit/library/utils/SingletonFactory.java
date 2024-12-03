@@ -13,7 +13,9 @@ import java.util.Set;
 
 public class SingletonFactory {
     private static Map<Class<?>, Object> singletonInstances;
-    private SingletonFactory(){}
+
+    private SingletonFactory() {
+    }
 
     public static <T> T getSingletonInstance(Class<T> clazz) {
         if (singletonInstances.containsKey(clazz)) {
@@ -44,5 +46,6 @@ public class SingletonFactory {
     public static <T> void add(Class<T> tClass, T object) {
         singletonInstances.put(tClass, object);
     }
+
 
 }
