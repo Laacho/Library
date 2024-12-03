@@ -20,11 +20,12 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AddBookController extends Controller{
+public class AddBookController extends Controller {
     private final AddBookOperationModel addBookOperation;
     private final CheckGenreOperationModel checkGenreOperation;
     @FXML
@@ -58,17 +59,17 @@ public class AddBookController extends Controller{
     private AddBookInputModel.AddBookInputModelBuilder addBookInputModel;
 
     public AddBookController() {
-       // this.addBookOperation = SingletonFactory.getSingletonInstance(AddBookPro.class);
-        this.checkGenreOperation=SingletonFactory.getSingletonInstance(CheckGenreProcessor.class);
-        this.addBookOperation=SingletonFactory.getSingletonInstance(AddBookProcessor.class);
-        this.addBookInputModel= AddBookInputModel.builder();
+        // this.addBookOperation = SingletonFactory.getSingletonInstance(AddBookPro.class);
+        this.checkGenreOperation = SingletonFactory.getSingletonInstance(CheckGenreProcessor.class);
+        this.addBookOperation = SingletonFactory.getSingletonInstance(AddBookProcessor.class);
+        this.addBookInputModel = AddBookInputModel.builder();
     }
 
     @FXML
     public void addAuthor(ActionEvent event) {
-            listView.getItems().add(authorsEntry.getText());
-            authorsEntry.setText("");
-            authorsEntry.requestFocus();
+        listView.getItems().add(authorsEntry.getText());
+        authorsEntry.setText("");
+        authorsEntry.requestFocus();
     }
 
     @FXML
@@ -76,52 +77,52 @@ public class AddBookController extends Controller{
         String selectedItem = listView.getSelectionModel().getSelectedItem();
         listView.getItems().remove(selectedItem);
     }
+
     @FXML
     public void editAuthor(ActionEvent event) {
         String selectedItem = listView.getSelectionModel().getSelectedItem();
         authorsEntry.setText(selectedItem);
         listView.getItems().remove(selectedItem);
     }
+
     @FXML
     public void clearTextField(ActionEvent event) {
         authorsEntry.setText("");
     }
+
     @FXML
     public void addAuthorByKey(KeyEvent keyEvent) {
-        if(keyEvent.getCode() == KeyCode.ENTER && !authorsEntry.getText().isEmpty()) {
+        if (keyEvent.getCode() == KeyCode.ENTER && !authorsEntry.getText().isEmpty()) {
             addAuthor(new ActionEvent());
         }
     }
 
     @FXML
     public void addGenre(KeyEvent event) {
-        if(event.getCode()==KeyCode.ENTER && !genre.getText().isEmpty()) {
+        if (event.getCode() == KeyCode.ENTER && !genre.getText().isEmpty()) {
             CheckGenreInputModel input = CheckGenreInputModel.builder()
                     .genre(genre.getText())
                     .build();
             Either<Exception, CheckGenreOutputModel> process = checkGenreOperation.process(input);
-            if(process.isRight()) {
+            if (process.isRight()) {
                 CheckGenreOutputModel result = process.get();
-                        if(result.getIsGenrePresent()){
-                            locationRow.setItems(FXCollections.observableList(process.get().getRowNums()));
-                        }
-                        else{
-                            Alert alert = AlertManager.showAlert(Alert.AlertType.CONFIRMATION, "Choose!",
-                                    "This genre doesnt exists! Do you want to add it?", ButtonType.YES, ButtonType.NO);
-                            ButtonType result1 = alert.getResult();
-                            if(result1 == ButtonType.YES) {
-                                addBookInputModel.genre(genre.getText());
-                                locationRow.setItems(FXCollections.observableList(process.get().getRowNums()));
-                            }
-                            else{
-                                AlertManager.showAlert(Alert.AlertType.INFORMATION,"Change!",
-                                        "Change the genre to be a valid one!",
-                                        ButtonType.CLOSE);
-                            }
-                        }
-            }
-            else{
-                AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","Error occurred while processing genre");
+                if (result.getIsGenrePresent()) {
+                    locationRow.setItems(FXCollections.observableList(process.get().getRowNums()));
+                } else {
+                    Alert alert = AlertManager.showAlert(Alert.AlertType.CONFIRMATION, "Choose!",
+                            "This genre doesnt exists! Do you want to add it?", ButtonType.YES, ButtonType.NO);
+                    ButtonType result1 = alert.getResult();
+                    if (result1 == ButtonType.YES) {
+                        addBookInputModel.genre(genre.getText());
+                        locationRow.setItems(FXCollections.observableList(process.get().getRowNums()));
+                    } else {
+                        AlertManager.showAlert(Alert.AlertType.INFORMATION, "Change!",
+                                "Change the genre to be a valid one!",
+                                ButtonType.CLOSE);
+                    }
+                }
+            } else {
+                AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "Error occurred while processing genre");
             }
         }
     }
@@ -129,16 +130,15 @@ public class AddBookController extends Controller{
     @FXML
     public void addBook(ActionEvent event) {
         ObservableList<String> items = listView.getItems();
-        Set<Author> authors=new HashSet<>();
+        Set<Author> authors = new HashSet<>();
         for (String item : items) {
             String[] split = item.split("\\s++");
-            if(split.length == 1) {
+            if (split.length == 1) {
                 Author build = Author.builder()
                         .firstName(split[0])
                         .build();
                 authors.add(build);
-            }
-            else if(split.length == 2) {
+            } else if (split.length == 2) {
                 Author build = Author.builder()
                         .firstName(split[0])
                         .lastName(split[1])
@@ -159,14 +159,17 @@ public class AddBookController extends Controller{
                 .row(locationRow.getSelectionModel().getSelectedItem())
                 .build();
         Either<Exception, AddBookOutputModel> process = addBookOperation.process(inputModel);
-        if(process.isRight()) {
+        if (process.isRight()) {
             AddBookOutputModel result = process.get();
-            AlertManager.showAlert(Alert.AlertType.INFORMATION,"Congrats!","You added a book! It only took 5 hours!",ButtonType.CLOSE);
-        }
-        else{
-            AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","Error occurred while processing genre");
+            AlertManager.showAlert(Alert.AlertType.INFORMATION, "Congrats!", "You added a book! It only took 5 hours!", ButtonType.CLOSE);
+        } else {
+            AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "Error occurred while processing genre");
         }
     }
 
-
+    @FXML
+    public void home(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/admin_home_view/pages/admin-home-view.fxml");
+        changeScene(actionEvent);
+    }
 }

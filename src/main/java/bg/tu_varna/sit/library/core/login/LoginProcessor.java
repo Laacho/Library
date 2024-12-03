@@ -1,10 +1,8 @@
 package bg.tu_varna.sit.library.core.login;
 
 import bg.tu_varna.sit.library.core.BaseProcessor;
-import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentialsRepositoryImpl;
-import bg.tu_varna.sit.library.data.repositories.implementations.UserRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
 import bg.tu_varna.sit.library.models.ExceptionManager;
 import bg.tu_varna.sit.library.models.login.LoginInputModel;

@@ -44,4 +44,5 @@ public class UserCredentials {
     @Digits(integer = 1, fraction = 1)
     private Double rating;
 
+
 }
