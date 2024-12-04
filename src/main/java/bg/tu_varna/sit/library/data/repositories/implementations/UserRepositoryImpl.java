@@ -71,7 +71,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<List<User>> findAll() {
+    public List<User> findAll() {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         List<User> list = new ArrayList<>();
@@ -85,7 +85,7 @@ public class UserRepositoryImpl implements UserRepository {
         } finally {
             session.close();
         }
-        return Optional.of(list);
+        return list;
     }
 
     @Override

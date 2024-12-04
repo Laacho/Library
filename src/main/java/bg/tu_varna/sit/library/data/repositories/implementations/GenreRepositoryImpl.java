@@ -70,7 +70,7 @@ public class GenreRepositoryImpl implements GenreRepository {
     }
 
     @Override
-    public Optional<List<Genre>> findAll() {
+    public List<Genre> findAll() {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         List<Genre> list = new ArrayList<>();
@@ -84,7 +84,7 @@ public class GenreRepositoryImpl implements GenreRepository {
         } finally {
             session.close();
         }
-        return Optional.of(list);
+        return list;
     }
 
     @Override

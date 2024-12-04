@@ -9,6 +9,6 @@ public interface UserCredentialsRepository extends GenericRepository<UserCredent
     Optional<UserCredentials> findByUsername(String username);
     Optional<UserCredentials> findByEmail(String email);
     void update(UserCredentials userCredentials);
-    Optional<List<UserCredentials>> findAllUsers();
+    List<UserCredentials> findAllUsers();
 
 }

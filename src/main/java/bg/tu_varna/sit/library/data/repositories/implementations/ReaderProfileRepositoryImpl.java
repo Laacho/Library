@@ -70,7 +70,7 @@ public class ReaderProfileRepositoryImpl implements ReaderProfileRepository {
     }
 
     @Override
-    public Optional<List<ReaderProfile>> findAll() {
+    public List<ReaderProfile> findAll() {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         List<ReaderProfile> list = new ArrayList<>();
@@ -84,7 +84,7 @@ public class ReaderProfileRepositoryImpl implements ReaderProfileRepository {
         } finally {
             session.close();
         }
-        return Optional.of(list);
+        return list;
     }
 
     @Override

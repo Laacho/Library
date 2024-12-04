@@ -76,7 +76,7 @@ public class LocationRepositoryImpl implements LocationRepository {
     }
 
     @Override
-    public Optional<List<Location>> findAll() {
+    public List<Location> findAll() {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         List<Location> list = new ArrayList<>();
@@ -91,7 +91,7 @@ public class LocationRepositoryImpl implements LocationRepository {
         } finally {
             session.close();
         }
-        return Optional.of(list);
+        return list;
     }
 
     @Override

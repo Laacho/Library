@@ -70,7 +70,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     }
 
     @Override
-    public Optional<List<Author>> findAll() {
+    public List<Author> findAll() {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         List<Author> list = new ArrayList<>();
@@ -84,7 +84,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         } finally {
             session.close();
         }
-        return Optional.of(list);
+        return list;
     }
 
     @Override

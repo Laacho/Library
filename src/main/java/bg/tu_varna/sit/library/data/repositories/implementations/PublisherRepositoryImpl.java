@@ -70,7 +70,7 @@ public class PublisherRepositoryImpl implements PublisherRepository {
     }
 
     @Override
-    public Optional<List<Publisher>> findAll() {
+    public List<Publisher> findAll() {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         List<Publisher> list = new ArrayList<>();
@@ -84,7 +84,7 @@ public class PublisherRepositoryImpl implements PublisherRepository {
         } finally {
             session.close();
         }
-        return Optional.of(list);
+        return list;
     }
 
     @Override

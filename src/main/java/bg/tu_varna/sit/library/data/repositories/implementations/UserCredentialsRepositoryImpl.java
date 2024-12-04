@@ -76,7 +76,7 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
     }
 
     @Override
-    public Optional<List<UserCredentials>> findAll() {
+    public List<UserCredentials> findAll() {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         List<UserCredentials> list = new ArrayList<>();
@@ -90,7 +90,7 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
         } finally {
             session.close();
         }
-        return Optional.of(list);
+        return list;
     }
 
     @Override
@@ -169,7 +169,7 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
     }
 
     @Override
-    public Optional<List<UserCredentials>> findAllUsers() {
+    public List<UserCredentials> findAllUsers() {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         List<UserCredentials> list = new ArrayList<>();
@@ -183,6 +183,6 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
         } finally {
             session.close();
         }
-        return Optional.of(list);
+        return list;
     }
 }

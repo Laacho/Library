@@ -69,7 +69,7 @@ public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
     }
 
     @Override
-    public Optional<List<DiscardedBooks>> findAll() {
+    public List<DiscardedBooks> findAll() {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         List<DiscardedBooks> list = new ArrayList<>();
@@ -83,7 +83,7 @@ public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
         } finally {
             session.close();
         }
-        return Optional.of(list);
+        return list;
     }
 
     @Override

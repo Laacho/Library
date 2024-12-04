@@ -71,7 +71,7 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public Optional<List<Book>> findAll() {
+    public List<Book> findAll() {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         List<Book> list = new ArrayList<>();
@@ -85,7 +85,7 @@ public class BookRepositoryImpl implements BookRepository {
         } finally {
             session.close();
         }
-        return Optional.of(list);
+        return list;
     }
 
     @Override

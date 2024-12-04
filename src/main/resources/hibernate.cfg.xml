@@ -23,6 +23,7 @@
         <mapping class="bg.tu_varna.sit.library.data.entities.ReaderProfile"/>
         <mapping class="bg.tu_varna.sit.library.data.entities.User"/>
         <mapping class="bg.tu_varna.sit.library.data.entities.UserCredentials"/>
+        <mapping class="bg.tu_varna.sit.library.data.entities.Notification"/>
 
 
     </session-factory>

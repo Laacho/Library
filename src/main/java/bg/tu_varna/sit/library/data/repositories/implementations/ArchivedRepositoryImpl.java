@@ -71,7 +71,7 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
     }
 
     @Override
-    public Optional<List<Archived>> findAll() {
+    public List<Archived> findAll() {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         List<Archived> list = new ArrayList<>();
@@ -85,7 +85,7 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
         } finally {
             session.close();
         }
-        return Optional.of(list);
+        return list;
     }
 
     @Override

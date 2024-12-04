@@ -8,7 +8,7 @@ public interface GenericRepository<T> {
     void saveAll(List<T> entities);
 
     Optional<T> findById(Long id);
-    Optional<List<T>> findAll();
+    List<T> findAll();
 
     Optional<T> deleteById(Long id);
 

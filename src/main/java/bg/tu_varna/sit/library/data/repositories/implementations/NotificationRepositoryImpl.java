@@ -73,7 +73,7 @@ public class NotificationRepositoryImpl implements NotificationRepository {
     }
 
     @Override
-    public Optional<List<Notification>> findAll() {
+    public List<Notification> findAll() {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         List<Notification> list = new ArrayList<>();
@@ -88,7 +88,7 @@ public class NotificationRepositoryImpl implements NotificationRepository {
         } finally {
             session.close();
         }
-        return Optional.of(list);
+        return list;
     }
 
     @Override
