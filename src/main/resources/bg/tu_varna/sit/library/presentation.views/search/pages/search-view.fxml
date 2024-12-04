@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: rgba(23,132,245,0.58);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.SearchController">
+    <children>
+        <AnchorPane layoutX="-7.0" layoutY="-9.0" prefHeight="611.0" prefWidth="244.0" style="-fx-background-color: rgb(252,252,252);">
+            <children>
+                <ImageView fitHeight="127.0" fitWidth="156.0" layoutX="93.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../login/images/logo.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="backButton" layoutX="27.0" layoutY="26.0" mnemonicParsing="false" onAction="#changeToHomeView" styleClass="button" stylesheets="@../../hello_view/css/file.css" text="&lt;-" />
+            </children>
+        </AnchorPane>
+      <TextField fx:id="searchBar" layoutX="445.0" layoutY="201.0" onKeyPressed="#onKeyPressed" prefHeight="28.0" prefWidth="223.0" />
+      <ListView fx:id="listView" layoutX="445.0" layoutY="229.0" prefHeight="127.0" prefWidth="223.0" visible="false" />
+      <Button layoutX="8.0" layoutY="116.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="103.0" text="Home" />
+      <Button layoutX="7.0" layoutY="518.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="92.0" text="Logout" />
+      <Button layoutX="8.0" layoutY="170.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="103.0" text="Search" />
+      <Button layoutX="688.0" layoutY="203.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="83.0" text="Button" />
+    </children>
+</AnchorPane>

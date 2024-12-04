@@ -117,9 +117,9 @@ public class BookRepositoryImpl implements BookRepository {
         Transaction transaction = session.beginTransaction();
         List<Book> result = new ArrayList<>();
         try{
-            String jpql="SELECT b FROM Book b WHERE b.title LIKE %:text% ";
+            String jpql="SELECT b FROM Book b WHERE LOWER(b.title) LIKE :text ";
             result.addAll(session.createQuery(jpql, Book.class)
-                    .setParameter("text",text)
+                    .setParameter("text", "%" + text + "%")
                     .getResultList());
             transaction.commit();
             log.info("Successfully retrieved result");
