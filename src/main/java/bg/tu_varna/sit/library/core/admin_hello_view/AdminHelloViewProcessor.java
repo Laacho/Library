@@ -37,11 +37,11 @@ public class AdminHelloViewProcessor extends BaseProcessor implements AdminHomeV
     public Either<Exception, AdminHomeViewOutputModel> process(AdminHomeViewInputModel input) {
         return Try.of(() -> {
                     log.info("start admin home view");
-                    int countDiscardedBooks = discardedBooksRepository.findAll().orElseThrow(() -> new RuntimeException()).size();
-                    int countAllBooks = bookRepository.findAll().orElseThrow(() -> new RuntimeException()).size();
-                    int countArchivedBooks = archivedRepository.findAll().orElseThrow(() -> new RuntimeException()).size();
-                    int countReaderProfiles = readerProfileRepository.findAll().orElseThrow(() -> new RuntimeException()).size();
-                    int countUsers = userCredentialsRepository.findAllUsers().orElseThrow(() -> new RuntimeException()).size();
+                    int countDiscardedBooks = discardedBooksRepository.findAll().size();
+                    int countAllBooks = bookRepository.findAll().size();
+                    int countArchivedBooks = archivedRepository.findAll().size();
+                    int countReaderProfiles = readerProfileRepository.findAll().size();
+                    int countUsers = userCredentialsRepository.findAllUsers().size();
                     AdminHomeViewOutputModel outputModel = AdminHomeViewOutputModel.builder()
                             .countUsers(countUsers)
                             .countAllBooks(countAllBooks)

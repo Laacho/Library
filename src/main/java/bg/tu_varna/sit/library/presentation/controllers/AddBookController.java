@@ -161,7 +161,7 @@ public class AddBookController extends Controller {
         Either<Exception, AddBookOutputModel> process = addBookOperation.process(inputModel);
         if (process.isRight()) {
             AddBookOutputModel result = process.get();
-            AlertManager.showAlert(Alert.AlertType.INFORMATION, "Congrats!", "You added a book! It only took 5 hours!", ButtonType.CLOSE);
+            AlertManager.showAlert(Alert.AlertType.INFORMATION, "Congrats!", "You added a book!", ButtonType.CLOSE);
         } else {
             AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "Error occurred while processing genre");
         }

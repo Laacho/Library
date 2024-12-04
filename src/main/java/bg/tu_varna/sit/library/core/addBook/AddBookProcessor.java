@@ -36,13 +36,12 @@ public class AddBookProcessor extends BaseProcessor implements AddBookOperationM
     public Either<Exception, AddBookOutputModel> process(AddBookInputModel input) {
         return Try.of(()->{
                     Book.BookBuilder builder = conversionService.convert(input, Book.class).toBuilder();
-                    Optional<List<Author>> all = authorRepository.findAll();
-                    if (all.isPresent()) {
-                        List<Author> authors = all.get();
+                    List<Author> all = authorRepository.findAll();
+                    if (!all.isEmpty()) {
                         Set<Author> inputAuthors = input.getAuthors();
                         Set<Author> setAuthors = new HashSet<>();
                         for (Author author : inputAuthors) {
-                            if(authors.contains(author)) {
+                            if(all.contains(author)) {
                                 setAuthors.add(author);
                                 inputAuthors.remove(author);
                             }
