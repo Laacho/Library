@@ -205,4 +205,14 @@ public class AddBookController extends Controller {
         }
 
     }
+    @FXML
+    public void search(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/search/pages/search-view.fxml");
+        changeScene(actionEvent);
+    }
+    @FXML
+    public void addBookReset(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/addBook/pages/addBook-view.fxml");
+        changeScene(actionEvent);
+    }
 }

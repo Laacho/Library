@@ -1,9 +1,9 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
+import bg.tu_varna.sit.library.data.repositories.interfaces.BorrowedBooksRepository;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
-import bg.tu_varna.sit.library.data.entities.ReaderProfile;
-import bg.tu_varna.sit.library.data.repositories.interfaces.ReaderProfileRepository;
+import bg.tu_varna.sit.library.data.entities.BorrowedBooks;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Singleton
-public class ReaderProfileRepositoryImpl implements ReaderProfileRepository {
-    private static final Logger log = Logger.getLogger(ReaderProfileRepositoryImpl.class);
-    private ReaderProfileRepositoryImpl(){};
+public class BorrowedBooksRepositoryImpl implements BorrowedBooksRepository {
+    private static final Logger log = Logger.getLogger(BorrowedBooksRepositoryImpl.class);
+    private BorrowedBooksRepositoryImpl(){};
     @Override
-    public Long save(ReaderProfile entity) {
+    public Long save(BorrowedBooks entity) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         Long result = null;
@@ -33,11 +33,11 @@ public class ReaderProfileRepositoryImpl implements ReaderProfileRepository {
     }
 
     @Override
-    public void saveAll(List<ReaderProfile> entities) {
+    public void saveAll(List<BorrowedBooks> entities) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            for (ReaderProfile entity : entities) {
+            for (BorrowedBooks entity : entities) {
                 session.save(entity);
             }
             transaction.commit();
@@ -50,13 +50,13 @@ public class ReaderProfileRepositoryImpl implements ReaderProfileRepository {
     }
 
     @Override
-    public Optional<ReaderProfile> findById(Long id) {
+    public Optional<BorrowedBooks> findById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<ReaderProfile> result = Optional.empty();
+        Optional<BorrowedBooks> result = Optional.empty();
         try {
-            String jpql = "SELECT r FROM ReaderProfile r WHERE r.id = :id";
-            result = Optional.of(session.createQuery(jpql, ReaderProfile.class)
+            String jpql = "SELECT r FROM BorrowedBooks r WHERE r.id = :id";
+            result = Optional.of(session.createQuery(jpql, BorrowedBooks.class)
                     .setParameter("id", id)
                     .getSingleResult());
            transaction.commit();
@@ -70,13 +70,13 @@ public class ReaderProfileRepositoryImpl implements ReaderProfileRepository {
     }
 
     @Override
-    public List<ReaderProfile> findAll() {
+    public List<BorrowedBooks> findAll() {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        List<ReaderProfile> list = new ArrayList<>();
+        List<BorrowedBooks> list = new ArrayList<>();
         try {
-            String jpql = "SELECT r FROM ReaderProfile r";
-            list.addAll(session.createQuery(jpql, ReaderProfile.class).getResultList());
+            String jpql = "SELECT r FROM BorrowedBooks r";
+            list.addAll(session.createQuery(jpql, BorrowedBooks.class).getResultList());
             transaction.commit();
             log.info("Successfully find entities: " + list);
         } catch (Exception ex) {
@@ -88,10 +88,10 @@ public class ReaderProfileRepositoryImpl implements ReaderProfileRepository {
     }
 
     @Override
-    public Optional<ReaderProfile> deleteById(Long id) {
+    public Optional<BorrowedBooks> deleteById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<ReaderProfile> result = Optional.empty();
+        Optional<BorrowedBooks> result = Optional.empty();
         try {
             result = findById(id);
             if (result.isPresent())

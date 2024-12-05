@@ -1,12 +1,9 @@
 package bg.tu_varna.sit.library.core.users_table_view;
 
 import bg.tu_varna.sit.library.core.BaseProcessor;
-import bg.tu_varna.sit.library.data.entities.Archived;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentialsRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
-import bg.tu_varna.sit.library.models.archived_books.ArchivedBooksOutputModel;
-import bg.tu_varna.sit.library.models.archived_books.BooksData;
 import bg.tu_varna.sit.library.models.users_table_view.UsersData;
 import bg.tu_varna.sit.library.models.users_table_view.UsersTableViewInputModel;
 import bg.tu_varna.sit.library.models.users_table_view.UsersTableViewOperationModel;

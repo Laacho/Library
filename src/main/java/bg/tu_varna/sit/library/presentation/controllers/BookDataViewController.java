@@ -53,4 +53,9 @@ public class BookDataViewController extends Controller {
         setPath("/bg/tu_varna/sit/library/presentation.views/admin_home_view/pages/admin-home-view.fxml");
         changeScene(actionEvent);
     }
+    @FXML
+    public void search(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/search/pages/search-view.fxml");
+        changeScene(actionEvent);
+    }
 }

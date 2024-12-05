@@ -40,10 +40,9 @@ public class UsersTableViewController extends Controller implements Initializabl
     private TableColumn<UsersData, String> lastName;
     private TableColumn<UsersData, String> username;
     private TableColumn<UsersData, String> email;
-    private TableColumn<UsersData, Boolean> verified;
-    private TableColumn<UsersData, Double> rating;
+    private TableColumn<UsersData, String> rating;
     private TableColumn<UsersData, LocalDate> birthdate;
-    private TableColumn<UsersData, LocalDate> dateOfVerification;
+    private TableColumn<UsersData, String> dateOfVerification;
     private final UsersTableViewOperationModel usersTableViewProcessor;
 
     public UsersTableViewController() {
@@ -57,7 +56,7 @@ public class UsersTableViewController extends Controller implements Initializabl
             List<UsersData> usersData = process.get().getUsersData();
             ObservableList<UsersData> observableList = FXCollections.observableList(usersData);
             initializeColumns();
-            tableView.getColumns().addAll(firstName, lastName, birthdate, username, email, verified, dateOfVerification, rating);
+            tableView.getColumns().addAll(firstName, lastName, birthdate, username, email, dateOfVerification, rating);
             tableView.getColumns().remove(0);
             tableView.setItems(observableList);
         }
@@ -74,28 +73,38 @@ public class UsersTableViewController extends Controller implements Initializabl
         username.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getUsername()));
         rating = new TableColumn<>("Рейтинг");
-        rating.setCellValueFactory(cell ->
-                new SimpleObjectProperty<>(cell.getValue().getRating()));
+        rating.setCellValueFactory(cell -> {
+            if(cell.getValue().getRating() == null)
+                return new SimpleObjectProperty<>("No reader profile");
+            return new SimpleObjectProperty<>(cell.getValue().getRating().toString());
+        });
         // price.setPrefWidth(35);
         email = new TableColumn<>("Email");
         email.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getEmail()));
-        verified = new TableColumn<>("Верифициран");
-        verified.setCellValueFactory(cell ->
-                new SimpleObjectProperty<>(cell.getValue().getVerified()));
         birthdate = new TableColumn<>("Дата на раждане");
         //birthdate.setPrefWidth(50);
         birthdate.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getBirthdate()));
         dateOfVerification = new TableColumn<>("Дата на верификация");
-       // dateOfVerification.setPrefWidth(50);
-        dateOfVerification.setCellValueFactory(cell ->
-                new SimpleObjectProperty<>(cell.getValue().getDateOfVerification()));
+        // dateOfVerification.setPrefWidth(50);
+        dateOfVerification.setCellValueFactory(cell -> {
+            if (cell.getValue().getDateOfVerification() == null) {
+                return new SimpleObjectProperty<>("Not verified yet!");
+            }
+            return new SimpleObjectProperty<>(cell.getValue().getDateOfVerification().toString());
+        });
     }
 
     @FXML
     public void home(ActionEvent actionEvent) throws IOException {
         setPath("/bg/tu_varna/sit/library/presentation.views/admin_home_view/pages/admin-home-view.fxml");
+        changeScene(actionEvent);
+    }
+
+    @FXML
+    public void search(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/search/pages/search-view.fxml");
         changeScene(actionEvent);
     }
 }
