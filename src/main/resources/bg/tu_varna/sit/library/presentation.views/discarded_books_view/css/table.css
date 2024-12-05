@@ -1,0 +1,4 @@
+.table-column-header .label {
+    -fx-wrap-text: true; /* Позволява пренасяне на текста */
+    -fx-alignment: center; /* Центрира текста (по желание) */
+}
