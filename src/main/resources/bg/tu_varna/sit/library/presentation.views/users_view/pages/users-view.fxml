@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane stylesheets="@../css/table.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="895.0" style="-fx-background-color: rgba(23,132,245,0.58);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.UsersTableViewController">
+    <children>
+        <AnchorPane layoutX="-7.0" layoutY="-9.0" prefHeight="611.0" prefWidth="143.0" style="-fx-background-color: rgb(252,252,252);">
+            <children>
+                <ImageView fitHeight="90.0" fitWidth="132.0" layoutX="3.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../login/images/logo.png" />
+                    </image>
+                </ImageView>
+                <Button onAction="#home" fx:id="homeButton" layoutX="33.0" layoutY="146.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="91.0" text="Home" />
+                <Button fx:id="searchButton" layoutX="30.0" layoutY="209.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="91.0" text="Search" />
+                <Button fx:id="logoutButton" layoutX="14.0" layoutY="530.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="98.0" text="Logout" />
+            </children>
+        </AnchorPane>
+        <Label fx:id="welcomeText" layoutX="401.0" layoutY="33.0" prefHeight="38.0" prefWidth="292.0" text="Нови книги">
+            <font>
+                <Font size="26.0" />
+            </font>
+        </Label>
+      <TableView fx:id="tableView" layoutX="147.0" layoutY="103.0" prefHeight="387.0" prefWidth="800.0">
+         <columns>
+            <TableColumn prefWidth="75.0" text="Column X" />
+         </columns></TableView>
+    </children>
+</AnchorPane>
