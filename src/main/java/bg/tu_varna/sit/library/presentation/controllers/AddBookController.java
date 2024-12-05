@@ -17,17 +17,26 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
 import java.util.Set;
 
 public class AddBookController extends Controller {
     private final AddBookOperationModel addBookOperation;
     private final CheckGenreOperationModel checkGenreOperation;
+    @FXML
+    private ImageView imageView;
     @FXML
     private TextField authorsEntry;
     @FXML
@@ -56,7 +65,11 @@ public class AddBookController extends Controller {
     private TextField quantity;
     @FXML
     private ComboBox<Long> locationRow;
+
+    @FXML
+    private Button uploadImage;
     private AddBookInputModel.AddBookInputModelBuilder addBookInputModel;
+    private String pathFromUser;
 
     public AddBookController() {
         // this.addBookOperation = SingletonFactory.getSingletonInstance(AddBookPro.class);
@@ -157,6 +170,7 @@ public class AddBookController extends Controller {
                 .price(BigDecimal.valueOf(Double.parseDouble(price.getText())))
                 .quantity(Long.valueOf(quantity.getText()))
                 .row(locationRow.getSelectionModel().getSelectedItem())
+                .path(pathFromUser)
                 .build();
         Either<Exception, AddBookOutputModel> process = addBookOperation.process(inputModel);
         if (process.isRight()) {
@@ -171,5 +185,24 @@ public class AddBookController extends Controller {
     public void home(ActionEvent actionEvent) throws IOException {
         setPath("/bg/tu_varna/sit/library/presentation.views/admin_home_view/pages/admin-home-view.fxml");
         changeScene(actionEvent);
+    }
+    @FXML
+    public void chooseImage(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        File selectedFile = fileChooser.showOpenDialog(addButton.getScene().getWindow());
+        if (selectedFile!=null) {
+            try {
+                Path path = Path.of("src/main/resources/bg/tu_varna/sit/library/presentation.views/addBook/images");
+                Path targetPath = path.resolve(selectedFile.getName());
+                Files.copy(selectedFile.toPath(),targetPath, StandardCopyOption.REPLACE_EXISTING);
+                pathFromUser=targetPath.toString();
+                imageView.setImage(new Image(selectedFile.toURI().toString()));
+            } catch (IOException e) {
+                AlertManager.showAlert(Alert.AlertType.INFORMATION, "Error!", "Error occurred while processing image");
+            }
+        }
+
     }
 }
