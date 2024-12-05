@@ -23,5 +23,6 @@ public class AddBookInputModel implements OperationInput {
     private BigDecimal price;
     private Long quantity;
     private Long row;
+    private String path;
 
 }

@@ -8,10 +8,11 @@ import bg.tu_varna.sit.library.utils.SingletonFactory;
 import io.vavr.control.Either;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
-
-import java.io.IOException;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 
@@ -22,6 +23,8 @@ public class LoginController extends Controller {
         private TextField username;
         @FXML
         private TextField password;
+        @FXML
+        private Button loginButton;
 
     public LoginController( ) {
         this.processor = SingletonFactory.getSingletonInstance(LoginProcessor.class);
@@ -42,10 +45,15 @@ public class LoginController extends Controller {
             }
             else{
                 //open user scene
-                setPath("/bg/tu_varna/sit/library/presentation.views/user_home_view/pages/user-home-view.fxml");
+                setPath("/bg/tu_varna/sit/library/presentation.views/search/pages/search-view.fxml");
                 changeScene(actionEvent);
             }
         }
     }
-
+    @FXML
+    public void loginWithEnter(KeyEvent keyEvent){
+        if(keyEvent.getCode() == KeyCode.ENTER){
+            loginButton.fire();
+        }
+    }
 }

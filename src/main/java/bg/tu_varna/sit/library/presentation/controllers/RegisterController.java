@@ -1,16 +1,19 @@
 package bg.tu_varna.sit.library.presentation.controllers;
 
-import bg.tu_varna.sit.library.models.register.RegisterOperationModel;
-import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.core.register.RegisterProcessor;
 import bg.tu_varna.sit.library.models.register.RegisterInputModel;
+import bg.tu_varna.sit.library.models.register.RegisterOperationModel;
 import bg.tu_varna.sit.library.models.register.RegisterOutputModel;
+import bg.tu_varna.sit.library.utils.SingletonFactory;
 import io.vavr.control.Either;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 
@@ -29,6 +32,8 @@ public class RegisterController extends Controller {
     private DatePicker birthdate;
     @FXML
     private PasswordField password;
+    @FXML
+    private Button registerButton;
 
     public RegisterController() {
         this.registerProcessor = SingletonFactory.getSingletonInstance(RegisterProcessor.class);
@@ -51,4 +56,10 @@ public class RegisterController extends Controller {
         }
     }
 
+    @FXML
+    public void registerWithEnter(KeyEvent keyEvent) {
+        if(keyEvent.getCode() == KeyCode.ENTER){
+            registerButton.fire();
+        }
+    }
 }

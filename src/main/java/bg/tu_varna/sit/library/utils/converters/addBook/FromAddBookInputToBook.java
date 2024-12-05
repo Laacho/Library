@@ -13,6 +13,7 @@ public class FromAddBookInputToBook implements Converter<AddBookInputModel, Book
                 .inventoryNumber(source.getInventoryNumber())
                 .price(source.getPrice())
                 .quantity(source.getQuantity())
+                .path(source.getPath())
                 .build();
     }
 }

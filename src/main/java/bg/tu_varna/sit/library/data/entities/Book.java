@@ -62,4 +62,7 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "reader_profile_id")
     )
     private Set<ReaderProfile> readerProfiles;
+
+    @Column(nullable = false)
+    private String path;
 }
