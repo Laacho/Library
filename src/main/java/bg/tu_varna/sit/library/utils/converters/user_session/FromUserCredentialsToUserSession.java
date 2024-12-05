@@ -1,4 +1,4 @@
-package bg.tu_varna.sit.library.utils.converters.login;
+package bg.tu_varna.sit.library.utils.converters.user_session;
 
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.utils.converters.base.Converter;

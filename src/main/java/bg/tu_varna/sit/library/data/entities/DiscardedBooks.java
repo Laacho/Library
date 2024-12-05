@@ -1,6 +1,7 @@
 package bg.tu_varna.sit.library.data.entities;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.PastOrPresent;
@@ -23,10 +24,12 @@ public class DiscardedBooks {
     private Book book;
 
     @PastOrPresent
-    @Column(nullable = false,name = "discarding_date")
+    @Column(nullable = false, name = "discarding_date")
     private LocalDate discardingDate;
 
     @Column(nullable = false)
     private String reason;
 
+    @ColumnDefault("0")
+    private Long quantity;
 }
