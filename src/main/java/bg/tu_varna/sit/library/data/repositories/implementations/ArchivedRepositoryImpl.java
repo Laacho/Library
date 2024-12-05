@@ -2,7 +2,7 @@ package bg.tu_varna.sit.library.data.repositories.implementations;
 
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
-import bg.tu_varna.sit.library.data.entities.Archived;
+import bg.tu_varna.sit.library.data.entities.ArchivedBooks;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ArchivedRepository;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -17,7 +17,7 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
     private ArchivedRepositoryImpl(){};
 
     @Override
-    public Long save(Archived entity) {
+    public Long save(ArchivedBooks entity) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         Long result = null;
@@ -34,11 +34,11 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
     }
 
     @Override
-    public void saveAll(List<Archived> entities) {
+    public void saveAll(List<ArchivedBooks> entities) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            for (Archived entity : entities) {
+            for (ArchivedBooks entity : entities) {
                 session.save(entity);
             }
             transaction.commit();
@@ -51,13 +51,13 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
     }
 
     @Override
-    public Optional<Archived> findById(Long id) {
+    public Optional<ArchivedBooks> findById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<Archived> result = Optional.empty();
+        Optional<ArchivedBooks> result = Optional.empty();
         try {
-            String jpql = "SELECT a FROM Archived a WHERE a.id = :id";
-            result = Optional.of(session.createQuery(jpql, Archived.class)
+            String jpql = "SELECT a FROM ArchivedBooks a WHERE a.id = :id";
+            result = Optional.of(session.createQuery(jpql, ArchivedBooks.class)
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
@@ -71,13 +71,13 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
     }
 
     @Override
-    public List<Archived> findAll() {
+    public List<ArchivedBooks> findAll() {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        List<Archived> list = new ArrayList<>();
+        List<ArchivedBooks> list = new ArrayList<>();
         try {
-            String jpql = "SELECT a FROM Archived a";
-            list.addAll(session.createQuery(jpql, Archived.class).getResultList());
+            String jpql = "SELECT a FROM ArchivedBooks a";
+            list.addAll(session.createQuery(jpql, ArchivedBooks.class).getResultList());
             transaction.commit();
             log.info("Successfully retrieved information");
         } catch (Exception ex) {
@@ -89,10 +89,10 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
     }
 
     @Override
-    public Optional<Archived> deleteById(Long id) {
+    public Optional<ArchivedBooks> deleteById(Long id) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
-        Optional<Archived> archived = Optional.empty();
+        Optional<ArchivedBooks> archived = Optional.empty();
         try {
             archived = findById(id);
             if (archived.isPresent())

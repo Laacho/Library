@@ -14,16 +14,17 @@
         <property name="hibernate.id.new_generator_mappings">true</property>
 
         <mapping class="bg.tu_varna.sit.library.data.entities.Location"/>
-        <mapping class="bg.tu_varna.sit.library.data.entities.Archived"/>
+        <mapping class="bg.tu_varna.sit.library.data.entities.ArchivedBooks"/>
         <mapping class="bg.tu_varna.sit.library.data.entities.Author"/>
         <mapping class="bg.tu_varna.sit.library.data.entities.Book"/>
         <mapping class="bg.tu_varna.sit.library.data.entities.DiscardedBooks"/>
         <mapping class="bg.tu_varna.sit.library.data.entities.Genre"/>
         <mapping class="bg.tu_varna.sit.library.data.entities.Publisher"/>
-        <mapping class="bg.tu_varna.sit.library.data.entities.ReaderProfile"/>
+        <mapping class="bg.tu_varna.sit.library.data.entities.BorrowedBooks"/>
         <mapping class="bg.tu_varna.sit.library.data.entities.User"/>
         <mapping class="bg.tu_varna.sit.library.data.entities.UserCredentials"/>
         <mapping class="bg.tu_varna.sit.library.data.entities.Notification"/>
+        <mapping class="bg.tu_varna.sit.library.data.entities.ReaderProfile"/>
 
 
     </session-factory>

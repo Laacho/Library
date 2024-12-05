@@ -1,8 +1,6 @@
 package bg.tu_varna.sit.library.core.admin_hello_view;
 
 import bg.tu_varna.sit.library.core.BaseProcessor;
-import bg.tu_varna.sit.library.core.login.LoginProcessor;
-import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.implementations.*;
 import bg.tu_varna.sit.library.data.repositories.interfaces.*;
 import bg.tu_varna.sit.library.models.admin_home_view.AdminHomeViewInputModel;
@@ -19,7 +17,7 @@ public class AdminHelloViewProcessor extends BaseProcessor implements AdminHomeV
     private final UserCredentialsRepository userCredentialsRepository;
     private final DiscardedBooksRepository discardedBooksRepository;
     private final ArchivedRepository archivedRepository;
-    private final ReaderProfileRepository readerProfileRepository;
+    private final BorrowedBooksRepository borrowedBooksRepository;
     private final BookRepository bookRepository;
     private static final Logger log = Logger.getLogger(AdminHelloViewProcessor.class);
 
@@ -27,7 +25,7 @@ public class AdminHelloViewProcessor extends BaseProcessor implements AdminHomeV
     private AdminHelloViewProcessor() {
         super();
         bookRepository = SingletonFactory.getSingletonInstance(BookRepositoryImpl.class);
-        readerProfileRepository = SingletonFactory.getSingletonInstance(ReaderProfileRepositoryImpl.class);
+        borrowedBooksRepository = SingletonFactory.getSingletonInstance(BorrowedBooksRepositoryImpl.class);
         archivedRepository = SingletonFactory.getSingletonInstance(ArchivedRepositoryImpl.class);
         discardedBooksRepository = SingletonFactory.getSingletonInstance(DiscardedBooksRepositoryImpl.class);
         userCredentialsRepository = SingletonFactory.getSingletonInstance(UserCredentialsRepositoryImpl.class);
@@ -40,7 +38,7 @@ public class AdminHelloViewProcessor extends BaseProcessor implements AdminHomeV
                     int countDiscardedBooks = discardedBooksRepository.findAll().size();
                     int countAllBooks = bookRepository.findAll().size();
                     int countArchivedBooks = archivedRepository.findAll().size();
-                    int countReaderProfiles = readerProfileRepository.findAll().size();
+                    int countReaderProfiles = borrowedBooksRepository.findAll().size();
                     int countUsers = userCredentialsRepository.findAllUsers().size();
                     AdminHomeViewOutputModel outputModel = AdminHomeViewOutputModel.builder()
                             .countUsers(countUsers)

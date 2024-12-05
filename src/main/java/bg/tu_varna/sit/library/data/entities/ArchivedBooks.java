@@ -7,13 +7,13 @@ import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "archived")
+@Table(name = "archived_books")
 @Getter
 @Setter
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Archived {
+public class ArchivedBooks {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

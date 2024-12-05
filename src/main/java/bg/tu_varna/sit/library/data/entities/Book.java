@@ -55,14 +55,6 @@ public class Book {
     private Set<Author> authors;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name="books_to_reader_profile",
-            joinColumns = @JoinColumn(name="book_id"),
-            inverseJoinColumns = @JoinColumn(name = "reader_profile_id")
-    )
-    private Set<ReaderProfile> readerProfiles;
-
     @Column(nullable = false)
     private String path;
 }

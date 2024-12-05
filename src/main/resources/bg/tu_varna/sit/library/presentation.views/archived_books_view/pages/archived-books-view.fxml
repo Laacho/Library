@@ -15,7 +15,7 @@
                     </image>
                 </ImageView>
                 <Button onAction="#home" fx:id="homeButton" layoutX="33.0" layoutY="146.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="91.0" text="Home" />
-                <Button fx:id="searchButton" layoutX="30.0" layoutY="209.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="91.0" text="Search" />
+                <Button onAction="#home" fx:id="searchButton" layoutX="30.0" layoutY="209.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="91.0" text="Search" />
                 <Button fx:id="logoutButton" layoutX="14.0" layoutY="530.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="98.0" text="Logout" />
             </children>
         </AnchorPane>
