@@ -2,6 +2,7 @@ package bg.tu_varna.sit.library.application;
 
 import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.data.entities.Genre;
+import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.models.addBook.AddBookInputModel;
 import bg.tu_varna.sit.library.models.addGenre.CheckGenreInputModel;
 import bg.tu_varna.sit.library.data.entities.Book;
@@ -16,6 +17,9 @@ import bg.tu_varna.sit.library.utils.converters.addGenre.FromAddGenreInputToGenr
 import bg.tu_varna.sit.library.utils.converters.base.ConversionService;
 import bg.tu_varna.sit.library.utils.converters.books.FromBooksToBooksData;
 import bg.tu_varna.sit.library.utils.converters.books.FromDiscardedBooksToBooksData;
+import bg.tu_varna.sit.library.utils.converters.booksData.FromAllBooksDataToCommonBooksProperties;
+import bg.tu_varna.sit.library.utils.converters.booksData.FromArchiveBooksDataToCommonBooksProperties;
+import bg.tu_varna.sit.library.utils.converters.booksData.FromDiscardedBooksDataToCommonBooksProperties;
 import bg.tu_varna.sit.library.utils.converters.user_session.FromUserCredentialsToUserSession;
 import bg.tu_varna.sit.library.utils.converters.login.FromUserSessionToLoginOutputModel;
 import bg.tu_varna.sit.library.utils.converters.register.FromRegisterInputModelToUser;
@@ -77,5 +81,8 @@ public class HelloApplication extends Application {
         singletonInstance.addConverter(UserCredentials.class, UserSession.class,new FromUserCredentialsToUserSession());
         singletonInstance.addConverter(CheckGenreInputModel.class, Genre.class,new FromAddGenreInputToGenre());
         singletonInstance.addConverter(AddBookInputModel.class, Book.class,new FromAddBookInputToBook());
+        singletonInstance.addConverter(BooksData.class, CommonBooksProperties.class,new FromAllBooksDataToCommonBooksProperties());
+        singletonInstance.addConverter(bg.tu_varna.sit.library.models.archived_books.BooksData.class, CommonBooksProperties.class,new FromArchiveBooksDataToCommonBooksProperties());
+        singletonInstance.addConverter(bg.tu_varna.sit.library.models.discarded_books.BooksData.class, CommonBooksProperties.class,new FromDiscardedBooksDataToCommonBooksProperties());
     }
 }

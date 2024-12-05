@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.IOException;
+
 @Setter
 @Getter
 public class Controller {
@@ -28,10 +29,23 @@ public class Controller {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setMaxHeight(600);
         stage.setMaxWidth(1000);
-        scene = new Scene(root,stage.getMaxWidth(),stage.getMaxHeight());
+        scene = new Scene(root, stage.getMaxWidth(), stage.getMaxHeight());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+    }
+
+    protected FXMLLoader changeScene(Stage  st) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+        root = loader.load();
+        stage = st;
+        stage.setMaxHeight(600);
+        stage.setMaxWidth(1000);
+        scene = new Scene(root, stage.getMaxWidth(), stage.getMaxHeight());
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+        return loader;
     }
 
     @FXML
@@ -41,7 +55,7 @@ public class Controller {
     }
 
 
-    public  void handleEither(Either<Exception, ? extends OperationOutput> result)  {
+    public void handleEither(Either<Exception, ? extends OperationOutput> result) {
         if (result.isLeft()) {
             throw new RuntimeException();
             //throw result.getLeft()

@@ -46,7 +46,7 @@ public class Book {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "author_to_books",
             joinColumns = @JoinColumn(name = "book_id"),
@@ -55,7 +55,7 @@ public class Book {
     private Set<Author> authors;
 
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name="books_to_reader_profile",
             joinColumns = @JoinColumn(name="book_id"),
