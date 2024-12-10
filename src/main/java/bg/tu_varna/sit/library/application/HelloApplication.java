@@ -58,24 +58,7 @@ public class HelloApplication extends Application {
     public void init() throws Exception {
         super.init();
         SingletonFactory.init();
-        ConversionService singletonInstance = SingletonFactory.getSingletonInstance(ConversionService.class);
-        singletonInstance.addConverter(RegisterInputModel.class, User.class, new FromRegisterInputModelToUser());
-        singletonInstance.addConverter(RegisterInputModel.class, UserCredentials.class, new FromRegisterInputModelToUserCredentials());
-        singletonInstance.addConverter(String.class, RegisterOutputModel.class, new FromStringToRegisterOutputModel());
-        singletonInstance.addConverter(UserSession.class, LoginOutputModel.class, new FromUserSessionToLoginOutputModel());
-        singletonInstance.addConverter(UserCredentials.class, UserSession.class, new FromUserCredentialsToUserSession());
-        singletonInstance.addConverter(Book.class, BooksData.class, new FromBooksToBooksData());
-        singletonInstance.addConverter(DiscardedBooks.class, bg.tu_varna.sit.library.models.discarded_books.BooksData.class, new FromDiscardedBooksToBooksData());
-        singletonInstance.addConverter(UserCredentials.class, UsersData.class, new FromUserCredentialsToUsersData());
-        singletonInstance.addConverter(RegisterInputModel.class,User.class,new FromRegisterInputModelToUser());
-        singletonInstance.addConverter(RegisterInputModel.class, UserCredentials.class,new FromRegisterInputModelToUserCredentials());
-        singletonInstance.addConverter(String.class, RegisterOutputModel.class,new FromStringToRegisterOutputModel());
-        singletonInstance.addConverter(UserSession.class, LoginOutputModel.class,new FromUserSessionToLoginOutputModel());
-        singletonInstance.addConverter(UserCredentials.class, UserSession.class,new FromUserCredentialsToUserSession());
-        singletonInstance.addConverter(CheckGenreInputModel.class, Genre.class,new FromAddGenreInputToGenre());
-        singletonInstance.addConverter(AddBookInputModel.class, Book.class,new FromAddBookInputToBook());
-        singletonInstance.addConverter(BooksData.class, CommonBooksProperties.class,new FromAllBooksDataToCommonBooksProperties());
-        singletonInstance.addConverter(bg.tu_varna.sit.library.models.archived_books.BooksData.class, CommonBooksProperties.class,new FromArchiveBooksDataToCommonBooksProperties());
-        singletonInstance.addConverter(bg.tu_varna.sit.library.models.discarded_books.BooksData.class, CommonBooksProperties.class,new FromDiscardedBooksDataToCommonBooksProperties());
+        ConversionService conversionService = SingletonFactory.getSingletonInstance(ConversionService.class);
+        conversionService.init();
     }
 }

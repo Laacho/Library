@@ -2,8 +2,9 @@ package bg.tu_varna.sit.library.utils.converters.booksData;
 
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.models.all_books.BooksData;
+import bg.tu_varna.sit.library.utils.annotations.Mapper;
 import bg.tu_varna.sit.library.utils.converters.base.Converter;
-
+@Mapper(from = BooksData.class , to = CommonBooksProperties.class)
 public class FromAllBooksDataToCommonBooksProperties implements Converter<BooksData, CommonBooksProperties> {
     @Override
     public CommonBooksProperties convert(BooksData source) {
