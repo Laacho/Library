@@ -52,14 +52,5 @@ public class SearchController extends Controller {
         }
     }
 
-    @FXML
-    public void addBook(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/addBook/pages/addBook-view.fxml");
-        changeScene(actionEvent);
-    }
-    @FXML
-    public void search(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/search/pages/search-view.fxml");
-        changeScene(actionEvent);
-    }
+
 }

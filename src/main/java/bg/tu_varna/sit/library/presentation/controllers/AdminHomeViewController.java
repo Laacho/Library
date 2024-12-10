@@ -80,19 +80,9 @@ public class AdminHomeViewController extends Controller implements Initializable
 
     @FXML
     public void usersTableView(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/users_view/pages/users-view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/users__table_view/pages/users--table-view.fxml");
         changeScene(actionEvent);
     }
 
-    @FXML
-    public void addBook(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/addBook/pages/addBook-view.fxml");
-        changeScene(actionEvent);
-    }
-    @FXML
-    public void search(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/search/pages/search-view.fxml");
-        changeScene(actionEvent);
-    }
 
 }

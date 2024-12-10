@@ -86,7 +86,7 @@ public class UsersTableViewController extends Controller implements Initializabl
         //birthdate.setPrefWidth(50);
         birthdate.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getBirthdate()));
-        dateOfVerification = new TableColumn<>("Дата на верификация");
+        dateOfVerification = new TableColumn<>("Верифициран");
         // dateOfVerification.setPrefWidth(50);
         dateOfVerification.setCellValueFactory(cell -> {
             if (cell.getValue().getDateOfVerification() == null) {
@@ -96,15 +96,4 @@ public class UsersTableViewController extends Controller implements Initializabl
         });
     }
 
-    @FXML
-    public void home(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin_home_view/pages/admin-home-view.fxml");
-        changeScene(actionEvent);
-    }
-
-    @FXML
-    public void search(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/search/pages/search-view.fxml");
-        changeScene(actionEvent);
-    }
 }

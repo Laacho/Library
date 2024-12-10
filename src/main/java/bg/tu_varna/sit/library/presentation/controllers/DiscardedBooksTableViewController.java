@@ -55,7 +55,7 @@ public class DiscardedBooksTableViewController extends Controller implements Ini
             List<BooksData> booksData = process.get().getBooksData();
             ObservableList<BooksData> observableList = FXCollections.observableList(booksData);
             initializeColumns();
-            tableView.getColumns().addAll(title, authors, quantity, reason, discardingDate, authors);
+            tableView.getColumns().addAll(title, authors, quantity, reason, discardingDate);
             tableView.getColumns().remove(0);
             tableView.setItems(observableList);
         }
@@ -87,11 +87,7 @@ public class DiscardedBooksTableViewController extends Controller implements Ini
         });
     }
 
-    @FXML
-    public void home(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin_home_view/pages/admin-home-view.fxml");
-        changeScene(actionEvent);
-    }
+
     @FXML
     public void doubleClick(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getClickCount() == 2) {
@@ -104,9 +100,5 @@ public class DiscardedBooksTableViewController extends Controller implements Ini
 
         }
     }
-    @FXML
-    public void search(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/search/pages/search-view.fxml");
-        changeScene(actionEvent);
-    }
+
 }

@@ -43,19 +43,5 @@ public class BookDataViewController extends Controller {
         inventoryNumber.setText(inventoryNumber.getText() +" "+booksData.getInventoryNumber());
         genre.setText(genre.getText() +" "+booksData.getGenre().getName());
     }
-    @FXML
-    public void addBook(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/addBook/pages/addBook-view.fxml");
-        changeScene(actionEvent);
-    }
-    @FXML
-    public void home(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin_home_view/pages/admin-home-view.fxml");
-        changeScene(actionEvent);
-    }
-    @FXML
-    public void search(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/search/pages/search-view.fxml");
-        changeScene(actionEvent);
-    }
+
 }

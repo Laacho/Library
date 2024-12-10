@@ -40,8 +40,8 @@ public class HelloApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class
                 .getResource("/bg/tu_varna/sit/library/presentation.views/hello_view/pages/hello-view.fxml"));
         stage.setResizable(false);
-        stage.setMaxHeight(600);
-        stage.setMaxWidth(1000);
+        stage.setMaxHeight(640);
+        stage.setMaxWidth(900);
         Scene scene = new Scene(fxmlLoader.load(), stage.getMaxWidth(), stage.getMaxHeight());
         stage.setTitle("Library");
         stage.setScene(scene);

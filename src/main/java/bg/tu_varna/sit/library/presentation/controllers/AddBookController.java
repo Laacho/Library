@@ -141,7 +141,7 @@ public class AddBookController extends Controller {
     }
 
     @FXML
-    public void addBook(ActionEvent event) {
+    public void addBookInDB(ActionEvent event) {
         ObservableList<String> items = listView.getItems();
         Set<Author> authors = new HashSet<>();
         for (String item : items) {
@@ -182,11 +182,6 @@ public class AddBookController extends Controller {
     }
 
     @FXML
-    public void home(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin_home_view/pages/admin-home-view.fxml");
-        changeScene(actionEvent);
-    }
-    @FXML
     public void chooseImage(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
@@ -204,11 +199,6 @@ public class AddBookController extends Controller {
             }
         }
 
-    }
-    @FXML
-    public void search(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/search/pages/search-view.fxml");
-        changeScene(actionEvent);
     }
     @FXML
     public void addBookReset(ActionEvent actionEvent) throws IOException {

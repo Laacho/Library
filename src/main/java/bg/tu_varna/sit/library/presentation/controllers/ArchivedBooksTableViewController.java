@@ -92,11 +92,7 @@ public class ArchivedBooksTableViewController extends Controller implements Init
         });
     }
 
-    @FXML
-    public void home(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin_home_view/pages/admin-home-view.fxml");
-        changeScene(actionEvent);
-    }
+
     @FXML
     public void doubleClick(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getClickCount() == 2) {
@@ -108,10 +104,5 @@ public class ArchivedBooksTableViewController extends Controller implements Init
             controller.change();
 
         }
-    }
-    @FXML
-    public void search(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/search/pages/search-view.fxml");
-        changeScene(actionEvent);
     }
 }
