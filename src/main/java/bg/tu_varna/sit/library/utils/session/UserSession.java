@@ -1,7 +1,6 @@
 package bg.tu_varna.sit.library.utils.session;
 
 import lombok.*;
-
 import java.time.LocalDate;
 
 @Getter

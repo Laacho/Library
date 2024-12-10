@@ -22,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -72,7 +73,6 @@ public class AddBookController extends Controller {
     private String pathFromUser;
 
     public AddBookController() {
-        // this.addBookOperation = SingletonFactory.getSingletonInstance(AddBookPro.class);
         this.checkGenreOperation = SingletonFactory.getSingletonInstance(CheckGenreProcessor.class);
         this.addBookOperation = SingletonFactory.getSingletonInstance(AddBookProcessor.class);
         this.addBookInputModel = AddBookInputModel.builder();
@@ -142,6 +142,32 @@ public class AddBookController extends Controller {
 
     @FXML
     public void addBookInDB(ActionEvent event) {
+        Set<Author> authors = getAuthors();
+        AddBookInputModel inputModel = buildInput(authors);
+        Either<Exception, AddBookOutputModel> process = addBookOperation.process(inputModel);
+        if (process.isRight()) {
+             AlertManager.showAlert(Alert.AlertType.INFORMATION, "Congrats!", "You added a book!", ButtonType.CLOSE);
+             clearScene();
+        } else {
+            AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "Error occurred while processing genre");
+        }
+    }
+
+    private void clearScene() {
+        imageView.setImage(null);
+        listView.getItems().clear();
+        locationRow.getItems().clear();
+        isbn.setText("");
+        title.setText("");
+        genre.setText("");
+        publisher.setText("");
+        inventoryNumber.setText("");
+        price.setText("");
+        quantity.setText("");
+    }
+
+    @NotNull
+    private Set<Author> getAuthors() {
         ObservableList<String> items = listView.getItems();
         Set<Author> authors = new HashSet<>();
         for (String item : items) {
@@ -160,7 +186,11 @@ public class AddBookController extends Controller {
             }
 
         }
-        AddBookInputModel inputModel = addBookInputModel
+        return authors;
+    }
+
+    private AddBookInputModel buildInput(Set<Author> authors) {
+        return addBookInputModel
                 .authors(authors)
                 .isbn(isbn.getText())
                 .title(title.getText())
@@ -172,14 +202,8 @@ public class AddBookController extends Controller {
                 .row(locationRow.getSelectionModel().getSelectedItem())
                 .path(pathFromUser)
                 .build();
-        Either<Exception, AddBookOutputModel> process = addBookOperation.process(inputModel);
-        if (process.isRight()) {
-            AddBookOutputModel result = process.get();
-            AlertManager.showAlert(Alert.AlertType.INFORMATION, "Congrats!", "You added a book!", ButtonType.CLOSE);
-        } else {
-            AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "Error occurred while processing genre");
-        }
     }
+
 
     @FXML
     public void chooseImage(ActionEvent actionEvent) {

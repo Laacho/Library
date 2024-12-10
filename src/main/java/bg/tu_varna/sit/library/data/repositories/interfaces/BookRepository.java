@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface BookRepository extends GenericRepository<Book> {
     List<Book> findBookContainingText(String text);
-    List<Book> findByGenre(Genre genre);
+    List<Book> findByGenre(Genre genreId);
 }

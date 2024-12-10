@@ -134,18 +134,19 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public List<Book> findByGenre(Genre genre) {
+    public List<Book> findByGenre(Genre genreID) {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         List<Book> result = new ArrayList<>();
         try{
             String jpql="SELECT b FROM Book b WHERE b.genre = :genre";
             result.addAll(session.createQuery(jpql,Book.class)
-                    .setParameter("genre",genre.getId())
+                    .setParameter("genre",genreID)
                     .getResultList());
+            transaction.commit();
             log.info("Successfully retrieved result");
         }catch (Exception ex){
-            log.error("Error while finding book: " + genre, ex);
+            log.error("Error while finding book: " + genreID, ex);
         }
         finally {
             session.close();

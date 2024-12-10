@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 @Singleton
 public class GenreRepositoryImpl implements GenreRepository {
@@ -117,7 +118,7 @@ public class GenreRepositoryImpl implements GenreRepository {
         Transaction transaction = session.beginTransaction();
         Optional<Genre> result = Optional.empty();
         try{
-            String jpql = "SELECT g FROM Genre g WHERE name = :name";
+            String jpql = "SELECT g FROM Genre g WHERE LOWER(g.name) = :name";
             result= Optional.of(session.createQuery(jpql, Genre.class)
                     .setParameter("name",name)
                     .getSingleResult());

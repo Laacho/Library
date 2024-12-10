@@ -24,6 +24,7 @@ public class CheckGenreProcessor extends BaseProcessor implements CheckGenreOper
     private final GenreRepository genreRepository;
     private final LocationRepository locationRepository;
     private final BookRepository bookRepository;
+    private final int MAX_BOOKS_PER_ROW = 2;
 
     private CheckGenreProcessor() {
         this.genreRepository = SingletonFactory.getSingletonInstance(GenreRepositoryImpl.class);
@@ -33,20 +34,21 @@ public class CheckGenreProcessor extends BaseProcessor implements CheckGenreOper
 
     @Override
     public Either<Exception, CheckGenreOutputModel> process(CheckGenreInputModel input) {
-        return Try.of(()->{
-                    Optional<Genre> byName = genreRepository.findByName(input.getGenre());
-                    if(byName.isPresent()) {
+        return Try.of(() -> {
+                    Optional<Genre> byName = genreRepository.findByName(input.getGenre().toLowerCase());
+                    if (byName.isPresent()) {
                         //ima go i trqbva da se vurnat vsichki knigi
                         List<Book> byGenre = bookRepository.findByGenre(byName.get());
-                        if(!byGenre.isEmpty()) {
+                        if (!byGenre.isEmpty()) {
                             //rowNum- kolko puti se e sreshtalo
                             Map<Long, Integer> rowToCount = getLongIntegerMap(byGenre);
                             List<Long> result = new ArrayList<>();
-                            for (Map.Entry<Long, Integer> kvp: rowToCount.entrySet()) {
-                                if(kvp.getValue()<20){
-                                   result.add(kvp.getKey());
-                                   //rowNUm na shelf
+                            for (Map.Entry<Long, Integer> kvp : rowToCount.entrySet()) {
+                                if (kvp.getValue() >= MAX_BOOKS_PER_ROW) {
+                                   continue;
                                 }
+                                //rowNUm na shelf
+                                result.add(kvp.getKey());
                             }
                             CheckGenreOutputModel output = CheckGenreOutputModel.builder()
                                     .message("Successfully founded empty rows")
@@ -55,38 +57,34 @@ public class CheckGenreProcessor extends BaseProcessor implements CheckGenreOper
                                     .build();
                             //log
                             return output;
+                        } else {
+                            return buildOutputForNotFoundGenreOrBooksNotFound(input, true);
                         }
-                        else{
-                            return buildOutputForNotFoundGenreOrBooksNotFound(input,true);
-                        }
-                    }
-                    else{
+                    } else {
                         // nqma go i trqbva da se dobavi genre
-                        return buildOutputForNotFoundGenreOrBooksNotFound(input,false);
+                        return buildOutputForNotFoundGenreOrBooksNotFound(input, false);
                     }
                 }).toEither()
                 .mapLeft(exceptionManager::handle);
     }
 
-    private CheckGenreOutputModel buildOutputForNotFoundGenreOrBooksNotFound(CheckGenreInputModel input,Boolean isGenreNotFound) {
+    private CheckGenreOutputModel buildOutputForNotFoundGenreOrBooksNotFound(CheckGenreInputModel input, Boolean isGenreNotFound) {
         CheckGenreOutputModel output = CheckGenreOutputModel.builder()
                 .message("Successfully added genre")
-                .rowNums(List.of(1L,2L,3L,4L,5L,6L,7L,8L,9L,10L))
+                .rowNums(List.of(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L))
                 .isGenrePresent(isGenreNotFound)
                 .build();
         return output;
     }
 
     private static Map<Long, Integer> getLongIntegerMap(List<Book> byGenre) {
-        Map<Long,Integer> rowToCount = new HashMap<>();
+        Map<Long, Integer> rowToCount = new HashMap<>();
+        for (long i = 0; i < 10; i++) {
+            rowToCount.put(i + 1, 0);
+        }
         for (Book book : byGenre) {
             Long rowNum = book.getLocation().getRowNum();
-            if(rowToCount.containsKey(rowNum)) {
-                rowToCount.put(rowNum, rowToCount.get(rowNum)+1);
-            }
-            else{
-                rowToCount.put(rowNum, 1);
-            }
+            rowToCount.put(rowNum, rowToCount.get(rowNum) + 1);
         }
         return rowToCount;
     }
