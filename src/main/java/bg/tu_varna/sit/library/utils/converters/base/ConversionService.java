@@ -1,9 +1,13 @@
 package bg.tu_varna.sit.library.utils.converters.base;
 
+import bg.tu_varna.sit.library.utils.annotations.Mapper;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
+import org.reflections.Reflections;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @Singleton
 public class ConversionService {
@@ -17,7 +21,18 @@ public class ConversionService {
         converters.putIfAbsent(from, new HashMap<>());
         converters.get(from).put(to, converter);
     }
-
+    public void init() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        Reflections reflections = new Reflections("bg.tu_varna.sit.library");
+        Set<Class<?>> typesAnnotatedWith = reflections.getTypesAnnotatedWith(Mapper.class);
+        for (Class<?> aClass : typesAnnotatedWith) {
+            Mapper annotation = aClass.getAnnotation(Mapper.class);
+            Class<?> from = annotation.from();
+            Class<?> to = annotation.to();
+            Converter<?, ?> converter = (Converter<?, ?>) aClass.getConstructor().newInstance();
+            converters.putIfAbsent(from,new HashMap<>());
+            converters.get(from).put(to,converter);
+        }
+    }
     public <F, T> T convert(F from, Class<T> to) {
         if (from == null) {
             //todo

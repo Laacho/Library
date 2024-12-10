@@ -2,8 +2,10 @@ package bg.tu_varna.sit.library.utils.converters.users;
 
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.models.users_table_view.UsersData;
+import bg.tu_varna.sit.library.utils.annotations.Mapper;
 import bg.tu_varna.sit.library.utils.converters.base.Converter;
 
+@Mapper(from = UserCredentials.class, to = UsersData.class)
 public class FromUserCredentialsToUsersData implements Converter<UserCredentials, UsersData> {
     @Override
     public UsersData convert(UserCredentials source) {
