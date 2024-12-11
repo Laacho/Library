@@ -26,5 +26,6 @@ public class ArchivedBooks {
     @Column(name = "archive_date",nullable = false)
     private LocalDate archiveDate;
 
+
 }
 

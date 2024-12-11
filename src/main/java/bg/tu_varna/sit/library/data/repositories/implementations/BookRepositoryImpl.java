@@ -12,10 +12,16 @@ import org.hibernate.Transaction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @Singleton
 public class BookRepositoryImpl implements BookRepository {
     private static final Logger log = Logger.getLogger(BookRepositoryImpl.class);
-    private BookRepositoryImpl(){};
+
+    private BookRepositoryImpl() {
+    }
+
+    ;
+
     @Override
     public Long save(Book entity) {
         Session session = Connection.openSession();
@@ -25,9 +31,9 @@ public class BookRepositoryImpl implements BookRepository {
             result = (Long) session.save(entity);
             transaction.commit();
             log.info("Book saved: " + entity);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Error while saving book: " + entity, ex);
-        }finally {
+        } finally {
             session.close();
         }
         return result;
@@ -43,9 +49,9 @@ public class BookRepositoryImpl implements BookRepository {
             }
             transaction.commit();
             log.info("Books saved: " + entities);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Error while saving books: " + entities, ex);
-        }finally {
+        } finally {
             session.close();
         }
     }
@@ -116,18 +122,16 @@ public class BookRepositoryImpl implements BookRepository {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         List<Book> result = new ArrayList<>();
-        try{
-            String jpql="SELECT b FROM Book b WHERE LOWER(b.title) LIKE :text ";
+        try {
+            String jpql = "SELECT b FROM Book b WHERE LOWER(b.title) LIKE :text ";
             result.addAll(session.createQuery(jpql, Book.class)
                     .setParameter("text", "%" + text + "%")
                     .getResultList());
             transaction.commit();
             log.info("Successfully retrieved result");
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Error while finding book: " + text, ex);
-        }
-        finally {
+        } finally {
             session.close();
         }
         return result;
@@ -138,19 +142,55 @@ public class BookRepositoryImpl implements BookRepository {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         List<Book> result = new ArrayList<>();
-        try{
-            String jpql="SELECT b FROM Book b WHERE b.genre = :genre";
-            result.addAll(session.createQuery(jpql,Book.class)
-                    .setParameter("genre",genreID)
+        try {
+            String jpql = "SELECT b FROM Book b WHERE b.genre = :genre";
+            result.addAll(session.createQuery(jpql, Book.class)
+                    .setParameter("genre", genreID)
                     .getResultList());
             transaction.commit();
             log.info("Successfully retrieved result");
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Error while finding book: " + genreID, ex);
-        }
-        finally {
+        } finally {
             session.close();
         }
         return result;
     }
+
+    @Override
+    public Optional<Book> findByInventoryNumber(String inventoryNumber) {
+        Session session = Connection.openSession();
+        Transaction transaction = session.beginTransaction();
+        Optional<Book> result = Optional.empty();
+        try {
+            String jpql = "SELECT b FROM Book b WHERE b.inventoryNumber = :inventoryNumber";
+            result = Optional.of(session.createQuery(jpql, Book.class)
+                    .setParameter("inventoryNumber", inventoryNumber)
+                    .getSingleResult());
+            transaction.commit();
+            log.info("Successfully retrieved result");
+        } catch (Exception ex) {
+            log.error("Error while finding book: " + inventoryNumber, ex);
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    @Override
+    public void update(Book book) {
+        Session session = Connection.openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(book);
+            transaction.commit();
+            log.info("Successfully updated: " + book.getTitle());
+        } catch (Exception ex) {
+            log.error("Error while updating book: " + book, ex);
+        } finally {
+            session.close();
+        }
+
+    }
 }
+

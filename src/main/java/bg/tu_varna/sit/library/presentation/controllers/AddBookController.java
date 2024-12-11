@@ -147,7 +147,7 @@ public class AddBookController extends Controller {
              AlertManager.showAlert(Alert.AlertType.INFORMATION, "Congrats!", "You added a book!", ButtonType.CLOSE);
              clearScene();
         } else {
-            AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "Error occurred while processing genre");
+            AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "Error occurred while processing saving book",ButtonType.CLOSE);
         }
     }
 

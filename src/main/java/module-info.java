@@ -14,7 +14,6 @@ module bg.tu_varna.sit.library {
     requires java.persistence;
     requires static lombok;
     requires java.naming;
-    requires java.sql;
     requires annotations;
     requires java.validation;
     requires log4j;
@@ -24,6 +23,7 @@ module bg.tu_varna.sit.library {
     requires org.simplejavamail;
     requires org.reflections;
     requires java.desktop;
+    requires java.sql;
 
     exports bg.tu_varna.sit.library.application;
     opens bg.tu_varna.sit.library.application to javafx.fxml;

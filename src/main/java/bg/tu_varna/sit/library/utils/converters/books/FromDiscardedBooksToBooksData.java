@@ -17,7 +17,6 @@ public class FromDiscardedBooksToBooksData implements Converter<DiscardedBooks, 
                 .title(source.getBook().getTitle())
                 .publisher(source.getBook().getPublisher())
                 .reason(source.getReason())
-                .quantity(source.getQuantity())
                 .authors(source.getBook().getAuthors())
                 .build();
     }

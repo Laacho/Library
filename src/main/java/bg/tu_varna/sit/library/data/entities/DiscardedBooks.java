@@ -30,6 +30,4 @@ public class DiscardedBooks {
     @Column(nullable = false)
     private String reason;
 
-    @ColumnDefault("0")
-    private Long quantity;
 }
