@@ -23,8 +23,7 @@ public class SearchController extends Controller {
     private final SearchOperationModel searchProcessor;
     @FXML
     private TextField searchBar;
-    @FXML
-    private Button backButton;
+
     @FXML
     private ListView<String> listView;
 

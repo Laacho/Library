@@ -1,5 +1,6 @@
 package bg.tu_varna.sit.library.data.entities;
 
+import bg.tu_varna.sit.library.data.enums.BookStatus;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
@@ -30,9 +31,6 @@ public class Book {
     @Digits(integer = 3, fraction = 2)
     @DecimalMin(value = "0.0", inclusive = false)
     private BigDecimal price;
-    @Column(nullable = false)
-    @Min(value = 0)
-    private Long quantity;
 
     @ManyToOne
     @JoinColumn(name = "genre_id")
@@ -57,4 +55,10 @@ public class Book {
 
     @Column(nullable = false)
     private String path;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "book_status_before_borrow")
+    private BookStatus bookStatusBeforeBorrow;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "book_status_after_borrow")
+    private BookStatus bookStatusAfterBorrow;
 }

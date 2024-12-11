@@ -4,97 +4,68 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-            prefWidth="752.0" style="-fx-background-color: rgba(23,132,245,0.58);"
-            xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="bg.tu_varna.sit.library.presentation.controllers.AddBookController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="752.0" style="-fx-background-color: rgba(23,132,245,0.58);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.AddBookController">
     <children>
-        <AnchorPane layoutX="-7.0" layoutY="-9.0" prefHeight="611.0" prefWidth="143.0"
-                    style="-fx-background-color: rgb(252,252,252);">
+        <AnchorPane layoutX="-7.0" layoutY="-9.0" prefHeight="611.0" prefWidth="143.0" style="-fx-background-color: rgb(252,252,252);">
             <children>
-                <ImageView fitHeight="60.0" fitWidth="64.0" layoutX="37.0" layoutY="14.0" pickOnBounds="true"
-                           preserveRatio="true">
+                <ImageView fitHeight="60.0" fitWidth="64.0" layoutX="37.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../login/images/logo.png"/>
+                        <Image url="@../../login/images/logo.png" />
                     </image>
                 </ImageView>
-                <Button onAction="#homeAdmin" fx:id="homeButton" layoutX="26.0" layoutY="85.0" mnemonicParsing="false" prefHeight="46.0"
-                        prefWidth="91.0" text="Home"/>
-                <Button fx:id="logout" layoutX="25.0" layoutY="148.0" mnemonicParsing="false" onAction="#search"
-                        prefHeight="46.0" prefWidth="91.0" text="Search"/>
-                <Button fx:id="addBook" layoutX="26.0" layoutY="207.0" mnemonicParsing="false" onAction="#addBook"
-                        prefHeight="46.0" prefWidth="91.0" text="Add Book"/>
-                <Button fx:id="updateStatus" layoutX="26.0" layoutY="265.0" mnemonicParsing="false"
-                        onAction="#updateStatus" prefHeight="46.0" prefWidth="91.0" text="Update&#10;Status&#10;&#10;"
-                        textAlignment="CENTER"/>
-                <Button fx:id="approveBooks" layoutX="26.0" layoutY="322.0" mnemonicParsing="false"
-                        onAction="#approveBooks" prefHeight="46.0" prefWidth="91.0" text="Approve&#10;Books&#10;&#10;"
-                        textAlignment="CENTER"/>
-                <Button fx:id="approveProfiles" layoutX="26.0" layoutY="380.0" mnemonicParsing="false"
-                        onAction="#approveProfiles" prefHeight="46.0" prefWidth="91.0"
-                        text="Approve&#10;Profiles&#10;&#10;" textAlignment="CENTER"/>
-                <Button fx:id="overdueBooks" layoutX="26.0" layoutY="551.0" mnemonicParsing="false"
-                        onAction="#overdueBooks" prefHeight="46.0" prefWidth="91.0" text="Send&#10;Email&#10;&#10;"
-                        textAlignment="CENTER"/>
-                <Button fx:id="returnBooks" layoutX="26.0" layoutY="435.0" mnemonicParsing="false"
-                        onAction="#returnBooks" prefHeight="46.0" prefWidth="91.0" text="Overdue&#10;Books&#10;&#10;"
-                        textAlignment="CENTER"/>
-                <Button fx:id="sendEmail" layoutX="26.0" layoutY="493.0" mnemonicParsing="false" onAction="#sendEmail"
-                        prefHeight="46.0" prefWidth="91.0" text="Return&#10;Books&#10;&#10;" textAlignment="CENTER"/>
+                <Button fx:id="homeButton" layoutX="26.0" layoutY="85.0" mnemonicParsing="false" onAction="#homeAdmin" prefHeight="46.0" prefWidth="91.0" text="Home" />
+                <Button fx:id="logout" layoutX="25.0" layoutY="148.0" mnemonicParsing="false" onAction="#search" prefHeight="46.0" prefWidth="91.0" text="Search" />
+                <Button fx:id="addBook" layoutX="26.0" layoutY="207.0" mnemonicParsing="false" onAction="#addBook" prefHeight="46.0" prefWidth="91.0" text="Add Book" />
+                <Button fx:id="updateStatus" layoutX="26.0" layoutY="265.0" mnemonicParsing="false" onAction="#updateStatus" prefHeight="46.0" prefWidth="91.0" text="Update&#10;Status&#10;&#10;" textAlignment="CENTER" />
+                <Button fx:id="approveBooks" layoutX="26.0" layoutY="322.0" mnemonicParsing="false" onAction="#approveBooks" prefHeight="46.0" prefWidth="91.0" text="Approve&#10;Books&#10;&#10;" textAlignment="CENTER" />
+                <Button fx:id="approveProfiles" layoutX="26.0" layoutY="380.0" mnemonicParsing="false" onAction="#approveProfiles" prefHeight="46.0" prefWidth="91.0" text="Approve&#10;Profiles&#10;&#10;" textAlignment="CENTER" />
+                <Button fx:id="overdueBooks" layoutX="26.0" layoutY="551.0" mnemonicParsing="false" onAction="#overdueBooks" prefHeight="46.0" prefWidth="91.0" text="Send&#10;Email&#10;&#10;" textAlignment="CENTER" />
+                <Button fx:id="returnBooks" layoutX="26.0" layoutY="435.0" mnemonicParsing="false" onAction="#returnBooks" prefHeight="46.0" prefWidth="91.0" text="Overdue&#10;Books&#10;&#10;" textAlignment="CENTER" />
+                <Button fx:id="sendEmail" layoutX="26.0" layoutY="493.0" mnemonicParsing="false" onAction="#sendEmail" prefHeight="46.0" prefWidth="91.0" text="Return&#10;Books&#10;&#10;" textAlignment="CENTER" />
             </children>
         </AnchorPane>
-        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true"/>
-        <Label layoutX="259.0" layoutY="15.0" prefHeight="46.0" prefWidth="98.0" text="Authors:"/>
-        <TextField fx:id="authorsEntry" layoutX="311.0" layoutY="21.0" onKeyPressed="#addAuthorByKey" prefHeight="34.0"
-                   prefWidth="220.0"/>
-        <ListView fx:id="listView" layoutX="578.0" layoutY="15.0" prefHeight="137.0" prefWidth="150.0"/>
-        <Button fx:id="addButton" layoutX="313.0" layoutY="72.0" mnemonicParsing="false" onAction="#addAuthor"
-                prefHeight="46.0" prefWidth="47.0" text="+"/>
-        <Button fx:id="removeButton" layoutX="372.0" layoutY="72.0" mnemonicParsing="false" onAction="#removeAuthor"
-                prefHeight="46.0" prefWidth="47.0" text="-"/>
-        <Button fx:id="editButton" layoutX="426.0" layoutY="71.0" mnemonicParsing="false" onAction="#editAuthor"
-                prefHeight="46.0" prefWidth="47.0">
+        <ImageView fitHeight="71.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" />
+        <Label layoutX="259.0" layoutY="15.0" prefHeight="46.0" prefWidth="98.0" text="Authors:" />
+        <TextField fx:id="authorsEntry" layoutX="311.0" layoutY="21.0" onKeyPressed="#addAuthorByKey" prefHeight="34.0" prefWidth="220.0" />
+        <ListView fx:id="listView" layoutX="578.0" layoutY="15.0" prefHeight="137.0" prefWidth="150.0" />
+        <Button fx:id="addButton" layoutX="313.0" layoutY="72.0" mnemonicParsing="false" onAction="#addAuthor" prefHeight="46.0" prefWidth="47.0" text="+" />
+        <Button fx:id="removeButton" layoutX="372.0" layoutY="72.0" mnemonicParsing="false" onAction="#removeAuthor" prefHeight="46.0" prefWidth="47.0" text="-" />
+        <Button fx:id="editButton" layoutX="426.0" layoutY="71.0" mnemonicParsing="false" onAction="#editAuthor" prefHeight="46.0" prefWidth="47.0">
             <graphic>
                 <ImageView fitHeight="20" fitWidth="20">
                     <image>
-                        <Image url="@../images/edit.png"/>
+                        <Image url="@../images/edit.png" />
                     </image>
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="clearButton" layoutX="485.0" layoutY="71.0" mnemonicParsing="false" onAction="#clearTextField"
-                prefHeight="46.0" prefWidth="47.0">
+        <Button fx:id="clearButton" layoutX="485.0" layoutY="71.0" mnemonicParsing="false" onAction="#clearTextField" prefHeight="46.0" prefWidth="47.0">
             <graphic>
                 <ImageView fitHeight="20" fitWidth="20">
                     <image>
-                        <Image url="@../images/clear.png"/>
+                        <Image url="@../images/clear.png" />
                     </image>
                 </ImageView>
             </graphic>
         </Button>
-        <Label layoutX="259.0" layoutY="153.0" prefHeight="21.0" prefWidth="41.0" text="ISBN:"/>
-        <TextField fx:id="isbn" layoutX="311.0" layoutY="151.0"/>
-        <TextField fx:id="title" layoutX="311.0" layoutY="204.0"/>
-        <TextField fx:id="genre" layoutX="311.0" layoutY="256.0" onKeyPressed="#addGenre"/>
-        <TextField fx:id="publisher" layoutX="311.0" layoutY="300.0"/>
-        <TextField fx:id="inventoryNumber" layoutX="311.0" layoutY="336.0"/>
-        <TextField fx:id="price" layoutX="311.0" layoutY="374.0"/>
-        <TextField fx:id="quantity" layoutX="311.0" layoutY="411.0"/>
-        <ComboBox fx:id="locationRow" layoutX="485.0" layoutY="465.0" prefWidth="150.0"/>
-        <Label layoutX="259.0" layoutY="208.0" text="Title"/>
-        <Label layoutX="259.0" layoutY="260.0" text="Genre"/>
-        <Label layoutX="259.0" layoutY="304.0" text="Publisher"/>
-        <Label layoutX="258.0" layoutY="331.0" text="Inventory&#10;Number" wrapText="true"/>
-        <Label layoutX="259.0" layoutY="378.0" text="Price"/>
-        <Label layoutX="259.0" layoutY="415.0" text="Quantity"/>
-        <Label layoutX="259.0" layoutY="469.0" text="Location"/>
-        <Button layoutX="370.0" layoutY="504.0" mnemonicParsing="false" onAction="#addBookInDB" prefHeight="53.0"
-                prefWidth="150.0" text="Add Book"/>
-        <Label layoutX="318.0" layoutY="465.0" prefHeight="22.0" prefWidth="126.0" text="Shelf:"/>
-        <Label layoutX="313.0" layoutY="238.0" text="Press ENTER when ready"/>
-        <Button fx:id="uploadImage" layoutX="552.0" layoutY="352.0" mnemonicParsing="false" onAction="#chooseImage"
-                prefHeight="46.0" prefWidth="105.0" text="Upload Image"/>
-        <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="520.0" layoutY="181.0"
-                   pickOnBounds="true" preserveRatio="true"/>
+        <Label layoutX="259.0" layoutY="153.0" prefHeight="21.0" prefWidth="41.0" text="ISBN:" />
+        <TextField fx:id="isbn" layoutX="311.0" layoutY="151.0" />
+        <TextField fx:id="title" layoutX="311.0" layoutY="204.0" />
+        <TextField fx:id="genre" layoutX="311.0" layoutY="256.0" onKeyPressed="#addGenre" />
+        <TextField fx:id="publisher" layoutX="311.0" layoutY="300.0" />
+        <TextField fx:id="inventoryNumber" layoutX="311.0" layoutY="336.0" />
+        <TextField fx:id="price" layoutX="311.0" layoutY="374.0" />
+        <ComboBox fx:id="locationRow" layoutX="485.0" layoutY="465.0" prefWidth="150.0" />
+        <Label layoutX="259.0" layoutY="208.0" text="Title" />
+        <Label layoutX="259.0" layoutY="260.0" text="Genre" />
+        <Label layoutX="259.0" layoutY="304.0" text="Publisher" />
+        <Label layoutX="258.0" layoutY="331.0" text="Inventory&#10;Number" wrapText="true" />
+        <Label layoutX="259.0" layoutY="378.0" text="Price" />
+        <Label layoutX="259.0" layoutY="469.0" text="Location" />
+        <Button layoutX="370.0" layoutY="504.0" mnemonicParsing="false" onAction="#addBookInDB" prefHeight="53.0" prefWidth="150.0" text="Add Book" />
+        <Label layoutX="318.0" layoutY="465.0" prefHeight="22.0" prefWidth="126.0" text="Shelf:" />
+        <Label layoutX="313.0" layoutY="238.0" text="Press ENTER when ready" />
+        <Button fx:id="uploadImage" layoutX="552.0" layoutY="352.0" mnemonicParsing="false" onAction="#chooseImage" prefHeight="46.0" prefWidth="105.0" text="Upload Image" />
+        <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="520.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>

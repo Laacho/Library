@@ -1,6 +1,7 @@
 package bg.tu_varna.sit.library.utils.converters.addBook;
 
 import bg.tu_varna.sit.library.data.entities.*;
+import bg.tu_varna.sit.library.data.enums.BookStatus;
 import bg.tu_varna.sit.library.models.addBook.AddBookInputModel;
 import bg.tu_varna.sit.library.utils.annotations.Mapper;
 import bg.tu_varna.sit.library.utils.converters.base.Converter;
@@ -13,8 +14,9 @@ public class FromAddBookInputToBook implements Converter<AddBookInputModel, Book
                 .title(source.getTitle())
                 .inventoryNumber(source.getInventoryNumber())
                 .price(source.getPrice())
-                .quantity(source.getQuantity())
                 .path(source.getPath())
+                .bookStatusBeforeBorrow(BookStatus.GOOD)
+                .bookStatusAfterBorrow(BookStatus.GOOD)
                 .build();
     }
 }

@@ -18,7 +18,6 @@ public class FromBooksToBooksData implements Converter<Book, BooksData> {
                 .title(source.getTitle())
                 .genre(source.getGenre())
                 .publisher(source.getPublisher())
-                .quantity(source.getQuantity())
                 .location(source.getLocation())
                 .authors(source.getAuthors())
                 .build();

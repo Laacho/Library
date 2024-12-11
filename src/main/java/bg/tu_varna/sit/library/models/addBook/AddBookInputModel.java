@@ -21,7 +21,6 @@ public class AddBookInputModel implements OperationInput {
     private String publisher;
     private String inventoryNumber;
     private BigDecimal price;
-    private Long quantity;
     private Long row;
     private String path;
 

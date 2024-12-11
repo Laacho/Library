@@ -19,7 +19,6 @@ public class BorrowedBooks {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @PastOrPresent
     @Column(nullable = false, name = "borrowing_date")
     private LocalDate borrowingDate;
@@ -41,12 +40,7 @@ public class BorrowedBooks {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "book_status_before_borrow")
-    private BookStatus bookStatusBeforeBorrow;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "book_status_after_borrow")
-    private BookStatus bookStatusAfterBorrow;
+
 
 
 }

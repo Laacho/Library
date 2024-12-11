@@ -63,8 +63,6 @@ public class AddBookController extends Controller {
     @FXML
     private TextField price;
     @FXML
-    private TextField quantity;
-    @FXML
     private ComboBox<Long> locationRow;
 
     @FXML
@@ -163,7 +161,6 @@ public class AddBookController extends Controller {
         publisher.setText("");
         inventoryNumber.setText("");
         price.setText("");
-        quantity.setText("");
     }
 
     @NotNull
@@ -198,7 +195,6 @@ public class AddBookController extends Controller {
                 .publisher(publisher.getText())
                 .inventoryNumber(inventoryNumber.getText())
                 .price(BigDecimal.valueOf(Double.parseDouble(price.getText())))
-                .quantity(Long.valueOf(quantity.getText()))
                 .row(locationRow.getSelectionModel().getSelectedItem())
                 .path(pathFromUser)
                 .build();
