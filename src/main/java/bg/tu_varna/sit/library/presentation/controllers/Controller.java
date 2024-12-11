@@ -70,8 +70,9 @@ public class Controller {
     }
 
     @FXML
-    public void updateStatus(ActionEvent actionEvent) {
-        //todo
+    public void updateStatus(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/update_status/pages/update_status_view.fxml");
+        changeScene(actionEvent);
     }
 
     @FXML
