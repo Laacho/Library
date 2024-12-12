@@ -21,11 +21,11 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String isbn;
     @Column(nullable = false)
     private String title;
-    @Column(nullable = false,name = "inventory_number")
+    @Column(nullable = false, unique = true, name = "inventory_number")
     private String inventoryNumber;
     @Column(nullable = false)
     @Digits(integer = 3, fraction = 2)

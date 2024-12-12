@@ -46,7 +46,7 @@ public class AddBookProcessor extends BaseProcessor implements AddBookOperationM
                                 inputAuthors.remove(author);
                             }
                         }
-                        for (Author author : setAuthors) {
+                        for (Author author : inputAuthors) {
                             Long id = authorRepository.save(author);
                             Author tempAuthor = authorRepository.findById(id).get();
                             setAuthors.add(tempAuthor);

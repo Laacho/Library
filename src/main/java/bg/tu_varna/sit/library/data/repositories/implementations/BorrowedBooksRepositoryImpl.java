@@ -11,10 +11,16 @@ import org.hibernate.Transaction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @Singleton
 public class BorrowedBooksRepositoryImpl implements BorrowedBooksRepository {
     private static final Logger log = Logger.getLogger(BorrowedBooksRepositoryImpl.class);
-    private BorrowedBooksRepositoryImpl(){};
+
+    private BorrowedBooksRepositoryImpl() {
+    }
+
+    ;
+
     @Override
     public Long save(BorrowedBooks entity) {
         Session session = Connection.openSession();
@@ -24,9 +30,9 @@ public class BorrowedBooksRepositoryImpl implements BorrowedBooksRepository {
             result = (Long) session.save(entity);
             transaction.commit();
             log.info("Successfully saved entity: " + entity);
-        }catch (Exception ex){
-            log.error("Error while saving entity" + entity,ex);
-        }finally {
+        } catch (Exception ex) {
+            log.error("Error while saving entity" + entity, ex);
+        } finally {
             session.close();
         }
         return result;
@@ -42,9 +48,9 @@ public class BorrowedBooksRepositoryImpl implements BorrowedBooksRepository {
             }
             transaction.commit();
             log.info("Successfully saved entities: " + entities);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Error while saving entities" + entities);
-        }finally {
+        } finally {
             session.close();
         }
     }
@@ -59,10 +65,10 @@ public class BorrowedBooksRepositoryImpl implements BorrowedBooksRepository {
             result = Optional.of(session.createQuery(jpql, BorrowedBooks.class)
                     .setParameter("id", id)
                     .getSingleResult());
-           transaction.commit();
+            transaction.commit();
             log.info("Successfully find entity by id: " + id);
         } catch (Exception ex) {
-            log.error("Error while fetching entity by id" + id,ex);
+            log.error("Error while fetching entity by id" + id, ex);
         } finally {
             session.close();
         }
@@ -103,10 +109,24 @@ public class BorrowedBooksRepositoryImpl implements BorrowedBooksRepository {
             transaction.commit();
             log.info("Successfully deleted entity by id: " + id);
         } catch (Exception ex) {
-            log.error("Error while deleting entity by id" + id,ex);
+            log.error("Error while deleting entity by id" + id, ex);
         } finally {
             session.close();
         }
         return result;
+    }
+
+    @Override
+    public void update(BorrowedBooks books) {
+        Session session = Connection.openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(books);
+            transaction.commit();
+        } catch (Exception ex) {
+            log.error("Error while updating entity");
+        } finally {
+            session.close();
+        }
     }
 }
