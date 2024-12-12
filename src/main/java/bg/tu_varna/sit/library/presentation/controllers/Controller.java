@@ -76,8 +76,9 @@ public class Controller {
     }
 
     @FXML
-    public void approveBooks(ActionEvent actionEvent) {
-        //todo
+    public void approveBooks(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/approve_books/pages/approve -books-view.fxml");
+        changeScene(actionEvent);
     }
 
     @FXML

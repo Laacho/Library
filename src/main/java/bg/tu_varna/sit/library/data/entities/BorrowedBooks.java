@@ -26,15 +26,15 @@ public class BorrowedBooks {
     @Column(nullable = false, name = "return_date")
     private LocalDate returnDate;
     @PastOrPresent
-    @Column(nullable = false, name = "return_deadline")
+    @Column(name = "return_deadline")
     private LocalDate returnDeadline;
     @Column(name = "is_request_approved")
     private Boolean isRequestApproved;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "borrowed_books_to_books",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "reader_profile_id")
+            joinColumns = @JoinColumn(name = "borrowed_book_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id")
     )
     private Set<Book> borrowedBooks;
     @ManyToOne
