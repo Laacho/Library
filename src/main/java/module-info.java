@@ -13,7 +13,6 @@ module bg.tu_varna.sit.library {
     requires org.hibernate.orm.core;
     requires java.persistence;
     requires static lombok;
-    requires java.naming;
     requires annotations;
     requires java.validation;
     requires log4j;

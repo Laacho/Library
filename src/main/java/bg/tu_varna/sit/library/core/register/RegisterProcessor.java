@@ -19,6 +19,7 @@ import io.vavr.control.Either;
 import io.vavr.control.Try;
 
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 
 @Processor
@@ -40,12 +41,12 @@ public class RegisterProcessor extends BaseProcessor implements RegisterOperatio
                     checkForExistingUsername(input);
                     User build = conversionService.convert(input, User.class);
                     Long id = userRepository.save(build);
-                    User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException());
+                    User user = userRepository.findById(id).get();
                     UserCredentials converted = conversionService.convert(input, UserCredentials.class);
                     String verificationCode = EmailService.generateVerificationCode();
                     UserCredentials userCredentials = buildUserCredentialsWithUserAndVerificationCode(converted, user, verificationCode);
                     userCredentialsRepository.save(userCredentials);
-                    EmailService.sendMail(userCredentials.getEmail(), verificationCode);
+                    CompletableFuture.runAsync(()->EmailService.sendMail(userCredentials.getEmail(),verificationCode));
                     UserSession userSession = conversionService.convert(userCredentials, UserSession.class);
                     SingletonFactory.add(UserSession.class,userSession);
                     return conversionService.convert("Successfully", RegisterOutputModel.class);
