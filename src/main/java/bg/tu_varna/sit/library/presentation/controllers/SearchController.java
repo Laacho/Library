@@ -1,21 +1,15 @@
 package bg.tu_varna.sit.library.presentation.controllers;
 
-import bg.tu_varna.sit.library.core.client.SearchProcessor;
-import bg.tu_varna.sit.library.data.entities.Book;
+import bg.tu_varna.sit.library.core.search.SearchProcessor;
 import bg.tu_varna.sit.library.models.search.SearchInputModel;
 import bg.tu_varna.sit.library.models.search.SearchOperationModel;
 import bg.tu_varna.sit.library.models.search.SearchOutputModel;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import io.vavr.control.Either;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
-import java.io.IOException;
 
 
 public class SearchController extends Controller {

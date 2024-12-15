@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane stylesheets="@../css/table.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="895.0" style="-fx-background-color: rgba(23,132,245,0.58);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.UsersTableViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="752.0" style="-fx-background-color: rgba(23,132,245,0.58);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.ReturnBookController">
     <children>
         <AnchorPane layoutX="-7.0" layoutY="-9.0" prefHeight="611.0" prefWidth="143.0"
                     style="-fx-background-color: rgb(252,252,252);">
@@ -41,14 +41,17 @@
                         prefHeight="46.0" prefWidth="91.0" text="Send&#10;Email&#10;&#10;" textAlignment="CENTER"/>
             </children>
         </AnchorPane>
-        <Label fx:id="welcomeText" layoutX="401.0" layoutY="33.0" prefHeight="38.0" prefWidth="292.0" text="Нови книги">
+        <Label fx:id="welcomeText" layoutX="155.0" layoutY="33.0" prefHeight="38.0" prefWidth="292.0" text="Търси потребител">
             <font>
                 <Font size="26.0" />
             </font>
         </Label>
-      <TableView fx:id="tableView" layoutX="147.0" layoutY="103.0" prefHeight="387.0" prefWidth="700.0">
-         <columns>
-            <TableColumn prefWidth="75.0" text="Column X" />
-         </columns></TableView>
+      <TextField fx:id="searchTextField" layoutX="155.0" layoutY="80.0" prefHeight="25.0" prefWidth="194.0" />
+      <Button onAction="#searchUser" layoutX="363.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Search" />
+      <TableView fx:id="tableView" layoutX="147.0" layoutY="126.0" prefHeight="315.0" prefWidth="589.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+        </columns>
+      </TableView>
     </children>
 </AnchorPane>

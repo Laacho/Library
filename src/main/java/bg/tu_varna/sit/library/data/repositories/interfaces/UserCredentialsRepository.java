@@ -1,5 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.interfaces;
 
+import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 
 import java.util.List;
@@ -10,5 +11,6 @@ public interface UserCredentialsRepository extends GenericRepository<UserCredent
     Optional<UserCredentials> findByEmail(String email);
     void update(UserCredentials userCredentials);
     List<UserCredentials> findAllUsers();
+    Optional<UserCredentials> findByUser(User user);
 
 }

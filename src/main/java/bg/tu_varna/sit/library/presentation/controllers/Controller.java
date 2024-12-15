@@ -92,8 +92,9 @@ public class Controller {
     }
 
     @FXML
-    public void returnBooks(ActionEvent actionEvent) {
-        /// TODO: 10.12.2024 г.
+    public void returnBooks(ActionEvent actionEvent) throws IOException {
+       setPath("/bg/tu_varna/sit/library/presentation.views/return_book_view/pages/return-books.fxml");
+       changeScene(actionEvent);
     }
 
     @FXML

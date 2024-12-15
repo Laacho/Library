@@ -1,4 +1,4 @@
-package bg.tu_varna.sit.library.core.client;
+package bg.tu_varna.sit.library.core.search;
 
 import bg.tu_varna.sit.library.core.BaseProcessor;
 import bg.tu_varna.sit.library.data.entities.Book;

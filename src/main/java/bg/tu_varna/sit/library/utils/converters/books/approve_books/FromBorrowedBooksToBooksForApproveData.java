@@ -1,4 +1,4 @@
-package bg.tu_varna.sit.library.utils.converters.approve_books;
+package bg.tu_varna.sit.library.utils.converters.books.approve_books;
 
 import bg.tu_varna.sit.library.data.entities.BorrowedBooks;
 import bg.tu_varna.sit.library.models.approve_books.BooksForApproveData;

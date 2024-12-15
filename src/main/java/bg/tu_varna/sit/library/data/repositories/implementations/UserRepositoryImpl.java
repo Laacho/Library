@@ -110,4 +110,18 @@ public class UserRepositoryImpl implements UserRepository {
         }
         return result;
     }
+
+    @Override
+    public void update(User user) {
+        Session session = Connection.openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(user);
+            transaction.commit();
+        } catch (Exception ex) {
+
+        } finally {
+            session.close();
+        }
+    }
 }
