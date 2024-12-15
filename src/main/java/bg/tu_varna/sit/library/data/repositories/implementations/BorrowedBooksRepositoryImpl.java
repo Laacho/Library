@@ -1,5 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
+import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.BorrowedBooksRepository;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
@@ -8,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,8 +20,6 @@ public class BorrowedBooksRepositoryImpl implements BorrowedBooksRepository {
 
     private BorrowedBooksRepositoryImpl() {
     }
-
-    ;
 
     @Override
     public Long save(BorrowedBooks entity) {
@@ -128,5 +128,47 @@ public class BorrowedBooksRepositoryImpl implements BorrowedBooksRepository {
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public List<BorrowedBooks> findByUser(User user) {
+        Session session = Connection.openSession();
+        Transaction transaction = session.beginTransaction();
+        List<BorrowedBooks> list = new ArrayList<>();
+        try {
+            String jpql = "SELECT r FROM BorrowedBooks r where r.user = :user";
+            list.addAll(session.createQuery(jpql, BorrowedBooks.class)
+                    .setParameter("user", user).
+                    getResultList());
+            transaction.commit();
+            log.info("Successfully find entities: " + list);
+        } catch (Exception ex) {
+            log.error("Error while fetching entities" + list);
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+
+    @Override
+    public Optional<BorrowedBooks> findByUserAndBorrowedDateAndReturnDate(User user, LocalDate borrowedDate, LocalDate returnDate) {
+        Session session = Connection.openSession();
+        Transaction transaction = session.beginTransaction();
+        Optional<BorrowedBooks> result = Optional.empty();
+        try {
+            String jpql = "SELECT r FROM BorrowedBooks r WHERE r.user = :user and r.borrowingDate = :borrowedDate and r.returnDate= :returnDate";
+            result = Optional.of(session.createQuery(jpql, BorrowedBooks.class)
+                    .setParameter("user", user)
+                    .setParameter("borrowedDate", borrowedDate)
+                    .setParameter("returnDate", returnDate)
+                    .getSingleResult());
+            transaction.commit();
+            log.info("Successfully find entity by user: " + user);
+        } catch (Exception ex) {
+            log.error("Error while fetching entity by user" + user, ex);
+        } finally {
+            session.close();
+        }
+        return result;
     }
 }

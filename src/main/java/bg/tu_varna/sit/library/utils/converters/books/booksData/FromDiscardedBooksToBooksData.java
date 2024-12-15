@@ -1,4 +1,4 @@
-package bg.tu_varna.sit.library.utils.converters.books;
+package bg.tu_varna.sit.library.utils.converters.books.booksData;
 
 import bg.tu_varna.sit.library.data.entities.DiscardedBooks;
 import bg.tu_varna.sit.library.models.discarded_books.BooksData;

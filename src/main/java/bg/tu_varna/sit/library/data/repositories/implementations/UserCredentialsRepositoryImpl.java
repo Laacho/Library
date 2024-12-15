@@ -1,5 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
+import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
@@ -184,5 +185,24 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
             session.close();
         }
         return list;
+    }
+
+    @Override
+    public Optional<UserCredentials> findByUser(User user) {
+        Session session = Connection.openSession();
+        Transaction transaction = session.beginTransaction();
+        Optional<UserCredentials> result = Optional.empty();
+        try {
+            String jpql = "SELECT u FROM UserCredentials u WHERE u.user = :user";
+            result = Optional.of(session.createQuery(jpql, UserCredentials.class)
+                    .setParameter("user", user)
+                    .getSingleResult());
+            transaction.commit();
+        } catch (Exception ex) {
+
+        } finally {
+            session.close();
+        }
+        return result;
     }
 }
