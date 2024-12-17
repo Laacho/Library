@@ -10,5 +10,5 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReturnBooksInputModel implements OperationInput {
-    private Long userId;
+    private String username;
 }

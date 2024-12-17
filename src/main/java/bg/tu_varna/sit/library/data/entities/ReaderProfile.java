@@ -19,9 +19,11 @@ import java.util.Set;
 @Builder(toBuilder = true)
 public class ReaderProfile implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @OneToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user_id;
+    private User userId;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "reader_profile_to_books", joinColumns = @JoinColumn(name = "reader_profile_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
     private Set<Book> favoriteBooks;
@@ -30,7 +32,7 @@ public class ReaderProfile implements Serializable {
     private Set<Book> wantToRead;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "reader_profile_to_read_books", joinColumns = @JoinColumn(name = "reader_profile_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
-    private List<Book> readBooks;
+    private Set<Book> readBooks;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "reader_profile_to_authors", joinColumns = @JoinColumn(name = "reader_profile_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> favoriteAuthors;

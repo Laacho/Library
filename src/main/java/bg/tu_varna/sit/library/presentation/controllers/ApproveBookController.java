@@ -13,9 +13,11 @@ import bg.tu_varna.sit.library.models.update_borrowed_books.UpdateBorrowedBooksO
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import io.vavr.control.Either;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,6 +26,7 @@ import javafx.stage.Stage;
 import lombok.SneakyThrows;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
@@ -80,14 +83,23 @@ public class ApproveBookController extends Controller implements Initializable {
                 }
                 alreadyApprovedBooks.add(next.getInventoryNumber());
                 setToSetInTheSet.add(next);
-                if(booksWithSameISBN.containsKey(next.getIsbn())) {
+                if (booksWithSameISBN.containsKey(next.getIsbn())) {
                     booksWithSameISBN.get(next.getIsbn()).remove(next);
                 }
                 setData(next, booksForApproveData);
 
             }
-        }else {
-            AlertManager.showAlert(Alert.AlertType.ERROR,"Empty","There is nothing to approve",ButtonType.OK);
+        } else {
+            AlertManager.showAlert(Alert.AlertType.ERROR, "Empty", "There is nothing to approve", ButtonType.OK);
+            Platform.runLater(() -> {
+                Stage curStage = (Stage) (title.getScene().getWindow());
+                setPath("/bg/tu_varna/sit/library/presentation.views/admin_home_view/pages/admin-home-view.fxml");
+                try {
+                    changeScene(curStage);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         }
     }
 
@@ -156,8 +168,8 @@ public class ApproveBookController extends Controller implements Initializable {
                 Book bookLocal = booksLocal.get(0);
                 booksWithSameISBN.get(next.getIsbn()).remove(0);
                 next = bookLocal;
-            }else{
-                AlertManager.showAlert(Alert.AlertType.ERROR,"Already exists","Nyama nalichnost",ButtonType.OK);
+            } else {
+                AlertManager.showAlert(Alert.AlertType.ERROR, "Already exists", "Nyama nalichnost", ButtonType.OK);
                 decline();
                 return;
             }
