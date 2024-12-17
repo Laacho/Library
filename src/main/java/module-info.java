@@ -23,6 +23,7 @@ module bg.tu_varna.sit.library {
     requires org.reflections;
     requires java.desktop;
     requires java.sql;
+    requires java.naming;
 
     exports bg.tu_varna.sit.library.application;
     opens bg.tu_varna.sit.library.application to javafx.fxml;

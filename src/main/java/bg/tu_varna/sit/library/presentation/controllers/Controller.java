@@ -98,8 +98,9 @@ public class Controller {
     }
 
     @FXML
-    public void sendEmail(ActionEvent actionEvent) {
-        //todo
+    public void sendEmail(ActionEvent actionEvent) throws IOException{
+        setPath("/bg/tu_varna/sit/library/presentation.views/send_email_view/pages/send_email_view.fxml");
+        changeScene(actionEvent);
     }
 
 }
