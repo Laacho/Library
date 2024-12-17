@@ -37,8 +37,8 @@ public class Controller {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
         root = loader.load();
         stage = st;
-        stage.setMaxHeight(600);
-        stage.setMaxWidth(1000);
+        stage.setMaxHeight(640);
+        stage.setMaxWidth(900);
         scene = new Scene(root, stage.getMaxWidth(), stage.getMaxHeight());
         stage.setScene(scene);
         stage.setResizable(false);
@@ -51,6 +51,7 @@ public class Controller {
         setPath("/bg/tu_varna/sit/library/presentation.views/hello_view/pages/hello-view.fxml");
         changeScene(actionEvent);
     }
+
     @FXML
     public void homeAdmin(ActionEvent actionEvent) throws IOException {
         setPath("/bg/tu_varna/sit/library/presentation.views/admin_home_view/pages/admin-home-view.fxml");
@@ -82,19 +83,21 @@ public class Controller {
     }
 
     @FXML
-    public void approveProfiles(ActionEvent actionEvent) {
-    //todo
+    public void approveProfiles(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/approve_profiles_view/pages/approve-profiles.fxml");
+        changeScene(actionEvent);
     }
 
     @FXML
-    public void overdueBooks(ActionEvent actionEvent) {
-        /// TODO: 10.12.2024 г.
+    public void overdueBooks(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/overdue_books_view/pages/overdue-books.fxml");
+        changeScene(actionEvent);
     }
 
     @FXML
     public void returnBooks(ActionEvent actionEvent) throws IOException {
-       setPath("/bg/tu_varna/sit/library/presentation.views/return_book_view/pages/return-books.fxml");
-       changeScene(actionEvent);
+        setPath("/bg/tu_varna/sit/library/presentation.views/return_book_view/pages/return-books.fxml");
+        changeScene(actionEvent);
     }
 
     @FXML

@@ -60,16 +60,16 @@ public class ReturnBookController extends Controller {
 
     @FXML
     public void searchUser(ActionEvent actionEvent) {
-        String id = searchTextField.getText();
-        if (id.isEmpty() || !checkForValidId(id)) {
-            AlertManager.showAlert(Alert.AlertType.ERROR, "It's empty", "The id can not be empty! Please enter valid id!", ButtonType.OK);
+        String username = searchTextField.getText();
+        if (username.isEmpty() || !checkForValidId(username)) {
+            AlertManager.showAlert(Alert.AlertType.ERROR, "It's empty", "The username can not be empty! Please enter valid username!", ButtonType.OK);
             return;
         }
-        Either<Exception, ReturnBooksOutputModel> process = returnBooksProcessor.process(ReturnBooksInputModel.builder().userId(Long.parseLong(id)).build());
+        Either<Exception, ReturnBooksOutputModel> process = returnBooksProcessor.process(ReturnBooksInputModel.builder().username(username).build());
         if (process.isRight()) {
             ReturnBooksOutputModel returnBooksOutputModel = process.get();
             List<BooksForReturn> booksForReturns = returnBooksOutputModel.getBooksForReturns();
-            setTableData(id, booksForReturns);
+            setTableData(username, booksForReturns);
         }
 
     }

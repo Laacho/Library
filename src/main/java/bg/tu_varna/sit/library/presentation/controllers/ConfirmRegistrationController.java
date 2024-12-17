@@ -41,7 +41,6 @@ public class ConfirmRegistrationController extends Controller {
     public void handleKeyReleased(KeyEvent event) {
         TextField source = (TextField) event.getSource();
         if (!source.getText().isEmpty()) {
-            stringBuilder.append(source.getText());
             switchFocus(source);
         }
     }
@@ -62,6 +61,12 @@ public class ConfirmRegistrationController extends Controller {
 
     @FXML
     public void confirm(ActionEvent actionEvent) throws IOException {
+        stringBuilder.append(textFieldFirst.getText())
+                .append(textFieldSecond.getText())
+                .append(textFieldThird.getText())
+                .append(textFieldForth.getText())
+                .append(textFieldFifth.getText())
+                .append(textFieldSixth.getText());
         ConfirmRegistrationInputModel build = ConfirmRegistrationInputModel.builder().
                 verificationCode(stringBuilder.toString())
                 .build();

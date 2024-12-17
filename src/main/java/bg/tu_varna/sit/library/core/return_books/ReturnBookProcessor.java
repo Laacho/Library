@@ -3,6 +3,7 @@ package bg.tu_varna.sit.library.core.return_books;
 import bg.tu_varna.sit.library.core.BaseProcessor;
 import bg.tu_varna.sit.library.data.entities.BorrowedBooks;
 import bg.tu_varna.sit.library.data.entities.User;
+import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.implementations.BorrowedBooksRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentialsRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserRepositoryImpl;
@@ -26,16 +27,19 @@ import java.util.List;
 public class ReturnBookProcessor extends BaseProcessor implements ReturnBooksOperationModel {
     private final BorrowedBooksRepository borrowedBooksRepository;
     private final UserRepository userRepository;
+    private final UserCredentialsRepository userCredentialsRepository;
 
     private ReturnBookProcessor() {
         borrowedBooksRepository = SingletonFactory.getSingletonInstance(BorrowedBooksRepositoryImpl.class);
         userRepository = SingletonFactory.getSingletonInstance(UserRepositoryImpl.class);
+        userCredentialsRepository = SingletonFactory.getSingletonInstance(UserCredentialsRepositoryImpl.class);
     }
 
     @Override
     public Either<Exception, ReturnBooksOutputModel> process(ReturnBooksInputModel input) {
         return Try.of(() -> {
-                    User user = userRepository.findById(input.getUserId()).orElseThrow(() -> new RuntimeException());//todo
+                    UserCredentials userCredentials = userCredentialsRepository.findByUsername(input.getUsername()).orElseThrow(() -> new RuntimeException());
+                    User user = userCredentials.getUser();
                     List<BorrowedBooks> borrowedBooks = borrowedBooksRepository.findByUser(user);
                     List<BooksForReturn> booksForReturns = getBooksForReturns(borrowedBooks);
                     return ReturnBooksOutputModel.builder().booksForReturns(booksForReturns).build();
