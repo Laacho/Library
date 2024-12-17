@@ -16,7 +16,7 @@ public class EmailService {
             .withSMTPServer("smtp.gmail.com", 587, SENDER_EMAIL, APP_PASSWORD)
             .withTransportStrategy(org.simplejavamail.api.mailer.config.TransportStrategy.SMTP_TLS)
             .buildMailer();
-   public static final  String header= "<html>" +
+   public static final  String headerWithVerificationCode = "<html>" +
             "<body style='margin: 0; padding: 0; font-family: Arial, sans-serif; background: linear-gradient(to bottom, #87CEEB, #FFFFFF); color: #333;'>" +
             "   <div style='max-width: 600px; margin: 20px auto; background: #FFFFFF; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); overflow: hidden;'>" +
             "       <header style='background: #4682B4; color: white; text-align: center; padding: 20px;'>" +
@@ -38,11 +38,55 @@ public class EmailService {
             "</body>" +
             "</html>";
 
+   public static final String headerWithMessage= """
+           <html>
+           <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background: linear-gradient(to bottom, #87CEEB, #FFFFFF); color: #333;">
+               <div style="max-width: 600px; margin: 20px auto; background: #FFFFFF; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); overflow: hidden;">
+                   <header style="background: #4682B4; color: white; text-align: center; padding: 20px;">
+                       <h1 style="margin: 0; font-size: 24px;">{{messageTitle}}</h1>
+                   </header>
+                   <div style="padding: 20px; text-align: center;">
+                       <p style="font-size: 16px; color: #555;"> This message was sent by the admin.</p>
+                       <div style="margin: 20px 0; padding: 15px; background: #87CEEB; color: white; font-size: 16px; border-radius: 5px; font-weight: bold;">
+                          {{messageContent}}
+                       </div>
+                       <p style="font-size: 14px; color: #888;">If you have any questions, please contact support.</p>
+                   </div>
+                   <footer style="background: #F0F8FF; color: #888; text-align: center; font-size: 12px; padding: 10px;">
+                       <p style="margin: 0;">This is an automated message. Please do not reply.</p>
+                       <p style="margin: 0;">© 2024 Library</p>
+                   </footer>
+               </div>
+           </body>
+           </html>
+           """;
+
     public static void sendMail(String recipientEmail,String verificationCode) {
         String htmlContent = buildHTMLContent(verificationCode);
         Email email = buildEmail(recipientEmail, htmlContent);
         MAILER.sendMail(email);
     }
+    public static void sendContactMail(String recipientEmail,String title,String body) {
+        String htmlContent = buildHTMLContentWithMessage(title, body);
+        Email email=buildEmailWithMessage(recipientEmail,htmlContent);
+        MAILER.sendMail(email);
+    }
+
+    private static Email buildEmailWithMessage(String recipientEmail, String htmlContent) {
+        return EmailBuilder.startingBlank()
+                .from("Library",SENDER_EMAIL)
+                .to(recipientEmail)
+                .withSubject("Contact Email")
+                .withHTMLText(htmlContent)
+                .buildEmail();
+    }
+
+    private static String buildHTMLContentWithMessage(String title, String body) {
+       return headerWithMessage
+               .replace("{{messageTitle}}", title)
+               .replace("{{messageContent}}", body);
+    }
+
 
     private static Email buildEmail(String recipientEmail, String htmlContent) {
         return EmailBuilder.startingBlank()
@@ -54,7 +98,7 @@ public class EmailService {
        }
 
     private static @NotNull String buildHTMLContent(String verificationCode) {
-       return header.replace("{{verificationCode}}", verificationCode);
+       return headerWithVerificationCode.replace("{{verificationCode}}", verificationCode);
     }
 
     public static String generateVerificationCode() {
