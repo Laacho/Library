@@ -113,4 +113,23 @@ public class NotificationRepositoryImpl implements NotificationRepository {
         }
         return result;
     }
+
+    @Override
+    public List<Notification> findAllAdminNotification() {
+        Session session = Connection.openSession();
+        Transaction transaction = session.beginTransaction();
+        List<Notification> list = new ArrayList<>();
+        try {
+            String jpql = "SELECT n FROM Notification n where n.isAdmin = true";
+            list.addAll(session.createQuery(jpql, Notification.class).getResultList());
+            transaction.commit();
+
+            log.info("Successfully found entities");
+        } catch (Exception ex) {
+            log.error("Error while finding entities", ex);
+        } finally {
+            session.close();
+        }
+        return list;
+    }
 }

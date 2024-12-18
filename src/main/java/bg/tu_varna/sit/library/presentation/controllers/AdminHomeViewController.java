@@ -84,5 +84,9 @@ public class AdminHomeViewController extends Controller implements Initializable
         changeScene(actionEvent);
     }
 
-
+    @FXML
+    public void notification(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/notification_view/pages/notification-view.fxml");
+        changeScene(actionEvent);
+    }
 }

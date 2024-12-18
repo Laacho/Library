@@ -1,14 +1,13 @@
 package bg.tu_varna.sit.library.utils.session;
 
+import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import lombok.*;
 import java.time.LocalDate;
 
 @Getter
 @Setter
-@Builder(toBuilder = true)
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
+@Singleton
 public class UserSession {
     private String firstName;
     private String lastName;
@@ -21,4 +20,5 @@ public class UserSession {
     private String email;
     private Boolean admin;
     private Double rating;
+    private UserSession() {}
 }
