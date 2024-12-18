@@ -17,6 +17,7 @@ import bg.tu_varna.sit.library.models.register.RegisterOutputModel;
 import bg.tu_varna.sit.library.utils.session.UserSession;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -46,13 +47,29 @@ public class RegisterProcessor extends BaseProcessor implements RegisterOperatio
                     String verificationCode = EmailService.generateVerificationCode();
                     UserCredentials userCredentials = buildUserCredentialsWithUserAndVerificationCode(converted, user, verificationCode);
                     userCredentialsRepository.save(userCredentials);
-                    CompletableFuture.runAsync(()->EmailService.sendMail(userCredentials.getEmail(),verificationCode));
-                    UserSession userSession = conversionService.convert(userCredentials, UserSession.class);
-                    SingletonFactory.add(UserSession.class,userSession);
+                    CompletableFuture.runAsync(() -> EmailService.sendMail(userCredentials.getEmail(), verificationCode));
+                    buildUserSession(userCredentials);
                     return conversionService.convert("Successfully", RegisterOutputModel.class);
                 }).toEither()
                 .mapLeft(exceptionManager::handle);
 
+    }
+
+    @NotNull
+    private UserSession buildUserSession(UserCredentials userCredentials) {
+        UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
+        userSession.setAdmin(userCredentials.getAdmin());
+        userSession.setEmail(userCredentials.getEmail());
+        userSession.setUsername(userCredentials.getUsername());
+        userSession.setBirthdate(userCredentials.getUser().getBirthdate());
+        userSession.setPassword(userCredentials.getPassword());
+        userSession.setRating(userCredentials.getRating());
+        userSession.setFirstName(userCredentials.getUser().getFirstName());
+        userSession.setLastName(userCredentials.getUser().getLastName());
+        userSession.setVerified(userCredentials.getVerified());
+        userSession.setDateOfVerification(userCredentials.getDateOfVerification());
+        userSession.setVerificationCode(userCredentials.getVerificationCode());
+        return userSession;
     }
 
     private UserCredentials buildUserCredentialsWithUserAndVerificationCode(UserCredentials converted, User user, String verificationCode) {

@@ -19,6 +19,7 @@ public class AdminHelloViewProcessor extends BaseProcessor implements AdminHomeV
     private final ArchivedRepository archivedRepository;
     private final BorrowedBooksRepository borrowedBooksRepository;
     private final BookRepository bookRepository;
+    private final NotificationRepository notificationRepository;
     private static final Logger log = Logger.getLogger(AdminHelloViewProcessor.class);
 
 
@@ -29,6 +30,7 @@ public class AdminHelloViewProcessor extends BaseProcessor implements AdminHomeV
         archivedRepository = SingletonFactory.getSingletonInstance(ArchivedRepositoryImpl.class);
         discardedBooksRepository = SingletonFactory.getSingletonInstance(DiscardedBooksRepositoryImpl.class);
         userCredentialsRepository = SingletonFactory.getSingletonInstance(UserCredentialsRepositoryImpl.class);
+        notificationRepository = SingletonFactory.getSingletonInstance(NotificationRepositoryImpl.class);
     }
 
     @Override
@@ -40,12 +42,14 @@ public class AdminHelloViewProcessor extends BaseProcessor implements AdminHomeV
                     int countArchivedBooks = archivedRepository.findAll().size();
                     int countReaderProfiles = borrowedBooksRepository.findAll().size();
                     int countUsers = userCredentialsRepository.findAllUsers().size();
+                    int countNotification = notificationRepository.findAllAdminNotification().size();
                     AdminHomeViewOutputModel outputModel = AdminHomeViewOutputModel.builder()
                             .countUsers(countUsers)
                             .countAllBooks(countAllBooks)
                             .countArchivedBooks(countArchivedBooks)
                             .countDiscardedBooks(countDiscardedBooks)
                             .countReadersProfiles(countReaderProfiles)
+                            .countNotifications(countNotification)
                             .build();
                     log.info("end "+outputModel);
                     return outputModel;

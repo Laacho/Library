@@ -51,7 +51,7 @@
         </Label>
         <Button fx:id="usersButton" layoutX="321.0" layoutY="143.0" mnemonicParsing="false" onAction="#usersTableView"
                 prefHeight="93.0" prefWidth="142.0" text="users"/>
-        <Button fx:id="notificationButton" layoutX="543.0" layoutY="143.0" mnemonicParsing="false" prefHeight="93.0"
+        <Button onAction="#notification" fx:id="notificationButton" layoutX="543.0" layoutY="143.0" mnemonicParsing="false" prefHeight="93.0"
                 prefWidth="142.0" text="notifications"/>
         <Button fx:id="allBooksButton" layoutX="321.0" layoutY="253.0" mnemonicParsing="false" onAction="#allBooks"
                 prefHeight="93.0" prefWidth="142.0" text="all books"/>
