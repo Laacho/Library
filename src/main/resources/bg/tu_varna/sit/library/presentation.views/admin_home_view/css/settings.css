@@ -1,0 +1,16 @@
+.settings-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-text-fill: inherit;
+    -fx-effect: null;
+}
+.settings-button:hover {
+    -fx-cursor:hand;
+}
+
+

@@ -23,7 +23,7 @@ public class UserCredentials {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String username;
     @Column(nullable = false)
     private String password;
@@ -43,6 +43,4 @@ public class UserCredentials {
     @Max(value = 10)
     @Digits(integer = 1, fraction = 1)
     private Double rating;
-
-
 }
