@@ -62,7 +62,7 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
         Transaction transaction = session.beginTransaction();
         Optional<UserCredentials> result = Optional.empty();
         try {
-            String jpql = "SELECT u FROM User u WHERE u.id = :id";
+            String jpql = "SELECT u FROM UserCredentials u WHERE u.id = :id";
             result = Optional.of(session.createQuery(jpql, UserCredentials.class)
                     .setParameter("id", id)
                     .getSingleResult());

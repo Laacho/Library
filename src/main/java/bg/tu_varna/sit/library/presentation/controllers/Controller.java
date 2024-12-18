@@ -106,4 +106,9 @@ public class Controller {
         changeScene(actionEvent);
     }
 
+    @FXML
+    public void changeToSetting(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/settings/pages/settings_view.fxml");
+        changeScene(actionEvent);
+    }
 }

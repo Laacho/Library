@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+<AnchorPane stylesheets="@../css/settings.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
             prefWidth="752.0" style="-fx-background-color: rgba(23,132,245,0.58);"
             xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="bg.tu_varna.sit.library.presentation.controllers.AdminHomeViewController">
@@ -63,7 +63,15 @@
                 prefWidth="142.0" text="readers' profiles"/>
         <Button fx:id="logoutButton" layoutX="639.0" layoutY="20.0" mnemonicParsing="false" prefHeight="46.0"
                 prefWidth="91.0" text="Logout"/>
-        <Button fx:id="settings" layoutX="543.0" layoutY="20.0" mnemonicParsing="false" onAction="#addBook"
-                prefHeight="46.0" prefWidth="91.0" text="Settings&#10;&#10;" textAlignment="CENTER"/>
+        <Button fx:id="settings" layoutX="543.0" layoutY="20.0" mnemonicParsing="false" onAction="#changeToSetting"
+                prefHeight="46.0" prefWidth="91.0" textAlignment="CENTER"  styleClass="settings-button" stylesheets="@../css/settings.css">
+        <graphic>
+            <ImageView fitHeight="30" fitWidth="30">
+                <image>
+                    <Image url="@../images/settings.png" />
+                </image>
+            </ImageView>
+        </graphic>
+        </Button>
     </children>
 </AnchorPane>
