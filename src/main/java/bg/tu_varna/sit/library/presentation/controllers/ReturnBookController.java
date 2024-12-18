@@ -61,7 +61,7 @@ public class ReturnBookController extends Controller {
     @FXML
     public void searchUser(ActionEvent actionEvent) {
         String username = searchTextField.getText();
-        if (username.isEmpty() || !checkForValidId(username)) {
+        if (username.isEmpty()) {
             AlertManager.showAlert(Alert.AlertType.ERROR, "It's empty", "The username can not be empty! Please enter valid username!", ButtonType.OK);
             return;
         }
@@ -75,7 +75,7 @@ public class ReturnBookController extends Controller {
     }
 
     private void setTableData(String id, List<BooksForReturn> booksForReturns) {
-        user = new TableColumn<>("Потребител No");
+        user = new TableColumn<>("Потребителско име");
         user.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(id));
         borrowedDate = new TableColumn<>("Дата на вземане");
@@ -147,14 +147,5 @@ public class ReturnBookController extends Controller {
                 .reduce((b1, b2) -> b1 + "\n" + b2)
                 .orElse("");
         return booksText;
-    }
-
-    private boolean checkForValidId(String id) {
-        try {
-            Long.parseLong(id);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
     }
 }
