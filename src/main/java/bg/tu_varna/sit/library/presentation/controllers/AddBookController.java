@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,25 +28,23 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
+import java.util.ResourceBundle;
 import java.util.Set;
 
-public class AddBookController extends Controller {
+public class AddBookController extends Controller{
     private final AddBookOperationModel addBookOperation;
     private final CheckGenreOperationModel checkGenreOperation;
+    @FXML
+    private Label shelfLabel;
     @FXML
     private ImageView imageView;
     @FXML
     private TextField authorsEntry;
-    @FXML
-    private Button editButton;
-    @FXML
-    private Button clearButton;
-    @FXML
-    private Button removeButton;
     @FXML
     private Button addButton;
     @FXML
@@ -64,17 +63,17 @@ public class AddBookController extends Controller {
     private TextField price;
     @FXML
     private ComboBox<Long> locationRow;
-
-    @FXML
-    private Button uploadImage;
     private AddBookInputModel.AddBookInputModelBuilder addBookInputModel;
     private String pathFromUser;
+    private Boolean spaceUsed;
 
     public AddBookController() {
         this.checkGenreOperation = SingletonFactory.getSingletonInstance(CheckGenreProcessor.class);
         this.addBookOperation = SingletonFactory.getSingletonInstance(AddBookProcessor.class);
         this.addBookInputModel = AddBookInputModel.builder();
+        spaceUsed=false;
     }
+
 
     @FXML
     public void addAuthor(ActionEvent event) {
@@ -100,11 +99,24 @@ public class AddBookController extends Controller {
     public void clearTextField(ActionEvent event) {
         authorsEntry.setText("");
     }
+    private boolean isValidSpaceCount(String input) {
+        if (input == null || input.isBlank()) {
+            return true;
+        }
+        String[] words = input.trim().split("\\s+");
+        return words.length >= 1 && words.length <= 2; // Return true if there are 2 or fewer words, false otherwise
+    }
 
     @FXML
     public void addAuthorByKey(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER && !authorsEntry.getText().isEmpty()) {
-            addAuthor(new ActionEvent());
+            if(isValidSpaceCount(authorsEntry.getText())) {
+                addAuthor(new ActionEvent());
+            }
+            else{
+                AlertManager.showAlert(Alert.AlertType.INFORMATION, "Error!", "Author name must be 1 or 2 words!", ButtonType.CLOSE);
+                authorsEntry.requestFocus();
+            }
         }
     }
 
@@ -132,6 +144,7 @@ public class AddBookController extends Controller {
                                 ButtonType.CLOSE);
                     }
                 }
+                shelfLabel.setText(shelfLabel.getText()+" "+genre.getText().toUpperCase());
             } else {
                 AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "Error occurred while processing genre");
             }
@@ -140,6 +153,7 @@ public class AddBookController extends Controller {
 
     @FXML
     public void addBookInDB(ActionEvent event) {
+        validateInput();
         Set<Author> authors = getAuthors();
         AddBookInputModel inputModel = buildInput(authors);
         Either<Exception, AddBookOutputModel> process = addBookOperation.process(inputModel);
@@ -150,6 +164,27 @@ public class AddBookController extends Controller {
             AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "Error occurred while processing saving book",ButtonType.CLOSE);
         }
     }
+
+    private void validateInput() {
+//        String invalidStyle = "-fx-border-color: red; -fx-border-width: 2;";
+//        if(isbn.getText().isEmpty()){
+//            isbn.setStyle(invalidStyle);
+//            AlertManager.showAlert(Alert.AlertType.ERROR, "Validation Error!", "ISBN must be filled!", ButtonType.CLOSE);
+//        }
+        
+        if (listView.getItems().isEmpty() || isbn.getText().isEmpty() || title.getText().isEmpty()
+            || genre.getText().isEmpty() || publisher.getText().isEmpty()
+            || inventoryNumber.getText().isEmpty() || price.getText().isEmpty()
+            || pathFromUser == null || pathFromUser.isEmpty()
+            || locationRow.getValue() == null)
+        {
+            AlertManager.showAlert(Alert.AlertType.ERROR, "Validation Error!", "All fields must be filled, a location must be selected, and an image must be uploaded!", ButtonType.CLOSE);
+        }
+    }
+
+
+
+
 
     private void clearScene() {
         imageView.setImage(null);
@@ -209,7 +244,7 @@ public class AddBookController extends Controller {
         File selectedFile = fileChooser.showOpenDialog(addButton.getScene().getWindow());
         if (selectedFile!=null) {
             try {
-                Path path = Path.of("src/main/resources/bg/tu_varna/sit/library/presentation.views/addBook/images");
+                Path path = Path.of("src/main/resources/bg/tu_varna/sit/library/presentation.views/addBook/images/book_images");
                 Path targetPath = path.resolve(selectedFile.getName());
                 Files.copy(selectedFile.toPath(),targetPath, StandardCopyOption.REPLACE_EXISTING);
                 pathFromUser=targetPath.toString();
@@ -225,4 +260,6 @@ public class AddBookController extends Controller {
         setPath("/bg/tu_varna/sit/library/presentation.views/addBook/pages/addBook-view.fxml");
         changeScene(actionEvent);
     }
+
+
 }
