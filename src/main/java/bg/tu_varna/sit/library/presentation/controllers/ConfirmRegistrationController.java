@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.core.confirm_registration.ConfirmRegistrationProc
 import bg.tu_varna.sit.library.models.confirm_registration.ConfirmRegistrationInputModel;
 import bg.tu_varna.sit.library.models.confirm_registration.ConfirmRegistrationOperationModel;
 import bg.tu_varna.sit.library.models.confirm_registration.ConfirmRegistrationOutputModel;
+import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import io.vavr.control.Either;
 import javafx.event.ActionEvent;

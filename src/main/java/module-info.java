@@ -36,4 +36,10 @@ module bg.tu_varna.sit.library {
 
     opens bg.tu_varna.sit.library.data.entities to org.hibernate.orm.core;
     exports bg.tu_varna.sit.library.data.entities;
+    exports bg.tu_varna.sit.library.presentation.controllers.base;
+    opens bg.tu_varna.sit.library.presentation.controllers.base to javafx.fxml;
+    exports bg.tu_varna.sit.library.presentation.controllers.admin;
+    opens bg.tu_varna.sit.library.presentation.controllers.admin to javafx.fxml;
+    exports bg.tu_varna.sit.library.presentation.controllers.user;
+    opens bg.tu_varna.sit.library.presentation.controllers.user to javafx.fxml;
 }

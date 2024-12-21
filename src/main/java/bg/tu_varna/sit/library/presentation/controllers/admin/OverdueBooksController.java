@@ -1,17 +1,14 @@
-package bg.tu_varna.sit.library.presentation.controllers;
+package bg.tu_varna.sit.library.presentation.controllers.admin;
 
 import bg.tu_varna.sit.library.core.overdue_books.OverdueBooksProcessor;
 import bg.tu_varna.sit.library.data.entities.Book;
-import bg.tu_varna.sit.library.data.enums.BookStatus;
 import bg.tu_varna.sit.library.models.overdue_books.OverdueBooks;
 import bg.tu_varna.sit.library.models.overdue_books.OverdueBooksInputModel;
 import bg.tu_varna.sit.library.models.overdue_books.OverdueBooksOperationModel;
 import bg.tu_varna.sit.library.models.overdue_books.OverdueBooksOutputModel;
-import bg.tu_varna.sit.library.models.return_books.BooksForReturn;
-import bg.tu_varna.sit.library.models.update_returned_books.UpdateReturnedBooksInputModel;
-import bg.tu_varna.sit.library.models.update_returned_books.UpdateReturnedBooksOutputModel;
+import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
+import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
-import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import bg.tu_varna.sit.library.utils.session.EmailSession;
 import io.vavr.control.Either;
 import javafx.beans.property.SimpleObjectProperty;
@@ -21,7 +18,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -30,7 +26,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-public class OverdueBooksController extends Controller implements Initializable {
+public class OverdueBooksController extends AdminController implements Initializable {
     @FXML
     private TableView<OverdueBooks> tableView;
     private TableColumn<OverdueBooks, String> borrowedDate;

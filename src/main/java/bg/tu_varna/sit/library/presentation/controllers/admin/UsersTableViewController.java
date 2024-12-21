@@ -1,39 +1,28 @@
-package bg.tu_varna.sit.library.presentation.controllers;
+package bg.tu_varna.sit.library.presentation.controllers.admin;
 
-import bg.tu_varna.sit.library.core.archived_books.ArchivedBooksProcessor;
 import bg.tu_varna.sit.library.core.users_table_view.UsersTableViewProcessor;
-import bg.tu_varna.sit.library.data.entities.Author;
-import bg.tu_varna.sit.library.models.archived_books.ArchivedBooksInputModel;
-import bg.tu_varna.sit.library.models.archived_books.ArchivedBooksOperationModel;
-import bg.tu_varna.sit.library.models.archived_books.ArchivedBooksOutputModel;
-import bg.tu_varna.sit.library.models.archived_books.BooksData;
 import bg.tu_varna.sit.library.models.users_table_view.UsersData;
 import bg.tu_varna.sit.library.models.users_table_view.UsersTableViewInputModel;
 import bg.tu_varna.sit.library.models.users_table_view.UsersTableViewOperationModel;
 import bg.tu_varna.sit.library.models.users_table_view.UsersTableViewOutputModel;
+import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
+import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import io.vavr.control.Either;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.IOException;
-import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-public class UsersTableViewController extends Controller implements Initializable {
+public class UsersTableViewController extends AdminController implements Initializable {
     @FXML
     private TableView<UsersData> tableView;
     private TableColumn<UsersData, String> firstName;

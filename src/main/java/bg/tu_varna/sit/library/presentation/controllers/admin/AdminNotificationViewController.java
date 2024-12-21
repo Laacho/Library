@@ -1,9 +1,11 @@
-package bg.tu_varna.sit.library.presentation.controllers;
+package bg.tu_varna.sit.library.presentation.controllers.admin;
 
 import bg.tu_varna.sit.library.core.notification_view.AdminNotificationViewProcessor;
 import bg.tu_varna.sit.library.models.notifications_view.AdminNotificationViewInputModel;
 import bg.tu_varna.sit.library.models.notifications_view.AdminNotificationViewOperationModel;
 import bg.tu_varna.sit.library.models.notifications_view.AdminNotificationViewOutputModel;
+import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
+import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import io.vavr.control.Either;
@@ -16,7 +18,7 @@ import javafx.scene.control.ListView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AdminNotificationViewController extends Controller implements Initializable {
+public class AdminNotificationViewController extends AdminController implements Initializable {
     private final AdminNotificationViewOperationModel adminNotificationViewProcessor;
     @FXML
     private ListView<String> listView;

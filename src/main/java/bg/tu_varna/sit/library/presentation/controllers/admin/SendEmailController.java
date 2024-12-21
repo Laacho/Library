@@ -1,10 +1,12 @@
-package bg.tu_varna.sit.library.presentation.controllers;
+package bg.tu_varna.sit.library.presentation.controllers.admin;
 
 
 import bg.tu_varna.sit.library.core.send_email.SendEmailProcessor;
 import bg.tu_varna.sit.library.models.send_email.SendEmailOperationInput;
 import bg.tu_varna.sit.library.models.send_email.SendEmailOperationModel;
 import bg.tu_varna.sit.library.models.send_email.SendEmailOperationOutput;
+import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
+import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import bg.tu_varna.sit.library.utils.session.EmailSession;
@@ -16,7 +18,7 @@ import javafx.scene.control.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SendEmailController extends Controller implements Initializable {
+public class SendEmailController extends AdminController implements Initializable {
     @FXML
     private TextField fromTextField;
     @FXML

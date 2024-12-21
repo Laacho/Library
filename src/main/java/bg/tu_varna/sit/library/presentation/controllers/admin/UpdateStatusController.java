@@ -1,4 +1,4 @@
-package bg.tu_varna.sit.library.presentation.controllers;
+package bg.tu_varna.sit.library.presentation.controllers.admin;
 
 import bg.tu_varna.sit.library.core.find_book_by_inventory_number.FindBookByInventoryNumberProcessor;
 import bg.tu_varna.sit.library.core.save_in_archived.SaveInArchivedProcessor;
@@ -14,6 +14,8 @@ import bg.tu_varna.sit.library.models.save_to_archived.SaveToArchivedOutputModel
 import bg.tu_varna.sit.library.models.save_to_discard.SaveToDiscardInputModel;
 import bg.tu_varna.sit.library.models.save_to_discard.SaveToDiscardOperationModel;
 import bg.tu_varna.sit.library.models.save_to_discard.SaveToDiscardOutputModel;
+import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
+import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import io.vavr.control.Either;
@@ -26,7 +28,7 @@ import javafx.scene.image.ImageView;
 import java.io.File;
 import java.util.Set;
 
-public class UpdateStatusController extends Controller {
+public class UpdateStatusController extends AdminController {
     @FXML
     private Button addToArchivedDB;
     @FXML

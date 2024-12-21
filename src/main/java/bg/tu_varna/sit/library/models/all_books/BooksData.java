@@ -25,7 +25,6 @@ public class BooksData {
     private String title;
     private String inventoryNumber;
     private BigDecimal price;
-    private Long quantity;
     private Genre genre;
     private Publisher publisher;
     private Location location;

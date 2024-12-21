@@ -1,4 +1,4 @@
-package bg.tu_varna.sit.library.presentation.controllers;
+package bg.tu_varna.sit.library.presentation.controllers.admin;
 
 import bg.tu_varna.sit.library.core.approveProfiles.ApproveProfilesProcessor;
 import bg.tu_varna.sit.library.core.approveProfiles.CreateReaderProfileProcessor;
@@ -8,6 +8,8 @@ import bg.tu_varna.sit.library.models.approve_profiles.ApproveProfilesOutputMode
 import bg.tu_varna.sit.library.models.create_reader_profile.CreateReaderProfileInputModel;
 import bg.tu_varna.sit.library.models.create_reader_profile.CreateReaderProfileOperationModel;
 import bg.tu_varna.sit.library.models.create_reader_profile.CreateReaderProfileOutputModel;
+import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
+import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import io.vavr.control.Either;
@@ -18,7 +20,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class ApproveProfilesController extends Controller {
+public class ApproveProfilesController extends AdminController {
     @FXML
     private Label id;
     @FXML

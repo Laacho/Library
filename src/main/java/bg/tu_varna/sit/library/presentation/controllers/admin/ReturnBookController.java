@@ -1,11 +1,9 @@
-package bg.tu_varna.sit.library.presentation.controllers;
+package bg.tu_varna.sit.library.presentation.controllers.admin;
 
 import bg.tu_varna.sit.library.core.return_books.ReturnBookProcessor;
 import bg.tu_varna.sit.library.core.return_books.UpdateReturnedBooksProcessor;
-import bg.tu_varna.sit.library.data.entities.Author;
 import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.data.enums.BookStatus;
-import bg.tu_varna.sit.library.models.all_books.BooksData;
 import bg.tu_varna.sit.library.models.return_books.BooksForReturn;
 import bg.tu_varna.sit.library.models.return_books.ReturnBooksInputModel;
 import bg.tu_varna.sit.library.models.return_books.ReturnBooksOperationModel;
@@ -13,33 +11,28 @@ import bg.tu_varna.sit.library.models.return_books.ReturnBooksOutputModel;
 import bg.tu_varna.sit.library.models.update_returned_books.UpdateReturnedBooksInputModel;
 import bg.tu_varna.sit.library.models.update_returned_books.UpdateReturnedBooksOperationModel;
 import bg.tu_varna.sit.library.models.update_returned_books.UpdateReturnedBooksOutputModel;
+import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
+import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import io.vavr.control.Either;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-public class ReturnBookController extends Controller {
+public class ReturnBookController extends AdminController {
     @FXML
     private TextField searchTextField;
     @FXML
@@ -51,6 +44,7 @@ public class ReturnBookController extends Controller {
     private TableColumn<BooksForReturn, String> booksColumn;
     private TableColumn<BooksForReturn, Button> returnButton;
     private final ReturnBooksOperationModel returnBooksProcessor;
+    private Long userId;
     private final UpdateReturnedBooksOperationModel updateReturnedBooksProcessor;
 
     public ReturnBookController() {
@@ -69,6 +63,7 @@ public class ReturnBookController extends Controller {
         if (process.isRight()) {
             ReturnBooksOutputModel returnBooksOutputModel = process.get();
             List<BooksForReturn> booksForReturns = returnBooksOutputModel.getBooksForReturns();
+            userId = returnBooksOutputModel.getUserId();
             setTableData(username, booksForReturns);
         }
 
@@ -111,7 +106,7 @@ public class ReturnBookController extends Controller {
         BooksForReturn bookSelected = cell.getValue();
         AlertManager.showAlert(Alert.AlertType.INFORMATION, "Choose status", "You have to choose the status for every book after returning", ButtonType.OK);
         addComboBoxForEveryBookForStatusAfterBorrow(bookSelected);
-        Either<Exception, UpdateReturnedBooksOutputModel> processUpdate = updateReturnedBooksProcessor.process(UpdateReturnedBooksInputModel.builder().books(bookSelected).userId(Long.parseLong(id)).build());
+        Either<Exception, UpdateReturnedBooksOutputModel> processUpdate = updateReturnedBooksProcessor.process(UpdateReturnedBooksInputModel.builder().books(bookSelected).userId(userId).build());
         if (processUpdate.isRight()) {
             AlertManager.showAlert(Alert.AlertType.INFORMATION, "All updated", "The books are returned", ButtonType.OK);
         }
