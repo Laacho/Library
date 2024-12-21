@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.core.login.LoginProcessor;
 import bg.tu_varna.sit.library.models.login.LoginInputModel;
 import bg.tu_varna.sit.library.models.login.LoginOperationModel;
 import bg.tu_varna.sit.library.models.login.LoginOutputModel;
+import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import io.vavr.control.Either;
 import javafx.event.ActionEvent;
@@ -44,7 +45,7 @@ public class LoginController extends Controller {
             }
             else{
                 //open user scene
-                setPath("/bg/tu_varna/sit/library/presentation.views/search/pages/search-view.fxml");
+                setPath("/bg/tu_varna/sit/library/presentation.views/user_home_view/pages/user-home-view.fxml");
                 changeScene(actionEvent);
             }
         }

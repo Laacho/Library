@@ -1,4 +1,4 @@
-package bg.tu_varna.sit.library.presentation.controllers;
+package bg.tu_varna.sit.library.presentation.controllers.admin;
 
 import bg.tu_varna.sit.library.core.addBook.AddBookProcessor;
 import bg.tu_varna.sit.library.core.addGenre.CheckGenreProcessor;
@@ -9,6 +9,8 @@ import bg.tu_varna.sit.library.models.addBook.AddBookOutputModel;
 import bg.tu_varna.sit.library.models.addGenre.CheckGenreInputModel;
 import bg.tu_varna.sit.library.models.addGenre.CheckGenreOperationModel;
 import bg.tu_varna.sit.library.models.addGenre.CheckGenreOutputModel;
+import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
+import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import io.vavr.control.Either;
@@ -16,7 +18,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,15 +29,13 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
-import java.util.ResourceBundle;
 import java.util.Set;
 
-public class AddBookController extends Controller{
+public class AddBookController extends AdminController {
     private final AddBookOperationModel addBookOperation;
     private final CheckGenreOperationModel checkGenreOperation;
     @FXML

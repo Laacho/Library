@@ -1,4 +1,4 @@
-package bg.tu_varna.sit.library.presentation.controllers;
+package bg.tu_varna.sit.library.presentation.controllers.admin;
 
 import bg.tu_varna.sit.library.core.delete_user.DeleteUserProcessor;
 import bg.tu_varna.sit.library.core.demote_user.DemoteUserProcessor;
@@ -21,6 +21,8 @@ import bg.tu_varna.sit.library.models.reset_password_for_user.ResetPasswordForUs
 import bg.tu_varna.sit.library.models.search_user_by_username.SearchUserByUsernameInputModel;
 import bg.tu_varna.sit.library.models.search_user_by_username.SearchUserByUsernameOperationModel;
 import bg.tu_varna.sit.library.models.search_user_by_username.SearchUserByUsernameOutputModel;
+import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
+import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import bg.tu_varna.sit.library.utils.session.UserSession;
@@ -31,7 +33,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class SettingsController extends Controller {
+public class SettingsController extends AdminController {
     @FXML
     private Button resetPasswordButton;
     @FXML

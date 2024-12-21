@@ -1,9 +1,11 @@
-package bg.tu_varna.sit.library.presentation.controllers;
+package bg.tu_varna.sit.library.presentation.controllers.admin;
 
 import bg.tu_varna.sit.library.core.admin_hello_view.AdminHelloViewProcessor;
 import bg.tu_varna.sit.library.models.admin_home_view.AdminHomeViewInputModel;
 import bg.tu_varna.sit.library.models.admin_home_view.AdminHomeViewOperationModel;
 import bg.tu_varna.sit.library.models.admin_home_view.AdminHomeViewOutputModel;
+import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
+import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.session.UserSession;
 import io.vavr.control.Either;
@@ -17,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AdminHomeViewController extends Controller implements Initializable {
+public class AdminHomeViewController extends AdminController implements Initializable {
     @FXML
     private Label welcomeText;
     @FXML

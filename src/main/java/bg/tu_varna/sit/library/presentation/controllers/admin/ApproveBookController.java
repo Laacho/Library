@@ -1,4 +1,4 @@
-package bg.tu_varna.sit.library.presentation.controllers;
+package bg.tu_varna.sit.library.presentation.controllers.admin;
 
 import bg.tu_varna.sit.library.core.approve_books.ApproveBooksProcessor;
 import bg.tu_varna.sit.library.core.approve_books.UpdateBorrowedBooksProcessor;
@@ -10,14 +10,14 @@ import bg.tu_varna.sit.library.models.approve_books.BooksForApproveData;
 import bg.tu_varna.sit.library.models.update_borrowed_books.UpdateBorrowedBooksInputModel;
 import bg.tu_varna.sit.library.models.update_borrowed_books.UpdateBorrowedBooksOperationModel;
 import bg.tu_varna.sit.library.models.update_borrowed_books.UpdateBorrowedBooksOutputModel;
+import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
+import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import io.vavr.control.Either;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,7 +31,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
 
-public class ApproveBookController extends Controller implements Initializable {
+public class ApproveBookController extends AdminController implements Initializable {
     @FXML
     private Label userData;
     @FXML

@@ -1,5 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.interfaces;
 
+import bg.tu_varna.sit.library.data.entities.Author;
 import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.data.entities.Genre;
 
@@ -11,4 +12,5 @@ public interface BookRepository extends GenericRepository<Book> {
     List<Book> findByGenre(Genre genreId);
     Optional<Book> findByInventoryNumber(String inventoryNumber);
     void update(Book book);
+    List<Book> findAllGoodBooks();
 }

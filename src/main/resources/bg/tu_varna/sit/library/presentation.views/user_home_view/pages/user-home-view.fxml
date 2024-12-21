@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="752.0" style="-fx-background-color: rgba(23,132,245,0.58);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.user.UserHomeViewController">
+    <children>
+        <AnchorPane layoutX="-7.0" layoutY="-9.0" prefHeight="611.0" prefWidth="143.0" style="-fx-background-color: rgb(252,252,252);">
+            <children>
+                <ImageView fitHeight="60.0" fitWidth="64.0" layoutX="37.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../login/images/logo.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="homeButton" layoutX="26.0" layoutY="85.0" mnemonicParsing="false" onAction="#homeUser" prefHeight="46.0" prefWidth="91.0" text="Home" />
+                <Button fx:id="search" layoutX="26.0" layoutY="260.0" mnemonicParsing="false" onAction="#search" prefHeight="46.0" prefWidth="91.0" text="Search" />
+                <Button fx:id="borrowBooks" layoutX="26.0" layoutY="320.0" mnemonicParsing="false" onAction="#borrowBooks" prefHeight="46.0" prefWidth="91.0" text="Borrow books" />
+                <Button fx:id="readerProfile" layoutX="26.0" layoutY="142.0" mnemonicParsing="false" onAction="#readerProfile" prefHeight="46.0" prefWidth="91.0" text="Reader&#10;Profile" textAlignment="CENTER" />
+                <Button fx:id="allBooks" layoutX="26.0" layoutY="203.0" mnemonicParsing="false" onAction="#allBooks" prefHeight="46.0" prefWidth="91.0" text="All&#10;Books" textAlignment="CENTER" />
+                <Button fx:id="aboutUs" layoutX="26.0" layoutY="375.0" mnemonicParsing="false" onAction="#aboutUs" prefHeight="46.0" prefWidth="91.0" text="About us" />
+                <Button fx:id="logout" layoutX="26.0" layoutY="551.0" mnemonicParsing="false" onAction="#logout" prefHeight="46.0" prefWidth="91.0" text="Logout" textAlignment="CENTER" />
+            </children>
+        </AnchorPane>
+        <Label layoutX="522.0" layoutY="69.0" prefHeight="33.0" prefWidth="159.0" text="Нови книги">
+            <font>
+                <Font size="26.0" />
+            </font>
+        </Label>
+        <Label layoutX="416.0" layoutY="309.0" prefHeight="38.0" prefWidth="265.0" text="Препоръчани книги">
+            <font>
+                <Font size="26.0" />
+            </font>
+        </Label>
+        <AnchorPane layoutX="133.0" layoutY="-8.0" prefHeight="85.0" prefWidth="643.0">
+            <children>
+                <Button fx:id="myProfile" layoutX="339.0" layoutY="20.0" mnemonicParsing="false" onAction="#myProfile" prefHeight="46.0" prefWidth="91.0" text="My&#10;profile&#10;&#10;" textAlignment="CENTER" />
+                <Button fx:id="notification" layoutX="431.0" layoutY="20.0" mnemonicParsing="false" onAction="#notifications" prefHeight="46.0" prefWidth="91.0" text="Notifications&#10;&#10;&#10;" textAlignment="CENTER" />
+                <Button fx:id="shoppingCart" layoutX="522.0" layoutY="20.0" mnemonicParsing="false" onAction="#shoppingCart" prefHeight="46.0" prefWidth="91.0" text="Shopping&#10;Cart" textAlignment="CENTER" />
+            </children>
+        </AnchorPane>
+        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="AS_NEEDED" layoutX="185.0" layoutY="127.0" prefHeight="182.0" prefWidth="551.0" vbarPolicy="AS_NEEDED">
+            <content>
+                <GridPane fx:id="newBooks" layoutX="14.0" layoutY="17.0" prefHeight="155.0" prefWidth="518.0">
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                </GridPane>
+            </content>
+        </ScrollPane>
+      <GridPane fx:id="recommendedBooks" layoutX="185.0" layoutY="365.0" prefHeight="182.0" prefWidth="551.0">
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+    </children>
+</AnchorPane>

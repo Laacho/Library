@@ -42,7 +42,7 @@ public class ReturnBookProcessor extends BaseProcessor implements ReturnBooksOpe
                     User user = userCredentials.getUser();
                     List<BorrowedBooks> borrowedBooks = borrowedBooksRepository.findByUser(user);
                     List<BooksForReturn> booksForReturns = getBooksForReturns(borrowedBooks);
-                    return ReturnBooksOutputModel.builder().booksForReturns(booksForReturns).build();
+                    return ReturnBooksOutputModel.builder().booksForReturns(booksForReturns).userId(user.getId()).build();
                 }).toEither()
                 .mapLeft(exceptionManager::handle);
     }

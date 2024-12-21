@@ -1,21 +1,19 @@
-package bg.tu_varna.sit.library.presentation.controllers;
+package bg.tu_varna.sit.library.presentation.controllers.admin;
 
 import bg.tu_varna.sit.library.data.entities.Author;
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
-import bg.tu_varna.sit.library.models.all_books.BooksData;
-import javafx.event.ActionEvent;
+import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
+import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.IOException;
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class BookDataViewController extends Controller {
+public class BookDataViewController extends AdminController {
     private CommonBooksProperties booksData;
     @FXML
     private Label title;

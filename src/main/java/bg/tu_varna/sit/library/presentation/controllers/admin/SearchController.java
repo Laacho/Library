@@ -1,9 +1,11 @@
-package bg.tu_varna.sit.library.presentation.controllers;
+package bg.tu_varna.sit.library.presentation.controllers.admin;
 
 import bg.tu_varna.sit.library.core.search.SearchProcessor;
 import bg.tu_varna.sit.library.models.search.SearchInputModel;
 import bg.tu_varna.sit.library.models.search.SearchOperationModel;
 import bg.tu_varna.sit.library.models.search.SearchOutputModel;
+import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
+import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import io.vavr.control.Either;
 import javafx.fxml.FXML;
@@ -12,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
 
-public class SearchController extends Controller {
+public class SearchController extends AdminController {
 
     private final SearchOperationModel searchProcessor;
     @FXML

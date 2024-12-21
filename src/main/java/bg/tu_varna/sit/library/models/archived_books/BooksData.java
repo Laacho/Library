@@ -22,12 +22,10 @@ public class BooksData {
     private String title;
     private String inventoryNumber;
     private BigDecimal price;
-    private Long quantity;
     private Genre genre;
     private Publisher publisher;
     private Set<Author> authors;
     private Location location;
     private LocalDate archivedDate;
-    private String reason;
 
 }

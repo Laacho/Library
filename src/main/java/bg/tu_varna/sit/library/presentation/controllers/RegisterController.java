@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.core.register.RegisterProcessor;
 import bg.tu_varna.sit.library.models.register.RegisterInputModel;
 import bg.tu_varna.sit.library.models.register.RegisterOperationModel;
 import bg.tu_varna.sit.library.models.register.RegisterOutputModel;
+import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import io.vavr.control.Either;
 import javafx.event.ActionEvent;
