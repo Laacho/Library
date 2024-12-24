@@ -3,6 +3,8 @@ package bg.tu_varna.sit.library.presentation.controllers.base;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import java.io.IOException;
+
 public class UserController extends Controller {
     @FXML
     public void homeUser(ActionEvent actionEvent) {
@@ -15,8 +17,9 @@ public class UserController extends Controller {
     }
 
     @FXML
-    public void borrowBooks(ActionEvent actionEvent) {
-
+    public void borrowBooks(ActionEvent actionEvent) throws IOException {
+            setPath("/bg/tu_varna/sit/library/presentation.views/borrow_cart/pages/borrow_cart_view.fxml");
+            changeScene(actionEvent);
     }
 
     @FXML
