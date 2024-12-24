@@ -1,8 +1,10 @@
 package bg.tu_varna.sit.library.utils.session;
 
+import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import lombok.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,5 +22,6 @@ public class UserSession {
     private String email;
     private Boolean admin;
     private Double rating;
+    private Set<Book> cartBooks;
     private UserSession() {}
 }

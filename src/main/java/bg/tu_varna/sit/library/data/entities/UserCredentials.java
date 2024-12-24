@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Set;
 
 @Table(name = "user_credentials")
 @Entity
@@ -43,4 +44,12 @@ public class UserCredentials {
     @Max(value = 10)
     @Digits(integer = 1, fraction = 1)
     private Double rating;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_to_cart",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id")
+    )
+    private Set<Book> cartForBooks;
 }
