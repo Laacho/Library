@@ -23,5 +23,6 @@ public class UserSession {
     private Boolean admin;
     private Double rating;
     private Set<Book> cartBooks;
+    private String newEmailVerificationCode;
     private UserSession() {}
 }

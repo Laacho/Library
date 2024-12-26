@@ -1,0 +1,6 @@
+package bg.tu_varna.sit.library.models.send_verification_code_for_new_email;
+
+import bg.tu_varna.sit.library.models.base.OperationProcess;
+
+public interface SendVerificationCodeForNewEmailOperationModel extends OperationProcess<SendVerificationCodeForNewEmailInputModel,SendVerificationCodeForNewEmailOutputModel> {
+}
