@@ -43,8 +43,9 @@ public class UserController extends Controller {
     }
 
     @FXML
-    public void myProfile(ActionEvent actionEvent) {
-
+    public void myProfile(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/my_profile/pages/my_profile_view.fxml");
+        changeScene(actionEvent);
     }
 
     @FXML
