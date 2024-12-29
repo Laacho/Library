@@ -8,8 +8,8 @@ import java.io.IOException;
 public class UserController extends Controller {
     @FXML
     public void homeUser(ActionEvent actionEvent) throws IOException {
-            setPath("/bg/tu_varna/sit/library/presentation.views/user_home_view/pages/user-home-view.fxml");
-            changeScene(actionEvent);
+        setPath("/bg/tu_varna/sit/library/presentation.views/user_home_view/pages/user-home-view.fxml");
+        changeScene(actionEvent);
     }
 
     @FXML
@@ -20,8 +20,7 @@ public class UserController extends Controller {
 
     @FXML
     public void borrowBooks(ActionEvent actionEvent) throws IOException {
-            setPath("/bg/tu_varna/sit/library/presentation.views/borrow_cart/pages/borrow_cart_view.fxml");
-            changeScene(actionEvent);
+
     }
 
     @FXML
@@ -30,8 +29,9 @@ public class UserController extends Controller {
     }
 
     @FXML
-    public void allBooks(ActionEvent actionEvent) {
-
+    public void allBooks(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/user_all_books_view/pages/user-all-books-view.fxml");
+        changeScene(actionEvent);
     }
 
     @FXML
@@ -56,7 +56,8 @@ public class UserController extends Controller {
     }
 
     @FXML
-    public void shoppingCart(ActionEvent actionEvent) {
-
+    public void shoppingCart(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/borrow_cart/pages/borrow_cart_view.fxml");
+        changeScene(actionEvent);
     }
 }

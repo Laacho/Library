@@ -20,6 +20,7 @@ public class FromBooksToBooksData implements Converter<Book, BooksData> {
                 .publisher(source.getPublisher())
                 .location(source.getLocation())
                 .authors(source.getAuthors())
+                .path(source.getPath())
                 .build();
     }
 }
