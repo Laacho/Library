@@ -29,4 +29,5 @@ public class BooksData {
     private Publisher publisher;
     private Location location;
     private Set<Author> authors;
+    private String path;
 }
