@@ -57,10 +57,6 @@ public class SearchForUserController extends UserController implements Initializ
     private TextField searchTextField;
     @FXML
     private ListView<String> resultListView;
-    @FXML
-    private TextField minPrice;
-    @FXML
-    private TextField maxPrice;
 
     private final GetAllPublishersOperationModel getAllPublishersOperationModel;
     private final GetAllGenresOperationModel getAllGenresOperationModel;
@@ -76,19 +72,13 @@ public class SearchForUserController extends UserController implements Initializ
     @FXML
     public void searchButton(ActionEvent event) {
         SearchForUserInputModel.SearchForUserInputModelBuilder builder = SearchForUserInputModel.builder().title(searchTextField.getText());
-        if(!minPrice.getText().isBlank()) {
-            builder.filterMinPrice(Double.parseDouble(minPrice.getText()));
-        }
-        if(!maxPrice.getText().isBlank()) {
-            builder.filterMaxPrice(Double.parseDouble(maxPrice.getText()));
-        }
-        if(authorComboBox.getValue()!=null){
+        if(!authorComboBox.getValue().equals("None")   ) {
             builder.filterAuthor(authorComboBox.getValue());
         }
-        if(publisherComboBox.getValue()!=null){
+        if(!publisherComboBox.getValue().equals("None")   ) {
             builder.filterPublisher(publisherComboBox.getValue());
         }
-        if(genreComboBox.getValue()!=null){
+        if(!genreComboBox.getValue().equals("None")   ) {
             builder.filterGenre(genreComboBox.getValue());
         }
         SearchForUserInputModel input = builder.build();
@@ -134,10 +124,16 @@ public class SearchForUserController extends UserController implements Initializ
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        genreComboBox.getItems().add("None");
+        publisherComboBox.getItems().add("None");
+        authorComboBox.getItems().add("None");
         loadGenres();
         loadPublishers();
         loadAuthors();
-        resultListView.setVisible(false);
+        //resultListView.setVisible(false);
+        genreComboBox.setValue("None");
+        publisherComboBox.setValue("None");
+        authorComboBox.setValue("None");
     }
 
     private void loadGenres() {
