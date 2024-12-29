@@ -4,7 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="752.0" style="-fx-background-color: rgba(23,132,245,0.58);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.user.MyProfileController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(23,132,245,0.58);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.user.MyProfileController">
     <children>
         <AnchorPane layoutX="-7.0" layoutY="-9.0" prefHeight="611.0" prefWidth="143.0" style="-fx-background-color: rgb(252,252,252);">
             <children>
@@ -33,7 +33,7 @@
       <Label layoutX="338.0" layoutY="90.0" prefHeight="27.0" prefWidth="60.0" text="Username" />
       <Label fx:id="usernameValue" layoutX="431.0" layoutY="90.0" prefHeight="27.0" prefWidth="109.0" text="usernameValue" />
       <Label layoutX="338.0" layoutY="124.0" prefHeight="27.0" prefWidth="60.0" text="Email" />
-      <Label fx:id="emailValue" layoutX="431.0" layoutY="124.0" prefHeight="27.0" prefWidth="60.0" text="email value" />
+      <Label fx:id="emailValue" layoutX="431.0" layoutY="124.0" prefHeight="27.0" prefWidth="239.0" text="email value" />
       <Label layoutX="338.0" layoutY="159.0" prefHeight="27.0" prefWidth="60.0" text="Is verified" />
       <Label fx:id="isVerifiedValue" layoutX="431.0" layoutY="159.0" prefHeight="27.0" prefWidth="108.0" text="isverifiedvalue" />
       <Label layoutX="338.0" layoutY="193.0" prefHeight="27.0" prefWidth="60.0" text="Rating" />
@@ -45,9 +45,9 @@
       <Label layoutX="356.0" layoutY="332.0" prefHeight="27.0" prefWidth="108.0" text="Old Password" />
       <Label layoutX="356.0" layoutY="401.0" prefHeight="27.0" prefWidth="108.0" text="New Password" />
       <Label layoutX="356.0" layoutY="471.0" prefHeight="27.0" prefWidth="143.0" text="Confirm new Password" />
-      <Button onAction="#changePassword" layoutX="373.0" layoutY="545.0" mnemonicParsing="false" text="Update Password" />
-      <Button onAction="#updateUsername" layoutX="158.0" layoutY="402.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="133.0" text="Update Username" />
-      <Button onAction="#sendVerificationCodeForNewEmail" layoutX="604.0" layoutY="432.0" mnemonicParsing="false" text="Update Email" />
+      <Button layoutX="373.0" layoutY="545.0" mnemonicParsing="false" onAction="#changePassword" text="Update Password" />
+      <Button layoutX="158.0" layoutY="402.0" mnemonicParsing="false" onAction="#updateUsername" prefHeight="27.0" prefWidth="133.0" text="Update Username" />
+      <Button layoutX="604.0" layoutY="432.0" mnemonicParsing="false" onAction="#sendVerificationCodeForNewEmail" text="Update Email" />
       <TextField fx:id="emailTextField" layoutX="563.0" layoutY="379.0" />
       <Label layoutX="563.0" layoutY="348.0" prefHeight="27.0" prefWidth="150.0" text="New email:" />
       <PasswordField fx:id="oldPasswordField" layoutX="352.0" layoutY="366.0" />
