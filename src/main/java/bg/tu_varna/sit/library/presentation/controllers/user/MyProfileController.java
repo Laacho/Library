@@ -29,6 +29,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -203,12 +204,22 @@ public class MyProfileController extends UserController implements Initializable
     public void initialize(URL url, ResourceBundle resourceBundle) {
         UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
         usernameValue.setText(userSession.getUsername());
-        emailValue.setText(userSession.getEmail());
+        String email = userSession.getEmail();
+        emailValue.setText(email);
+        emailValue.setPrefWidth(computeTextWidth(emailValue,email));
         isVerifiedValue.setText(userSession.getVerified() ? "Verified" : "Not Verified");
-        ratingValue.setText(String.valueOf(userSession.getRating()));
+        Double rating = userSession.getRating();
+        if(rating==null){
+            rating=0.0;
+        }
+        ratingValue.setText(String.valueOf(rating));
         clearFields();
     }
-
+    private double computeTextWidth(Label label, String text) {
+        Text tempText = new Text(text);
+        tempText.setFont(label.getFont());
+        return tempText.getLayoutBounds().getWidth();
+    }
     private void clearFields() {
         oldPasswordField.clear();
         newPasswordField.clear();

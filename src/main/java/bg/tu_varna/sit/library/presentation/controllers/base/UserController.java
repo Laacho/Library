@@ -7,13 +7,15 @@ import java.io.IOException;
 
 public class UserController extends Controller {
     @FXML
-    public void homeUser(ActionEvent actionEvent) {
-
+    public void homeUser(ActionEvent actionEvent) throws IOException {
+            setPath("/bg/tu_varna/sit/library/presentation.views/user_home_view/pages/user-home-view.fxml");
+            changeScene(actionEvent);
     }
 
     @FXML
-    public void search(ActionEvent actionEvent) {
-
+    public void search(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/search_for_user/pages/search_for_user_view.fxml");
+        changeScene(actionEvent);
     }
 
     @FXML
