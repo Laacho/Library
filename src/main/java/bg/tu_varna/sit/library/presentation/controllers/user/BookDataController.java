@@ -3,11 +3,9 @@ package bg.tu_varna.sit.library.presentation.controllers.user;
 import bg.tu_varna.sit.library.presentation.controllers.base.UserController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.util.Set;
 
 @Getter

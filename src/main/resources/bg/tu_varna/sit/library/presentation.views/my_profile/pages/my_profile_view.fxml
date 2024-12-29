@@ -39,23 +39,26 @@
       <Label layoutX="338.0" layoutY="193.0" prefHeight="27.0" prefWidth="60.0" text="Rating" />
       <Label fx:id="ratingValue" layoutX="431.0" layoutY="193.0" prefHeight="27.0" prefWidth="110.0" text="rating value" />
       <TextField fx:id="usernameTextField" layoutX="152.0" layoutY="364.0" />
-      <Separator layoutX="335.0" layoutY="278.0" orientation="VERTICAL" prefHeight="320.0" prefWidth="6.0" />
-      <Separator layoutX="548.0" layoutY="278.0" orientation="VERTICAL" prefHeight="320.0" prefWidth="6.0" />
+      <Separator layoutX="316.0" layoutY="280.0" orientation="VERTICAL" prefHeight="320.0" prefWidth="6.0" />
+      <Separator layoutX="529.0" layoutY="280.0" orientation="VERTICAL" prefHeight="320.0" prefWidth="6.0" />
       <Label layoutX="149.0" layoutY="334.0" prefHeight="27.0" prefWidth="150.0" text="New Username:" />
-      <Label layoutX="356.0" layoutY="332.0" prefHeight="27.0" prefWidth="108.0" text="Old Password" />
-      <Label layoutX="356.0" layoutY="401.0" prefHeight="27.0" prefWidth="108.0" text="New Password" />
-      <Label layoutX="356.0" layoutY="471.0" prefHeight="27.0" prefWidth="143.0" text="Confirm new Password" />
-      <Button layoutX="373.0" layoutY="545.0" mnemonicParsing="false" onAction="#changePassword" text="Update Password" />
+      <Label layoutX="337.0" layoutY="334.0" prefHeight="27.0" prefWidth="108.0" text="Old Password" />
+      <Label layoutX="337.0" layoutY="403.0" prefHeight="27.0" prefWidth="108.0" text="New Password" />
+      <Label layoutX="337.0" layoutY="473.0" prefHeight="27.0" prefWidth="143.0" text="Confirm new Password" />
+      <Button layoutX="354.0" layoutY="547.0" mnemonicParsing="false" onAction="#changePassword" text="Update Password" />
       <Button layoutX="158.0" layoutY="402.0" mnemonicParsing="false" onAction="#updateUsername" prefHeight="27.0" prefWidth="133.0" text="Update Username" />
-      <Button layoutX="604.0" layoutY="432.0" mnemonicParsing="false" onAction="#sendVerificationCodeForNewEmail" text="Update Email" />
-      <TextField fx:id="emailTextField" layoutX="563.0" layoutY="379.0" />
-      <Label layoutX="563.0" layoutY="348.0" prefHeight="27.0" prefWidth="150.0" text="New email:" />
-      <PasswordField fx:id="oldPasswordField" layoutX="352.0" layoutY="366.0" />
-      <PasswordField fx:id="newPasswordField" layoutX="353.0" layoutY="432.0" />
-      <PasswordField fx:id="confirmNewPasswordField" layoutX="354.0" layoutY="498.0" />
+      <Button layoutX="585.0" layoutY="434.0" mnemonicParsing="false" onAction="#sendVerificationCodeForNewEmail" text="Update Email" />
+      <TextField fx:id="emailTextField" layoutX="535.0" layoutY="379.0" />
+      <Label layoutX="544.0" layoutY="350.0" prefHeight="27.0" prefWidth="150.0" text="New email:" />
+      <PasswordField fx:id="oldPasswordField" layoutX="333.0" layoutY="368.0" />
+      <PasswordField fx:id="newPasswordField" layoutX="334.0" layoutY="434.0" />
+      <PasswordField fx:id="confirmNewPasswordField" layoutX="335.0" layoutY="500.0" />
       <Label layoutX="170.0" layoutY="287.0" prefHeight="46.0" prefWidth="108.0" text="Change your &#10;username" />
-      <Label layoutX="356.0" layoutY="287.0" prefHeight="46.0" prefWidth="108.0" text="Change your &#10;password" />
-      <Label layoutX="563.0" layoutY="287.0" prefHeight="46.0" prefWidth="108.0" text="Change your &#10;email" />
+      <Label layoutX="337.0" layoutY="289.0" prefHeight="46.0" prefWidth="108.0" text="Change your &#10;password" />
+      <Label layoutX="544.0" layoutY="289.0" prefHeight="46.0" prefWidth="108.0" text="Change your &#10;email" />
+      <Separator layoutX="694.0" layoutY="280.0" orientation="VERTICAL" prefHeight="320.0" prefWidth="6.0" />
+      <Button layoutX="745.0" layoutY="345.0" mnemonicParsing="false" onAction="#sendEmail" prefHeight="46.0" prefWidth="87.0" text="Send Email" />
+      <Label layoutX="745.0" layoutY="263.0" prefHeight="74.0" prefWidth="110.0" text="Not verified?&#10;Click the button &#10;to get verified&#10;" />
 
     </children>
 </AnchorPane>

@@ -14,12 +14,9 @@ import io.vavr.control.Either;
 import io.vavr.control.Try;
 import org.apache.log4j.Logger;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 @Processor
 public class SearchForUserProcessor extends BaseProcessor implements SearchForUserOperationModel {
@@ -51,14 +48,6 @@ public class SearchForUserProcessor extends BaseProcessor implements SearchForUs
                         filters.add(book -> book.getPublisher()
                                 .getName()
                                 .equalsIgnoreCase(input.getFilterPublisher()));
-                    }
-                    if (input.getFilterMinPrice() != null) {
-                        filters.add(book -> book.getPrice()
-                                .doubleValue() >= input.getFilterMinPrice());
-                    }
-                    if (input.getFilterMaxPrice() != null) {
-                        filters.add(book -> book.getPrice()
-                                .doubleValue() <= input.getFilterMaxPrice());
                     }
                     List<Book> result = bookContainingText.stream()    //ako nqma filti vrushta true
                             .filter(filters.stream().reduce(x -> true, Predicate::and))

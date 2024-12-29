@@ -14,6 +14,4 @@ public class SearchForUserInputModel implements OperationInput {
     private String filterAuthor;
     private String filterPublisher;
     private String filterGenre;
-    private Double filterMinPrice;
-    private Double filterMaxPrice;
 }
