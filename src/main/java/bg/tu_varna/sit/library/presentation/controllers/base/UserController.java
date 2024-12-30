@@ -35,8 +35,9 @@ public class UserController extends Controller {
     }
 
     @FXML
-    public void aboutUs(ActionEvent actionEvent) {
-
+    public void aboutUs(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/about_us/pages/about_us_view.fxml");
+        changeScene(actionEvent);
     }
 
     @FXML

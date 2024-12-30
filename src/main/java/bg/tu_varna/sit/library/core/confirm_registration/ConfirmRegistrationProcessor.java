@@ -46,7 +46,6 @@ public class ConfirmRegistrationProcessor extends BaseProcessor implements Confi
             UserCredentials built = userCredentials.toBuilder()
                     .verified(true)
                     .dateOfVerification(LocalDate.now())
-                    .verificationCode("")
                     .build();
             userCredentialsRepository.update(built);
             return;
