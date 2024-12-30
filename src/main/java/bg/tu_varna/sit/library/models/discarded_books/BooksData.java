@@ -27,5 +27,6 @@ public class BooksData {
     private Set<Author> authors;
     private LocalDate discardingDate;
     private String reason;
+    private String path;
 
 }

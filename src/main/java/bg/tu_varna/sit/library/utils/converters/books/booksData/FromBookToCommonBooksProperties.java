@@ -1,28 +1,26 @@
 package bg.tu_varna.sit.library.utils.converters.books.booksData;
 
+import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
-import bg.tu_varna.sit.library.models.discarded_books.BooksData;
 import bg.tu_varna.sit.library.utils.annotations.Mapper;
 import bg.tu_varna.sit.library.utils.converters.base.Converter;
 
 import java.util.stream.Collectors;
 
-@Mapper(from = BooksData.class , to = CommonBooksProperties.class)
-
-public class FromDiscardedBooksDataToCommonBooksProperties implements Converter<BooksData, CommonBooksProperties> {
+@Mapper(from = Book.class, to = CommonBooksProperties.class)
+public class FromBookToCommonBooksProperties implements Converter<Book, CommonBooksProperties> {
     @Override
-    public CommonBooksProperties convert(BooksData source) {
+    public CommonBooksProperties convert(Book source) {
         return CommonBooksProperties.builder()
-                .inventoryNumber(source.getInventoryNumber())
-                .publisher(source.getPublisher().getName())
+                .pathImage(source.getPath())
+                .isbn(source.getIsbn())
                 .title(source.getTitle())
-                .price(source.getPrice().doubleValue())
+                .inventoryNumber(source.getInventoryNumber())
                 .genre(source.getGenre().getName())
                 .authors(source.getAuthors().stream()
                         .map(author -> author.getFirstName() + " " + author.getLastName())
                         .collect(Collectors.toSet()))
-                .isbn(source.getIsbn())
-                .pathImage(source.getPath())
+                .publisher(source.getPublisher().getName())
                 .build();
     }
 }

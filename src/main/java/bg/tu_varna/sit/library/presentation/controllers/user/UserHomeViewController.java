@@ -1,7 +1,17 @@
 package bg.tu_varna.sit.library.presentation.controllers.user;
 
+import bg.tu_varna.sit.library.core.all_books.AllBooksProcessor;
+import bg.tu_varna.sit.library.core.find_book_by_id.FindBookByIdProcessor;
 import bg.tu_varna.sit.library.core.new_books.NewBooksProcessor;
 import bg.tu_varna.sit.library.core.recommended_books.RecommendedBooksProcessor;
+import bg.tu_varna.sit.library.models.CommonBooksProperties;
+import bg.tu_varna.sit.library.models.all_books.AllBooksInputModel;
+import bg.tu_varna.sit.library.models.all_books.AllBooksOperationModel;
+import bg.tu_varna.sit.library.models.all_books.AllBooksOutputModel;
+import bg.tu_varna.sit.library.models.all_books.BooksData;
+import bg.tu_varna.sit.library.models.find_book_by_id.FindBookByIdInputModel;
+import bg.tu_varna.sit.library.models.find_book_by_id.FindBookByIdOperationModel;
+import bg.tu_varna.sit.library.models.find_book_by_id.FindBookByIdOutputModel;
 import bg.tu_varna.sit.library.models.new_books.NewBooksData;
 import bg.tu_varna.sit.library.models.new_books.NewBooksInputModel;
 import bg.tu_varna.sit.library.models.new_books.NewBooksOperationModel;
@@ -14,9 +24,11 @@ import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.presentation.controllers.base.UserController;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
+import bg.tu_varna.sit.library.utils.converters.base.ConversionService;
 import io.vavr.control.Either;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -26,8 +38,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
@@ -40,10 +54,14 @@ public class UserHomeViewController extends UserController implements Initializa
     private GridPane recommendedBooks;
     private final NewBooksOperationModel newBooksProcessor;
     private final RecommendedBooksOperationModel recommendedBooksProcessor;
+    private final ConversionService conversionService;
+    private final FindBookByIdOperationModel findBookByIdProcessor;
 
     public UserHomeViewController() {
         newBooksProcessor = SingletonFactory.getSingletonInstance(NewBooksProcessor.class);
         recommendedBooksProcessor = SingletonFactory.getSingletonInstance(RecommendedBooksProcessor.class);
+        conversionService = SingletonFactory.getSingletonInstance(ConversionService.class);
+        findBookByIdProcessor = SingletonFactory.getSingletonInstance(FindBookByIdProcessor.class);
     }
 
     @Override
@@ -59,10 +77,19 @@ public class UserHomeViewController extends UserController implements Initializa
                 ImageView imageView = new ImageView(new Image(file.toURI().toString()));
                 imageView.setFitHeight(100);
                 imageView.setFitWidth(100);
+                Button button = new Button("Go");
+                int finalI = i;
+                button.setOnAction(e -> {
+                    try {
+                        setButtonFunctionality(newBooksData, finalI);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
                 vBox.getChildren().addAll(
                         new Label(iterBook.getTitle()),
                         imageView,
-                        new Button("Go")
+                        button
                 );
                 newBooks.setHgap(100);
                 vBox.setAlignment(Pos.CENTER);
@@ -74,23 +101,32 @@ public class UserHomeViewController extends UserController implements Initializa
             for (ColumnConstraints columnConstraint : newBooks.getColumnConstraints()) {
                 columnConstraint.setHgrow(Priority.SOMETIMES);
             }
-        }else{
-            AlertManager.showAlert(Alert.AlertType.ERROR,"Error","Error while finding new books", ButtonType.OK);
+        } else {
+            AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "Error while finding new books", ButtonType.OK);
         }
         Either<Exception, RecommendedBooksOutputModel> recommendedBooksOutputModels = recommendedBooksProcessor.process(RecommendedBooksInputModel.builder().build());
-        if(recommendedBooksOutputModels.isRight()){
+        if (recommendedBooksOutputModels.isRight()) {
             List<RecommendedBooksData> recommendedBooksList = recommendedBooksOutputModels.get().getRecommendedBooks();
-            int i=0;
+            int i = 0;
             for (RecommendedBooksData iterBook : recommendedBooksList) {
                 VBox vBox = new VBox();
                 File file = new File(iterBook.getPathToImage());
                 ImageView imageView = new ImageView(new Image(file.toURI().toString()));
                 imageView.setFitHeight(100);
                 imageView.setFitWidth(100);
+                Button button = new Button("Go");
+                int finalI = i;
+                button.setOnAction(e -> {
+                    try {
+                        setButtonFunctionality(finalI, recommendedBooksList);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
                 vBox.getChildren().addAll(
                         new Label(iterBook.getTitle()),
                         imageView,
-                        new Button("Go")
+                        button
                 );
                 recommendedBooks.setHgap(100);
                 vBox.setAlignment(Pos.CENTER);
@@ -103,5 +139,30 @@ public class UserHomeViewController extends UserController implements Initializa
                 columnConstraint.setHgrow(Priority.SOMETIMES);
             }
         }
+    }
+
+    private void setButtonFunctionality(List<NewBooksData> booksData, int finalI) throws IOException {
+        NewBooksData book = booksData.get(finalI);
+        Either<Exception, FindBookByIdOutputModel> process = findBookByIdProcessor.process(FindBookByIdInputModel.builder().id(book.getBookId()).build());
+        if (process.isRight()) {
+            changeToBookInfo(process);
+        }
+    }
+
+    private void setButtonFunctionality(int finalI, List<RecommendedBooksData> booksData) throws IOException {
+        RecommendedBooksData book = booksData.get(finalI);
+        Either<Exception, FindBookByIdOutputModel> process = findBookByIdProcessor.process(FindBookByIdInputModel.builder().id(book.getId()).build());
+        if (process.isRight()) {
+            changeToBookInfo(process);
+        }
+    }
+
+    private void changeToBookInfo(Either<Exception, FindBookByIdOutputModel> process) throws IOException {
+        CommonBooksProperties result = process.get().getBook();
+        setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book_data_for_user_view.fxml");
+        FXMLLoader loader = changeScene((Stage) newBooks.getScene().getWindow());
+        BookDataController controller = loader.getController();
+        controller.setBooksData(result);
+        controller.change();
     }
 }

@@ -27,5 +27,6 @@ public class BooksData {
     private Set<Author> authors;
     private Location location;
     private LocalDate archivedDate;
+    private String path;
 
 }

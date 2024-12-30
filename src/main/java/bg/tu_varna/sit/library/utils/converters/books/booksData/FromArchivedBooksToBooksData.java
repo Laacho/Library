@@ -18,6 +18,7 @@ public class FromArchivedBooksToBooksData implements Converter<ArchivedBooks, Bo
                 .genre(source.getBook().getGenre())
                 .isbn(source.getBook().getIsbn())
                 .location(source.getBook().getLocation())
+                .path(source.getBook().getPath())
                 .build();
     }
 }

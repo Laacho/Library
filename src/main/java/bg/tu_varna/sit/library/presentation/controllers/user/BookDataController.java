@@ -1,21 +1,23 @@
 package bg.tu_varna.sit.library.presentation.controllers.user;
 
+import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.presentation.controllers.base.UserController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.File;
 import java.util.Set;
 
 @Getter
 @Setter
 public class BookDataController extends UserController {
-    private String titleValue;
-    private String priceValue;
-    private String genreValue;
-    private String publisherValue;
-    private Set<String> authorsValue;
+    private CommonBooksProperties booksData;
     @FXML
     private Label title;
     @FXML
@@ -29,12 +31,25 @@ public class BookDataController extends UserController {
     @FXML
     private Label genre;
     @FXML
-    private Label price;
+    private ImageView imageView;
+    @FXML
+    private Button addToCart;
+    @FXML
+    private Button favourite;
+
     public void change() {
-        title.setText(title.getText() + " " + titleValue);
-        publisher.setText(publisher.getText() + " " + publisherValue);
-        price.setText(price.getText() + " " + priceValue);
-        authors.setText(authors.getText() + " " + String.join(", ", authorsValue));
-        genre.setText(genre.getText() +" "+genreValue);
+        title.setText(title.getText() + " " + booksData.getTitle());
+        publisher.setText(publisher.getText() + " " + booksData.getPublisher());
+        authors.setText(authors.getText() + " " + String.join(", ", booksData.getAuthors()));
+        genre.setText(genre.getText() + " " + booksData.getGenre());
+        File file = new File(booksData.getPathImage());
+        imageView.setImage(new Image(file.toURI().toString()));
+        imageView.setFitHeight(300);
+        imageView.setFitWidth(400);
+    }
+
+    @FXML
+    public void addToCart(ActionEvent actionEvent) {
+        BorrowCartController.addBookInSet(booksData);
     }
 }
