@@ -25,7 +25,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -94,7 +93,7 @@ public class ArchivedBooksTableViewController extends AdminController implements
     @FXML
     public void doubleClick(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getClickCount() == 2) {
-            setPath("/bg/tu_varna/sit/library/presentation.views/book_data_view/pages/book-data-view.fxml");
+            setPath("/bg/tu_varna/sit/library/presentation.views/admin/book_data_view/pages/book-data-view.fxml");
             FXMLLoader loader = changeScene((Stage) tableView.getScene().getWindow());
             BookDataViewController controller = loader.getController();
             BooksData selectedItem = tableView.getSelectionModel().getSelectedItem();

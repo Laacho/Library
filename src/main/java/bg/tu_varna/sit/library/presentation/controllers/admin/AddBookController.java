@@ -10,7 +10,6 @@ import bg.tu_varna.sit.library.models.addGenre.CheckGenreInputModel;
 import bg.tu_varna.sit.library.models.addGenre.CheckGenreOperationModel;
 import bg.tu_varna.sit.library.models.addGenre.CheckGenreOutputModel;
 import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
-import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import io.vavr.control.Either;
@@ -243,7 +242,7 @@ public class AddBookController extends AdminController {
         File selectedFile = fileChooser.showOpenDialog(addButton.getScene().getWindow());
         if (selectedFile!=null) {
             try {
-                Path path = Path.of("src/main/resources/bg/tu_varna/sit/library/presentation.views/addBook/images/book_images");
+                Path path = Path.of("src/main/resources/bg/tu_varna/sit/library/presentation.views/admin/addBook/images/book_images");
                 Path targetPath = path.resolve(selectedFile.getName());
                 Files.copy(selectedFile.toPath(),targetPath, StandardCopyOption.REPLACE_EXISTING);
                 pathFromUser=targetPath.toString();
@@ -256,7 +255,7 @@ public class AddBookController extends AdminController {
     }
     @FXML
     public void addBookReset(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/addBook/pages/addBook-view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/admin/addBook/pages/addBook-view.fxml");
         changeScene(actionEvent);
     }
 

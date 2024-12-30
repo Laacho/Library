@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(23,132,245,0.58);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.user.MyProfileController">
+    <children>
+        <AnchorPane layoutX="-7.0" layoutY="-9.0" prefHeight="611.0" prefWidth="143.0" style="-fx-background-color: rgb(252,252,252);">
+            <children>
+                <ImageView fitHeight="60.0" fitWidth="64.0" layoutX="37.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../logging/login/images/logo.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="homeButton" layoutX="26.0" layoutY="85.0" mnemonicParsing="false" onAction="#homeUser" prefHeight="46.0" prefWidth="91.0" text="Home" />
+                <Button fx:id="search" layoutX="26.0" layoutY="260.0" mnemonicParsing="false" onAction="#search" prefHeight="46.0" prefWidth="91.0" text="Search" />
+                <Button fx:id="borrowBooks" layoutX="26.0" layoutY="320.0" mnemonicParsing="false" onAction="#borrowBooks" prefHeight="46.0" prefWidth="91.0" text="Borrow books" />
+                <Button fx:id="readerProfile" layoutX="26.0" layoutY="142.0" mnemonicParsing="false" onAction="#readerProfile" prefHeight="46.0" prefWidth="91.0" text="Reader&#10;Profile" textAlignment="CENTER" />
+                <Button fx:id="allBooks" layoutX="26.0" layoutY="203.0" mnemonicParsing="false" onAction="#allBooks" prefHeight="46.0" prefWidth="91.0" text="All&#10;Books" textAlignment="CENTER" />
+                <Button fx:id="aboutUs" layoutX="26.0" layoutY="375.0" mnemonicParsing="false" onAction="#aboutUs" prefHeight="46.0" prefWidth="91.0" text="About us" />
+                <Button fx:id="logout" layoutX="26.0" layoutY="551.0" mnemonicParsing="false" onAction="#logout" prefHeight="46.0" prefWidth="91.0" text="Logout" textAlignment="CENTER" />
+            </children>
+        </AnchorPane>
+
+        <AnchorPane layoutX="133.0" layoutY="-8.0" prefHeight="85.0" prefWidth="643.0">
+            <children>
+                <Button fx:id="myProfile" layoutX="339.0" layoutY="20.0" mnemonicParsing="false" onAction="#myProfile" prefHeight="46.0" prefWidth="91.0" text="My&#10;profile&#10;&#10;" textAlignment="CENTER" />
+                <Button fx:id="notification" layoutX="431.0" layoutY="20.0" mnemonicParsing="false" onAction="#notifications" prefHeight="46.0" prefWidth="91.0" text="Notifications&#10;&#10;&#10;" textAlignment="CENTER" />
+                <Button fx:id="shoppingCart" layoutX="522.0" layoutY="20.0" mnemonicParsing="false" onAction="#shoppingCart" prefHeight="46.0" prefWidth="91.0" text="Shopping&#10;Cart" textAlignment="CENTER" />
+            </children>
+        </AnchorPane>
+      <Label layoutX="338.0" layoutY="90.0" prefHeight="27.0" prefWidth="60.0" text="Username" />
+      <Label fx:id="usernameValue" layoutX="431.0" layoutY="90.0" prefHeight="27.0" prefWidth="109.0" text="usernameValue" />
+      <Label layoutX="338.0" layoutY="124.0" prefHeight="27.0" prefWidth="60.0" text="Email" />
+      <Label fx:id="emailValue" layoutX="431.0" layoutY="124.0" prefHeight="27.0" prefWidth="239.0" text="email value" />
+      <Label layoutX="338.0" layoutY="159.0" prefHeight="27.0" prefWidth="60.0" text="Is verified" />
+      <Label fx:id="isVerifiedValue" layoutX="431.0" layoutY="159.0" prefHeight="27.0" prefWidth="108.0" text="isverifiedvalue" />
+      <Label layoutX="338.0" layoutY="193.0" prefHeight="27.0" prefWidth="60.0" text="Rating" />
+      <Label fx:id="ratingValue" layoutX="431.0" layoutY="193.0" prefHeight="27.0" prefWidth="110.0" text="rating value" />
+      <TextField fx:id="usernameTextField" layoutX="152.0" layoutY="364.0" />
+      <Separator layoutX="316.0" layoutY="280.0" orientation="VERTICAL" prefHeight="320.0" prefWidth="6.0" />
+      <Separator layoutX="529.0" layoutY="280.0" orientation="VERTICAL" prefHeight="320.0" prefWidth="6.0" />
+      <Label layoutX="149.0" layoutY="334.0" prefHeight="27.0" prefWidth="150.0" text="New Username:" />
+      <Label layoutX="337.0" layoutY="334.0" prefHeight="27.0" prefWidth="108.0" text="Old Password" />
+      <Label layoutX="337.0" layoutY="403.0" prefHeight="27.0" prefWidth="108.0" text="New Password" />
+      <Label layoutX="337.0" layoutY="473.0" prefHeight="27.0" prefWidth="143.0" text="Confirm new Password" />
+      <Button layoutX="354.0" layoutY="547.0" mnemonicParsing="false" onAction="#changePassword" text="Update Password" />
+      <Button layoutX="158.0" layoutY="402.0" mnemonicParsing="false" onAction="#updateUsername" prefHeight="27.0" prefWidth="133.0" text="Update Username" />
+      <Button layoutX="585.0" layoutY="434.0" mnemonicParsing="false" onAction="#sendVerificationCodeForNewEmail" text="Update Email" />
+      <TextField fx:id="emailTextField" layoutX="535.0" layoutY="379.0" />
+      <Label layoutX="544.0" layoutY="350.0" prefHeight="27.0" prefWidth="150.0" text="New email:" />
+      <PasswordField fx:id="oldPasswordField" layoutX="333.0" layoutY="368.0" />
+      <PasswordField fx:id="newPasswordField" layoutX="334.0" layoutY="434.0" />
+      <PasswordField fx:id="confirmNewPasswordField" layoutX="335.0" layoutY="500.0" />
+      <Label layoutX="170.0" layoutY="287.0" prefHeight="46.0" prefWidth="108.0" text="Change your &#10;username" />
+      <Label layoutX="337.0" layoutY="289.0" prefHeight="46.0" prefWidth="108.0" text="Change your &#10;password" />
+      <Label layoutX="544.0" layoutY="289.0" prefHeight="46.0" prefWidth="108.0" text="Change your &#10;email" />
+      <Separator layoutX="694.0" layoutY="280.0" orientation="VERTICAL" prefHeight="320.0" prefWidth="6.0" />
+      <Button layoutX="745.0" layoutY="345.0" mnemonicParsing="false" onAction="#sendEmail" prefHeight="46.0" prefWidth="87.0" text="Send Email" />
+      <Label layoutX="745.0" layoutY="263.0" prefHeight="74.0" prefWidth="110.0" text="Not verified?&#10;Click the button &#10;to get verified&#10;" />
+
+    </children>
+</AnchorPane>

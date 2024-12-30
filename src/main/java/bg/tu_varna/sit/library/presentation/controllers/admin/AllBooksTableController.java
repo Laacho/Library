@@ -91,7 +91,7 @@ public class AllBooksTableController extends AdminController implements Initiali
     @FXML
     public void doubleClick(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getClickCount() == 2) {
-            setPath("/bg/tu_varna/sit/library/presentation.views/book_data_view/pages/book-data-view.fxml");
+            setPath("/bg/tu_varna/sit/library/presentation.views/admin/book_data_view/pages/book-data-view.fxml");
             FXMLLoader loader = changeScene((Stage) tableView.getScene().getWindow());
             BookDataViewController controller = loader.getController();
             BooksData selectedItem = tableView.getSelectionModel().getSelectedItem();

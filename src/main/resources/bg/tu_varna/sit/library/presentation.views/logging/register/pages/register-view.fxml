@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane onKeyPressed="#registerWithEnter" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="752.0" style="-fx-background-color: rgba(23,132,245,0.58);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.RegisterController">
+    <children>
+        <AnchorPane layoutX="-7.0" layoutY="-9.0" prefHeight="611.0" prefWidth="244.0" style="-fx-background-color: rgb(252,252,252);">
+            <children>
+                <ImageView fitHeight="244.0" fitWidth="358.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../login/images/logo.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="backButton" layoutX="27.0" layoutY="26.0" mnemonicParsing="false" onAction="#changeToHomeView" styleClass="button" stylesheets="@../../../hello_view/css/file.css" text="&lt;-" />
+            </children>
+        </AnchorPane>
+        <TextField fx:id="firstName" layoutX="452.0" layoutY="100.0" prefHeight="33.0" prefWidth="230.0" promptText="Enter here..." />
+        <Label alignment="CENTER" layoutX="269.0" layoutY="268.0" prefHeight="57.0" prefWidth="166.0" styleClass="welcome-text" stylesheets="@../../../hello_view/css/file.css" text="username" />
+        <Label alignment="CENTER" layoutX="275.0" layoutY="413.0" prefHeight="39.0" prefWidth="150.0" styleClass="welcome-text" stylesheets="@../../../hello_view/css/file.css" text="password" />
+        <Button fx:id="registerButton" layoutX="403.0" layoutY="472.0" mnemonicParsing="false" onAction="#register" prefHeight="79.0" prefWidth="201.0" styleClass="button" stylesheets="@../../../hello_view/css/file.css" text="Register" />
+      <TextField fx:id="lastName" layoutX="452.0" layoutY="158.0" prefHeight="33.0" prefWidth="230.0" promptText="Enter here..." />
+      <TextField fx:id="username" layoutX="452.0" layoutY="284.0" prefHeight="33.0" prefWidth="230.0" promptText="Enter here..." />
+      <TextField fx:id="email" layoutX="455.0" layoutY="353.0" prefHeight="33.0" prefWidth="230.0" promptText="Enter here..." />
+      <DatePicker fx:id="birthdate" layoutX="454.0" layoutY="230.0" prefHeight="25.0" prefWidth="230.0" />
+      <PasswordField fx:id="password" layoutX="452.0" layoutY="416.0" prefHeight="33.0" prefWidth="238.0" promptText="Enter here..." />
+      <Label alignment="CENTER" layoutX="237.0" layoutY="341.0" prefHeight="57.0" prefWidth="166.0" styleClass="welcome-text" stylesheets="@../../../hello_view/css/file.css" text="email" />
+      <Label alignment="CENTER" layoutX="261.0" layoutY="214.0" prefHeight="57.0" prefWidth="166.0" styleClass="welcome-text" stylesheets="@../../../hello_view/css/file.css" text="birthdate" />
+      <Label alignment="CENTER" layoutX="269.0" layoutY="88.0" prefHeight="57.0" prefWidth="166.0" styleClass="welcome-text" stylesheets="@../../../hello_view/css/file.css" text="first name" />
+      <Label alignment="CENTER" layoutX="269.0" layoutY="146.0" prefHeight="57.0" prefWidth="166.0" styleClass="welcome-text" stylesheets="@../../../hello_view/css/file.css" text="last name" />
+    </children>
+</AnchorPane>

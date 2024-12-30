@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="752.0" style="-fx-background-color: rgba(23,132,245,0.58);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.admin.BookDataViewController">
+    <children>
+        <AnchorPane layoutX="-7.0" layoutY="-9.0" prefHeight="611.0" prefWidth="143.0"
+                    style="-fx-background-color: rgb(252,252,252);">
+            <children>
+                <ImageView fitHeight="60.0" fitWidth="64.0" layoutX="37.0" layoutY="14.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../../../logging/login/images/logo.png"/>
+                    </image>
+                </ImageView>
+                <Button fx:id="homeButton" layoutX="26.0" layoutY="85.0" mnemonicParsing="false" onAction="#homeAdmin"
+                        prefHeight="46.0" prefWidth="91.0" text="Home"/>
+                <Button fx:id="logout" layoutX="25.0" layoutY="148.0" mnemonicParsing="false" onAction="#search"
+                        prefHeight="46.0" prefWidth="91.0" text="Search"/>
+                <Button fx:id="addBook" layoutX="26.0" layoutY="207.0" mnemonicParsing="false" onAction="#addBook"
+                        prefHeight="46.0" prefWidth="91.0" text="Add Book"/>
+                <Button fx:id="updateStatus" layoutX="26.0" layoutY="265.0" mnemonicParsing="false"
+                        onAction="#updateStatus" prefHeight="46.0" prefWidth="91.0" text="Update&#10;Status&#10;&#10;"
+                        textAlignment="CENTER"/>
+                <Button fx:id="approveBooks" layoutX="26.0" layoutY="322.0" mnemonicParsing="false"
+                        onAction="#approveBooks" prefHeight="46.0" prefWidth="91.0" text="Approve&#10;Books&#10;&#10;"
+                        textAlignment="CENTER"/>
+                <Button fx:id="approveProfiles" layoutX="26.0" layoutY="380.0" mnemonicParsing="false"
+                        onAction="#approveProfiles" prefHeight="46.0" prefWidth="91.0"
+                        text="Approve&#10;Profiles&#10;&#10;" textAlignment="CENTER"/>
+                <Button fx:id="overdueBooks" layoutX="26.0" layoutY="492.0" mnemonicParsing="false"
+                        onAction="#overdueBooks" prefHeight="46.0" prefWidth="91.0" text="Overdue&#10;Books&#10;&#10;"
+                        textAlignment="CENTER"/>
+                <Button fx:id="returnBooks" layoutX="26.0" layoutY="435.0" mnemonicParsing="false"
+                        onAction="#returnBooks" prefHeight="46.0" prefWidth="91.0" text="Return&#10;Books&#10;&#10;"
+                        textAlignment="CENTER"/>
+                <Button fx:id="sendEmail" layoutX="26.0" layoutY="551.0" mnemonicParsing="false" onAction="#sendEmail"
+                        prefHeight="46.0" prefWidth="91.0" text="Send&#10;Email&#10;&#10;" textAlignment="CENTER"/>
+            </children>
+        </AnchorPane>
+        <Label fx:id="welcomeText" layoutX="401.0" layoutY="33.0" prefHeight="38.0" prefWidth="292.0" text="Нови книги">
+            <font>
+                <Font size="26.0" />
+            </font>
+        </Label>
+        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="176.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true" />
+        <Label fx:id="authors" layoutX="391.0" layoutY="142.0" text="Автори:" />
+        <Label fx:id="title" layoutX="389.0" layoutY="112.0" text="Заглавие:" />
+        <Label fx:id="genre" layoutX="392.0" layoutY="174.0" text="Жанр:" />
+        <Label fx:id="isbn" layoutX="392.0" layoutY="199.0" text="ISBN" />
+        <Label fx:id="inventoryNumber" layoutX="393.0" layoutY="225.0" text="Инвентарен номер" />
+      <Label fx:id="publisher" layoutX="393.0" layoutY="253.0" text="Издателство" />
+      <Label fx:id="price" layoutX="393.0" layoutY="279.0" text="Цена за ед. брой" />
+    </children>
+</AnchorPane>

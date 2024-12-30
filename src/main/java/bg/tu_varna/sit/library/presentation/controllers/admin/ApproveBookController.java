@@ -11,7 +11,6 @@ import bg.tu_varna.sit.library.models.update_borrowed_books.UpdateBorrowedBooksI
 import bg.tu_varna.sit.library.models.update_borrowed_books.UpdateBorrowedBooksOperationModel;
 import bg.tu_varna.sit.library.models.update_borrowed_books.UpdateBorrowedBooksOutputModel;
 import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
-import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import io.vavr.control.Either;
@@ -93,7 +92,7 @@ public class ApproveBookController extends AdminController implements Initializa
             AlertManager.showAlert(Alert.AlertType.ERROR, "Empty", "There is nothing to approve", ButtonType.OK);
             Platform.runLater(() -> {
                 Stage curStage = (Stage) (title.getScene().getWindow());
-                setPath("/bg/tu_varna/sit/library/presentation.views/admin_home_view/pages/admin-home-view.fxml");
+                setPath("/bg/tu_varna/sit/library/presentation.views/admin/admin_home_view/pages/admin-home-view.fxml");
                 try {
                     changeScene(curStage);
                 } catch (IOException e) {

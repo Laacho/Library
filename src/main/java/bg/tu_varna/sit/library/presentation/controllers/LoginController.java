@@ -40,12 +40,12 @@ public class LoginController extends Controller {
             LoginOutputModel outputModel = process.get();
             if(outputModel.getUserSession().getAdmin()){
                 //open admin scene
-                setPath("/bg/tu_varna/sit/library/presentation.views/admin_home_view/pages/admin-home-view.fxml");
+                setPath("/bg/tu_varna/sit/library/presentation.views/admin/admin_home_view/pages/admin-home-view.fxml");
                 changeScene(actionEvent);
             }
             else{
                 //open user scene
-                setPath("/bg/tu_varna/sit/library/presentation.views/user_home_view/pages/user-home-view.fxml");
+                setPath("/bg/tu_varna/sit/library/presentation.views/user/user_home_view/pages/user-home-view.fxml");
                 changeScene(actionEvent);
             }
         }

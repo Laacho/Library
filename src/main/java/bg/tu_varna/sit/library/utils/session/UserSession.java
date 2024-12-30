@@ -24,5 +24,6 @@ public class UserSession {
     private Double rating;
     private Set<Book> cartBooks;
     private String newEmailVerificationCode;
+    private Boolean wantsToLogout;
     private UserSession() {}
 }

@@ -73,13 +73,13 @@ public class ConfirmRegistrationController extends Controller {
                 .build();
         Either<Exception, ConfirmRegistrationOutputModel> process = confirmRegistrationProcessor.process(build);
         if(process.isRight()){
-            setPath("/bg/tu_varna/sit/library/presentation.views/user_home_view/pages/user-home-view.fxml");
+            setPath("/bg/tu_varna/sit/library/presentation.views/user/user_home_view/pages/user-home-view.fxml");
             changeScene(actionEvent);
         }
     }
     @FXML
     public void skip(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/user_home_view/pages/user-home-view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/user/user_home_view/pages/user-home-view.fxml");
         changeScene(actionEvent);
     }
 }

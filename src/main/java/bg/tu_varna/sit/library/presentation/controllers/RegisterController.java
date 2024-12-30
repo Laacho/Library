@@ -52,7 +52,7 @@ public class RegisterController extends Controller {
                 .build();
         Either<Exception, RegisterOutputModel> process = registerProcessor.process(build);
         if(process.isRight()){
-            setPath("/bg/tu_varna/sit/library/presentation.views/confirm_registration/pages/confirm-registration.fxml");
+            setPath("/bg/tu_varna/sit/library/presentation.views/logging/confirm_registration/pages/confirm-registration.fxml");
             changeScene(actionEvent);
         }
     }

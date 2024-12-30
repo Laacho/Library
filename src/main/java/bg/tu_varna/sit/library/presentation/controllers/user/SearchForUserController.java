@@ -32,7 +32,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -182,7 +181,7 @@ public class SearchForUserController extends UserController implements Initializ
 
     public void changeToBookView(MouseEvent mouseEvent) throws IOException {
         if(mouseEvent.getClickCount()==2){
-            setPath("/bg/tu_varna/sit/library/presentation.views/book_data_for_user/pages/book_data_for_user_view.fxml");
+            setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book_data_for_user_view.fxml");
             FXMLLoader loader = changeScene((Stage) resultListView.getScene().getWindow());
             BookDataController controller = loader.getController();
             String selectedBook = resultListView.getSelectionModel().getSelectedItem();
