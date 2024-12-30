@@ -8,6 +8,7 @@ import bg.tu_varna.sit.library.data.entities.Author;
 import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.data.entities.Genre;
 import bg.tu_varna.sit.library.data.entities.Publisher;
+import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.models.get_all_authors.GetAllAuthorsInputModel;
 import bg.tu_varna.sit.library.models.get_all_authors.GetAllAuthorsOperationModel;
 import bg.tu_varna.sit.library.models.get_all_authors.GetAllAuthorsOutputModel;
@@ -22,6 +23,7 @@ import bg.tu_varna.sit.library.models.search_for_user.SearchForUserOperationMode
 import bg.tu_varna.sit.library.models.search_for_user.SearchForUserOutputModel;
 import bg.tu_varna.sit.library.presentation.controllers.base.UserController;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
+import bg.tu_varna.sit.library.utils.converters.base.ConversionService;
 import io.vavr.control.Either;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -56,45 +58,56 @@ public class SearchForUserController extends UserController implements Initializ
     private TextField searchTextField;
     @FXML
     private ListView<String> resultListView;
+    List<Book> result;
+    private final ConversionService conversionService;
 
     private final GetAllPublishersOperationModel getAllPublishersOperationModel;
     private final GetAllGenresOperationModel getAllGenresOperationModel;
     private final GetAllAuthorsOperationModel getAllAuthorsOperationModel;
     private final SearchForUserOperationModel searchForUserOperationModel;
     private Set<String> authors;
+
     public SearchForUserController() {
         this.searchForUserOperationModel = SingletonFactory.getSingletonInstance(SearchForUserProcessor.class);
         this.getAllPublishersOperationModel = SingletonFactory.getSingletonInstance(GetAllPublishersProcessor.class);
-        this.getAllGenresOperationModel =     SingletonFactory.getSingletonInstance(GetAllGenresProcessor.class);
-        this.getAllAuthorsOperationModel =    SingletonFactory.getSingletonInstance(GetAllAuthorsProcessor.class);
+        this.getAllGenresOperationModel = SingletonFactory.getSingletonInstance(GetAllGenresProcessor.class);
+        this.getAllAuthorsOperationModel = SingletonFactory.getSingletonInstance(GetAllAuthorsProcessor.class);
+        conversionService = SingletonFactory.getSingletonInstance(ConversionService.class);
     }
+
     @FXML
     public void searchButton(ActionEvent event) {
         SearchForUserInputModel.SearchForUserInputModelBuilder builder = SearchForUserInputModel.builder().title(searchTextField.getText());
-        if(!authorComboBox.getValue().equals("None")   ) {
+        if (!authorComboBox.getValue().equals("None")) {
             builder.filterAuthor(authorComboBox.getValue());
         }
-        if(!publisherComboBox.getValue().equals("None")   ) {
+        if (!publisherComboBox.getValue().equals("None")) {
             builder.filterPublisher(publisherComboBox.getValue());
         }
-        if(!genreComboBox.getValue().equals("None")   ) {
+        if (!genreComboBox.getValue().equals("None")) {
             builder.filterGenre(genreComboBox.getValue());
         }
         SearchForUserInputModel input = builder.build();
         Either<Exception, SearchForUserOutputModel> process = searchForUserOperationModel.process(input);
-        if(process.isRight()){
+        if (process.isRight()) {
             resultListView.setVisible(true);
-            List<Book> result =process.get().getResult();
-            List<String> formatedResult = new ArrayList<>();
+            result = process.get().getResult();
+            List<String> formattedResult = new ArrayList<>();
             for (Book book : result) {
                 String sb = formatBook(book);
-                formatedResult.add(sb);
+                formattedResult.add(sb);
             }
-             resultListView.setItems(FXCollections.observableArrayList(formatedResult));
-            resultListView.setPrefHeight(formatedResult.size()*25);
-            adjustListViewWidth();
+            if (formattedResult.isEmpty()) {
+                resultListView.setVisible(true);
+                resultListView.setItems(FXCollections.observableList(List.of("No books found")));
+            } else {
+                resultListView.setItems(FXCollections.observableArrayList(formattedResult));
+                resultListView.setPrefHeight(formattedResult.size() * 30);
+                adjustListViewWidth();
+            }
         }
     }
+
     private void adjustListViewWidth() {
         double maxWidth = 0;
         Text text = new Text();
@@ -115,12 +128,11 @@ public class SearchForUserController extends UserController implements Initializ
                 " by " +
                 book.getAuthors().stream().map(Author::toString).collect(Collectors.joining(", ")) +
                 " - " +
-                book.getPrice().toPlainString() +
-                ", " +
                 book.getGenre().getName() +
                 ", " +
                 book.getPublisher().getName();
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         genreComboBox.getItems().add("None");
@@ -140,7 +152,7 @@ public class SearchForUserController extends UserController implements Initializ
         Either<Exception, GetAllGenresOutputModel> process = getAllGenresOperationModel.process(input);
         if (process.isRight()) {
             List<Genre> genres = process.get().getGenres();
-                    genres
+            genres
                     .stream()
                     .map(Genre::getName)
                     .forEach(genreComboBox.getItems()::add);
@@ -151,19 +163,19 @@ public class SearchForUserController extends UserController implements Initializ
     private void loadPublishers() {
         GetAllPublishersInputModel input = GetAllPublishersInputModel.builder().build();
         Either<Exception, GetAllPublishersOutputModel> process = getAllPublishersOperationModel.process(input);
-            if(process.isRight()) {
-                List<Publisher> publishers = process.get().getPublishers();
-                publishers
-                        .stream()
-                        .map(Publisher::getName)
-                        .forEach(publisherComboBox.getItems()::add);
-            }
+        if (process.isRight()) {
+            List<Publisher> publishers = process.get().getPublishers();
+            publishers
+                    .stream()
+                    .map(Publisher::getName)
+                    .forEach(publisherComboBox.getItems()::add);
+        }
     }
 
     private void loadAuthors() {
         GetAllAuthorsInputModel input = GetAllAuthorsInputModel.builder().build();
         Either<Exception, GetAllAuthorsOutputModel> process = getAllAuthorsOperationModel.process(input);
-        if(process.isRight()) {
+        if (process.isRight()) {
             List<Author> authors = process.get().getAuthors();
             authors
                     .stream()
@@ -174,45 +186,21 @@ public class SearchForUserController extends UserController implements Initializ
 
     @FXML
     public void searchWithEnter(KeyEvent keyEvent) {
-        if(keyEvent.getCode() == KeyCode.ENTER) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
             searchButton.fire();
         }
     }
 
     public void changeToBookView(MouseEvent mouseEvent) throws IOException {
-        if(mouseEvent.getClickCount()==2){
+        if (mouseEvent.getClickCount() == 2) {
             setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book_data_for_user_view.fxml");
             FXMLLoader loader = changeScene((Stage) resultListView.getScene().getWindow());
             BookDataController controller = loader.getController();
-            String selectedBook = resultListView.getSelectionModel().getSelectedItem();
-            String[] strings = stringToBook(selectedBook);
-            controller.setAuthorsValue(this.authors);
-            controller.setTitleValue(strings[0]);
-            controller.setPriceValue(strings[1]);
-            controller.setGenreValue(strings[2]);
-            controller.setPublisherValue(strings[3]);
+            int selectedIndex = resultListView.getSelectionModel().getSelectedIndex();
+            Book book = result.get(selectedIndex);
+            CommonBooksProperties convert = conversionService.convert(book, CommonBooksProperties.class);
+            controller.setBooksData(convert);
             controller.change();
         }
-    }
-    private String[] stringToBook(String string) {
-        String[] parts = string.split(" by ");
-        String title = parts[0].trim();
-
-        String authorsPart = parts[1].split(" - ")[0];
-        this.authors= Arrays.stream(authorsPart.split(", "))
-                .map(String::trim)
-                .collect(Collectors.toSet());
-
-        String[] remainingParts = parts[1].split(" - ")[1].split(", ");
-        String price = remainingParts[0].trim();
-        String genre = remainingParts[1].trim();
-        String publisher = remainingParts[2].trim();
-
-        String[] result = new String[4];
-        result[0] = title;
-        result[1] = price;
-        result[2] = genre;
-        result[3] = publisher;
-        return result;
     }
 }

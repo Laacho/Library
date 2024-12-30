@@ -18,8 +18,9 @@ public class CommonBooksProperties {
     private String isbn;
     private String title;
     private String inventoryNumber;
-    private BigDecimal price;
-    private Genre genre;
-    private Publisher publisher;
-    private Set<Author> authors;
+    private double price;
+    private String genre;
+    private String publisher;
+    private Set<String> authors;
+    private String pathImage;
 }

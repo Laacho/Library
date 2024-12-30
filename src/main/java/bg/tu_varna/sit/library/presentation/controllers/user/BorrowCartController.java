@@ -1,97 +1,147 @@
 package bg.tu_varna.sit.library.presentation.controllers.user;
 
-import bg.tu_varna.sit.library.data.entities.Author;
-import bg.tu_varna.sit.library.data.entities.Book;
+import bg.tu_varna.sit.library.core.borrow_books.BorrowBooksProcessor;
+import bg.tu_varna.sit.library.models.CommonBooksProperties;
+import bg.tu_varna.sit.library.models.borrow_books.BorrowBooksInputModel;
+import bg.tu_varna.sit.library.models.borrow_books.BorrowBooksOperationModel;
+import bg.tu_varna.sit.library.models.borrow_books.BorrowBooksOutputModel;
 import bg.tu_varna.sit.library.presentation.controllers.base.UserController;
+import bg.tu_varna.sit.library.utils.SingletonFactory;
+import bg.tu_varna.sit.library.utils.alerts.AlertManager;
+import bg.tu_varna.sit.library.utils.session.UserSession;
+import io.vavr.control.Either;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class BorrowCartController extends UserController implements Initializable {
     @FXML
     private DatePicker returnDate;
     @FXML
+    private DatePicker borrowDate;
+    @FXML
     private GridPane gridPaneLayout;
 
-    private int bookCount = 0;
-    private int columnCount = 2;
-    private static Set<Book> borrowedBooks=new HashSet<>();
+    private static int rows = 0;
+    private static Set<CommonBooksProperties> borrowedBooks = new HashSet<>();
+    private final BorrowBooksOperationModel borrowBooksProcessor;
 
-    public static void addBookInSet(Book book) {
+    public BorrowCartController() {
+        borrowBooksProcessor = SingletonFactory.getSingletonInstance(BorrowBooksProcessor.class);
+    }
+
+
+    public static void addBookInSet(CommonBooksProperties book) {
         borrowedBooks.add(book);
     }
-    public static void removeBookInSet(Book book) {
+
+    public static void removeBookInSet(CommonBooksProperties book) {
         borrowedBooks.remove(book);
     }
+
     @FXML
     public void borrowAllBooks() {
-        //svurzano e s butona
-        if(!borrowedBooks.isEmpty() && returnDate.valueProperty().getValue().isAfter(LocalDate.now())) {
-
+        if (!borrowedBooks.isEmpty() && returnDate.valueProperty().getValue().isAfter(LocalDate.now()) && borrowDate.getValue() !=null) {
+            UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
+            if (!userSession.getVerified().booleanValue()) {
+                AlertManager.showAlert(Alert.AlertType.ERROR,"Error","You should be verified before borrowing books",ButtonType.OK);
+                return;
+            }
+            BorrowBooksInputModel inputModel = BorrowBooksInputModel.builder()
+                    .books(borrowedBooks)
+                    .borrowDate(borrowDate.getValue())
+                    .returnDate(returnDate.getValue())
+                    .username(userSession.getUsername())
+                    .build();
+            Either<Exception, BorrowBooksOutputModel> process = borrowBooksProcessor.process(inputModel);
+            if(process.isRight()){
+                AlertManager.showAlert(Alert.AlertType.INFORMATION,"Success",process.get().getMessage(), ButtonType.OK);
+            }else {
+                AlertManager.showAlert(Alert.AlertType.ERROR,"Error","Error while request to borrow books",ButtonType.OK);
+            }
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        for (Book book : borrowedBooks) {
-
-            ImageView imageView = new ImageView(new Image(book.getPath()));
-            //sig shte se promenq
-            imageView.setFitWidth(100);
-            imageView.setFitHeight(150);
-
-            VBox bookBox = getVBox(book, imageView);
-            int row = bookCount / columnCount;
-            int col = bookCount % columnCount;
-            gridPaneLayout.add(bookBox, col, row);
-            bookCount++;
+        if (borrowedBooks.isEmpty()) {
+            rows = 0;
         }
+        for (CommonBooksProperties book : borrowedBooks) {
+            ImageView imageView = getImageView(book);
+            gridPaneLayout.add(imageView, 0, rows);
+            Label label = getText(book);
+            gridPaneLayout.add(label, 1, rows);
+            Button button = new Button("X");
+            HBox hBox = new HBox(button);
+            hBox.setAlignment(Pos.CENTER_RIGHT);
+            gridPaneLayout.add(hBox, 2, rows);
+            button.setOnAction(e -> setButtonFunctionality(e));
+            gridPaneLayout.setHgap(200);
+            rows++;
+        }
+    }
+
+    private void setButtonFunctionality(ActionEvent e) {
+        Button source = (Button) e.getSource();
+        HBox parent = (HBox) source.getParent();
+        Integer rowIndex = GridPane.getRowIndex(parent);
+        List<Node> nodesToRemove = new ArrayList<>();
+        Label saved = new Label();
+        for (Node node : gridPaneLayout.getChildren()) {
+            Integer nodeRowIndex = GridPane.getRowIndex(node);
+            if (nodeRowIndex != null && nodeRowIndex.equals(rowIndex)) {
+                if (node instanceof Label) {
+                    saved = (Label) node;
+                }
+                nodesToRemove.add(node);
+            }
+        }
+        gridPaneLayout.getChildren().removeAll(nodesToRemove);
+        String labelFromSelectedRow = saved.getText();
+        String title = labelFromSelectedRow.substring(0, labelFromSelectedRow.indexOf(" "));
+        String authors = labelFromSelectedRow.substring(labelFromSelectedRow.indexOf(" ") + 1);
+        CommonBooksProperties toDelete = null;
+        for (CommonBooksProperties borrowedBook : borrowedBooks) {
+            if (checkIfItIsTheSameBook(borrowedBook, title, authors)) {
+                toDelete = borrowedBook;
+            }
+        }
+        removeBookInSet(toDelete);
+    }
+
+    private boolean checkIfItIsTheSameBook(CommonBooksProperties borrowedBook, String title, String authors) {
+        return borrowedBook.getTitle().equals(title)
+                && borrowedBook.getAuthors().stream().collect(Collectors.joining(", ")).equals(authors);
     }
 
     @NotNull
-    private VBox getVBox(Book book, ImageView imageView) {
-        Label titleLabel = new Label(book.getTitle());
-
-        List<Label> authorLabels = new ArrayList<>();
-        Set<Author> authors = book.getAuthors();
-        authors.forEach(author -> {
-            Label label=new Label(author.toString());
-            authorLabels.add(label);
-        });
-        Button removeButton = new Button("X");
-        removeButton.setOnAction(e -> removeBook((VBox) removeButton.getParent()));
-                                                        //tozi cast moje da ne raboti
-        return new VBox(5, imageView,  titleLabel, (Node) authorLabels, removeButton);
+    private Label getText(CommonBooksProperties book) {
+        String text = book.getTitle() + " " + book.getAuthors().stream().collect(Collectors.joining(", "));
+        Label label = new Label(text);
+        return label;
     }
 
-    public void removeBook(VBox bookBox) {
-        gridPaneLayout.getChildren().remove(bookBox);
-        bookCount--;
-        rearrangeGrid();
-    }
-    private void rearrangeGrid() {
-        gridPaneLayout.getChildren().clear();
-        bookCount = 0;
-
-        for (Node node : gridPaneLayout.getChildren()) {
-            if (node instanceof VBox) {
-                int row = bookCount / columnCount;
-                int col = bookCount % columnCount;
-                gridPaneLayout.add(node, col, row);
-                bookCount++;
-            }
-        }
+    @NotNull
+    private ImageView getImageView(CommonBooksProperties book) {
+        File file = new File(book.getPathImage());
+        ImageView imageView = new ImageView(new Image(file.toURI().toString()));
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+        return imageView;
     }
 }
