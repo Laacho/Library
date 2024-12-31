@@ -14,7 +14,7 @@
                     </image>
                 </ImageView>
                 <Button fx:id="homeButton" layoutX="26.0" layoutY="85.0" mnemonicParsing="false" onAction="#homeAdmin" prefHeight="46.0" prefWidth="91.0" text="Home" />
-                <Button fx:id="logout" layoutX="25.0" layoutY="148.0" mnemonicParsing="false" onAction="#logout" prefHeight="46.0" prefWidth="91.0" text="Search" />
+                <Button fx:id="search" layoutX="25.0" layoutY="148.0" mnemonicParsing="false" onAction="#search" prefHeight="46.0" prefWidth="91.0" text="Search" />
                 <Button fx:id="addBook" layoutX="26.0" layoutY="207.0" mnemonicParsing="false" onAction="#addBook" prefHeight="46.0" prefWidth="91.0" text="Add Book" />
                 <Button fx:id="updateStatus" layoutX="26.0" layoutY="265.0" mnemonicParsing="false" onAction="#updateStatus" prefHeight="46.0" prefWidth="91.0" text="Update&#10;Status&#10;&#10;" textAlignment="CENTER" />
                 <Button fx:id="approveBooks" layoutX="26.0" layoutY="322.0" mnemonicParsing="false" onAction="#approveBooks" prefHeight="46.0" prefWidth="91.0" text="Approve&#10;Books&#10;&#10;" textAlignment="CENTER" />

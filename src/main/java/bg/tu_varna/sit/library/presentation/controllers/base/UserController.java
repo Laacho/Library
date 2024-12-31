@@ -57,8 +57,9 @@ public class UserController extends Controller {
     }
 
     @FXML
-    public void notifications(ActionEvent actionEvent) {
-
+    public void notifications(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/user/notifications/pages/notifications_view.fxml");
+        changeScene(actionEvent);
     }
 
     @FXML

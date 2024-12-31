@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 @Singleton
 public class ReaderProfileRepositoryImp implements ReaderProfileRepository {
-    private static final Logger log = Logger.getLogger(PublisherRepositoryImpl.class);
+    private static final Logger log = Logger.getLogger(ReaderProfileRepositoryImp.class);
     private ReaderProfileRepositoryImp(){};
     @Override
     public Long save(ReaderProfile entity) {
@@ -56,7 +56,7 @@ public class ReaderProfileRepositoryImp implements ReaderProfileRepository {
         Transaction transaction = session.beginTransaction();
         Optional<ReaderProfile> result = Optional.empty();
         try {
-            String jpql = "SELECT r FROM ReaderProfile r WHERE r.user_id = :id";
+            String jpql = "SELECT r FROM ReaderProfile r WHERE r.userId = :id";
             result = Optional.of(session.createQuery(jpql, ReaderProfile.class)
                     .setParameter("id", id)
                     .getSingleResult());

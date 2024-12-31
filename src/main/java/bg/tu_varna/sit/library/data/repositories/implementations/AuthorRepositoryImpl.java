@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Singleton
-public class AuthorRepositoryImpl implements AuthorRepository {
+public class
+AuthorRepositoryImpl implements AuthorRepository {
     private static final Logger log = Logger.getLogger(AuthorRepositoryImpl.class);
     private AuthorRepositoryImpl(){};
     @Override

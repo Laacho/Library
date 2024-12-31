@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(23,132,245,0.58);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.user.NotificationsController">
+    <children>
+        <AnchorPane layoutX="-7.0" layoutY="-9.0" prefHeight="611.0" prefWidth="143.0" style="-fx-background-color: rgb(252,252,252);">
+            <children>
+                <ImageView fitHeight="60.0" fitWidth="64.0" layoutX="37.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../logging/login/images/logo.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="homeButton" layoutX="26.0" layoutY="85.0" mnemonicParsing="false" onAction="#homeUser" prefHeight="46.0" prefWidth="91.0" text="Home" />
+                <Button fx:id="search" layoutX="26.0" layoutY="260.0" mnemonicParsing="false" onAction="#search" prefHeight="46.0" prefWidth="91.0" text="Search" />
+                <Button fx:id="borrowBooks" layoutX="26.0" layoutY="320.0" mnemonicParsing="false" onAction="#borrowBooks" prefHeight="46.0" prefWidth="91.0" text="Borrow books" />
+                <Button fx:id="readerProfile" layoutX="26.0" layoutY="142.0" mnemonicParsing="false" onAction="#readerProfile" prefHeight="46.0" prefWidth="91.0" text="Reader&#10;Profile" textAlignment="CENTER" />
+                <Button fx:id="allBooks" layoutX="26.0" layoutY="203.0" mnemonicParsing="false" onAction="#allBooks" prefHeight="46.0" prefWidth="91.0" text="All&#10;Books" textAlignment="CENTER" />
+                <Button fx:id="aboutUs" layoutX="26.0" layoutY="375.0" mnemonicParsing="false" onAction="#aboutUs" prefHeight="46.0" prefWidth="91.0" text="About us" />
+                <Button fx:id="logout" layoutX="26.0" layoutY="551.0" mnemonicParsing="false" onAction="#logout" prefHeight="46.0" prefWidth="91.0" text="Logout" textAlignment="CENTER" />
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="133.0" layoutY="-8.0" prefHeight="85.0" prefWidth="643.0">
+            <children>
+                <Button fx:id="myProfile" layoutX="339.0" layoutY="20.0" mnemonicParsing="false" onAction="#myProfile" prefHeight="46.0" prefWidth="91.0" text="My&#10;profile&#10;&#10;" textAlignment="CENTER" />
+                <Button fx:id="notification" layoutX="431.0" layoutY="20.0" mnemonicParsing="false" onAction="#notifications" prefHeight="46.0" prefWidth="91.0" text="Notifications&#10;&#10;&#10;" textAlignment="CENTER" />
+                <Button fx:id="shoppingCart" layoutX="522.0" layoutY="20.0" mnemonicParsing="false" onAction="#shoppingCart" prefHeight="46.0" prefWidth="91.0" text="Shopping&#10;Cart" textAlignment="CENTER" />
+            </children>
+        </AnchorPane>
+      <Label layoutX="416.0" layoutY="78.0" prefHeight="60.0" prefWidth="359.0" text="Notifications">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <ScrollPane layoutX="190.0" layoutY="150.0" prefHeight="328.0" prefWidth="664.0">
+         <content>
+            <GridPane fx:id="gridPane" prefHeight="320.0" prefWidth="661.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+            </GridPane>
+         </content>
+      </ScrollPane>
+      <Button onAction="#clearNotifications" layoutX="733.0" layoutY="508.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="117.0" text="Clear" />
+
+    </children>
+</AnchorPane>
