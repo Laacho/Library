@@ -7,4 +7,6 @@ import java.util.List;
 public interface NotificationRepository extends GenericRepository<Notification> {
 
     List<Notification> findAllAdminNotification();
+    List<Notification> findAllUserNotification(Long userId);
+    void updateNotificationToBeRead(String notification, Long userId);
 }

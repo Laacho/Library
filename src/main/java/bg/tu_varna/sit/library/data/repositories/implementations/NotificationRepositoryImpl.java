@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Singleton
 public class NotificationRepositoryImpl implements NotificationRepository {
-    private static final Logger log = Logger.getLogger(DiscardedBooksRepositoryImpl.class);
+    private static final Logger log = Logger.getLogger(NotificationRepositoryImpl.class);
 
     private NotificationRepositoryImpl() {};
 
@@ -132,4 +132,45 @@ public class NotificationRepositoryImpl implements NotificationRepository {
         }
         return list;
     }
+
+    @Override
+    public List<Notification> findAllUserNotification(Long userId) {
+        Session session=Connection.openSession();
+        Transaction transaction=session.beginTransaction();
+        List<Notification> list=new ArrayList<>();
+        try{
+            String jpql="SELECT n from Notification n where n.isRead = false and n.user.id=:userId";
+            list.addAll(session.createQuery(jpql, Notification.class)
+                    .setParameter("userId", userId)
+                    .getResultList());
+            transaction.commit();
+        }catch (Exception ex){
+            log.error("Error while finding entities", ex);
+        }
+        finally {
+            session.close();
+        }
+        return list;
+    }
+
+    @Override
+    public void updateNotificationToBeRead(String notification, Long userId) {
+        Session session=Connection.openSession();
+        Transaction transaction=session.beginTransaction();
+        try{
+            String jpql="UPDATE Notification n SET n.isRead = true WHERE n.message = :message AND n.user.id = :userID";
+            session.createQuery(jpql)
+                    .setParameter("userID", userId)
+                    .setParameter("message", notification)
+                            .executeUpdate();
+            transaction.commit();
+        }
+        catch (Exception ex){
+            log.error("Error while deleting entity with id " + userId, ex);
+        }
+        finally {
+            session.close();
+        }
+    }
+
 }
