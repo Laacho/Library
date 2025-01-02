@@ -7,7 +7,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,7 +22,9 @@ public class ReaderProfile implements Serializable {
     private Long id;
     @OneToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    private User userId;
+    private User user;
+    @Column( name = "is_profile_approved")
+    private Boolean isProfileApproved;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "reader_profile_to_books", joinColumns = @JoinColumn(name = "reader_profile_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
     private Set<Book> favoriteBooks;
@@ -34,11 +35,8 @@ public class ReaderProfile implements Serializable {
     @JoinTable(name = "reader_profile_to_read_books", joinColumns = @JoinColumn(name = "reader_profile_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
     private Set<Book> readBooks;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "reader_profile_to_authors", joinColumns = @JoinColumn(name = "reader_profile_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private Set<Author> favoriteAuthors;
-    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "reader_profile_to_genre", joinColumns = @JoinColumn(name = "reader_profile_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private Set<Genre> favoriteGenres;
+    private Set<Genre> recommendedGenres;
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

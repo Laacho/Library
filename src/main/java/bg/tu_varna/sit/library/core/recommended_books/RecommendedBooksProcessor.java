@@ -17,7 +17,6 @@ import bg.tu_varna.sit.library.utils.annotations.Processor;
 import bg.tu_varna.sit.library.utils.session.UserSession;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
-import org.hibernate.Transaction;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -45,7 +44,7 @@ public class RecommendedBooksProcessor extends BaseProcessor implements Recommen
                         return RecommendedBooksOutputModel.builder().recommendedBooks(recommendedBooksData).build();
                     } else {
                         ReaderProfile readerProfileData = readerProfile.get();
-                        Set<Genre> favoriteGenres = readerProfileData.getFavoriteGenres();
+                        Set<Genre> favoriteGenres = readerProfileData.getRecommendedGenres();
                         if (!favoriteGenres.isEmpty()) {
                             List<RecommendedBooksData> recommendedBooksData = getRecommendedBooksDataIfUserHaveAReaderProfile(favoriteGenres);
                             return RecommendedBooksOutputModel.builder().recommendedBooks(recommendedBooksData).build();
