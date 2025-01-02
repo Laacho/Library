@@ -131,4 +131,18 @@ public class ReaderProfileRepositoryImp implements ReaderProfileRepository {
         }
         return result;
     }
+
+    @Override
+    public void update(ReaderProfile readerProfile) {
+        Session session = Connection.openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(readerProfile);
+            transaction.commit();
+        } catch (Exception ex) {
+
+        } finally {
+            session.close();
+        }
+    }
 }

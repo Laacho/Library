@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface ReaderProfileRepository extends GenericRepository<ReaderProfile> {
     Optional<ReaderProfile> findByUser(User user);
+    void update(ReaderProfile readerProfile);
 }

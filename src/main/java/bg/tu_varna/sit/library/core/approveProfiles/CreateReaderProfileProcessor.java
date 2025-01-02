@@ -31,12 +31,14 @@ public class CreateReaderProfileProcessor extends BaseProcessor implements Creat
     public Either<Exception, CreateReaderProfileOutputModel> process(CreateReaderProfileInputModel input) {
         return Try.of(() -> {
                     User user = userRepository.findById(input.getId()).orElseThrow(() -> new RuntimeException());//todo
-                    ReaderProfile readerProfile = ReaderProfile.builder()
+                    ReaderProfile readerProfile = readerProfileRepository.findByUser(user).orElseThrow(() -> new RuntimeException());
+                    readerProfile = readerProfile.toBuilder()
                             .createdAt(LocalDateTime.now())
                             .updatedAt(LocalDateTime.now())
+                            .isProfileApproved(true)
                             .user(user)
                             .build();
-                    readerProfileRepository.save(readerProfile);
+                    readerProfileRepository.update(readerProfile);
                     return CreateReaderProfileOutputModel.builder().message("Successfully created reader profile.").build();
                 }).toEither()
                 .mapLeft(exceptionManager::handle);
