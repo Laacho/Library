@@ -34,7 +34,7 @@ public class CreateReaderProfileProcessor extends BaseProcessor implements Creat
                     ReaderProfile readerProfile = ReaderProfile.builder()
                             .createdAt(LocalDateTime.now())
                             .updatedAt(LocalDateTime.now())
-                            .userId(user)
+                            .user(user)
                             .build();
                     readerProfileRepository.save(readerProfile);
                     return CreateReaderProfileOutputModel.builder().message("Successfully created reader profile.").build();

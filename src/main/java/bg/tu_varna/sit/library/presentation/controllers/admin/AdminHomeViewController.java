@@ -75,7 +75,7 @@ public class AdminHomeViewController extends AdminController implements Initiali
 
     @FXML
     public void usersTableView(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/user/users__table_view/pages/users--table-view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/admin/users__table_view/pages/users--table-view.fxml");
         changeScene(actionEvent);
     }
 

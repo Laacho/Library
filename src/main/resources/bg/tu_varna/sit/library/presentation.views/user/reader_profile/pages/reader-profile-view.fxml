@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(23,132,245,0.58);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.user.ReaderProfileController">
+    <children>
+        <AnchorPane layoutX="-7.0" layoutY="-9.0" prefHeight="611.0" prefWidth="143.0" style="-fx-background-color: rgb(252,252,252);">
+            <children>
+                <ImageView fitHeight="60.0" fitWidth="64.0" layoutX="37.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../logging/login/images/logo.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="homeButton" layoutX="26.0" layoutY="85.0" mnemonicParsing="false" onAction="#homeUser" prefHeight="46.0" prefWidth="91.0" text="Home" />
+                <Button fx:id="search" layoutX="26.0" layoutY="260.0" mnemonicParsing="false" onAction="#search" prefHeight="46.0" prefWidth="91.0" text="Search" />
+                <Button fx:id="borrowBooks" layoutX="26.0" layoutY="320.0" mnemonicParsing="false" onAction="#borrowBooks" prefHeight="46.0" prefWidth="91.0" text="Borrow books" />
+                <Button fx:id="readerProfile" layoutX="26.0" layoutY="142.0" mnemonicParsing="false" onAction="#readerProfile" prefHeight="46.0" prefWidth="91.0" text="Reader&#10;Profile" textAlignment="CENTER" />
+                <Button fx:id="allBooks" layoutX="26.0" layoutY="203.0" mnemonicParsing="false" onAction="#allBooks" prefHeight="46.0" prefWidth="91.0" text="All&#10;Books" textAlignment="CENTER" />
+                <Button fx:id="aboutUs" layoutX="26.0" layoutY="375.0" mnemonicParsing="false" onAction="#aboutUs" prefHeight="46.0" prefWidth="91.0" text="About us" />
+                <Button fx:id="logout" layoutX="26.0" layoutY="551.0" mnemonicParsing="false" onAction="#logout" prefHeight="46.0" prefWidth="91.0" text="Logout" textAlignment="CENTER" />
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="133.0" layoutY="-8.0" prefHeight="85.0" prefWidth="643.0">
+            <children>
+                <Button fx:id="myProfile" layoutX="339.0" layoutY="20.0" mnemonicParsing="false" onAction="#myProfile" prefHeight="46.0" prefWidth="91.0" text="My&#10;profile&#10;&#10;" textAlignment="CENTER" />
+                <Button fx:id="notification" layoutX="431.0" layoutY="20.0" mnemonicParsing="false" onAction="#notifications" prefHeight="46.0" prefWidth="91.0" text="Notifications&#10;&#10;&#10;" textAlignment="CENTER" />
+                <Button fx:id="shoppingCart" layoutX="522.0" layoutY="20.0" mnemonicParsing="false" onAction="#shoppingCart" prefHeight="46.0" prefWidth="91.0" text="Shopping&#10;Cart" textAlignment="CENTER" />
+            </children>
+        </AnchorPane>
+        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="AS_NEEDED" layoutX="181.0" layoutY="154.0" prefHeight="419.0" prefWidth="675.0" vbarPolicy="AS_NEEDED">
+            <content>
+                <GridPane fx:id="gridPane" layoutX="14.0" layoutY="17.0" prefHeight="471.0" prefWidth="577.0">
+                </GridPane>
+            </content>
+        </ScrollPane>
+      <Button fx:id="favouriteBookButton" layoutX="232.0" layoutY="86.0" mnemonicParsing="false" onAction="#favouriteBooks" prefHeight="46.0" prefWidth="91.0" text="&lt;3 books" />
+      <Button fx:id="favouriteGenres" layoutX="389.0" layoutY="86.0" mnemonicParsing="false" onAction="#recommendedBooks" prefHeight="46.0" prefWidth="91.0" text="&lt;3 genres" />
+      <Button fx:id="toRead" layoutX="548.0" layoutY="86.0" mnemonicParsing="false" onAction="#toRead" prefHeight="46.0" prefWidth="91.0" text="2 read" />
+      <Button fx:id="read" layoutX="705.0" layoutY="86.0" mnemonicParsing="false" onAction="#readBooks" prefHeight="46.0" prefWidth="91.0" text="read" />
+    </children>
+</AnchorPane>

@@ -3,6 +3,7 @@ package bg.tu_varna.sit.library.data.repositories.implementations;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Publisher;
 import bg.tu_varna.sit.library.data.entities.ReaderProfile;
+import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ReaderProfileRepository;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import org.apache.log4j.Logger;
@@ -56,7 +57,7 @@ public class ReaderProfileRepositoryImp implements ReaderProfileRepository {
         Transaction transaction = session.beginTransaction();
         Optional<ReaderProfile> result = Optional.empty();
         try {
-            String jpql = "SELECT r FROM ReaderProfile r WHERE r.userId = :id";
+            String jpql = "SELECT r FROM ReaderProfile r WHERE r.id = :id";
             result = Optional.of(session.createQuery(jpql, ReaderProfile.class)
                     .setParameter("id", id)
                     .getSingleResult());
@@ -111,4 +112,23 @@ public class ReaderProfileRepositoryImp implements ReaderProfileRepository {
         return result;
     }
 
+    @Override
+    public Optional<ReaderProfile> findByUser(User user) {
+        Session session = Connection.openSession();
+        Transaction transaction = session.beginTransaction();
+        Optional<ReaderProfile> result = Optional.empty();
+        try {
+            String jpql = "SELECT r FROM ReaderProfile r WHERE r.user = :user";
+            result = Optional.of(session.createQuery(jpql, ReaderProfile.class)
+                    .setParameter("user", user)
+                    .getSingleResult());
+            transaction.commit();
+            log.info("Successfully find reader profile with username "+user.getUserCredentials().getUsername());
+        } catch (Exception ex) {
+            log.error("Error finding reader profile with username "+user.getUserCredentials().getUsername(), ex);
+        } finally {
+            session.close();
+        }
+        return result;
+    }
 }

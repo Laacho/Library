@@ -46,8 +46,8 @@ public class UserAllBooksController extends UserController implements Initializa
         if (process.isRight()) {
             List<BooksData> booksData = process.get().getBooksData();
             int i = 0;
-            int rows = booksData.size() / 2;
-            for (int j = 0; j < rows; j++) {
+            int j = 0;
+            while (true) {
                 newBooks.getRowConstraints().add(new RowConstraints());
                 for (int k = 0; k < 2; k++) {
                     if (i >= booksData.size()) {
@@ -61,7 +61,7 @@ public class UserAllBooksController extends UserController implements Initializa
                     imageView.setFitWidth(200);
                     Button button = new Button("Go");
                     int finalI = i;
-                    button.setOnAction(e ->{
+                    button.setOnAction(e -> {
                         try {
                             setButtonFunctionality(booksData, finalI);
                         } catch (IOException ex) {
@@ -77,6 +77,10 @@ public class UserAllBooksController extends UserController implements Initializa
                     vBox.setSpacing(20);
                     newBooks.add(vBox, k, j);
                     i++;
+                }
+                j++;
+                if (i >= booksData.size()) {
+                    break;
                 }
             }
             newBooks.setHgap(200);
