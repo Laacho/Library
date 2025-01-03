@@ -10,6 +10,7 @@ import bg.tu_varna.sit.library.data.repositories.implementations.UserRepositoryI
 import bg.tu_varna.sit.library.data.repositories.interfaces.BorrowedBooksRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserRepository;
+import bg.tu_varna.sit.library.exceptions.UsernameDoesNotExist;
 import bg.tu_varna.sit.library.models.return_books.BooksForReturn;
 import bg.tu_varna.sit.library.models.return_books.ReturnBooksInputModel;
 import bg.tu_varna.sit.library.models.return_books.ReturnBooksOperationModel;
@@ -38,7 +39,8 @@ public class ReturnBookProcessor extends BaseProcessor implements ReturnBooksOpe
     @Override
     public Either<Exception, ReturnBooksOutputModel> process(ReturnBooksInputModel input) {
         return Try.of(() -> {
-                    UserCredentials userCredentials = userCredentialsRepository.findByUsername(input.getUsername()).orElseThrow(() -> new RuntimeException());
+                    UserCredentials userCredentials = userCredentialsRepository.findByUsername(input.getUsername())
+                            .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +input.getUsername()+" has not been found"));
                     User user = userCredentials.getUser();
                     List<BorrowedBooks> borrowedBooks = borrowedBooksRepository.findByUser(user);
                     List<BooksForReturn> booksForReturns = getBooksForReturns(borrowedBooks);

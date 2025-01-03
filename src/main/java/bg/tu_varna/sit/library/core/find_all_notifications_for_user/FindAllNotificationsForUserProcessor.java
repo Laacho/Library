@@ -7,6 +7,7 @@ import bg.tu_varna.sit.library.data.repositories.implementations.NotificationRep
 import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentialsRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.interfaces.NotificationRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
+import bg.tu_varna.sit.library.exceptions.UsernameDoesNotExist;
 import bg.tu_varna.sit.library.models.find_all_notifications_for_user.FindAllNotificationsForUserInputModel;
 import bg.tu_varna.sit.library.models.find_all_notifications_for_user.FindAllNotificationsForUserOperationModel;
 import bg.tu_varna.sit.library.models.find_all_notifications_for_user.FindAllNotificationsForUserOutputModel;
@@ -36,7 +37,8 @@ public class FindAllNotificationsForUserProcessor extends BaseProcessor implemen
         return Try.of(()->{
                     log.info("Started getting all notifications for user");
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
-                    UserCredentials loggedUser = userCredentialsRepository.findByUsername(userSession.getUsername()).get();
+                    UserCredentials loggedUser = userCredentialsRepository.findByUsername(userSession.getUsername())
+                            .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +userSession.getUsername()+" has not been found"));
                     List<Notification> allUserNotification = notificationRepository.findAllUserNotification(loggedUser.getId());
                     List<String> resultList = convertToOutput(allUserNotification);
                     FindAllNotificationsForUserOutputModel output = buildOutput(resultList);
@@ -48,7 +50,9 @@ public class FindAllNotificationsForUserProcessor extends BaseProcessor implemen
     }
 
     private static FindAllNotificationsForUserOutputModel buildOutput(List<String> resultMap) {
-        return FindAllNotificationsForUserOutputModel.builder().notifications(resultMap).build();
+        return FindAllNotificationsForUserOutputModel.builder()
+                .notifications(resultMap)
+                .build();
     }
 
     private  List<String> convertToOutput(List<Notification> allUserNotification) {

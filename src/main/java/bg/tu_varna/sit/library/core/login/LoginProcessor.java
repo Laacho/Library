@@ -4,6 +4,8 @@ import bg.tu_varna.sit.library.core.BaseProcessor;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentialsRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
+import bg.tu_varna.sit.library.exceptions.PasswordDoesNotMatch;
+import bg.tu_varna.sit.library.exceptions.UsernameDoesNotExist;
 import bg.tu_varna.sit.library.models.ExceptionManager;
 import bg.tu_varna.sit.library.models.login.LoginInputModel;
 import bg.tu_varna.sit.library.models.login.LoginOperationModel;
@@ -64,16 +66,14 @@ public class LoginProcessor extends BaseProcessor implements LoginOperationModel
     }
 
 
-    private void checkIfPasswordMatches(String dbPassword, String inputPassword) {
+    private void checkIfPasswordMatches(String dbPassword, String inputPassword) throws PasswordDoesNotMatch {
         if (!Hasher.verifyPassword(inputPassword, dbPassword)) {
-            throw new RuntimeException();
+            throw new PasswordDoesNotMatch("Password Does Not Match", "Wrong password");
         }
     }
 
-    private UserCredentials checkIfUsernameExists(String username) {
-        Optional<UserCredentials> searchedByUsername = userCredentialsRepository.findByUsername(username);
-        if (searchedByUsername.isEmpty()) //todo
-            throw new RuntimeException();
-        else return searchedByUsername.get();
+    private UserCredentials checkIfUsernameExists(String username) throws UsernameDoesNotExist {
+        return userCredentialsRepository.findByUsername(username).
+                orElseThrow(() -> new UsernameDoesNotExist("Username Not Found", "Invalid username on login"));
     }
 }

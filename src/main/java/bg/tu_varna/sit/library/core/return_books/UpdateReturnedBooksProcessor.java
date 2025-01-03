@@ -10,6 +10,8 @@ import bg.tu_varna.sit.library.data.repositories.interfaces.BorrowedBooksReposit
 import bg.tu_varna.sit.library.data.repositories.interfaces.NotificationRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserRepository;
+import bg.tu_varna.sit.library.exceptions.UserNotFound;
+import bg.tu_varna.sit.library.exceptions.UserWithIdDoesNotExist;
 import bg.tu_varna.sit.library.models.return_books.BooksForReturn;
 import bg.tu_varna.sit.library.models.update_returned_books.UpdateReturnedBooksInputModel;
 import bg.tu_varna.sit.library.models.update_returned_books.UpdateReturnedBooksOperationModel;
@@ -41,14 +43,15 @@ public class UpdateReturnedBooksProcessor extends BaseProcessor implements Updat
         return Try.of(() -> {
                     Long userId = input.getUserId();
                     BooksForReturn books = input.getBooks();
-                    User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException());//todo
+                    User user = userRepository.findById(userId).orElseThrow(() -> new UserWithIdDoesNotExist("User Not Found","User with id "+userId+" has not been found"));
                     BorrowedBooks borrowedBooks = borrowedBooksRepository.findByUserAndBorrowedDateAndReturnDate(user, books.getBorrowingDate(), books.getReturnDate()).orElseThrow(() -> new RuntimeException());//todo
                     double mistakes = 0;
                     mistakes = getMistakes(books, mistakes);
                     mistakes = checkForDeadline(books, mistakes);
                     mistakes /= 10;
                     Double rating = getNewRating(user, mistakes);
-                    UserCredentials userCredentials = userCredentialsRepository.findByUser(user).orElseThrow(() -> new RuntimeException());//todo
+                    UserCredentials userCredentials = userCredentialsRepository.findByUser(user)
+                            .orElseThrow(() -> new UserNotFound("User Not Found","User has not been found"));//todo
                     userCredentials.setRating(rating);
                     userCredentialsRepository.update(userCredentials);
                     borrowedBooksRepository.deleteById(borrowedBooks.getId());

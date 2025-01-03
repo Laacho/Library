@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.core.BaseProcessor;
 import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.data.repositories.implementations.BookRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.interfaces.BookRepository;
+import bg.tu_varna.sit.library.exceptions.BookNotFound;
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.models.find_book_by_id.FindBookByIdInputModel;
 import bg.tu_varna.sit.library.models.find_book_by_id.FindBookByIdOperationModel;
@@ -24,7 +25,8 @@ public class FindBookByIdProcessor extends BaseProcessor implements FindBookById
     @Override
     public Either<Exception, FindBookByIdOutputModel> process(FindBookByIdInputModel input) {
         return Try.of(() -> {
-                    Book book = bookRepository.findById(input.getId()).orElseThrow(() -> new RuntimeException());//todo;
+                    Book book = bookRepository.findById(input.getId())
+                            .orElseThrow(() -> new BookNotFound("Book Not Found","Book with "+input.getId()+" id has not been found"));
                     CommonBooksProperties convert = conversionService.convert(book, CommonBooksProperties.class);
                     return FindBookByIdOutputModel.builder().book(convert).build();
                 }).toEither()

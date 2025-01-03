@@ -8,6 +8,7 @@ import bg.tu_varna.sit.library.data.repositories.implementations.BookRepositoryI
 import bg.tu_varna.sit.library.data.repositories.implementations.BorrowedBooksRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.interfaces.BookRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.BorrowedBooksRepository;
+import bg.tu_varna.sit.library.exceptions.BorrowBooksEmpty;
 import bg.tu_varna.sit.library.models.approve_books.ApproveBooksInputModel;
 import bg.tu_varna.sit.library.models.approve_books.ApproveBooksOperationModel;
 import bg.tu_varna.sit.library.models.approve_books.ApproveBooksOutputModel;
@@ -34,11 +35,13 @@ public class ApproveBooksProcessor extends BaseProcessor implements ApproveBooks
     public Either<Exception, ApproveBooksOutputModel> process(ApproveBooksInputModel input) {
         return Try.of(() -> {
                     List<BorrowedBooks> borrowedBooks = borrowedBooksRepository.findAll();
-                    if (borrowedBooks.isEmpty()) throw new RuntimeException();//todo
+                    if (borrowedBooks.isEmpty())
+                        throw new BorrowBooksEmpty("No Book Borrowing Requests","There are no users who have requested to borrow books.");
                     List<BooksForApproveData> booksForApproveDataSet = getBooksForApproveData(borrowedBooks);
                     List<Book> all = bookRepository.findAll();
                     Map<String, List<Book>> booksWithSameISBN = getBooksWithSameISBN(borrowedBooks, all);
-                    if(booksForApproveDataSet.isEmpty()) throw  new RuntimeException(); //todo
+                    if(booksForApproveDataSet.isEmpty())
+                        throw new BorrowBooksEmpty("No Book Borrowing Requests  ","There are no users who have requested to borrow books.");
                     return ApproveBooksOutputModel.builder()
                             .books(booksForApproveDataSet)
                             .booksWithSameISBN(booksWithSameISBN)

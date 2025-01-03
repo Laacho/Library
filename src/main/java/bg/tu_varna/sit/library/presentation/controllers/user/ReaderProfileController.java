@@ -125,7 +125,8 @@ public class ReaderProfileController extends UserController implements Initializ
             showBooks(favouriteBooks);
             return;
         }
-        AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "You don't have books in favourite books", ButtonType.OK);
+        gridPane.add(new Label("No favourite books"),0,0);
+       // AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "You don't have books in favourite books", ButtonType.OK);
     }
 
     @FXML
@@ -150,7 +151,8 @@ public class ReaderProfileController extends UserController implements Initializ
             }
             return;
         }
-        AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "Don't have recommended genres", ButtonType.OK);
+        gridPane.add(new Label("Don't have recommended genres"),0,0);
+       // AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "Don't have recommended genres", ButtonType.OK);
     }
 
     private void setActionOnRightArrow(Button rightArrow, AtomicInteger j, List<BookDataForReader> books, VBox forGenre, String genreName, HBox mainBox, Button leftArrow) {
@@ -217,7 +219,8 @@ public class ReaderProfileController extends UserController implements Initializ
             showBooks(wantsToRead);
             return;
         }
-        AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "You don't have books in wants to read", ButtonType.OK);
+        gridPane.add(new Label("No to books"),0,0);
+       // AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "You don't have books in wants to read", ButtonType.OK);
 
     }
 
@@ -228,7 +231,8 @@ public class ReaderProfileController extends UserController implements Initializ
             showBooks(readBooks);
             return;
         }
-        AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "You don't have books in already read books", ButtonType.OK);
+        gridPane.add(new Label("No read books"),0,0);
+       // AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "You don't have books in already read books", ButtonType.OK);
     }
 
     private void showBooks(List<BookDataForReader> books) {

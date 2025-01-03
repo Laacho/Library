@@ -7,6 +7,7 @@ import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentials
 import bg.tu_varna.sit.library.data.repositories.implementations.UserRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserRepository;
+import bg.tu_varna.sit.library.exceptions.UsernameDoesNotExist;
 import bg.tu_varna.sit.library.models.approve_books.ApproveBooksInputModel;
 import bg.tu_varna.sit.library.models.approve_books.ApproveBooksOperationModel;
 import bg.tu_varna.sit.library.models.approve_books.ApproveBooksOutputModel;
@@ -30,7 +31,7 @@ public class ApproveProfilesProcessor extends BaseProcessor implements ApprovePr
     public Either<Exception, ApproveProfilesOutputModel> process(ApproveProfilesInputModel input) {
         return Try.of(() -> {
                     String username = input.getUsername();
-                    UserCredentials userCredentials = userCredentialsRepository.findByUsername(username).orElseThrow(() -> new RuntimeException());//todo
+                    UserCredentials userCredentials = userCredentialsRepository.findByUsername(username).orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","The username you provided does not exist in our records."));
                    return conversionService.convert(userCredentials.getUser(),ApproveProfilesOutputModel.class);
                 }).toEither()
                 .mapLeft(exceptionManager::handle);

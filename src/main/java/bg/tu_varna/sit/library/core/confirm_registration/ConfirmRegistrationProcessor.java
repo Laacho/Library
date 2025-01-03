@@ -4,6 +4,8 @@ import bg.tu_varna.sit.library.core.BaseProcessor;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentialsRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
+import bg.tu_varna.sit.library.exceptions.IncorrectVerificationCode;
+import bg.tu_varna.sit.library.exceptions.UsernameDoesNotExist;
 import bg.tu_varna.sit.library.models.confirm_registration.ConfirmRegistrationInputModel;
 import bg.tu_varna.sit.library.models.confirm_registration.ConfirmRegistrationOperationModel;
 import bg.tu_varna.sit.library.models.confirm_registration.ConfirmRegistrationOutputModel;
@@ -31,7 +33,8 @@ public class ConfirmRegistrationProcessor extends BaseProcessor implements Confi
                     log.info("Started confirm registration");
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     String verificationCode = input.getVerificationCode();
-                    UserCredentials userCredentials = userCredentialsRepository.findByUsername(userSession.getUsername()).orElseThrow(() -> new RuntimeException());
+                    UserCredentials userCredentials = userCredentialsRepository.findByUsername(userSession.getUsername())
+                            .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +userSession.getUsername()+" has not been found"));
                     String verificationCodeFromDB = userCredentials.getVerificationCode();
                     checkVerificationCodes(verificationCodeFromDB, verificationCode, userCredentials);
                     userSession.setVerified(true);
@@ -41,7 +44,7 @@ public class ConfirmRegistrationProcessor extends BaseProcessor implements Confi
                 .mapLeft(exceptionManager::handle);
     }
 
-    private void checkVerificationCodes(String verificationCodeFromDB, String verificationCode, UserCredentials userCredentials) {
+    private void checkVerificationCodes(String verificationCodeFromDB, String verificationCode, UserCredentials userCredentials) throws IncorrectVerificationCode {
         if (verificationCodeFromDB.equals(verificationCode)) {
             UserCredentials built = userCredentials.toBuilder()
                     .verified(true)
@@ -50,7 +53,6 @@ public class ConfirmRegistrationProcessor extends BaseProcessor implements Confi
             userCredentialsRepository.update(built);
             return;
         }
-        //todo
-        throw new RuntimeException();
+        throw new IncorrectVerificationCode("Verification Code Incorrect", "New email verification code is incorrect");
     }
 }

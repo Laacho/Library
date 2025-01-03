@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.core.BaseProcessor;
 import bg.tu_varna.sit.library.data.entities.BorrowedBooks;
 import bg.tu_varna.sit.library.data.repositories.implementations.BorrowedBooksRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.interfaces.BorrowedBooksRepository;
+import bg.tu_varna.sit.library.exceptions.NoBooksPresent;
 import bg.tu_varna.sit.library.models.overdue_books.OverdueBooks;
 import bg.tu_varna.sit.library.models.overdue_books.OverdueBooksInputModel;
 import bg.tu_varna.sit.library.models.overdue_books.OverdueBooksOperationModel;
@@ -30,7 +31,7 @@ public class OverdueBooksProcessor extends BaseProcessor implements OverdueBooks
     public Either<Exception, OverdueBooksOutputModel> process(OverdueBooksInputModel input) {
         return Try.of(() -> {
                     List<BorrowedBooks> all = borrowedBooksRepository.findAll();
-                    if (all.isEmpty()) throw new RuntimeException();//todo
+                    if (all.isEmpty()) throw new NoBooksPresent("Not Found Borrowed Books","Does not have borrowed books in the database");
                     List<OverdueBooks> overdueBooks = getOverdueBooks(all);
                     return OverdueBooksOutputModel.builder().overdueBooks(overdueBooks).build();
                 }).toEither()

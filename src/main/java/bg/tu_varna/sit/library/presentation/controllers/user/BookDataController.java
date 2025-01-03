@@ -203,16 +203,16 @@ public class BookDataController extends UserController implements Initializable 
 
     private void updateAddToAlreadyReadButtonState() {
         if(alreadyExistsInAlreadyRead){
-            addToAlreadyRead.setText("Remove from already read");
+            addToAlreadyRead.setText("Remove from\n already read");
         }
         else{
-            addToAlreadyRead.setText("Add to already read");
+            addToAlreadyRead.setText("Add to\n already read");
         }
     }
 
     private void updateToReadButtonState() {
         if(alreadyExitsInRead) {
-            addToRead.setText("Remove from want to read");
+            addToRead.setText("Remove from \nwant to read");
         }
         else{
             addToRead.setText("Add to read");

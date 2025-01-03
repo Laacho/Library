@@ -7,6 +7,7 @@ import bg.tu_varna.sit.library.data.entities.Notification;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.implementations.*;
 import bg.tu_varna.sit.library.data.repositories.interfaces.*;
+import bg.tu_varna.sit.library.exceptions.UsernameDoesNotExist;
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.models.borrow_books.BorrowBooksInputModel;
 import bg.tu_varna.sit.library.models.borrow_books.BorrowBooksOperationModel;
@@ -38,7 +39,9 @@ public class BorrowBooksProcessor extends BaseProcessor implements BorrowBooksOp
     @Override
     public Either<Exception, BorrowBooksOutputModel> process(BorrowBooksInputModel input) {
         return Try.of(() -> {
-                    User user = userRepository.findByUsername(input.getUsername()).orElseThrow(() -> new RuntimeException()).getUser();/// TODO: 30.12.2024 г.
+                    User user = userRepository.findByUsername(input.getUsername())
+                            .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +input.getUsername()+" has not been found"))
+                            .getUser();
                     List<Book> books = bookRepository.findAll();
                     Set<Book> booksForBorrow = getBooksForBorrow(input, books);
                     BorrowedBooks convert = conversionService.convert(input, BorrowedBooks.class);

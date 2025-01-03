@@ -88,18 +88,17 @@ public class ApproveBookController extends AdminController implements Initializa
                 setData(next, booksForApproveData);
 
             }
-        } else {
-            AlertManager.showAlert(Alert.AlertType.ERROR, "Empty", "There is nothing to approve", ButtonType.OK);
-            Platform.runLater(() -> {
-                Stage curStage = (Stage) (title.getScene().getWindow());
-                setPath("/bg/tu_varna/sit/library/presentation.views/admin/admin_home_view/pages/admin-home-view.fxml");
-                try {
-                    changeScene(curStage);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
+            return;
         }
+        Platform.runLater(() -> {
+            Stage curStage = (Stage) (title.getScene().getWindow());
+            setPath("/bg/tu_varna/sit/library/presentation.views/admin/admin_home_view/pages/admin-home-view.fxml");
+            try {
+                changeScene(curStage);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     @FXML

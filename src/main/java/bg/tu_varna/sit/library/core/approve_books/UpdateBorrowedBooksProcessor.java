@@ -47,8 +47,7 @@ public class UpdateBorrowedBooksProcessor extends BaseProcessor implements Updat
     private void saveNotificationForUser(List<BooksForApproveData> books) {
         for (BooksForApproveData book : books) {
             User user = book.getUser();
-            int number = 1;
-            StringBuilder sb = buildNotificationMessage(book, number);
+            StringBuilder sb = buildNotificationMessage(book);
             Notification notification = buildNotificationEntity(user, sb);
             notificationRepository.save(notification);
         }
@@ -65,15 +64,17 @@ public class UpdateBorrowedBooksProcessor extends BaseProcessor implements Updat
     }
 
     @NotNull
-    private StringBuilder buildNotificationMessage(BooksForApproveData book, int number) {
+    private StringBuilder buildNotificationMessage(BooksForApproveData book) {
         StringBuilder sb = new StringBuilder();
+        int number = 1;
         sb.append("Това са одобрените ти книги, които можеш да заемеш от нас за период ")
                 .append(System.lineSeparator())
                 .append(book.getBorrowingDate()).append("/")
                 .append(book.getReturnDate())
                 .append(System.lineSeparator());
         for (Book bookBook : book.getBooks()) {
-            sb.append(number).append(". ")
+            sb.append(number)
+                    .append(". ")
                     .append(bookBook.getTitle()).append(" ")
                     .append(bookBook.getAuthors().stream()
                             .map(Author::toString)

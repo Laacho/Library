@@ -23,7 +23,7 @@ public class SaveInArchivedProcessor extends BaseProcessor implements SaveInArch
     private final ArchivedRepository archivedRepository;
     private final BookRepository bookRepository;
 
-    public SaveInArchivedProcessor() {
+    private SaveInArchivedProcessor() {
         this.archivedRepository = SingletonFactory.getSingletonInstance(ArchivedRepositoryImpl.class);
         this.bookRepository = SingletonFactory.getSingletonInstance(BookRepositoryImpl.class);
     }
