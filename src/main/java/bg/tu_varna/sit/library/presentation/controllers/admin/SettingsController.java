@@ -29,11 +29,15 @@ import bg.tu_varna.sit.library.utils.session.UserSession;
 import io.vavr.control.Either;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class SettingsController extends AdminController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class SettingsController extends AdminController implements Initializable {
     @FXML
     private Button resetPasswordButton;
     @FXML
@@ -79,6 +83,7 @@ public class SettingsController extends AdminController {
     public void searchUser() {
         if(searchTextField.getText().isBlank()){
             AlertManager.showAlert(Alert.AlertType.ERROR,"Empty field!","Please enter a username!", ButtonType.OK);
+            return;
         }
         else{
             SearchUserByUsernameInputModel input = SearchUserByUsernameInputModel.builder()
@@ -98,16 +103,20 @@ public class SettingsController extends AdminController {
             }
             else{
                 foundUser = false;
+                AlertManager.showAlert(Alert.AlertType.ERROR,"Error!",process.getLeft().getMessage(),ButtonType.OK);
             }
             
         }
     }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+       disableFocusOnButtons();
+            searchTextField.requestFocus();
+    }
     @FXML
     public void searchWithEnter(KeyEvent keyEvent){
-        if(!searchTextField.getText().isEmpty()){
-            if(keyEvent.getCode()== KeyCode.ENTER){
-                searchButton.fire();
-            }
+        if(keyEvent.getCode()== KeyCode.ENTER){
+            searchButton.fire();
         }
     }
     @FXML

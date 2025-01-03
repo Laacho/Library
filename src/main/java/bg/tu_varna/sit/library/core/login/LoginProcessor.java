@@ -38,6 +38,7 @@ public class LoginProcessor extends BaseProcessor implements LoginOperationModel
                     UserCredentials userCredentials = checkIfUsernameExists(input.getUsername());
                     checkIfPasswordMatches(userCredentials.getPassword(), input.getPassword());
                     UserSession userSession = buildUserSession(userCredentials);
+                    userSession.setCartBooks(userCredentials.getCartForBooks());
                     log.info("Successfully logged in user with username: " + input.getUsername() + " and password: " + input.getPassword());
                     return conversionService.convert(userSession, LoginOutputModel.class);
                 }).toEither()

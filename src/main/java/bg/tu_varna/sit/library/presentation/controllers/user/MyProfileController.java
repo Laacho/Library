@@ -159,14 +159,14 @@ public class MyProfileController extends UserController implements Initializable
         for (int i = 0; i < 6; i++) {
             TextField textField = new TextField();
             textField.setPrefWidth(40);
-            setupTextFieldNavigation(textField, codeFields, i);
+            setupTextFieldNavigation(textField, codeFields);
             codeFields[i] = textField;
             codeBox.getChildren().add(textField);
         }
         return codeBox;
     }
 
-    private void setupTextFieldNavigation(TextField textField, TextField[] fields, int index) {
+    private void setupTextFieldNavigation(TextField textField, TextField[] fields) {
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() > 1) {
                 textField.setText(newValue.substring(0, 1)); // Limit to 1 character
@@ -174,19 +174,20 @@ public class MyProfileController extends UserController implements Initializable
         });
 
         textField.setOnKeyReleased(event -> {
-            switch (event.getCode()) {
-                case RIGHT:
-                    if (index < fields.length - 1) {
-                        fields[index + 1].requestFocus();
-                    }
-                    break;
-                case LEFT:
-                    if (index > 0) {
-                        fields[index - 1].requestFocus();
-                    }
-                    break;
-                default:
-                    break;
+            if(fields[0].isFocused() && !fields[0].getText().isBlank()){
+                fields[1].requestFocus();
+            }
+            if(fields[1].isFocused() && !fields[1].getText().isBlank()){
+                fields[2].requestFocus();
+            }
+            if(fields[2].isFocused() && !fields[2].getText().isBlank()){
+                fields[3].requestFocus();
+            }
+            if(fields[3].isFocused() && !fields[3].getText().isBlank()){
+                fields[4].requestFocus();
+            }
+            if(fields[4].isFocused() && !fields[4].getText().isBlank()){
+                fields[5].requestFocus();
             }
         });
     }
@@ -279,7 +280,8 @@ public class MyProfileController extends UserController implements Initializable
                 dialog.close();
                 isVerifiedValue.setText("Verified");
             } else {
-                AlertManager.showAlert(Alert.AlertType.ERROR, "Error", process.getLeft().getMessage(), ButtonType.OK);
+                System.out.println("Wrong verification code");
+                AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "Test", ButtonType.OK);
             }
 
         });

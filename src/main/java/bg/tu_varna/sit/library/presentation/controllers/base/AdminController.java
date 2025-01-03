@@ -4,10 +4,41 @@ import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.session.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
 import java.io.IOException;
 
 public class AdminController extends Controller {
+    @FXML
+    private Button homeButton;
+    @FXML
+    private Button search;
+    @FXML
+    private Button addBook;
+    @FXML
+    private Button updateStatus;
+    @FXML
+    private Button approveBooks;
+    @FXML
+    private Button approveProfiles;
+    @FXML
+    private Button overdueBooks;
+    @FXML
+    private Button returnBooks;
+    @FXML
+    private Button sendEmail;
+
+    public void disableFocusOnButtons(){
+        homeButton.setFocusTraversable(false);
+        search.setFocusTraversable(false);
+        addBook.setFocusTraversable(false);
+        updateStatus.setFocusTraversable(false);
+        approveBooks.setFocusTraversable(false);
+        approveProfiles.setFocusTraversable(false);
+        overdueBooks.setFocusTraversable(false);
+        returnBooks.setFocusTraversable(false);
+        sendEmail.setFocusTraversable(false);
+    }
     @FXML
     public void homeAdmin(ActionEvent actionEvent) throws IOException {
         setPath("/bg/tu_varna/sit/library/presentation.views/admin/admin_home_view/pages/admin-home-view.fxml");

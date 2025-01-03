@@ -53,6 +53,7 @@ public class AdminHomeViewController extends AdminController implements Initiali
             allBooksButton.setText("(" + output.getCountAllBooks() + ") " + allBooksButton.getText());
             readersProfilesButton.setText("(" + output.getCountReadersProfiles() + ") " + readersProfilesButton.getText());
         }
+        disableFocusOnButtons();
     }
 
     @FXML

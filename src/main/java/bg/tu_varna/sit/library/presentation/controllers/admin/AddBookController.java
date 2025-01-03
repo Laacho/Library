@@ -17,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,15 +29,16 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
+import java.util.ResourceBundle;
 import java.util.Set;
 
-public class AddBookController extends AdminController {
-    private final AddBookOperationModel addBookOperation;
-    private final CheckGenreOperationModel checkGenreOperation;
+public class AddBookController extends AdminController implements Initializable {
+
     @FXML
     private Label shelfLabel;
     @FXML
@@ -61,17 +63,21 @@ public class AddBookController extends AdminController {
     private TextField price;
     @FXML
     private ComboBox<Long> locationRow;
+    private final AddBookOperationModel addBookOperation;
+    private final CheckGenreOperationModel checkGenreOperation;
     private AddBookInputModel.AddBookInputModelBuilder addBookInputModel;
     private String pathFromUser;
-    private Boolean spaceUsed;
 
     public AddBookController() {
         this.checkGenreOperation = SingletonFactory.getSingletonInstance(CheckGenreProcessor.class);
         this.addBookOperation = SingletonFactory.getSingletonInstance(AddBookProcessor.class);
         this.addBookInputModel = AddBookInputModel.builder();
-        spaceUsed=false;
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        disableFocusOnButtons();
+    }
 
     @FXML
     public void addAuthor(ActionEvent event) {

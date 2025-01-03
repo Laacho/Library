@@ -9,13 +9,19 @@ import bg.tu_varna.sit.library.utils.SingletonFactory;
 import io.vavr.control.Either;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ConfirmRegistrationController extends Controller {
+public class ConfirmRegistrationController extends Controller implements Initializable {
+
+
     @FXML
     private TextField textFieldFirst;
     @FXML
@@ -44,6 +50,24 @@ public class ConfirmRegistrationController extends Controller {
         if (!source.getText().isEmpty()) {
             switchFocus(source);
         }
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        limitOneCharacter(textFieldFirst);
+        limitOneCharacter(textFieldSecond);
+        limitOneCharacter(textFieldThird);
+        limitOneCharacter(textFieldForth);
+        limitOneCharacter(textFieldFifth);
+        limitOneCharacter(textFieldSixth);
+    }
+
+    private void limitOneCharacter(TextField textField) {
+        textField.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().length() > 1) {
+                return null;
+            }
+            return change;
+        }));
     }
 
     private void switchFocus(TextField current) {

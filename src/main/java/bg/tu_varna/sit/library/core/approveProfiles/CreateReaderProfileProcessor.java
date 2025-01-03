@@ -1,10 +1,13 @@
 package bg.tu_varna.sit.library.core.approveProfiles;
 
 import bg.tu_varna.sit.library.core.BaseProcessor;
+import bg.tu_varna.sit.library.data.entities.Notification;
 import bg.tu_varna.sit.library.data.entities.ReaderProfile;
 import bg.tu_varna.sit.library.data.entities.User;
+import bg.tu_varna.sit.library.data.repositories.implementations.NotificationRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.implementations.ReaderProfileRepositoryImp;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserRepositoryImpl;
+import bg.tu_varna.sit.library.data.repositories.interfaces.NotificationRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ReaderProfileRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserRepository;
 import bg.tu_varna.sit.library.models.create_reader_profile.CreateReaderProfileInputModel;
@@ -21,10 +24,12 @@ import java.time.LocalDateTime;
 public class CreateReaderProfileProcessor extends BaseProcessor implements CreateReaderProfileOperationModel {
     private final ReaderProfileRepository readerProfileRepository;
     private final UserRepository userRepository;
+    private final NotificationRepository notificationRepository;
 
     private CreateReaderProfileProcessor() {
         readerProfileRepository = SingletonFactory.getSingletonInstance(ReaderProfileRepositoryImp.class);
         userRepository = SingletonFactory.getSingletonInstance(UserRepositoryImpl.class);
+        notificationRepository = SingletonFactory.getSingletonInstance(NotificationRepositoryImpl.class);
     }
 
     @Override
@@ -39,8 +44,19 @@ public class CreateReaderProfileProcessor extends BaseProcessor implements Creat
                             .user(user)
                             .build();
                     readerProfileRepository.update(readerProfile);
+                    createNotification(user);
                     return CreateReaderProfileOutputModel.builder().message("Successfully created reader profile.").build();
                 }).toEither()
                 .mapLeft(exceptionManager::handle);
+    }
+
+    private void createNotification(User user) {
+        Notification profileHasBeenApproved = Notification.builder()
+                .user(user)
+                .message("Your profile has been approved")
+                .isAdmin(false)
+                .isRead(false)
+                .build();
+        notificationRepository.save(profileHasBeenApproved);
     }
 }

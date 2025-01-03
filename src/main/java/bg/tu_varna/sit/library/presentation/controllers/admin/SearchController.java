@@ -14,6 +14,7 @@ import bg.tu_varna.sit.library.utils.converters.base.ConversionService;
 import io.vavr.control.Either;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
@@ -23,13 +24,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 
-public class SearchController extends AdminController {
+public class SearchController extends AdminController implements Initializable {
 
     private final SearchOperationModel searchProcessor;
     @FXML
@@ -113,5 +116,10 @@ public class SearchController extends AdminController {
             authorNamesFromArray.add(author.trim());
         }
         return authorNamesFromSet.containsAll(authorNamesFromArray);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        disableFocusOnButtons();
     }
 }

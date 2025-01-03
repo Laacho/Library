@@ -1,7 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
 import bg.tu_varna.sit.library.data.access.Connection;
-import bg.tu_varna.sit.library.data.entities.Publisher;
 import bg.tu_varna.sit.library.data.entities.ReaderProfile;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ReaderProfileRepository;
@@ -62,9 +61,9 @@ public class ReaderProfileRepositoryImp implements ReaderProfileRepository {
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
-            log.info("Successfully find publisher with id "+id);
+            log.info("Successfully find reader profile with id "+id);
         } catch (Exception ex) {
-            log.error("Error finding publisher with id "+id, ex);
+            log.error("Error finding reader profile with id "+id, ex);
         } finally {
             session.close();
         }
@@ -80,9 +79,9 @@ public class ReaderProfileRepositoryImp implements ReaderProfileRepository {
             String jpql = "SELECT r FROM ReaderProfile r";
             list.addAll(session.createQuery(jpql, ReaderProfile.class).getResultList());
             transaction.commit();
-            log.info("Successfully found publishers");
+            log.info("Successfully found reader profile");
         } catch (Exception ex) {
-            log.error("Error finding publishers", ex);
+            log.error("Error finding reader profile", ex);
         } finally {
             session.close();
         }
@@ -103,9 +102,9 @@ public class ReaderProfileRepositoryImp implements ReaderProfileRepository {
                 throw new RuntimeException();
             }
             transaction.commit();
-            log.info("Successfully deleted publisher with id "+id);
+            log.info("Successfully deleted reader profile with id "+id);
         } catch (Exception ex) {
-            log.error("Error deleting publisher with id "+id, ex);
+            log.error("Error deleting reader profile with id "+id, ex);
         } finally {
             session.close();
         }
@@ -125,7 +124,7 @@ public class ReaderProfileRepositoryImp implements ReaderProfileRepository {
             transaction.commit();
             log.info("Successfully find reader profile with username "+user.getUserCredentials().getUsername());
         } catch (Exception ex) {
-            log.error("Error finding reader profile with username "+user.getUserCredentials().getUsername(), ex);
+            log.error("Error finding reader profile with username "+user.getUserCredentials().getUsername());
         } finally {
             session.close();
         }
@@ -140,9 +139,10 @@ public class ReaderProfileRepositoryImp implements ReaderProfileRepository {
             session.update(readerProfile);
             transaction.commit();
         } catch (Exception ex) {
-
+            log.error("Error updating readers profile with id "+readerProfile.getId(), ex);
         } finally {
             session.close();
         }
     }
+
 }

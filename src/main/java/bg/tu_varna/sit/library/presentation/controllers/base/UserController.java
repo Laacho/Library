@@ -4,10 +4,36 @@ import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.session.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
 import java.io.IOException;
 
 public class UserController extends Controller {
+
+    @FXML
+    private Button homeButton;
+    @FXML
+    private Button search;
+    @FXML
+    private Button borrowBooks;
+    @FXML
+    private Button readerProfile;
+    @FXML
+    private Button allBooks;
+    @FXML
+    private Button aboutUs;
+    @FXML
+    private Button logout;
+
+    public void disableFocusOnButtons(){
+        homeButton.setFocusTraversable(false);
+        search.setFocusTraversable(false);
+        borrowBooks.setFocusTraversable(false);
+        readerProfile.setFocusTraversable(false);
+        allBooks.setFocusTraversable(false);
+        aboutUs.setFocusTraversable(false);
+        logout.setFocusTraversable(false);
+    }
     @FXML
     public void homeUser(ActionEvent actionEvent) throws IOException {
         setPath("/bg/tu_varna/sit/library/presentation.views/user/user_home_view/pages/user-home-view.fxml");

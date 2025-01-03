@@ -17,6 +17,7 @@ public class FromBookDataForReaderToCommonBooksProperties implements Converter<B
                 .publisher(source.getPublisher())
                 .genre(source.getGenre())
                 .pathImage(source.getPathToImage())
+                .inventoryNumber(String.valueOf(source.getInventoryNumber()))
                 .authors(source.getAuthorDataForReaders().stream()
                         .map(author -> author.getFirstName() + " " + author.getLastName())
                         .collect(Collectors.toSet()))

@@ -93,9 +93,9 @@ public class UserAllBooksController extends UserController implements Initializa
         BooksData book = booksData.get(finalI);
         CommonBooksProperties convert = conversionService.convert(book, CommonBooksProperties.class);
         setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book_data_for_user_view.fxml");
-        FXMLLoader loader = loader = changeScene((Stage) newBooks.getScene().getWindow());
+        BookDataController.booksData=convert;
+        FXMLLoader loader = changeScene((Stage) newBooks.getScene().getWindow());
         BookDataController controller = loader.getController();
-        controller.setBooksData(convert);
         controller.change();
     }
 }

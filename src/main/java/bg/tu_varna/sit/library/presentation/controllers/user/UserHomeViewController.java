@@ -160,9 +160,9 @@ public class UserHomeViewController extends UserController implements Initializa
     private void changeToBookInfo(Either<Exception, FindBookByIdOutputModel> process) throws IOException {
         CommonBooksProperties result = process.get().getBook();
         setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book_data_for_user_view.fxml");
+        BookDataController.booksData=result;
         FXMLLoader loader = changeScene((Stage) newBooks.getScene().getWindow());
         BookDataController controller = loader.getController();
-        controller.setBooksData(result);
         controller.change();
     }
 }

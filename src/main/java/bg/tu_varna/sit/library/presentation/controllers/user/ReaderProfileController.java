@@ -3,6 +3,7 @@ package bg.tu_varna.sit.library.presentation.controllers.user;
 import bg.tu_varna.sit.library.core.reader_profile.CheckIfReaderProfileExistsProcessor;
 import bg.tu_varna.sit.library.core.reader_profile.GetReaderProfileProcessor;
 import bg.tu_varna.sit.library.core.reader_profile.RequestReaderProfileProcessor;
+import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.models.check_if_reader_profile_exists.CheckIfReaderProfileExistsInputModel;
 import bg.tu_varna.sit.library.models.check_if_reader_profile_exists.CheckIfReaderProfileExistsOperationModel;
@@ -276,19 +277,17 @@ public class ReaderProfileController extends UserController implements Initializ
 
     private void setButtonFunctionality(List<BookDataForReader> booksData, int finalI) throws IOException {
         BookDataForReader book = booksData.get(finalI);
-        CommonBooksProperties convert = conversionService.convert(book, CommonBooksProperties.class);
+        BookDataController.booksData= conversionService.convert(book, CommonBooksProperties.class);
         setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book_data_for_user_view.fxml");
         FXMLLoader loader = changeScene((Stage) gridPane.getScene().getWindow());
         BookDataController controller = loader.getController();
-        controller.setBooksData(convert);
         controller.change();
     }
     private void setButtonFunctionality(BookDataForReader book) throws IOException {
-        CommonBooksProperties convert = conversionService.convert(book, CommonBooksProperties.class);
         setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book_data_for_user_view.fxml");
+        BookDataController.booksData= conversionService.convert(book, CommonBooksProperties.class);
         FXMLLoader loader = changeScene((Stage) gridPane.getScene().getWindow());
         BookDataController controller = loader.getController();
-        controller.setBooksData(convert);
         controller.change();
     }
 }
