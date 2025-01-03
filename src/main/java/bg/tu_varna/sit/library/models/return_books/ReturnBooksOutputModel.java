@@ -1,6 +1,5 @@
 package bg.tu_varna.sit.library.models.return_books;
 
-import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.models.base.OperationOutput;
 import lombok.*;
 

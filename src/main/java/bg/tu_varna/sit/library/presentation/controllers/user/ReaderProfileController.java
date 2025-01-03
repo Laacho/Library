@@ -1,9 +1,8 @@
 package bg.tu_varna.sit.library.presentation.controllers.user;
 
-import bg.tu_varna.sit.library.core.reader_profile.CheckIfReaderProfileExistsProcessor;
-import bg.tu_varna.sit.library.core.reader_profile.GetReaderProfileProcessor;
-import bg.tu_varna.sit.library.core.reader_profile.RequestReaderProfileProcessor;
-import bg.tu_varna.sit.library.data.entities.Book;
+import bg.tu_varna.sit.library.core.user.reader_profile.CheckIfReaderProfileExistsProcessor;
+import bg.tu_varna.sit.library.core.user.reader_profile.GetReaderProfileProcessor;
+import bg.tu_varna.sit.library.core.user.reader_profile.RequestReaderProfileProcessor;
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.models.check_if_reader_profile_exists.CheckIfReaderProfileExistsInputModel;
 import bg.tu_varna.sit.library.models.check_if_reader_profile_exists.CheckIfReaderProfileExistsOperationModel;
@@ -126,7 +125,6 @@ public class ReaderProfileController extends UserController implements Initializ
             return;
         }
         gridPane.add(new Label("No favourite books"),0,0);
-       // AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "You don't have books in favourite books", ButtonType.OK);
     }
 
     @FXML
@@ -152,7 +150,6 @@ public class ReaderProfileController extends UserController implements Initializ
             return;
         }
         gridPane.add(new Label("Don't have recommended genres"),0,0);
-       // AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "Don't have recommended genres", ButtonType.OK);
     }
 
     private void setActionOnRightArrow(Button rightArrow, AtomicInteger j, List<BookDataForReader> books, VBox forGenre, String genreName, HBox mainBox, Button leftArrow) {
@@ -282,13 +279,13 @@ public class ReaderProfileController extends UserController implements Initializ
     private void setButtonFunctionality(List<BookDataForReader> booksData, int finalI) throws IOException {
         BookDataForReader book = booksData.get(finalI);
         BookDataController.booksData= conversionService.convert(book, CommonBooksProperties.class);
-        setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book_data_for_user_view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book-data-for-user-view.fxml");
         FXMLLoader loader = changeScene((Stage) gridPane.getScene().getWindow());
         BookDataController controller = loader.getController();
         controller.change();
     }
     private void setButtonFunctionality(BookDataForReader book) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book_data_for_user_view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book-data-for-user-view.fxml");
         BookDataController.booksData= conversionService.convert(book, CommonBooksProperties.class);
         FXMLLoader loader = changeScene((Stage) gridPane.getScene().getWindow());
         BookDataController controller = loader.getController();

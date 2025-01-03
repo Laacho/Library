@@ -1,7 +1,6 @@
 package bg.tu_varna.sit.library.data.entities;
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.PastOrPresent;

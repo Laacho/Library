@@ -1,11 +1,6 @@
 package bg.tu_varna.sit.library.presentation.controllers.user;
 
-import bg.tu_varna.sit.library.core.add_to_already_read.AddToAlreadyReadProcessor;
-import bg.tu_varna.sit.library.core.add_to_favorites.AddToFavoriteProcessor;
-import bg.tu_varna.sit.library.core.add_to_read.AddToReadProcessor;
-import bg.tu_varna.sit.library.core.check_if_book_exists_in_already_read.CheckIfBookExistsInAlreadyReadProcessor;
-import bg.tu_varna.sit.library.core.check_if_book_exists_in_favorites.CheckIfBookExistsInFavoritesProcessor;
-import bg.tu_varna.sit.library.core.check_if_book_exists_in_to_read.CheckIfBookExistsInToReadProcessor;
+import bg.tu_varna.sit.library.core.user.book_data.*;
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.models.add_to_already_read.AddToAlreadyReadInputModel;
 import bg.tu_varna.sit.library.models.add_to_already_read.AddToAlreadyReadOperationModel;

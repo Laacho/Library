@@ -61,7 +61,7 @@ AuthorRepositoryImpl implements AuthorRepository {
                     .setParameter("id", id)
                     .getSingleResult());
             transaction.commit();
-            // log.info("Get all list");
+             log.info("Get all list");
         } catch (Exception ex) {
             log.error("Error while fetching author ", ex);
         } finally {

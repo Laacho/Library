@@ -1,14 +1,9 @@
 package bg.tu_varna.sit.library.presentation.controllers.user;
 
-import bg.tu_varna.sit.library.core.all_books.AllBooksProcessor;
-import bg.tu_varna.sit.library.core.find_book_by_id.FindBookByIdProcessor;
-import bg.tu_varna.sit.library.core.new_books.NewBooksProcessor;
-import bg.tu_varna.sit.library.core.recommended_books.RecommendedBooksProcessor;
+import bg.tu_varna.sit.library.core.user.home_view.FindBookByIdProcessor;
+import bg.tu_varna.sit.library.core.user.home_view.NewBooksProcessor;
+import bg.tu_varna.sit.library.core.user.home_view.RecommendedBooksProcessor;
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
-import bg.tu_varna.sit.library.models.all_books.AllBooksInputModel;
-import bg.tu_varna.sit.library.models.all_books.AllBooksOperationModel;
-import bg.tu_varna.sit.library.models.all_books.AllBooksOutputModel;
-import bg.tu_varna.sit.library.models.all_books.BooksData;
 import bg.tu_varna.sit.library.models.find_book_by_id.FindBookByIdInputModel;
 import bg.tu_varna.sit.library.models.find_book_by_id.FindBookByIdOperationModel;
 import bg.tu_varna.sit.library.models.find_book_by_id.FindBookByIdOutputModel;
@@ -20,13 +15,10 @@ import bg.tu_varna.sit.library.models.recommended_books.RecommendedBooksData;
 import bg.tu_varna.sit.library.models.recommended_books.RecommendedBooksInputModel;
 import bg.tu_varna.sit.library.models.recommended_books.RecommendedBooksOperationModel;
 import bg.tu_varna.sit.library.models.recommended_books.RecommendedBooksOutputModel;
-import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.presentation.controllers.base.UserController;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
-import bg.tu_varna.sit.library.utils.converters.base.ConversionService;
 import io.vavr.control.Either;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,7 +29,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -54,13 +49,11 @@ public class UserHomeViewController extends UserController implements Initializa
     private GridPane recommendedBooks;
     private final NewBooksOperationModel newBooksProcessor;
     private final RecommendedBooksOperationModel recommendedBooksProcessor;
-    private final ConversionService conversionService;
     private final FindBookByIdOperationModel findBookByIdProcessor;
 
     public UserHomeViewController() {
         newBooksProcessor = SingletonFactory.getSingletonInstance(NewBooksProcessor.class);
         recommendedBooksProcessor = SingletonFactory.getSingletonInstance(RecommendedBooksProcessor.class);
-        conversionService = SingletonFactory.getSingletonInstance(ConversionService.class);
         findBookByIdProcessor = SingletonFactory.getSingletonInstance(FindBookByIdProcessor.class);
     }
 
@@ -159,7 +152,7 @@ public class UserHomeViewController extends UserController implements Initializa
 
     private void changeToBookInfo(Either<Exception, FindBookByIdOutputModel> process) throws IOException {
         CommonBooksProperties result = process.get().getBook();
-        setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book_data_for_user_view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book-data-for-user-view.fxml");
         BookDataController.booksData=result;
         FXMLLoader loader = changeScene((Stage) newBooks.getScene().getWindow());
         BookDataController controller = loader.getController();

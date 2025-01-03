@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.presentation.controllers.admin;
 
-import bg.tu_varna.sit.library.core.all_books.AllBooksProcessor;
+import bg.tu_varna.sit.library.core.user.all_books.AllBooksProcessor;
 import bg.tu_varna.sit.library.data.entities.Author;
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.models.all_books.AllBooksInputModel;
@@ -18,10 +18,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;

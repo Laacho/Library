@@ -1,14 +1,14 @@
 package bg.tu_varna.sit.library.presentation.controllers.admin;
 
-import bg.tu_varna.sit.library.core.addBook.AddBookProcessor;
-import bg.tu_varna.sit.library.core.addGenre.CheckGenreProcessor;
+import bg.tu_varna.sit.library.core.admin.add_book.AddBookProcessor;
+import bg.tu_varna.sit.library.core.admin.add_book.CheckGenreProcessor;
 import bg.tu_varna.sit.library.data.entities.Author;
-import bg.tu_varna.sit.library.models.addBook.AddBookInputModel;
-import bg.tu_varna.sit.library.models.addBook.AddBookOperationModel;
-import bg.tu_varna.sit.library.models.addBook.AddBookOutputModel;
-import bg.tu_varna.sit.library.models.addGenre.CheckGenreInputModel;
-import bg.tu_varna.sit.library.models.addGenre.CheckGenreOperationModel;
-import bg.tu_varna.sit.library.models.addGenre.CheckGenreOutputModel;
+import bg.tu_varna.sit.library.models.add_book.AddBookInputModel;
+import bg.tu_varna.sit.library.models.add_book.AddBookOperationModel;
+import bg.tu_varna.sit.library.models.add_book.AddBookOutputModel;
+import bg.tu_varna.sit.library.models.add_genre.CheckGenreInputModel;
+import bg.tu_varna.sit.library.models.add_genre.CheckGenreOperationModel;
+import bg.tu_varna.sit.library.models.add_genre.CheckGenreOutputModel;
 import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
@@ -170,12 +170,6 @@ public class AddBookController extends AdminController implements Initializable 
     }
 
     private void validateInput() {
-//        String invalidStyle = "-fx-border-color: red; -fx-border-width: 2;";
-//        if(isbn.getText().isEmpty()){
-//            isbn.setStyle(invalidStyle);
-//            AlertManager.showAlert(Alert.AlertType.ERROR, "Validation Error!", "ISBN must be filled!", ButtonType.CLOSE);
-//        }
-        
         if (listView.getItems().isEmpty() || isbn.getText().isEmpty() || title.getText().isEmpty()
             || genre.getText().isEmpty() || publisher.getText().isEmpty()
             || inventoryNumber.getText().isEmpty() || price.getText().isEmpty()
@@ -261,7 +255,7 @@ public class AddBookController extends AdminController implements Initializable 
     }
     @FXML
     public void addBookReset(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin/addBook/pages/addBook-view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/admin/add_book/pages/add-book-view.fxml");
         changeScene(actionEvent);
     }
 

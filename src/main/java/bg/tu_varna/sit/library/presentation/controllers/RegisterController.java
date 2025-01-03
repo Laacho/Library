@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.presentation.controllers;
 
-import bg.tu_varna.sit.library.core.register.RegisterProcessor;
+import bg.tu_varna.sit.library.core.logging.register.RegisterProcessor;
 import bg.tu_varna.sit.library.models.register.RegisterInputModel;
 import bg.tu_varna.sit.library.models.register.RegisterOperationModel;
 import bg.tu_varna.sit.library.models.register.RegisterOutputModel;

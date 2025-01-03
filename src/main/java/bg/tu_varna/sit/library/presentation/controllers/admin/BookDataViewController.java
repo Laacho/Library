@@ -1,16 +1,13 @@
 package bg.tu_varna.sit.library.presentation.controllers.admin;
 
-import bg.tu_varna.sit.library.data.entities.Author;
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
-import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
-
-import javafx.scene.image.ImageView;
 
 import java.io.File;
 import java.util.stream.Collectors;

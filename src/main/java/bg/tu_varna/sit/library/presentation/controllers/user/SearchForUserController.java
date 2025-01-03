@@ -1,9 +1,9 @@
 package bg.tu_varna.sit.library.presentation.controllers.user;
 
-import bg.tu_varna.sit.library.core.get_all_authors.GetAllAuthorsProcessor;
-import bg.tu_varna.sit.library.core.get_all_genres.GetAllGenresProcessor;
-import bg.tu_varna.sit.library.core.get_all_publishers.GetAllPublishersProcessor;
-import bg.tu_varna.sit.library.core.search_for_user.SearchForUserProcessor;
+import bg.tu_varna.sit.library.core.user.search.GetAllAuthorsProcessor;
+import bg.tu_varna.sit.library.core.user.search.GetAllGenresProcessor;
+import bg.tu_varna.sit.library.core.user.search.GetAllPublishersProcessor;
+import bg.tu_varna.sit.library.core.user.search.SearchForUserProcessor;
 import bg.tu_varna.sit.library.data.entities.Author;
 import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.data.entities.Genre;
@@ -42,7 +42,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class SearchForUserController extends UserController implements Initializable {
@@ -195,7 +197,7 @@ public class SearchForUserController extends UserController implements Initializ
 
     public void changeToBookView(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getClickCount() == 2) {
-            setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book_data_for_user_view.fxml");
+            setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book-data-for-user-view.fxml");
             int selectedIndex = resultListView.getSelectionModel().getSelectedIndex();
             Book book = result.get(selectedIndex);
             BookDataController.booksData= conversionService.convert(book, CommonBooksProperties.class);

@@ -1,6 +1,5 @@
 package bg.tu_varna.sit.library.data.entities;
 
-import bg.tu_varna.sit.library.data.enums.BookStatus;
 import lombok.*;
 
 import javax.persistence.*;

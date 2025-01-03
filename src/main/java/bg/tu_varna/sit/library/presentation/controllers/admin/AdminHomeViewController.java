@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.presentation.controllers.admin;
 
-import bg.tu_varna.sit.library.core.admin_hello_view.AdminHelloViewProcessor;
+import bg.tu_varna.sit.library.core.admin.home_view.AdminHomeViewProcessor;
 import bg.tu_varna.sit.library.models.admin_home_view.AdminHomeViewInputModel;
 import bg.tu_varna.sit.library.models.admin_home_view.AdminHomeViewOperationModel;
 import bg.tu_varna.sit.library.models.admin_home_view.AdminHomeViewOutputModel;
@@ -36,7 +36,7 @@ public class AdminHomeViewController extends AdminController implements Initiali
     private final AdminHomeViewOperationModel adminHomeViewProcessor;
 
     public AdminHomeViewController() {
-        adminHomeViewProcessor = SingletonFactory.getSingletonInstance(AdminHelloViewProcessor.class);
+        adminHomeViewProcessor = SingletonFactory.getSingletonInstance(AdminHomeViewProcessor.class);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class AdminHomeViewController extends AdminController implements Initiali
 
     @FXML
     public void usersTableView(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin/users__table_view/pages/users--table-view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/admin/users_table_view/pages/users-table-view.fxml");
         changeScene(actionEvent);
     }
 

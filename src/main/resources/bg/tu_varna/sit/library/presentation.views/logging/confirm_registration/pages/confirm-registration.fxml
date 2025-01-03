@@ -19,12 +19,12 @@
                     </image>
                 </ImageView>
                 <Button fx:id="backButton" layoutX="27.0" layoutY="26.0" mnemonicParsing="false"
-                        onAction="#changeToHomeView" styleClass="button" stylesheets="@../../../hello_view/css/file.css"
+                        onAction="#changeToHomeView" styleClass="button" stylesheets="@../../../library_home_view/css/file.css"
                         text="&lt;-"/>
             </children>
         </AnchorPane>
         <Button onAction="#confirm" layoutX="370.0" layoutY="339.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="201.0"
-                styleClass="button" stylesheets="@../../../hello_view/css/file.css" text="Login"/>
+                styleClass="button" stylesheets="@../../../library_home_view/css/file.css" text="Login"/>
         <Label layoutX="370.0" layoutY="179.0" prefHeight="68.0" prefWidth="262.0" text="Enter veficiation code">
             <font>
                 <Font size="20.0"/>
@@ -47,6 +47,6 @@
                    layoutY="268.0" prefHeight="25.0"
                    prefWidth="46.0"/>
         <Button onAction="#skip" layoutX="273.0" layoutY="379.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="76.0"
-                styleClass="button" stylesheets="@../../../hello_view/css/file.css" text="Skip" textOverrun="CLIP"/>
+                styleClass="button" stylesheets="@../../../library_home_view/css/file.css" text="Skip" textOverrun="CLIP"/>
     </children>
 </AnchorPane>

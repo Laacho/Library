@@ -1,16 +1,15 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
-import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Genre;
 import bg.tu_varna.sit.library.data.repositories.interfaces.GenreRepository;
+import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 @Singleton
 public class GenreRepositoryImpl implements GenreRepository {

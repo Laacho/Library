@@ -1,6 +1,5 @@
 package bg.tu_varna.sit.library.data.repositories.interfaces;
 
-import bg.tu_varna.sit.library.data.entities.Author;
 import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.data.entities.Genre;
 

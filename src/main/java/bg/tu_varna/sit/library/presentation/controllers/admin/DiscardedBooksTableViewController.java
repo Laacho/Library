@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.presentation.controllers.admin;
 
-import bg.tu_varna.sit.library.core.discarded_books.DiscardedBooksProcessor;
+import bg.tu_varna.sit.library.core.admin.discarded_books.DiscardedBooksProcessor;
 import bg.tu_varna.sit.library.data.entities.Author;
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.models.discarded_books.BooksData;

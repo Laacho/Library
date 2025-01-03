@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.presentation.controllers.admin;
 
-import bg.tu_varna.sit.library.core.archived_books.ArchivedBooksProcessor;
+import bg.tu_varna.sit.library.core.admin.archived_books.ArchivedBooksProcessor;
 import bg.tu_varna.sit.library.data.entities.Author;
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.models.archived_books.ArchivedBooksInputModel;

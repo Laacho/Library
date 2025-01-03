@@ -1,8 +1,8 @@
 package bg.tu_varna.sit.library.presentation.controllers.admin;
 
-import bg.tu_varna.sit.library.core.find_book_by_inventory_number.FindBookByInventoryNumberProcessor;
-import bg.tu_varna.sit.library.core.save_in_archived.SaveInArchivedProcessor;
-import bg.tu_varna.sit.library.core.save_to_discard.SaveInDiscardProcessor;
+import bg.tu_varna.sit.library.core.admin.update_status.FindBookByInventoryNumberProcessor;
+import bg.tu_varna.sit.library.core.admin.update_status.SaveInArchivedProcessor;
+import bg.tu_varna.sit.library.core.admin.update_status.SaveInDiscardProcessor;
 import bg.tu_varna.sit.library.data.entities.Author;
 import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.models.find_book_by_inventory_number.FindBookByInventoryNumberInputModel;
@@ -15,7 +15,6 @@ import bg.tu_varna.sit.library.models.save_to_discard.SaveToDiscardInputModel;
 import bg.tu_varna.sit.library.models.save_to_discard.SaveToDiscardOperationModel;
 import bg.tu_varna.sit.library.models.save_to_discard.SaveToDiscardOutputModel;
 import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
-import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import io.vavr.control.Either;

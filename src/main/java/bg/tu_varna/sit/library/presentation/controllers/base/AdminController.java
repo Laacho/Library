@@ -41,25 +41,25 @@ public class AdminController extends Controller {
     }
     @FXML
     public void homeAdmin(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin/admin_home_view/pages/admin-home-view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/admin/home_view/pages/admin-home-view.fxml");
         changeScene(actionEvent);
     }
 
     @FXML
     public void addBook(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin/addBook/pages/addBook-view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/admin/add_book/pages/add-book-view.fxml");
         changeScene(actionEvent);
     }
 
     @FXML
     public void updateStatus(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin/update_status/pages/update_status_view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/admin/update_status/pages/update-status-view.fxml");
         changeScene(actionEvent);
     }
 
     @FXML
     public void approveBooks(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin/approve_books/pages/approve -books-view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/admin/approve_books/pages/approve-books-view.fxml");
         changeScene(actionEvent);
     }
 
@@ -83,13 +83,13 @@ public class AdminController extends Controller {
 
     @FXML
     public void sendEmail(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin/send_email_view/pages/send_email_view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/admin/send_email_view/pages/send-email-view.fxml");
         changeScene(actionEvent);
     }
 
     @FXML
     public void changeToSetting(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin/settings/pages/settings_view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/admin/settings/pages/settings-view.fxml");
         changeScene(actionEvent);
     }
     @FXML
@@ -99,7 +99,7 @@ public class AdminController extends Controller {
     }
     @FXML
     public void logout(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/hello_view/pages/hello-view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/library_home_view/pages/library-home-view.fxml");
         UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
         userSession.setWantsToLogout(true);
         changeScene(actionEvent);

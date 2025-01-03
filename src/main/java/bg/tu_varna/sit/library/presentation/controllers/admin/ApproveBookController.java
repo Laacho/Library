@@ -1,7 +1,7 @@
 package bg.tu_varna.sit.library.presentation.controllers.admin;
 
-import bg.tu_varna.sit.library.core.approve_books.ApproveBooksProcessor;
-import bg.tu_varna.sit.library.core.approve_books.UpdateBorrowedBooksProcessor;
+import bg.tu_varna.sit.library.core.admin.approve_books.ApproveBooksProcessor;
+import bg.tu_varna.sit.library.core.admin.approve_books.UpdateBorrowedBooksProcessor;
 import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.models.approve_books.ApproveBooksInputModel;
 import bg.tu_varna.sit.library.models.approve_books.ApproveBooksOperationModel;
@@ -92,7 +92,7 @@ public class ApproveBookController extends AdminController implements Initializa
         }
         Platform.runLater(() -> {
             Stage curStage = (Stage) (title.getScene().getWindow());
-            setPath("/bg/tu_varna/sit/library/presentation.views/admin/admin_home_view/pages/admin-home-view.fxml");
+            setPath("/bg/tu_varna/sit/library/presentation.views/admin/home_view/pages/admin-home-view.fxml");
             try {
                 changeScene(curStage);
             } catch (IOException e) {

@@ -2,11 +2,9 @@ package bg.tu_varna.sit.library.models.discarded_books;
 
 import bg.tu_varna.sit.library.data.entities.Author;
 import bg.tu_varna.sit.library.data.entities.Genre;
-import bg.tu_varna.sit.library.data.entities.Location;
 import bg.tu_varna.sit.library.data.entities.Publisher;
 import lombok.*;
 
-import javax.persistence.Column;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;

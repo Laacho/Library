@@ -1,9 +1,9 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
-import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserRepository;
+import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
