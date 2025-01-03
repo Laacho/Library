@@ -25,7 +25,7 @@
                 <Button fx:id="overdueBooks" layoutX="26.0" layoutY="493.0" mnemonicParsing="false" onAction="#overdueBooks" prefHeight="46.0" prefWidth="91.0" text="Overdue&#10;Books&#10;&#10;" textAlignment="CENTER" />
             </children>
         </AnchorPane>
-        <Label fx:id="welcomeText" layoutX="401.0" layoutY="33.0" prefHeight="38.0" prefWidth="292.0" text="Нови книги">
+        <Label fx:id="welcomeText" layoutX="401.0" layoutY="33.0" prefHeight="38.0" prefWidth="292.0" text="All Books">
             <font>
                 <Font size="26.0" />
             </font>

@@ -6,7 +6,6 @@ import bg.tu_varna.sit.library.models.users_table_view.UsersTableViewInputModel;
 import bg.tu_varna.sit.library.models.users_table_view.UsersTableViewOperationModel;
 import bg.tu_varna.sit.library.models.users_table_view.UsersTableViewOutputModel;
 import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
-import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import io.vavr.control.Either;
 import javafx.beans.property.SimpleObjectProperty;

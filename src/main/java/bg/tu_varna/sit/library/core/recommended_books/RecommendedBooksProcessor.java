@@ -38,7 +38,7 @@ public class RecommendedBooksProcessor extends BaseProcessor implements Recommen
         return Try.of(() -> {
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     UserCredentials user = userCredentialsRepository.findByUsername(userSession.getUsername()).orElseThrow(() -> new RuntimeException());
-                    Optional<ReaderProfile> readerProfile = readerProfileRepository.findById(user.getUser().getId());
+                    Optional<ReaderProfile> readerProfile = readerProfileRepository.findByUser(user.getUser());
                     if (readerProfile.isEmpty()) {
                         List<RecommendedBooksData> recommendedBooksData = getRecommendedBooksDataIfUserDoesNotHaveAReaderProfile();
                         return RecommendedBooksOutputModel.builder().recommendedBooks(recommendedBooksData).build();

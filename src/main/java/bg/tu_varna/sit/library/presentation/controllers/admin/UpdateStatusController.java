@@ -21,14 +21,21 @@ import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import io.vavr.control.Either;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.Set;
 
-public class UpdateStatusController extends AdminController {
+public class UpdateStatusController extends AdminController implements Initializable {
+    @FXML
+    private Button searchButton;
     @FXML
     private Button addToArchivedDB;
     @FXML
@@ -70,6 +77,11 @@ public class UpdateStatusController extends AdminController {
         this.saveToDiscardProcessor=SingletonFactory.getSingletonInstance(SaveInDiscardProcessor.class);
         foundBook = false;
     }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+            disableFocusOnButtons();
+    }
+
 
     @FXML
     public void searchByInventoryNumber(ActionEvent actionEvent) {
@@ -89,8 +101,7 @@ public class UpdateStatusController extends AdminController {
                 StringBuilder sb=new StringBuilder();
                 Set<Author> authors = book.getAuthors();
                 for (Author author : authors) {
-                    sb.append(author.getFirstName()).append(" ")
-                            .append(author.getLastName()).append("\n");
+                    sb.append(author.toString()).append("\n");
                 }
                 lblAuthors.setText("Authors:\n"+sb);
                 File file = new File(book.getPath());
@@ -160,5 +171,11 @@ public class UpdateStatusController extends AdminController {
         else{
             AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","Please select a book!", ButtonType.OK);
         }
+    }
+    @FXML
+    public void searchWithEnter(KeyEvent keyEvent) {
+          if(keyEvent.getCode()== KeyCode.ENTER) {
+              searchButton.fire();
+          }
     }
 }

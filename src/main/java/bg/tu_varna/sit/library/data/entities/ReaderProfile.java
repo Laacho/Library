@@ -23,7 +23,7 @@ public class ReaderProfile implements Serializable {
     @OneToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    @Column( name = "is_profile_approved")
+    @Column(name = "is_profile_approved")
     private Boolean isProfileApproved;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "reader_profile_to_books", joinColumns = @JoinColumn(name = "reader_profile_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))

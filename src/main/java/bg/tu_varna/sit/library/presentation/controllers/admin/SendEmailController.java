@@ -76,5 +76,8 @@ public class SendEmailController extends AdminController implements Initializabl
             emailTextField.setText(EmailSession.toEmail);
             EmailSession.toEmail = null;
         }
+        disableFocusOnButtons();
+        titleTextField.setFocusTraversable(false);
+        emailTextField.requestFocus();
     }
 }

@@ -15,12 +15,17 @@ import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import io.vavr.control.Either;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
-public class ApproveProfilesController extends AdminController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ApproveProfilesController extends AdminController implements Initializable {
+    @FXML
+    private Button searchButton;
     @FXML
     private Label id;
     @FXML
@@ -78,5 +83,16 @@ public class ApproveProfilesController extends AdminController {
             return;
         }
         AlertManager.showAlert(Alert.AlertType.ERROR,"Error","Error while trying to create reader profile.",ButtonType.OK);
+    }
+    @FXML
+    public void searchWithEnter(KeyEvent keyEvent) {
+        if(keyEvent.getCode() == KeyCode.ENTER) {
+            searchButton.fire();
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        disableFocusOnButtons();
     }
 }

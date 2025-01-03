@@ -58,14 +58,13 @@ public class SearchForUserController extends UserController implements Initializ
     private TextField searchTextField;
     @FXML
     private ListView<String> resultListView;
-    List<Book> result;
+    private List<Book> result;
     private final ConversionService conversionService;
 
     private final GetAllPublishersOperationModel getAllPublishersOperationModel;
     private final GetAllGenresOperationModel getAllGenresOperationModel;
     private final GetAllAuthorsOperationModel getAllAuthorsOperationModel;
     private final SearchForUserOperationModel searchForUserOperationModel;
-    private Set<String> authors;
 
     public SearchForUserController() {
         this.searchForUserOperationModel = SingletonFactory.getSingletonInstance(SearchForUserProcessor.class);
@@ -135,13 +134,16 @@ public class SearchForUserController extends UserController implements Initializ
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        genreComboBox.getItems().add("None");
-        publisherComboBox.getItems().add("None");
-        authorComboBox.getItems().add("None");
         loadGenres();
         loadPublishers();
         loadAuthors();
-        //resultListView.setVisible(false);
+        formatComboBox();
+        disableFocusOnButtons();
+    }
+    public void formatComboBox(){
+        genreComboBox.getItems().add("None");
+        publisherComboBox.getItems().add("None");
+        authorComboBox.getItems().add("None");
         genreComboBox.setValue("None");
         publisherComboBox.setValue("None");
         authorComboBox.setValue("None");
@@ -194,12 +196,11 @@ public class SearchForUserController extends UserController implements Initializ
     public void changeToBookView(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getClickCount() == 2) {
             setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book_data_for_user_view.fxml");
-            FXMLLoader loader = changeScene((Stage) resultListView.getScene().getWindow());
-            BookDataController controller = loader.getController();
             int selectedIndex = resultListView.getSelectionModel().getSelectedIndex();
             Book book = result.get(selectedIndex);
-            CommonBooksProperties convert = conversionService.convert(book, CommonBooksProperties.class);
-            controller.setBooksData(convert);
+            BookDataController.booksData= conversionService.convert(book, CommonBooksProperties.class);
+            FXMLLoader loader = changeScene((Stage) resultListView.getScene().getWindow());
+            BookDataController controller = loader.getController();
             controller.change();
         }
     }

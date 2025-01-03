@@ -22,6 +22,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
@@ -29,10 +30,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Set;
 
-public class ReturnBookController extends AdminController {
+public class ReturnBookController extends AdminController implements Initializable {
     @FXML
     private TextField searchTextField;
     @FXML
@@ -142,5 +145,10 @@ public class ReturnBookController extends AdminController {
                 .reduce((b1, b2) -> b1 + "\n" + b2)
                 .orElse("");
         return booksText;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        disableFocusOnButtons();
     }
 }
