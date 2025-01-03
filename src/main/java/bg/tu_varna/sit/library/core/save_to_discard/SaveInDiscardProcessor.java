@@ -24,7 +24,7 @@ public class SaveInDiscardProcessor extends BaseProcessor implements SaveToDisca
     private final DiscardedBooksRepository discardedBooksRepository;
     private final BookRepository bookRepository;
 
-    public SaveInDiscardProcessor() {
+    private SaveInDiscardProcessor() {
         this.bookRepository = SingletonFactory.getSingletonInstance(BookRepositoryImpl.class);
         this.discardedBooksRepository = SingletonFactory.getSingletonInstance(DiscardedBooksRepositoryImpl.class);
     }

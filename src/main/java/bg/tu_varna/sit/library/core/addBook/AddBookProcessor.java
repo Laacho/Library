@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.core.BaseProcessor;
 import bg.tu_varna.sit.library.data.entities.*;
 import bg.tu_varna.sit.library.data.repositories.implementations.*;
 import bg.tu_varna.sit.library.data.repositories.interfaces.*;
+import bg.tu_varna.sit.library.exceptions.AuthorDoesNotExist;
 import bg.tu_varna.sit.library.models.addBook.AddBookInputModel;
 import bg.tu_varna.sit.library.models.addBook.AddBookOperationModel;
 import bg.tu_varna.sit.library.models.addBook.AddBookOutputModel;
@@ -46,67 +47,77 @@ public class AddBookProcessor extends BaseProcessor implements AddBookOperationM
                                 inputAuthors.remove(author);
                             }
                         }
-                        for (Author author : inputAuthors) {
-                            Long id = authorRepository.save(author);
-                            Author tempAuthor = authorRepository.findById(id).get();
-                            setAuthors.add(tempAuthor);
-                        }
-                        builder.authors(setAuthors);
+                        buildAuthors(inputAuthors, setAuthors, builder);
                     }
                     else{
                         Set<Author> authorsToAdd = input.getAuthors();
                         Set<Author> setAuthors = new HashSet<>();
-                        for (Author author : authorsToAdd) {
-                            Long id = authorRepository.save(author);
-                            Author author1 = authorRepository.findById(id).get();
-                            setAuthors.add(author1);
-                        }
-                        builder.authors(setAuthors);
+                        buildAuthors(authorsToAdd, setAuthors, builder);
                     }
 
-                    Optional<Genre> genreByName = genreRepository.findByName(input.getGenre());
-                    if(genreByName.isPresent()) {
-                        builder.genre(genreByName.get());
-                    }
-                    else{
-                        Genre toSave = Genre.builder()
-                                .name(input.getGenre())
-                                .build();
-                        Long id = genreRepository.save(toSave);
-                        Genre byId = genreRepository.findById(id).get();
-                        builder.genre(byId);
-                    }
-                    Optional<Publisher> publisherByName = publisherRepository.findByName(input.getPublisher());
-                    if(publisherByName.isPresent()) {
-                        builder.publisher(publisherByName.get());
-                    }
-                    else{
-                        Publisher toSave = Publisher.builder()
-                                .name(input.getPublisher()).build();
-                        Long id = publisherRepository.save(toSave);
-                        Publisher byId = publisherRepository.findById(id).get();
-                        builder.publisher(byId);
-                    }
-
-                    Optional<Location> byNameAndRow = locationRepository.findByNameAndRow(input.getGenre(), input.getRow());
-                    if(byNameAndRow.isPresent()) {
-                        builder.location(byNameAndRow.get());
-                    }
-                    else{
-                        Location toSave = Location.builder()
-                                .shelf(input.getGenre())
-                                .rowNum(input.getRow())
-                                .build();
-                        Long id = locationRepository.save(toSave);
-                        Location byId = locationRepository.findById(id).get();
-                        builder.location(byId);
-                    }
+                    buildGenre(input, builder);
+                    buildPublisher(input, builder);
+                    buildLocation(input, builder);
                     Book build = builder.build();
                     bookRepository.save(build);
                     AddBookOutputModel output = AddBookOutputModel.builder().message("Successfully added book").build();
                         return output;
                 }).toEither()
                 .mapLeft(exceptionManager::handle);
+    }
+
+    private void buildAuthors(Set<Author> inputAuthors, Set<Author> setAuthors, Book.BookBuilder builder) throws AuthorDoesNotExist {
+        for (Author author : inputAuthors) {
+            Long id = authorRepository.save(author);
+            Author tempAuthor = authorRepository.findById(id).orElseThrow(()->new AuthorDoesNotExist("Author doesn't exist","The requested author was not found in the database."));
+            setAuthors.add(tempAuthor);
+        }
+        builder.authors(setAuthors);
+    }
+
+    private void buildGenre(AddBookInputModel input, Book.BookBuilder builder) {
+        Optional<Genre> genreByName = genreRepository.findByName(input.getGenre());
+        if(genreByName.isPresent()) {
+            builder.genre(genreByName.get());
+        }
+        else{
+            Genre toSave = Genre.builder()
+                    .name(input.getGenre())
+                    .build();
+            Long id = genreRepository.save(toSave);
+            Genre byId = genreRepository.findById(id).get();
+            builder.genre(byId);
+        }
+    }
+
+    private void buildPublisher(AddBookInputModel input, Book.BookBuilder builder) {
+        Optional<Publisher> publisherByName = publisherRepository.findByName(input.getPublisher());
+        if(publisherByName.isPresent()) {
+            builder.publisher(publisherByName.get());
+        }
+        else{
+            Publisher toSave = Publisher.builder()
+                    .name(input.getPublisher()).build();
+            Long id = publisherRepository.save(toSave);
+            Publisher byId = publisherRepository.findById(id).get();
+            builder.publisher(byId);
+        }
+    }
+
+    private void buildLocation(AddBookInputModel input, Book.BookBuilder builder) {
+        Optional<Location> byNameAndRow = locationRepository.findByNameAndRow(input.getGenre(), input.getRow());
+        if(byNameAndRow.isPresent()) {
+            builder.location(byNameAndRow.get());
+        }
+        else{
+            Location toSave = Location.builder()
+                    .shelf(input.getGenre())
+                    .rowNum(input.getRow())
+                    .build();
+            Long id = locationRepository.save(toSave);
+            Location byId = locationRepository.findById(id).get();
+            builder.location(byId);
+        }
     }
 
 

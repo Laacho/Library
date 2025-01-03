@@ -19,10 +19,10 @@ import java.util.concurrent.CompletableFuture;
 @Processor
 public class PromoteUserProcessor extends BaseProcessor implements PromoteUserOperationModel {
     private static final Logger log = Logger.getLogger(PromoteUserProcessor.class);
-    private final UserCredentialsRepository userRepo;
+    private final UserCredentialsRepository userCredentialsRepository;
 
-    public PromoteUserProcessor( ) {
-        this.userRepo = SingletonFactory.getSingletonInstance(UserCredentialsRepositoryImpl.class);
+    private PromoteUserProcessor( ) {
+        this.userCredentialsRepository = SingletonFactory.getSingletonInstance(UserCredentialsRepositoryImpl.class);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class PromoteUserProcessor extends BaseProcessor implements PromoteUserOp
                     log.info("Started promoting user");
                     UserCredentials userCredentials = input.getUserCredentials();
                     userCredentials.setAdmin(true);
-                    userRepo.update(userCredentials);
+                    userCredentialsRepository.update(userCredentials);
                     CompletableFuture.runAsync(()-> EmailService.sendContactMail(userCredentials.getEmail(),"Promoted!","You have been promoted!"));
                     PromoteUserOutputModel outputModel = outputBuilder();
                     log.info(outputModel.getMessage());

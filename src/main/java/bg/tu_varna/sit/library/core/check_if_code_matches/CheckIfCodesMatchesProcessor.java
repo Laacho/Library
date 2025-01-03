@@ -4,6 +4,8 @@ import bg.tu_varna.sit.library.core.BaseProcessor;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentialsRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
+import bg.tu_varna.sit.library.exceptions.IncorrectVerificationCode;
+import bg.tu_varna.sit.library.exceptions.UsernameDoesNotExist;
 import bg.tu_varna.sit.library.models.check_if_codes_matches.CheckIfCodesMatchesInputModel;
 import bg.tu_varna.sit.library.models.check_if_codes_matches.CheckIfCodesMatchesOperationModel;
 import bg.tu_varna.sit.library.models.check_if_codes_matches.CheckIfCodesMatchesOutputModel;
@@ -25,23 +27,22 @@ public class CheckIfCodesMatchesProcessor extends BaseProcessor implements Check
 
     @Override
     public Either<Exception, CheckIfCodesMatchesOutputModel> process(CheckIfCodesMatchesInputModel input) {
-        return Try.of(()->{
+        return Try.of(() -> {
                     log.info("Started checking if codes match!");
                     String inputVerificationCode = input.getInputVerificationCode();
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
-                    if(!userSession.getNewEmailVerificationCode().equals(inputVerificationCode)){
-                        //todo
-                        throw new RuntimeException("New email verification code is incorrect");
+                    if (!userSession.getNewEmailVerificationCode().equals(inputVerificationCode)) {
+                        throw new IncorrectVerificationCode("Verification Code Incorrect", "New email verification code is incorrect");
                     }
                     //change email
-                    //getting the logged user and that's why we don't check if it's present or not
-                    UserCredentials userCredentials = userCredentialsRepository.findByUsername(userSession.getUsername()).get();
+                    UserCredentials userCredentials = userCredentialsRepository.findByUsername(userSession.getUsername())
+                            .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found", "User with username: " + userSession.getUsername() + " has not been found"));
                     userCredentials.setEmail(input.getNewEmail());
                     userCredentialsRepository.update(userCredentials);
                     CheckIfCodesMatchesOutputModel output = buildOutput();
                     log.info("Finished checking if codes match!");
                     return output;
-        })
+                })
                 .toEither()
                 .mapLeft(exceptionManager::handle);
     }

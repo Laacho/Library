@@ -4,6 +4,9 @@ import bg.tu_varna.sit.library.core.BaseProcessor;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentialsRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
+import bg.tu_varna.sit.library.exceptions.NewPasswordSameAsTheOldOne;
+import bg.tu_varna.sit.library.exceptions.PasswordDoesNotMatch;
+import bg.tu_varna.sit.library.exceptions.UsernameDoesNotExist;
 import bg.tu_varna.sit.library.models.change_password.ChangePasswordInputModel;
 import bg.tu_varna.sit.library.models.change_password.ChangePasswordOperationModel;
 import bg.tu_varna.sit.library.models.change_password.ChangePasswordOutputModel;
@@ -22,36 +25,31 @@ public class ChangePasswordProcessor extends BaseProcessor implements ChangePass
     private final UserCredentialsRepository userCredentialsRepository;
     private static final Logger log = Logger.getLogger(ChangePasswordProcessor.class);
 
-    public ChangePasswordProcessor( ) {
+    public ChangePasswordProcessor() {
         this.userCredentialsRepository = SingletonFactory.getSingletonInstance(UserCredentialsRepositoryImpl.class);
     }
 
     @Override
     public Either<Exception, ChangePasswordOutputModel> process(ChangePasswordInputModel input) {
-        return Try.of(()->{
-                log.info("Started change password");
+        return Try.of(() -> {
+                    log.info("Started change password");
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     String newPassword = input.getNewPassword();
                     String oldPassword = input.getOldPassword();
-                    if(newPassword.equals(oldPassword)) {
-                        //todo
-                        System.out.println("New password cant be the same as the old password");
-                        throw new RuntimeException("New password cant be the same as the old password");
+                    if (newPassword.equals(oldPassword)) {
+                        throw new NewPasswordSameAsTheOldOne("Same password", "New password cant be the same as the old password");
                     }
-                    if (!Hasher.verifyPassword(oldPassword,userSession.getPassword())) {
-                        System.out.println("Old password does not match");
-                        throw new RuntimeException("Old password does not match");
+                    if (!Hasher.verifyPassword(oldPassword, userSession.getPassword())) {
+                        throw new PasswordDoesNotMatch("Password Does Not Match", "Old password does not match");
                     }
-                    if(!input.getNewPassword().equals(input.getConfirmPassword())){
-                        System.out.println("New password and confirm password don't match!");
-                        throw new RuntimeException("New password and confirm password don't match!");
+                    if (!input.getNewPassword().equals(input.getConfirmPassword())) {
+                        throw new PasswordDoesNotMatch("Password Does Not Match", "New password and confirm password don't match!");
                     }
-                    Optional<UserCredentials> byUsername = userCredentialsRepository.findByUsername(userSession.getUsername());
-                    if(byUsername.isPresent()) {
-                        UserCredentials userCredentials = byUsername.get();
-                        userCredentials.setPassword(Hasher.hashPassword(newPassword));
-                        userCredentialsRepository.update(userCredentials);
-                    }
+                    UserCredentials byUsername = userCredentialsRepository.findByUsername(userSession.getUsername())
+                            .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found", "User with username: " + userSession.getUsername() + " has not been found"));
+                    UserCredentials userCredentials = byUsername;
+                    userCredentials.setPassword(Hasher.hashPassword(newPassword));
+                    userCredentialsRepository.update(userCredentials);
                     ChangePasswordOutputModel changePasswordSuccessful = outputBuilder();
                     log.info("Finished change password");
                     return changePasswordSuccessful;

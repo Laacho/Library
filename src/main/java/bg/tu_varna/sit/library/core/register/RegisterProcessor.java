@@ -1,6 +1,8 @@
 package bg.tu_varna.sit.library.core.register;
 
 import bg.tu_varna.sit.library.core.BaseProcessor;
+import bg.tu_varna.sit.library.exceptions.EmailIsPresent;
+import bg.tu_varna.sit.library.exceptions.UsernameDoesNotExist;
 import bg.tu_varna.sit.library.utils.EmailService;
 import bg.tu_varna.sit.library.utils.annotations.Processor;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
@@ -79,15 +81,14 @@ public class RegisterProcessor extends BaseProcessor implements RegisterOperatio
                 build();
     }
 
-    private void checkForExistingUsername(RegisterInputModel input) {
-        Optional<UserCredentials> searchedForExistingUsername = userCredentialsRepository.findByUsername(input.getUsername());
-        if (searchedForExistingUsername.isPresent())
-            throw new RuntimeException();//todo;
+    private void checkForExistingUsername(RegisterInputModel input) throws UsernameDoesNotExist {
+        UserCredentials searchedForExistingUsername = userCredentialsRepository.findByUsername(input.getUsername())
+                .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +input.getUsername()+" has not been found"));;
     }
 
-    private void checkForExistingEmail(RegisterInputModel input) {
+    private void checkForExistingEmail(RegisterInputModel input) throws EmailIsPresent {
         Optional<UserCredentials> searchedForExistingEmail = userCredentialsRepository.findByEmail(input.getEmail());
         if (searchedForExistingEmail.isPresent())
-            throw new RuntimeException();//todo
+            throw new EmailIsPresent("Email Is In Use","Email already in use");//todo
     }
 }

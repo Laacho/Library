@@ -22,7 +22,7 @@ public class ResetPasswordForUserProcessor extends BaseProcessor implements Rese
     private static final Logger log = Logger.getLogger(ResetPasswordForUserProcessor.class);
     private final UserCredentialsRepository userCredentialsRepository;
 
-    public ResetPasswordForUserProcessor( ) {
+    private ResetPasswordForUserProcessor( ) {
         this.userCredentialsRepository = SingletonFactory.getSingletonInstance(UserCredentialsRepositoryImpl.class);
     }
 

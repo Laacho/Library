@@ -25,7 +25,7 @@ public class UpdateNotificationsToReadProcessor extends BaseProcessor implements
     private final NotificationRepository notificationRepository;
     private final UserCredentialsRepository userCredentialsRepository;
 
-    public UpdateNotificationsToReadProcessor( ) {
+    private UpdateNotificationsToReadProcessor( ) {
         this.notificationRepository = SingletonFactory.getSingletonInstance(NotificationRepositoryImpl.class);
         this.userCredentialsRepository = SingletonFactory.getSingletonInstance(UserCredentialsRepositoryImpl.class);
     }

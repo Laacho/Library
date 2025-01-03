@@ -16,6 +16,7 @@ import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.annotations.Processor;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -42,14 +43,7 @@ public class CheckGenreProcessor extends BaseProcessor implements CheckGenreOper
                         if (!byGenre.isEmpty()) {
                             //rowNum- kolko puti se e sreshtalo
                             Map<Long, Integer> rowToCount = getLongIntegerMap(byGenre);
-                            List<Long> result = new ArrayList<>();
-                            for (Map.Entry<Long, Integer> kvp : rowToCount.entrySet()) {
-                                if (kvp.getValue() >= MAX_BOOKS_PER_ROW) {
-                                   continue;
-                                }
-                                //rowNUm na shelf
-                                result.add(kvp.getKey());
-                            }
+                            List<Long> result = getResult(rowToCount);
                             CheckGenreOutputModel output = CheckGenreOutputModel.builder()
                                     .message("Successfully founded empty rows")
                                     .rowNums(result)
@@ -68,6 +62,19 @@ public class CheckGenreProcessor extends BaseProcessor implements CheckGenreOper
                 .mapLeft(exceptionManager::handle);
     }
 
+    @NotNull
+    private List<Long> getResult(Map<Long, Integer> rowToCount) {
+        List<Long> result = new ArrayList<>();
+        for (Map.Entry<Long, Integer> kvp : rowToCount.entrySet()) {
+            if (kvp.getValue() >= MAX_BOOKS_PER_ROW) {
+               continue;
+            }
+            //rowNUm na shelf
+            result.add(kvp.getKey());
+        }
+        return result;
+    }
+
     private CheckGenreOutputModel buildOutputForNotFoundGenreOrBooksNotFound(CheckGenreInputModel input, Boolean isGenreNotFound) {
         CheckGenreOutputModel output = CheckGenreOutputModel.builder()
                 .message("Successfully added genre")
@@ -77,14 +84,20 @@ public class CheckGenreProcessor extends BaseProcessor implements CheckGenreOper
         return output;
     }
 
-    private static Map<Long, Integer> getLongIntegerMap(List<Book> byGenre) {
-        Map<Long, Integer> rowToCount = new HashMap<>();
-        for (long i = 0; i < 10; i++) {
-            rowToCount.put(i + 1, 0);
-        }
+    private Map<Long, Integer> getLongIntegerMap(List<Book> byGenre) {
+        Map<Long, Integer> rowToCount = initMap();
         for (Book book : byGenre) {
             Long rowNum = book.getLocation().getRowNum();
             rowToCount.put(rowNum, rowToCount.get(rowNum) + 1);
+        }
+        return rowToCount;
+    }
+
+    @NotNull
+    private Map<Long, Integer> initMap() {
+        Map<Long, Integer> rowToCount = new HashMap<>();
+        for (long i = 0; i < 10; i++) {
+            rowToCount.put(i + 1, 0);
         }
         return rowToCount;
     }

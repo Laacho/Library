@@ -10,6 +10,7 @@ import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentials
 import bg.tu_varna.sit.library.data.repositories.interfaces.NotificationRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ReaderProfileRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
+import bg.tu_varna.sit.library.exceptions.UsernameDoesNotExist;
 import bg.tu_varna.sit.library.models.request_reader_profile.RequestReaderProfileInputModel;
 import bg.tu_varna.sit.library.models.request_reader_profile.RequestReaderProfileOperationModel;
 import bg.tu_varna.sit.library.models.request_reader_profile.RequestReaderProfileOutputModel;
@@ -33,7 +34,8 @@ public class RequestReaderProfileProcessor extends BaseProcessor implements Requ
     @Override
     public Either<Exception, RequestReaderProfileOutputModel> process(RequestReaderProfileInputModel input) {
         return Try.of(() -> {
-                    UserCredentials userCredentials = userCredentialsRepository.findByUsername(input.getUsername()).orElseThrow(() -> new RuntimeException());//todo
+                    UserCredentials userCredentials = userCredentialsRepository.findByUsername(input.getUsername())
+                            .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +input.getUsername()+" has not been found"));
                     ReaderProfile readerProfile = ReaderProfile.builder()
                             .isProfileApproved(false)
                             .user(userCredentials.getUser())

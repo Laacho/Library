@@ -5,6 +5,7 @@ import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentialsRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
+import bg.tu_varna.sit.library.exceptions.UsernameDoesNotExist;
 import bg.tu_varna.sit.library.models.logout.LogoutInputModel;
 import bg.tu_varna.sit.library.models.logout.LogoutOperationModel;
 import bg.tu_varna.sit.library.models.logout.LogoutOutputModel;
@@ -51,9 +52,10 @@ public class LogoutProcessor extends BaseProcessor implements LogoutOperationMod
                 .build();
     }
 
-    private void saveCartBookToDB(UserSession userSession) {
+    private void saveCartBookToDB(UserSession userSession) throws UsernameDoesNotExist {
         Set<Book> cartBooks = userSession.getCartBooks();
-        UserCredentials user = userCredentialsRepository.findByUsername(userSession.getUsername()).get();
+        UserCredentials user = userCredentialsRepository.findByUsername(userSession.getUsername())
+                .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +userSession.getUsername()+" has not been found"));;
         user.setCartForBooks(cartBooks);
         userCredentialsRepository.update(user);
     }

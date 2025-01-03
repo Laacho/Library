@@ -8,6 +8,7 @@ import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentials
 import bg.tu_varna.sit.library.data.repositories.interfaces.BookRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ReaderProfileRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
+import bg.tu_varna.sit.library.exceptions.UsernameDoesNotExist;
 import bg.tu_varna.sit.library.models.recommended_books.RecommendedBooksData;
 import bg.tu_varna.sit.library.models.recommended_books.RecommendedBooksInputModel;
 import bg.tu_varna.sit.library.models.recommended_books.RecommendedBooksOperationModel;
@@ -37,7 +38,8 @@ public class RecommendedBooksProcessor extends BaseProcessor implements Recommen
     public Either<Exception, RecommendedBooksOutputModel> process(RecommendedBooksInputModel input) {
         return Try.of(() -> {
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
-                    UserCredentials user = userCredentialsRepository.findByUsername(userSession.getUsername()).orElseThrow(() -> new RuntimeException());
+                    UserCredentials user = userCredentialsRepository.findByUsername(userSession.getUsername())
+                           .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +userSession.getUsername()+" has not been found"));
                     Optional<ReaderProfile> readerProfile = readerProfileRepository.findByUser(user.getUser());
                     if (readerProfile.isEmpty()) {
                         List<RecommendedBooksData> recommendedBooksData = getRecommendedBooksDataIfUserDoesNotHaveAReaderProfile();

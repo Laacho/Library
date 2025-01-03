@@ -10,6 +10,8 @@ import bg.tu_varna.sit.library.data.repositories.implementations.UserRepositoryI
 import bg.tu_varna.sit.library.data.repositories.interfaces.NotificationRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ReaderProfileRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserRepository;
+import bg.tu_varna.sit.library.exceptions.ReaderProfileDoesNotExist;
+import bg.tu_varna.sit.library.exceptions.UserWithIdDoesNotExist;
 import bg.tu_varna.sit.library.models.create_reader_profile.CreateReaderProfileInputModel;
 import bg.tu_varna.sit.library.models.create_reader_profile.CreateReaderProfileOperationModel;
 import bg.tu_varna.sit.library.models.create_reader_profile.CreateReaderProfileOutputModel;
@@ -35,8 +37,10 @@ public class CreateReaderProfileProcessor extends BaseProcessor implements Creat
     @Override
     public Either<Exception, CreateReaderProfileOutputModel> process(CreateReaderProfileInputModel input) {
         return Try.of(() -> {
-                    User user = userRepository.findById(input.getId()).orElseThrow(() -> new RuntimeException());//todo
-                    ReaderProfile readerProfile = readerProfileRepository.findByUser(user).orElseThrow(() -> new RuntimeException());
+                    User user = userRepository.findById(input.getId())
+                            .orElseThrow(() -> new UserWithIdDoesNotExist("User Not Found","No user found with the provided ID. Please check the ID and try again."));
+                    ReaderProfile readerProfile = readerProfileRepository.findByUser(user)
+                            .orElseThrow(() -> new ReaderProfileDoesNotExist("Reader Profile Not Found","Reader profile for this user has not been found. Please ensure the user has a valid profile."));
                     readerProfile = readerProfile.toBuilder()
                             .createdAt(LocalDateTime.now())
                             .updatedAt(LocalDateTime.now())

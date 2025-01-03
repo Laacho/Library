@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.core.BaseProcessor;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentialsRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
+import bg.tu_varna.sit.library.exceptions.UsernameDoesNotExist;
 import bg.tu_varna.sit.library.models.changeUsername.ChangeUsernameInputModel;
 import bg.tu_varna.sit.library.models.changeUsername.ChangeUsernameOperationModel;
 import bg.tu_varna.sit.library.models.changeUsername.ChangeUsernameOutputModel;
@@ -31,13 +32,10 @@ public class ChangeUsernameProcessor extends BaseProcessor implements ChangeUser
         return Try.of(()->{
                     log.info("Started changing username");
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
-                    Optional<UserCredentials> byUsername = userCredentialsRepository.findByUsername(userSession.getUsername());
-                    if(byUsername.isEmpty()) {
-                        //todo
-                        throw new RuntimeException("Username not found");
-                    }
+                    UserCredentials byUsername = userCredentialsRepository.findByUsername(userSession.getUsername())
+                            .orElseThrow(()->new UsernameDoesNotExist("Username Not Found","User with username: " +input.getUsername()+" has not been found"));
                     checkIfUsernameExists(input.getUsername());
-                    UserCredentials userCredentials = byUsername.get();
+                    UserCredentials userCredentials = byUsername;
                     userCredentials.setUsername(input.getUsername());
                     userCredentialsRepository.update(userCredentials);
                     ChangeUsernameOutputModel output = outputBuilder();

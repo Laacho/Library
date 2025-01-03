@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.core.BaseProcessor;
 import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.data.repositories.implementations.BookRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.interfaces.BookRepository;
+import bg.tu_varna.sit.library.exceptions.BookNotFound;
 import bg.tu_varna.sit.library.models.find_book_by_inventory_number.FindBookByInventoryNumberInputModel;
 import bg.tu_varna.sit.library.models.find_book_by_inventory_number.FindBookByInventoryNumberOperationModel;
 import bg.tu_varna.sit.library.models.find_book_by_inventory_number.FindBookByInventoryNumberOutputModel;
@@ -28,21 +29,15 @@ public class FindBookByInventoryNumberProcessor extends BaseProcessor implements
 
     @Override
     public Either<Exception, FindBookByInventoryNumberOutputModel> process(FindBookByInventoryNumberInputModel input) {
-        return Try.of(()->{
-                log.info("Start processing finding book by inventory number");
-                    Optional<Book> byInventoryNumber = bookRepository.findByInventoryNumber(input.getInventoryNumber());
-                    if(byInventoryNumber.isPresent()) {
-                        FindBookByInventoryNumberOutputModel outputModel = FindBookByInventoryNumberOutputModel.builder()
-                                .book(byInventoryNumber.get())
-                                .build();
-                        log.info("Build output model");
-                        return outputModel;
-                    }
-                    else{
-                        //todo
-                        throw new RuntimeException("Book with this inventory number does not exist");
-                    }
-
+        return Try.of(() -> {
+                    log.info("Start processing finding book by inventory number");
+                    Book byInventoryNumber = bookRepository.findByInventoryNumber(input.getInventoryNumber())
+                            .orElseThrow(() -> new BookNotFound("Book Not Found", "Book with inventory number: " + input.getInventoryNumber() + " has not been found"));
+                    FindBookByInventoryNumberOutputModel outputModel = FindBookByInventoryNumberOutputModel.builder()
+                            .book(byInventoryNumber)
+                            .build();
+                    log.info("Build output model");
+                    return outputModel;
                 }).toEither()
                 .mapLeft(exceptionManager::handle);
     }
