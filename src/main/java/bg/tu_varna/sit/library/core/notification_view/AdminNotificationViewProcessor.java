@@ -38,7 +38,7 @@ public class AdminNotificationViewProcessor extends BaseProcessor implements Adm
     private List<String> getAdminNotificationMessages(List<Notification> notificationList) {
         List<String> adminNotificationMessages = new ArrayList<>();
         for (Notification notification : notificationList) {
-            if(notification.getIsAdmin()){
+            if(notification.getIsAdmin() && !notification.getIsRead()){
                 adminNotificationMessages.add(notification.getMessage());
             }
         }

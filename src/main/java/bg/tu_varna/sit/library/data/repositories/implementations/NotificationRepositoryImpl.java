@@ -120,7 +120,7 @@ public class NotificationRepositoryImpl implements NotificationRepository {
         Transaction transaction = session.beginTransaction();
         List<Notification> list = new ArrayList<>();
         try {
-            String jpql = "SELECT n FROM Notification n where n.isAdmin = true";
+            String jpql = "SELECT n FROM Notification n where n.isAdmin = true and n.isRead=false";
             list.addAll(session.createQuery(jpql, Notification.class).getResultList());
             transaction.commit();
 
@@ -167,6 +167,25 @@ public class NotificationRepositoryImpl implements NotificationRepository {
         }
         catch (Exception ex){
             log.error("Error while deleting entity with id " + userId, ex);
+        }
+        finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void updateNotificationsToBeReadForAdmin(String message) {
+        Session session=Connection.openSession();
+        Transaction transaction=session.beginTransaction();
+        try{
+            String jpql="UPDATE Notification n SET n.isRead = true WHERE n.message = :message AND n.isAdmin=true";
+            session.createQuery(jpql)
+                    .setParameter("message", message)
+                    .executeUpdate();
+            transaction.commit();
+        }
+        catch (Exception ex){
+            log.error("Error while deleting notification for admin");
         }
         finally {
             session.close();
