@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.presentation.controllers;
 
-import bg.tu_varna.sit.library.core.logout.LogoutProcessor;
+import bg.tu_varna.sit.library.core.logging.logout.LogoutProcessor;
 import bg.tu_varna.sit.library.models.logout.LogoutInputModel;
 import bg.tu_varna.sit.library.models.logout.LogoutOperationModel;
 import bg.tu_varna.sit.library.models.logout.LogoutOutputModel;

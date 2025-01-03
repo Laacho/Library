@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.presentation.controllers;
 
-import bg.tu_varna.sit.library.core.confirm_registration.ConfirmRegistrationProcessor;
+import bg.tu_varna.sit.library.core.logging.confirm_registration.ConfirmRegistrationProcessor;
 import bg.tu_varna.sit.library.models.confirm_registration.ConfirmRegistrationInputModel;
 import bg.tu_varna.sit.library.models.confirm_registration.ConfirmRegistrationOperationModel;
 import bg.tu_varna.sit.library.models.confirm_registration.ConfirmRegistrationOutputModel;

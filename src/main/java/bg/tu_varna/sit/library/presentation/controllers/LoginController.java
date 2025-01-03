@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.presentation.controllers;
 
-import bg.tu_varna.sit.library.core.login.LoginProcessor;
+import bg.tu_varna.sit.library.core.logging.login.LoginProcessor;
 import bg.tu_varna.sit.library.models.login.LoginInputModel;
 import bg.tu_varna.sit.library.models.login.LoginOperationModel;
 import bg.tu_varna.sit.library.models.login.LoginOutputModel;
@@ -40,7 +40,7 @@ public class LoginController extends Controller {
             LoginOutputModel outputModel = process.get();
             if(outputModel.getUserSession().getAdmin()){
                 //open admin scene
-                setPath("/bg/tu_varna/sit/library/presentation.views/admin/admin_home_view/pages/admin-home-view.fxml");
+                setPath("/bg/tu_varna/sit/library/presentation.views/admin/home_view/pages/admin-home-view.fxml");
                 changeScene(actionEvent);
             }
             else{

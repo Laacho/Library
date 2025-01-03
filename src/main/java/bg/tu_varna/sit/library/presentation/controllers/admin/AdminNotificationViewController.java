@@ -1,17 +1,14 @@
 package bg.tu_varna.sit.library.presentation.controllers.admin;
 
-import bg.tu_varna.sit.library.core.notification_view.AdminNotificationViewProcessor;
-import bg.tu_varna.sit.library.core.update_notifications_for_admin.UpdateNotificationsForAdminProcessor;
+import bg.tu_varna.sit.library.core.admin.notification_view.AdminNotificationViewProcessor;
+import bg.tu_varna.sit.library.core.admin.notification_view.UpdateNotificationsForAdminProcessor;
 import bg.tu_varna.sit.library.models.notifications_view.AdminNotificationViewInputModel;
 import bg.tu_varna.sit.library.models.notifications_view.AdminNotificationViewOperationModel;
 import bg.tu_varna.sit.library.models.notifications_view.AdminNotificationViewOutputModel;
-import bg.tu_varna.sit.library.models.removeNotifications.UpdateNotificationsToReadInputModel;
-import bg.tu_varna.sit.library.models.removeNotifications.UpdateNotificationsToReadOutputModel;
 import bg.tu_varna.sit.library.models.update_notifications_for_admin.UpdateNotificationsForAdminInputModel;
 import bg.tu_varna.sit.library.models.update_notifications_for_admin.UpdateNotificationsForAdminOperationModel;
 import bg.tu_varna.sit.library.models.update_notifications_for_admin.UpdateNotificationsForAdminOutputModel;
 import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
-import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import io.vavr.control.Either;

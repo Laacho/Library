@@ -42,7 +42,7 @@ public class UserController extends Controller {
 
     @FXML
     public void search(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/user/search_for_user/pages/search_for_user_view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/user/search_for_user/pages/search-for-user-view.fxml");
         changeScene(actionEvent);
     }
 
@@ -65,13 +65,13 @@ public class UserController extends Controller {
 
     @FXML
     public void aboutUs(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/user/about_us/pages/about_us_view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/user/about_us/pages/about-us-view.fxml");
         changeScene(actionEvent);
     }
 
     @FXML
     public void logout(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/hello_view/pages/hello-view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/library_home_view/pages/library-home-view.fxml");
         UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
         userSession.setWantsToLogout(true);
         changeScene(actionEvent);
@@ -79,19 +79,19 @@ public class UserController extends Controller {
 
     @FXML
     public void myProfile(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/user/my_profile/pages/my_profile_view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/user/my_profile/pages/my-profile-view.fxml");
         changeScene(actionEvent);
     }
 
     @FXML
     public void notifications(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/user/notifications/pages/notifications_view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/user/notifications/pages/notifications-view.fxml");
         changeScene(actionEvent);
     }
 
     @FXML
     public void shoppingCart(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/user/borrow_cart/pages/borrow_cart_view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/user/borrow_cart/pages/borrow-cart-view.fxml");
         changeScene(actionEvent);
     }
 }

@@ -15,7 +15,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class
-                .getResource("/bg/tu_varna/sit/library/presentation.views/hello_view/pages/hello-view.fxml"));
+                .getResource("/bg/tu_varna/sit/library/presentation.views/library_home_view/pages/library-home-view.fxml"));
         stage.setResizable(false);
         stage.setMaxHeight(640);
         stage.setMaxWidth(900);

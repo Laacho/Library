@@ -1,11 +1,7 @@
 package bg.tu_varna.sit.library.models;
 
-import bg.tu_varna.sit.library.data.entities.Author;
-import bg.tu_varna.sit.library.data.entities.Genre;
-import bg.tu_varna.sit.library.data.entities.Publisher;
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.util.Set;
 
 @Getter

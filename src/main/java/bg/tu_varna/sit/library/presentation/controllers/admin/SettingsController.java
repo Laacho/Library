@@ -1,10 +1,10 @@
 package bg.tu_varna.sit.library.presentation.controllers.admin;
 
-import bg.tu_varna.sit.library.core.delete_user.DeleteUserProcessor;
-import bg.tu_varna.sit.library.core.demote_user.DemoteUserProcessor;
-import bg.tu_varna.sit.library.core.promote_user.PromoteUserProcessor;
-import bg.tu_varna.sit.library.core.reset_password_for_user.ResetPasswordForUserProcessor;
-import bg.tu_varna.sit.library.core.search_user_by_username.SearchUserByUsernameProcess;
+import bg.tu_varna.sit.library.core.admin.settings.DeleteUserProcessor;
+import bg.tu_varna.sit.library.core.admin.settings.DemoteUserProcessor;
+import bg.tu_varna.sit.library.core.admin.settings.PromoteUserProcessor;
+import bg.tu_varna.sit.library.core.admin.settings.ResetPasswordForUserProcessor;
+import bg.tu_varna.sit.library.core.admin.settings.SearchUserByUsernameProcess;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.models.delete_user.DeleteUserInputModel;
 import bg.tu_varna.sit.library.models.delete_user.DeleteUserOperationModel;
@@ -22,7 +22,6 @@ import bg.tu_varna.sit.library.models.search_user_by_username.SearchUserByUserna
 import bg.tu_varna.sit.library.models.search_user_by_username.SearchUserByUsernameOperationModel;
 import bg.tu_varna.sit.library.models.search_user_by_username.SearchUserByUsernameOutputModel;
 import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
-import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import bg.tu_varna.sit.library.utils.session.UserSession;

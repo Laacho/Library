@@ -2,8 +2,6 @@ package bg.tu_varna.sit.library.models.users_table_view;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.validation.constraints.*;
 import java.time.LocalDate;
 @Getter
 @Setter

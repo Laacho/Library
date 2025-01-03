@@ -1,6 +1,5 @@
 package bg.tu_varna.sit.library.models.create_reader_profile;
 
-import bg.tu_varna.sit.library.models.base.OperationInput;
 import bg.tu_varna.sit.library.models.base.OperationOutput;
 import lombok.*;
 

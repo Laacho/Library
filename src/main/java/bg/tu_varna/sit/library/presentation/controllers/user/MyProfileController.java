@@ -1,17 +1,13 @@
 package bg.tu_varna.sit.library.presentation.controllers.user;
 
-import bg.tu_varna.sit.library.core.change_password.ChangePasswordProcessor;
-import bg.tu_varna.sit.library.core.change_username.ChangeUsernameProcessor;
-import bg.tu_varna.sit.library.core.check_if_code_matches.CheckIfCodesMatchesProcessor;
-import bg.tu_varna.sit.library.core.confirm_registration.ConfirmRegistrationProcessor;
-import bg.tu_varna.sit.library.core.send_email_with_code.SendEmailWithCodeProcessor;
-import bg.tu_varna.sit.library.core.send_verification_code_for_new_email.SendVerificationCodeForNewEmailProcessor;
-import bg.tu_varna.sit.library.models.changeUsername.ChangeUsernameInputModel;
-import bg.tu_varna.sit.library.models.changeUsername.ChangeUsernameOperationModel;
-import bg.tu_varna.sit.library.models.changeUsername.ChangeUsernameOutputModel;
+import bg.tu_varna.sit.library.core.logging.confirm_registration.ConfirmRegistrationProcessor;
+import bg.tu_varna.sit.library.core.user.my_profile.*;
 import bg.tu_varna.sit.library.models.change_password.ChangePasswordInputModel;
 import bg.tu_varna.sit.library.models.change_password.ChangePasswordOperationModel;
 import bg.tu_varna.sit.library.models.change_password.ChangePasswordOutputModel;
+import bg.tu_varna.sit.library.models.change_username.ChangeUsernameInputModel;
+import bg.tu_varna.sit.library.models.change_username.ChangeUsernameOperationModel;
+import bg.tu_varna.sit.library.models.change_username.ChangeUsernameOutputModel;
 import bg.tu_varna.sit.library.models.check_if_codes_matches.CheckIfCodesMatchesInputModel;
 import bg.tu_varna.sit.library.models.check_if_codes_matches.CheckIfCodesMatchesOperationModel;
 import bg.tu_varna.sit.library.models.check_if_codes_matches.CheckIfCodesMatchesOutputModel;

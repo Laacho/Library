@@ -1,7 +1,7 @@
 package bg.tu_varna.sit.library.presentation.controllers.admin;
 
-import bg.tu_varna.sit.library.core.approveProfiles.ApproveProfilesProcessor;
-import bg.tu_varna.sit.library.core.approveProfiles.CreateReaderProfileProcessor;
+import bg.tu_varna.sit.library.core.admin.approve_profiles.ApproveProfilesProcessor;
+import bg.tu_varna.sit.library.core.admin.approve_profiles.CreateReaderProfileProcessor;
 import bg.tu_varna.sit.library.models.approve_profiles.ApproveProfilesInputModel;
 import bg.tu_varna.sit.library.models.approve_profiles.ApproveProfilesOperationModel;
 import bg.tu_varna.sit.library.models.approve_profiles.ApproveProfilesOutputModel;
@@ -9,7 +9,6 @@ import bg.tu_varna.sit.library.models.create_reader_profile.CreateReaderProfileI
 import bg.tu_varna.sit.library.models.create_reader_profile.CreateReaderProfileOperationModel;
 import bg.tu_varna.sit.library.models.create_reader_profile.CreateReaderProfileOutputModel;
 import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
-import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import io.vavr.control.Either;

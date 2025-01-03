@@ -6,12 +6,6 @@ import bg.tu_varna.sit.library.data.entities.Location;
 import bg.tu_varna.sit.library.data.entities.Publisher;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 import java.util.Set;
 

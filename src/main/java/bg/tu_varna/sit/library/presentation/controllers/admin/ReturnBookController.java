@@ -1,7 +1,7 @@
 package bg.tu_varna.sit.library.presentation.controllers.admin;
 
-import bg.tu_varna.sit.library.core.return_books.ReturnBookProcessor;
-import bg.tu_varna.sit.library.core.return_books.UpdateReturnedBooksProcessor;
+import bg.tu_varna.sit.library.core.admin.return_books.ReturnBookProcessor;
+import bg.tu_varna.sit.library.core.admin.return_books.UpdateReturnedBooksProcessor;
 import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.data.enums.BookStatus;
 import bg.tu_varna.sit.library.models.return_books.BooksForReturn;
@@ -12,7 +12,6 @@ import bg.tu_varna.sit.library.models.update_returned_books.UpdateReturnedBooksI
 import bg.tu_varna.sit.library.models.update_returned_books.UpdateReturnedBooksOperationModel;
 import bg.tu_varna.sit.library.models.update_returned_books.UpdateReturnedBooksOutputModel;
 import bg.tu_varna.sit.library.presentation.controllers.base.AdminController;
-import bg.tu_varna.sit.library.presentation.controllers.base.Controller;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import io.vavr.control.Either;
@@ -24,9 +23,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 

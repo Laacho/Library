@@ -1,7 +1,6 @@
 package bg.tu_varna.sit.library.presentation.controllers.user;
 
-import bg.tu_varna.sit.library.core.all_books.AllBooksProcessor;
-import bg.tu_varna.sit.library.data.entities.Book;
+import bg.tu_varna.sit.library.core.user.all_books.AllBooksProcessor;
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.models.all_books.AllBooksInputModel;
 import bg.tu_varna.sit.library.models.all_books.AllBooksOperationModel;
@@ -20,7 +19,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -92,7 +93,7 @@ public class UserAllBooksController extends UserController implements Initializa
     private void setButtonFunctionality(List<BooksData> booksData, int finalI) throws IOException {
         BooksData book = booksData.get(finalI);
         CommonBooksProperties convert = conversionService.convert(book, CommonBooksProperties.class);
-        setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book_data_for_user_view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book-data-for-user-view.fxml");
         BookDataController.booksData=convert;
         FXMLLoader loader = changeScene((Stage) newBooks.getScene().getWindow());
         BookDataController controller = loader.getController();

@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.library.presentation.controllers.admin;
 
-import bg.tu_varna.sit.library.core.users_table_view.UsersTableViewProcessor;
+import bg.tu_varna.sit.library.core.admin.users_table_view.UsersTableViewProcessor;
 import bg.tu_varna.sit.library.models.users_table_view.UsersData;
 import bg.tu_varna.sit.library.models.users_table_view.UsersTableViewInputModel;
 import bg.tu_varna.sit.library.models.users_table_view.UsersTableViewOperationModel;

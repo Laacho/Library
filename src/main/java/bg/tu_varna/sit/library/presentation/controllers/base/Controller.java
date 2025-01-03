@@ -48,7 +48,7 @@ public class Controller {
 
     @FXML
     protected void changeToHomeView(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/hello_view/pages/hello-view.fxml");
+        setPath("/bg/tu_varna/sit/library/presentation.views/library_home_view/pages/library-home-view.fxml");
         changeScene(actionEvent);
     }
 

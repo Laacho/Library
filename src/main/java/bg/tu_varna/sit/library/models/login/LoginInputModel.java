@@ -13,10 +13,10 @@ import javax.validation.constraints.Size;
 @Builder(toBuilder = true)
 @ToString
 public class LoginInputModel implements OperationInput {
-    @Size(min = 0, max = 100)
+    @Size(max = 1,message = "test")
     @NotNull
     private String username;
-    @Size(min = 0, max = 100)
+    @Size(max = 100)
     @NotNull
     private String password;
 }

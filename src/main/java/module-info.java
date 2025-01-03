@@ -24,7 +24,10 @@ module bg.tu_varna.sit.library {
     requires java.desktop;
     requires java.sql;
     requires java.naming;
+    requires org.hibernate.validator;
 
+
+    opens bg.tu_varna.sit.library.models.login to org.hibernate.validator;
     exports bg.tu_varna.sit.library.application;
     opens bg.tu_varna.sit.library.application to javafx.fxml;
 
