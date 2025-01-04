@@ -19,7 +19,7 @@ public class ExceptionManager {
             log.info("Finished handling exception!");
             return exception;
         }
-
+        AlertManager.showAlert(Alert.AlertType.ERROR,"System Error",e.getMessage(),ButtonType.OK);
         log.info("Finished handling exception!");
         return null;
     }

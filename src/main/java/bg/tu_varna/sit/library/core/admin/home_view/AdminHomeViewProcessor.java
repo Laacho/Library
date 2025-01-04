@@ -17,7 +17,7 @@ public class AdminHomeViewProcessor extends BaseProcessor implements AdminHomeVi
     private final UserCredentialsRepository userCredentialsRepository;
     private final DiscardedBooksRepository discardedBooksRepository;
     private final ArchivedRepository archivedRepository;
-    private final BorrowedBooksRepository borrowedBooksRepository;
+    private final ReaderProfileRepository readerProfileRepository;
     private final BookRepository bookRepository;
     private final NotificationRepository notificationRepository;
     private static final Logger log = Logger.getLogger(AdminHomeViewProcessor.class);
@@ -26,7 +26,7 @@ public class AdminHomeViewProcessor extends BaseProcessor implements AdminHomeVi
     private AdminHomeViewProcessor() {
         super();
         bookRepository = SingletonFactory.getSingletonInstance(BookRepositoryImpl.class);
-        borrowedBooksRepository = SingletonFactory.getSingletonInstance(BorrowedBooksRepositoryImpl.class);
+        readerProfileRepository = SingletonFactory.getSingletonInstance(ReaderProfileRepositoryImp.class);
         archivedRepository = SingletonFactory.getSingletonInstance(ArchivedRepositoryImpl.class);
         discardedBooksRepository = SingletonFactory.getSingletonInstance(DiscardedBooksRepositoryImpl.class);
         userCredentialsRepository = SingletonFactory.getSingletonInstance(UserCredentialsRepositoryImpl.class);
@@ -40,7 +40,7 @@ public class AdminHomeViewProcessor extends BaseProcessor implements AdminHomeVi
                     int countDiscardedBooks = discardedBooksRepository.findAll().size();
                     int countAllBooks = bookRepository.findAll().size();
                     int countArchivedBooks = archivedRepository.findAll().size();
-                    int countReaderProfiles = borrowedBooksRepository.findAll().size();
+                    int countReaderProfiles = readerProfileRepository.findAll().size();
                     int countUsers = userCredentialsRepository.findAllUsers().size();
                     int countNotification = notificationRepository.findAllAdminNotification().size();
                     AdminHomeViewOutputModel outputModel = AdminHomeViewOutputModel.builder()

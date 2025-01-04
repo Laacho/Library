@@ -19,6 +19,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -39,6 +40,7 @@ public class ApproveProfilesController extends AdminController implements Initia
     private Label birthdate;
     @FXML
     private TextField searchTextField;
+    public static String usernameFromTable;
     private Long userId;
     private final ApproveProfilesOperationModel approveProfilesProcessor;
     private final CreateReaderProfileOperationModel createReaderProfileProcessor;
@@ -55,6 +57,11 @@ public class ApproveProfilesController extends AdminController implements Initia
             AlertManager.showAlert(Alert.AlertType.ERROR, "Can't be empty", "The username can not be empty", ButtonType.OK);
             return;
         }
+        search();
+
+    }
+
+    private void search() {
         Either<Exception, ApproveProfilesOutputModel> process = approveProfilesProcessor.process(ApproveProfilesInputModel.builder().username(searchTextField.getText()).build());
         if (process.isRight()) {
             ApproveProfilesOutputModel output = process.get();
@@ -66,11 +73,10 @@ public class ApproveProfilesController extends AdminController implements Initia
             email.setText("Имейл: " + output.getEmail());
             birthdate.setText("Рожден ден: " + output.getBirthdate().toString());
         }
-
     }
 
     @FXML
-    public void approve(ActionEvent actionEvent) {
+    public void approve(ActionEvent actionEvent) throws IOException {
         if (userId == null) {
             AlertManager.showAlert(Alert.AlertType.ERROR, "Empty id", "The user is not selected", ButtonType.OK);
             return;
@@ -79,9 +85,8 @@ public class ApproveProfilesController extends AdminController implements Initia
         if (process.isRight()) {
             String message = process.get().getMessage();
             AlertManager.showAlert(Alert.AlertType.INFORMATION,"Done ",message,ButtonType.OK);
-            return;
         }
-        AlertManager.showAlert(Alert.AlertType.ERROR,"Error","Error while trying to create reader profile.",ButtonType.OK);
+        approveProfiles(actionEvent);
     }
     @FXML
     public void searchWithEnter(KeyEvent keyEvent) {
@@ -93,5 +98,9 @@ public class ApproveProfilesController extends AdminController implements Initia
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         disableFocusOnButtons();
+        if(usernameFromTable !=null && !usernameFromTable.isEmpty()) {
+            searchTextField.setText(usernameFromTable);
+            search();
+        }
     }
 }

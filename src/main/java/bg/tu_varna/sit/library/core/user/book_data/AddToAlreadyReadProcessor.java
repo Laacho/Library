@@ -10,6 +10,8 @@ import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentials
 import bg.tu_varna.sit.library.data.repositories.interfaces.BookRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ReaderProfileRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
+import bg.tu_varna.sit.library.exceptions.BookNotFound;
+import bg.tu_varna.sit.library.exceptions.ReaderProfileDoesNotExist;
 import bg.tu_varna.sit.library.models.add_to_already_read.AddToAlreadyReadInputModel;
 import bg.tu_varna.sit.library.models.add_to_already_read.AddToAlreadyReadOperationModel;
 import bg.tu_varna.sit.library.models.add_to_already_read.AddToAlreadyReadOutputModel;
@@ -24,7 +26,7 @@ import java.util.Set;
 
 @Processor
 public class AddToAlreadyReadProcessor extends BaseProcessor implements AddToAlreadyReadOperationModel {
-    private static final Logger log= Logger.getLogger(AddToAlreadyReadProcessor.class);
+    private static final Logger log = Logger.getLogger(AddToAlreadyReadProcessor.class);
     private final ReaderProfileRepository readerProfileRepository;
     private final UserCredentialsRepository userCredentialsRepository;
     private final BookRepository bookRepository;
@@ -34,26 +36,25 @@ public class AddToAlreadyReadProcessor extends BaseProcessor implements AddToAlr
         this.userCredentialsRepository = SingletonFactory.getSingletonInstance(UserCredentialsRepositoryImpl.class);
         this.bookRepository = SingletonFactory.getSingletonInstance(BookRepositoryImpl.class);
     }
+
     @Override
     public Either<Exception, AddToAlreadyReadOutputModel> process(AddToAlreadyReadInputModel input) {
-        return Try.of(()->{
+        return Try.of(() -> {
                     log.info("Started adding book to already read");
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     UserCredentials loggedUser = userCredentialsRepository.findByUsername(userSession.getUsername()).get();
                     ReaderProfile readerProfile = readerProfileRepository.
                             findByUser(loggedUser.getUser())
-                            .orElseThrow(()->new RuntimeException("No reader profile found!"));
-                    //todo
+                            .orElseThrow(() -> new ReaderProfileDoesNotExist("Reader Profile Not Found", "No reader profile found!"));
                     Set<Book> readBooks = readerProfile.getReadBooks();
                     Book book = bookRepository.findByInventoryNumber(input.getCommonBooksProperties()
                                     .getInventoryNumber())
-                            .orElseThrow(()->new RuntimeException("No book found!"));
-                    if(input.getWantToDelete()){
-                        readBooks.removeIf(book1->book1.getInventoryNumber()
+                            .orElseThrow(() -> new BookNotFound("Book Not Found","Book with inventory number "+input.getCommonBooksProperties().getInventoryNumber()+" has not been found!"));
+                    if (input.getWantToDelete()) {
+                        readBooks.removeIf(book1 -> book1.getInventoryNumber()
                                 .equals(input.getCommonBooksProperties()
                                         .getInventoryNumber()));
-                    }
-                    else {
+                    } else {
                         readBooks.add(book);
                     }
                     readerProfile.setReadBooks(readBooks);

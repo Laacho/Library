@@ -19,6 +19,8 @@ import bg.tu_varna.sit.library.utils.session.UserSession;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import org.apache.log4j.Logger;
+import bg.tu_varna.sit.library.exceptions.BookNotFound;
+import bg.tu_varna.sit.library.exceptions.ReaderProfileDoesNotExist;
 
 import java.util.Set;
 
@@ -34,24 +36,23 @@ public class AddToReadProcessor extends BaseProcessor implements AddToReadOperat
         this.userCredentialsRepository = SingletonFactory.getSingletonInstance(UserCredentialsRepositoryImpl.class);
         this.bookRepository = SingletonFactory.getSingletonInstance(BookRepositoryImpl.class);
     }
+
     @Override
     public Either<Exception, AddToReadOutputModel> process(AddToReadInputModel input) {
-        return Try.of(()->{
-                log.info("Started adding book to read");
+        return Try.of(() -> {
+                    log.info("Started adding book to read");
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     UserCredentials loggedUser = userCredentialsRepository.findByUsername(userSession.getUsername()).get();
                     ReaderProfile readerProfile = readerProfileRepository.
                             findByUser(loggedUser.getUser())
-                            .orElseThrow(()->new RuntimeException("No reader profile found!"));
+                            .orElseThrow(() -> new ReaderProfileDoesNotExist("Reader Profile Not Found", "No reader profile found!"));
                     Set<Book> wantToRead = readerProfile.getWantToRead();
                     Book book = bookRepository.findByInventoryNumber(input.getCommonBooksProperties().getInventoryNumber())
-                            .orElseThrow(() -> new RuntimeException("No book found!"));
-                                //todo
-                    if(input.getWantsToDelete()){
+                            .orElseThrow(() -> new BookNotFound("Book Not Found", "Book with inventory number " + input.getCommonBooksProperties().getInventoryNumber() + " has not been found!"));
+                    if (input.getWantsToDelete()) {
                         wantToRead.removeIf(book1 -> book1.getInventoryNumber()
-                                                            .equals(book.getInventoryNumber()));
-                    }
-                    else {
+                                .equals(book.getInventoryNumber()));
+                    } else {
                         wantToRead.add(book);
                     }
                     readerProfile.setWantToRead(wantToRead);
