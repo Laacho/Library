@@ -11,6 +11,8 @@ import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentials
 import bg.tu_varna.sit.library.data.repositories.interfaces.BookRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ReaderProfileRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
+import bg.tu_varna.sit.library.exceptions.BookNotFound;
+import bg.tu_varna.sit.library.exceptions.ReaderProfileDoesNotExist;
 import bg.tu_varna.sit.library.models.add_to_favorites.AddToFavoriteInputModel;
 import bg.tu_varna.sit.library.models.add_to_favorites.AddToFavoriteOperationModel;
 import bg.tu_varna.sit.library.models.add_to_favorites.AddToFavoriteOutputModel;
@@ -39,34 +41,30 @@ public class AddToFavoriteProcessor extends BaseProcessor implements AddToFavori
 
     @Override
     public Either<Exception, AddToFavoriteOutputModel> process(AddToFavoriteInputModel input) {
-        return Try.of(()->{
-                log.info("Started processing adding to favorite");
+        return Try.of(() -> {
+                    log.info("Started processing adding to favorite");
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     String username = userSession.getUsername();
                     UserCredentials loggedUser = userCredentialsRepository.findByUsername(username).get();
-
                     ReaderProfile readerProfile = readerProfileRepository.
                             findByUser(loggedUser.getUser())
-                            .orElseThrow(() -> new RuntimeException("No reader profile found!"));
+                            .orElseThrow(() -> new ReaderProfileDoesNotExist("Reader Profile Not Found", "No reader profile found!"));
                     Set<Book> favoriteBooks = readerProfile.getFavoriteBooks();
                     Book book = bookRepository.findByInventoryNumber(input.getCommonBooksProperties()
                                     .getInventoryNumber())
-                            .orElseThrow(() -> new RuntimeException("No book found!"));
-                    //todo
+                            .orElseThrow(() -> new BookNotFound("Book Not Found", "Book with inventory number " + input.getCommonBooksProperties().getInventoryNumber() + " has not been found!"));
                     Set<Genre> recommendedGenres = readerProfile.getRecommendedGenres();
-                    if(input.getWantsToDelete()) {
+                    if (input.getWantsToDelete()) {
                         favoriteBooks.removeIf(favoriteBook -> favoriteBook.getInventoryNumber()
                                 .equals(input.getCommonBooksProperties()
                                         .getInventoryNumber()));
 
                         recommendedGenres.removeIf(genre -> genre.getName()
-                                                                    .equals(input
-                                                                            .getCommonBooksProperties()
-                                                                            .getGenre()));
-                    }
-                    else{
+                                .equals(input
+                                        .getCommonBooksProperties()
+                                        .getGenre()));
+                    } else {
                         favoriteBooks.add(book);
-
                         recommendedGenres.add(book.getGenre());
                     }
                     readerProfile.setFavoriteBooks(favoriteBooks);

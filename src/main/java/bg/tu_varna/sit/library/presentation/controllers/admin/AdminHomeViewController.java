@@ -85,4 +85,9 @@ public class AdminHomeViewController extends AdminController implements Initiali
         setPath("/bg/tu_varna/sit/library/presentation.views/admin/notification_view/pages/notification-view.fxml");
         changeScene(actionEvent);
     }
+    @FXML
+    public void readersTableView(ActionEvent actionEvent) throws IOException {
+        setPath("/bg/tu_varna/sit/library/presentation.views/admin/reader_profile_view/pages/reader-profile-view.fxml");
+        changeScene(actionEvent);
+    }
 }

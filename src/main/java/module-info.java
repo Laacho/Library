@@ -26,7 +26,6 @@ module bg.tu_varna.sit.library {
     requires java.naming;
     requires org.hibernate.validator;
 
-
     opens bg.tu_varna.sit.library.models.login to org.hibernate.validator;
     exports bg.tu_varna.sit.library.application;
     opens bg.tu_varna.sit.library.application to javafx.fxml;
@@ -37,8 +36,13 @@ module bg.tu_varna.sit.library {
     opens bg.tu_varna.sit.library.data.access to org.hibernate.orm.core;
     exports bg.tu_varna.sit.library.data.access;
 
-    opens bg.tu_varna.sit.library.data.entities to org.hibernate.orm.core;
+
+    opens bg.tu_varna.sit.library.data.entities
+            to org.hibernate.validator,
+            org.hibernate.orm.core;
     exports bg.tu_varna.sit.library.data.entities;
+
+    
     exports bg.tu_varna.sit.library.presentation.controllers.base;
     opens bg.tu_varna.sit.library.presentation.controllers.base to javafx.fxml;
     exports bg.tu_varna.sit.library.presentation.controllers.admin;

@@ -10,6 +10,7 @@ import bg.tu_varna.sit.library.data.repositories.implementations.UserRepositoryI
 import bg.tu_varna.sit.library.data.repositories.interfaces.NotificationRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ReaderProfileRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserRepository;
+import bg.tu_varna.sit.library.exceptions.ReaderProfileAlreadyExists;
 import bg.tu_varna.sit.library.exceptions.ReaderProfileDoesNotExist;
 import bg.tu_varna.sit.library.exceptions.UserWithIdDoesNotExist;
 import bg.tu_varna.sit.library.models.create_reader_profile.CreateReaderProfileInputModel;
@@ -43,6 +44,7 @@ public class CreateReaderProfileProcessor extends BaseProcessor implements Creat
                             .orElseThrow(() -> new UserWithIdDoesNotExist("User Not Found","No user found with the provided ID. Please check the ID and try again."));
                     ReaderProfile readerProfile = readerProfileRepository.findByUser(user)
                             .orElseThrow(() -> new ReaderProfileDoesNotExist("Reader Profile Not Found","Reader profile for this user has not been found. Please ensure the user has a valid profile."));
+                    if(readerProfile.getIsProfileApproved()) throw new ReaderProfileAlreadyExists("Reader Profile Exists","Reader profile with username "+user.getUserCredentials().getUsername()+" already exists.");
                     readerProfile = readerProfile.toBuilder()
                             .createdAt(LocalDateTime.now())
                             .updatedAt(LocalDateTime.now())
