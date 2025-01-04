@@ -19,6 +19,7 @@ public class SendEmailProcessor extends BaseProcessor implements SendEmailOperat
     public Either<Exception, SendEmailOperationOutput> process(SendEmailOperationInput input) {
         return Try.of(()->{
                     log.info("Start sending email");
+                    validate(input);
                     CompletableFuture.runAsync(()->EmailService.sendContactMail(input.getToEmail(),input.getTitle(),input.getBody()));
                     SendEmailOperationOutput output = buildOutput();
                     log.info(output.getMessage());

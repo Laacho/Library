@@ -42,6 +42,7 @@ public class GetReaderProfileProcessor extends BaseProcessor implements GetReade
     public Either<Exception, GetReaderProfileOutputModel> process(GetReaderProfileInputModel input) {
         return Try.of(() -> {
                     log.info("Started getting reader profile");
+                    validate(input);
                     UserCredentials userCredentials = userCredentialsRepository.findByUsername(input.getUsername())
                             .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +input.getUsername()+" has not been found"));
                     ReaderProfile readerProfile = readerProfileRepository.findByUser(userCredentials.getUser())

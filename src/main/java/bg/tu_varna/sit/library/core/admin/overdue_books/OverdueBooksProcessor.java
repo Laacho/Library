@@ -32,6 +32,7 @@ public class OverdueBooksProcessor extends BaseProcessor implements OverdueBooks
     public Either<Exception, OverdueBooksOutputModel> process(OverdueBooksInputModel input) {
         return Try.of(() -> {
                     log.info("Started overdue books");
+                    validate(input);
                     List<BorrowedBooks> all = borrowedBooksRepository.findAll();
                     if (all.isEmpty()) throw new NoBooksPresent("Not Found Borrowed Books","Does not have borrowed books in the database");
                     List<OverdueBooks> overdueBooks = getOverdueBooks(all);

@@ -32,6 +32,7 @@ public class SearchProcessor extends BaseProcessor implements SearchOperationMod
     public Either<Exception, SearchOutputModel> process(SearchInputModel input) {
         return Try.of(() -> {
                     log.info("Started searching books");
+                    validate(input);
                     List<Book> result = bookRepository.findBookContainingText(input.getText());
                     SearchOutputModel foundBooks = SearchOutputModel.builder()
                             .books(result)

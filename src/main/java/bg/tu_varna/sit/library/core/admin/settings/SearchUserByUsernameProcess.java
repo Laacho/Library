@@ -27,6 +27,7 @@ public class SearchUserByUsernameProcess extends BaseProcessor implements Search
     public Either<Exception, SearchUserByUsernameOutputModel> process(SearchUserByUsernameInputModel input) {
         return Try.of(()->{
                     log.info("Started searching user by username " + input.getUsername());
+                    validate(input);
                     UserCredentials userCredentials = userCredentialsRepository.findByUsername(input.getUsername())
                             .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +input.getUsername()+" has not been found"));
                     SearchUserByUsernameOutputModel build = SearchUserByUsernameOutputModel.builder()

@@ -22,6 +22,7 @@ public class SendEmailWithCodeProcessor extends BaseProcessor implements SendEma
     public Either<Exception, SendEmailWithCodeOutputModel> process(SendEmailWithCodeInputModel input) {
         return Try.of(()->{
                     log.info("Started sending email with code");
+                    validate(input);
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     CompletableFuture.runAsync(()->{EmailService.sendMail(input.getToEmail(),
                             userSession.getVerificationCode());
@@ -35,6 +36,8 @@ public class SendEmailWithCodeProcessor extends BaseProcessor implements SendEma
     }
 
     private  SendEmailWithCodeOutputModel outputBuilder() {
-        return SendEmailWithCodeOutputModel.builder().message("Email sent").build();
+        return SendEmailWithCodeOutputModel.builder()
+                .message("Email sent")
+                .build();
     }
 }

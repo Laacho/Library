@@ -32,6 +32,7 @@ public class CheckIfReaderProfileExistsProcessor extends BaseProcessor implement
     public Either<Exception, CheckIfReaderProfileExistsOutputModel> process(CheckIfReaderProfileExistsInputModel input) {
         return Try.of(() -> {
                     log.info("Started checking if reader profile exists");
+                    validate(input);
                     UserCredentials userCredentials = userCredentialsRepository.findByUsername(input.getUsername()).orElseThrow(() -> new RuntimeException());
                     Optional<ReaderProfile> readerProfile = readerProfileRepository.findByUser(userCredentials.getUser());
                     boolean doesExist = false, isApproved = false;

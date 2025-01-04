@@ -31,6 +31,7 @@ public class ChangePasswordProcessor extends BaseProcessor implements ChangePass
     public Either<Exception, ChangePasswordOutputModel> process(ChangePasswordInputModel input) {
         return Try.of(() -> {
                     log.info("Started change password");
+                    validate(input);
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     String newPassword = input.getNewPassword();
                     String oldPassword = input.getOldPassword();
@@ -45,9 +46,8 @@ public class ChangePasswordProcessor extends BaseProcessor implements ChangePass
                     }
                     UserCredentials byUsername = userCredentialsRepository.findByUsername(userSession.getUsername())
                             .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found", "User with username: " + userSession.getUsername() + " has not been found"));
-                    UserCredentials userCredentials = byUsername;
-                    userCredentials.setPassword(Hasher.hashPassword(newPassword));
-                    userCredentialsRepository.update(userCredentials);
+                    byUsername.setPassword(Hasher.hashPassword(newPassword));
+                    userCredentialsRepository.update(byUsername);
                     ChangePasswordOutputModel changePasswordSuccessful = outputBuilder();
                     log.info("Finished change password");
                     return changePasswordSuccessful;

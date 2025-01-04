@@ -33,6 +33,7 @@ public class SaveInDiscardProcessor extends BaseProcessor implements SaveToDisca
     public Either<Exception, SaveToDiscardOutputModel> process(SaveToDiscardInputModel input) {
         return Try.of(()->{
                 log.info("Started saving book in discarded");
+                    validate(input);
                     DiscardedBooks convert = conversionService.convert(input, DiscardedBooks.class);
                     discardedBooksRepository.save(convert);
                     Book book = input.getBook();

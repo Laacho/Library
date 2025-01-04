@@ -29,6 +29,7 @@ public class GetAllAuthorsProcessor extends BaseProcessor implements GetAllAutho
     public Either<Exception, GetAllAuthorsOutputModel> process(GetAllAuthorsInputModel input) {
         return Try.of(()->{
                 log.info("Started getting all authors");
+                    validate(input);
                     List<Author> all = authorRepository.findAll();
                     GetAllAuthorsOutputModel output = GetAllAuthorsOutputModel.builder()
                             .authors(all)

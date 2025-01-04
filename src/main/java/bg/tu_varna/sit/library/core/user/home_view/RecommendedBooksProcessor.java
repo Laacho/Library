@@ -39,6 +39,7 @@ public class RecommendedBooksProcessor extends BaseProcessor implements Recommen
     public Either<Exception, RecommendedBooksOutputModel> process(RecommendedBooksInputModel input) {
         return Try.of(() -> {
                     log.info("Started recommended books process");
+                    validate(input);
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     UserCredentials user = userCredentialsRepository.findByUsername(userSession.getUsername())
                            .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +userSession.getUsername()+" has not been found"));

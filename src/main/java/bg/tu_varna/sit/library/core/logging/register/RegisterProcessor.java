@@ -42,6 +42,7 @@ public class RegisterProcessor extends BaseProcessor implements RegisterOperatio
         return Try.of(() -> {
 
                     log.info("Started register process");
+                    validate(input);
                     checkForExistingEmail(input);
                     checkForExistingUsername(input);
                     User build = conversionService.convert(input, User.class);
@@ -86,7 +87,7 @@ public class RegisterProcessor extends BaseProcessor implements RegisterOperatio
 
     private void checkForExistingUsername(RegisterInputModel input) throws UsernameDoesNotExist {
         UserCredentials searchedForExistingUsername = userCredentialsRepository.findByUsername(input.getUsername())
-                .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +input.getUsername()+" has not been found"));;
+                .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +input.getUsername()+" has not been found"));
     }
 
     private void checkForExistingEmail(RegisterInputModel input) throws EmailIsPresent {

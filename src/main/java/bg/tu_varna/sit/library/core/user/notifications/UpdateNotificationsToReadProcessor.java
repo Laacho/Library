@@ -34,6 +34,7 @@ public class UpdateNotificationsToReadProcessor extends BaseProcessor implements
     public Either<Exception, UpdateNotificationsToReadOutputModel> process(UpdateNotificationsToReadInputModel input) {
         return Try.of(()->{
                 log.info("Started updating notifications to read");
+                    validate(input);
                     List<String> notifications = input.getNotifications();
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     UserCredentials userCredentials = userCredentialsRepository.findByUsername(userSession.getUsername()).get();

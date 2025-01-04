@@ -30,6 +30,7 @@ public class ResetPasswordForUserProcessor extends BaseProcessor implements Rese
     public Either<Exception, ResetPasswordForUserOutputModel> process(ResetPasswordForUserInputModel input) {
         return Try.of(()->{
                     log.info("Started resetting password for user");
+                    validate(input);
                     UserCredentials userCredentials = input.getUserCredentials();
                     String passwordForUser = EmailService.generateVerificationCode();
                     String newTempPassword = Hasher.hashPassword(passwordForUser);

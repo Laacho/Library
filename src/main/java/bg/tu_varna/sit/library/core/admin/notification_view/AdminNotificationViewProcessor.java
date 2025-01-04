@@ -29,6 +29,7 @@ public class AdminNotificationViewProcessor extends BaseProcessor implements Adm
     public Either<Exception, AdminNotificationViewOutputModel> process(AdminNotificationViewInputModel input) {
         return Try.of(() -> {
                     log.info("Started admin notification view");
+                    validate(input);
                     List<Notification> notificationList = notificationRepository.findAll();
                     List<String> adminNotificationMessages = getAdminNotificationMessages(notificationList);
                     AdminNotificationViewOutputModel output = AdminNotificationViewOutputModel.builder().messages(adminNotificationMessages).build();

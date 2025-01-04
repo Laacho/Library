@@ -41,6 +41,7 @@ public class AddToAlreadyReadProcessor extends BaseProcessor implements AddToAlr
     public Either<Exception, AddToAlreadyReadOutputModel> process(AddToAlreadyReadInputModel input) {
         return Try.of(() -> {
                     log.info("Started adding book to already read");
+                    validate(input);
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     UserCredentials loggedUser = userCredentialsRepository.findByUsername(userSession.getUsername()).get();
                     ReaderProfile readerProfile = readerProfileRepository.

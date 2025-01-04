@@ -29,6 +29,7 @@ public class FindBookByInventoryNumberProcessor extends BaseProcessor implements
     public Either<Exception, FindBookByInventoryNumberOutputModel> process(FindBookByInventoryNumberInputModel input) {
         return Try.of(() -> {
                     log.info("Start processing finding book by inventory number");
+                    validate(input);
                     Book byInventoryNumber = bookRepository.findByInventoryNumber(input.getInventoryNumber())
                             .orElseThrow(() -> new BookNotFound("Book Not Found", "Book with inventory number: " + input.getInventoryNumber() + " has not been found"));
                     FindBookByInventoryNumberOutputModel outputModel = FindBookByInventoryNumberOutputModel.builder()

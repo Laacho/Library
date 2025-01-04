@@ -30,6 +30,7 @@ public class NewBooksProcessor extends BaseProcessor implements NewBooksOperatio
     public Either<Exception, NewBooksOutputModel> process(NewBooksInputModel input) {
         return Try.of(() -> {
                     log.info("Started new book process");
+                    validate(input);
                     List<Book> allGoodBooks = bookRepository.findAllGoodBooks();
                     List<NewBooksData> newBooksData = getNewBooksData(allGoodBooks);
                     NewBooksOutputModel output = NewBooksOutputModel.builder().newBooksData(newBooksData).build();

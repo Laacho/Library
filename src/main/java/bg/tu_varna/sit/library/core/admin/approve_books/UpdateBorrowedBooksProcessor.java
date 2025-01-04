@@ -17,8 +17,6 @@ import io.vavr.control.Try;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +34,7 @@ public class UpdateBorrowedBooksProcessor extends BaseProcessor implements Updat
     public Either<Exception, UpdateBorrowedBooksOutputModel> process(UpdateBorrowedBooksInputModel input) {
         return Try.of(() -> {
             log.info("Started updating borrowing books");
+                    validate(input);
                     List<BooksForApproveData> books = input.getBooks();
                     convertInputToDB(books);
                     saveNotificationForUser(books);

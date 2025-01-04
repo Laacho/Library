@@ -43,6 +43,7 @@ public class UpdateReturnedBooksProcessor extends BaseProcessor implements Updat
     public Either<Exception, UpdateReturnedBooksOutputModel> process(UpdateReturnedBooksInputModel input) {
         return Try.of(() -> {
                     log.info("Started updating returned books");
+                    validate(input);
                     Long userId = input.getUserId();
                     BooksForReturn books = input.getBooks();
                     User user = userRepository.findById(userId).orElseThrow(() -> new UserWithIdDoesNotExist("User Not Found","User with id "+userId+" has not been found"));

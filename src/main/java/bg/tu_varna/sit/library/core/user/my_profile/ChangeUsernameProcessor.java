@@ -31,13 +31,13 @@ public class ChangeUsernameProcessor extends BaseProcessor implements ChangeUser
     public Either<Exception, ChangeUsernameOutputModel> process(ChangeUsernameInputModel input) {
         return Try.of(()->{
                     log.info("Started changing username");
+                    validate(input);
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     UserCredentials byUsername = userCredentialsRepository.findByUsername(userSession.getUsername())
                             .orElseThrow(()->new UsernameDoesNotExist("Username Not Found","User with username: " +input.getUsername()+" has not been found"));
                     checkIfUsernameExists(input.getUsername());
-                    UserCredentials userCredentials = byUsername;
-                    userCredentials.setUsername(input.getUsername());
-                    userCredentialsRepository.update(userCredentials);
+                    byUsername.setUsername(input.getUsername());
+                    userCredentialsRepository.update(byUsername);
                     ChangeUsernameOutputModel output = outputBuilder();
                     log.info("Finished changing username");
                     return output;
