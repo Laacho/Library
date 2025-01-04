@@ -30,6 +30,7 @@ public class ArchivedBooksProcessor extends BaseProcessor implements ArchivedBoo
     public Either<Exception, ArchivedBooksOutputModel> process(ArchivedBooksInputModel input) {
         return Try.of(() -> {
                     log.info("Started archived books process");
+                    validate(input);
                     List<ArchivedBooks> books = archivedRepository.findAll();
                     List<BooksData> booksData = getBooksDataList(books);
                     ArchivedBooksOutputModel output = ArchivedBooksOutputModel.builder().booksData(booksData).build();

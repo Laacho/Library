@@ -43,6 +43,7 @@ public class AddToFavoriteProcessor extends BaseProcessor implements AddToFavori
     public Either<Exception, AddToFavoriteOutputModel> process(AddToFavoriteInputModel input) {
         return Try.of(() -> {
                     log.info("Started processing adding to favorite");
+                    validate(input);
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     String username = userSession.getUsername();
                     UserCredentials loggedUser = userCredentialsRepository.findByUsername(username).get();

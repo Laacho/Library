@@ -31,6 +31,7 @@ public class SearchForUserProcessor extends BaseProcessor implements SearchForUs
     public Either<Exception, SearchForUserOutputModel> process(SearchForUserInputModel input) {
         return Try.of(() -> {
                     log.info("Started searching for a book");
+                    validate(input);
                     List<Book> bookContainingText = bookRepository.findBookContainingText(input.getTitle());
                     List<Predicate<Book>> filters = new ArrayList<>();
                     if (input.getFilterAuthor() != null) {

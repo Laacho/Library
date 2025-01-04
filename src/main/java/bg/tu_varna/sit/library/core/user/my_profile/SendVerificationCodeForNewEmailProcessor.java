@@ -22,6 +22,7 @@ public class SendVerificationCodeForNewEmailProcessor extends BaseProcessor impl
     public Either<Exception, SendVerificationCodeForNewEmailOutputModel> process(SendVerificationCodeForNewEmailInputModel input) {
         return Try.of(()->{
                     log.info("Started sending verification code for new email");
+                    validate(input);
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     String verificationCodeForNewEmail = EmailService.generateVerificationCode();
                     userSession.setNewEmailVerificationCode(verificationCodeForNewEmail);

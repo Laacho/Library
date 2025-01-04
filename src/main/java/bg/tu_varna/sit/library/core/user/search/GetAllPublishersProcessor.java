@@ -29,6 +29,7 @@ public class GetAllPublishersProcessor extends BaseProcessor implements GetAllPu
     public Either<Exception, GetAllPublishersOutputModel> process(GetAllPublishersInputModel input) {
         return Try.of(()->{
                 log.info("Started getting all publishers");
+                    validate(input);
                     List<Publisher> all = publisherRepository.findAll();
                     GetAllPublishersOutputModel output = GetAllPublishersOutputModel.builder()
                             .publishers(all)

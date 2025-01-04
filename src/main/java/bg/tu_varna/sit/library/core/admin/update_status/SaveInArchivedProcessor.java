@@ -32,6 +32,7 @@ public class SaveInArchivedProcessor extends BaseProcessor implements SaveInArch
     public Either<Exception, SaveToArchivedOutputModel> process(SaveInArchivedInputModel input) {
         return Try.of(()->{
                     log.info("Started saving archived book");
+                    validate(input);
                     ArchivedBooks convert = conversionService.convert(input, ArchivedBooks.class);
                     archivedRepository.save(convert);
                     Book book = input.getBook();

@@ -27,6 +27,7 @@ public class FindBookByIdProcessor extends BaseProcessor implements FindBookById
     public Either<Exception, FindBookByIdOutputModel> process(FindBookByIdInputModel input) {
         return Try.of(() -> {
                     log.info("Started finding book by ID process");
+                    validate(input);
                     Book book = bookRepository.findById(input.getId())
                             .orElseThrow(() -> new BookNotFound("Book Not Found","Book with "+input.getId()+" id has not been found"));
                     CommonBooksProperties convert = conversionService.convert(book, CommonBooksProperties.class);

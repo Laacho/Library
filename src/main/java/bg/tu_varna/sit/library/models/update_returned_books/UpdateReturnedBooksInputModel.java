@@ -4,6 +4,10 @@ import bg.tu_varna.sit.library.models.base.OperationInput;
 import bg.tu_varna.sit.library.models.return_books.BooksForReturn;
 import lombok.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 @Getter
 @Setter
 @ToString
@@ -11,6 +15,11 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateReturnedBooksInputModel implements OperationInput {
+    @NotNull(message = "User ID must not be null")
+    @Positive(message = "User ID must be a positive number")
     private Long userId;
+
+    @Valid
+    @NotNull(message = "Books for return must not be null")
     private BooksForReturn books;
 }

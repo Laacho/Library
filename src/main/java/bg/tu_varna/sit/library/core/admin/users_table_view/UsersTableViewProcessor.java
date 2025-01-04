@@ -30,6 +30,7 @@ public class UsersTableViewProcessor extends BaseProcessor implements UsersTable
     public Either<Exception, UsersTableViewOutputModel> process(UsersTableViewInputModel input) {
         return Try.of(() -> {
                     log.info("Started processing users table view");
+                    validate(input);
                     List<UserCredentials> userCredentials = userCredentialsRepository.findAllUsers();
                     List<UsersData> usersData = getUsersData(userCredentials);
                     UsersTableViewOutputModel output = UsersTableViewOutputModel.builder().usersData(usersData).build();

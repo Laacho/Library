@@ -29,6 +29,7 @@ public class DemoteUserProcessor extends BaseProcessor implements DemoteUserOper
     public Either<Exception, DemoteUserOutputModel> process(DemoteUserInputModel input) {
         return Try.of(()->{
             log.info("Started demoting user");
+                    validate(input);
                     UserCredentials userCredentials = input.getUserCredentials();
                     userCredentials.setAdmin(false);
                     userCredentialsRepository.update(userCredentials);

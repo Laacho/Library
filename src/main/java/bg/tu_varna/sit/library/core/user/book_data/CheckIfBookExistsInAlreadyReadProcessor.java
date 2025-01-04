@@ -40,6 +40,8 @@ public class CheckIfBookExistsInAlreadyReadProcessor extends BaseProcessor imple
     @Override
     public Either<Exception, CheckIfBookExistsInAlreadyReadOutputModel> process(CheckIfBookExistsInAlreadyReadInputModel input) {
         return Try.of(() -> {
+                    log.info("Started checking if book exists in already-read profile");
+                    validate(input);
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     UserCredentials userCredentials = userCredentialsRepository.findByUsername(userSession.getUsername()).get();
                     ReaderProfile readerProfile = readerProfileRepository.findByUser(userCredentials.getUser())

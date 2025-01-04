@@ -26,7 +26,49 @@ module bg.tu_varna.sit.library {
     requires java.naming;
     requires org.hibernate.validator;
 
+
+    opens bg.tu_varna.sit.library.models.add_book to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.add_genre to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.add_to_already_read to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.add_to_favorites to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.add_to_read to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.approve_profiles to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.borrow_books to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.change_password to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.change_username to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.check_if_book_exists_in_already_read to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.check_if_book_exists_in_favorites to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.check_if_book_exists_in_to_read to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.check_if_codes_matches to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.check_if_reader_profile_exists to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.confirm_registration to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.create_reader_profile to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.delete_user to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.find_book_by_id to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.find_book_by_inventory_number to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.get_reader_profile to org.hibernate.validator;
     opens bg.tu_varna.sit.library.models.login to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.promote_user to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.register to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.remove_notifications to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.request_reader_profile to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.reset_password_for_user to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.return_books to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.save_to_archived to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.save_to_discard to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.search to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.search_for_user to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.search_user_by_username to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.send_email to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.send_email_with_code to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.send_verification_code_for_new_email to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.update_borrowed_books to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.update_notifications_for_admin to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.update_returned_books to org.hibernate.validator;
+
+
+
+
     exports bg.tu_varna.sit.library.application;
     opens bg.tu_varna.sit.library.application to javafx.fxml;
 

@@ -40,6 +40,7 @@ public class CreateReaderProfileProcessor extends BaseProcessor implements Creat
     public Either<Exception, CreateReaderProfileOutputModel> process(CreateReaderProfileInputModel input) {
         return Try.of(() -> {
                     log.info("Started creating reader profile");
+                    validate(input);
                     User user = userRepository.findById(input.getId())
                             .orElseThrow(() -> new UserWithIdDoesNotExist("User Not Found","No user found with the provided ID. Please check the ID and try again."));
                     ReaderProfile readerProfile = readerProfileRepository.findByUser(user)

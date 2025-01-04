@@ -30,6 +30,7 @@ public class AllBooksProcessor extends BaseProcessor implements AllBooksOperatio
     public Either<Exception, AllBooksOutputModel> process(AllBooksInputModel input) {
         return Try.of(() -> {
                     log.info("Started processing all books");
+                    validate(input);
                     List<Book> books = bookRepository.findAll();
                     List<BooksData> booksData = getBooksDataList(books);
                     AllBooksOutputModel output = AllBooksOutputModel.builder().booksData(booksData).build();

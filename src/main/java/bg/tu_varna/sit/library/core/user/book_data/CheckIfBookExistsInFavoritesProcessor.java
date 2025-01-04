@@ -41,6 +41,7 @@ public class CheckIfBookExistsInFavoritesProcessor extends BaseProcessor impleme
     public Either<Exception, CheckIfBookExistsInFavoritesOutputModel> process(CheckIfBookExistsInFavoritesInputModel input) {
         return Try.of(() -> {
                     log.info("Started check if book exists in favorites");
+                    validate(input);
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     UserCredentials userCredentials = userCredentialsRepository.findByUsername(userSession.getUsername()).get();
                     ReaderProfile readerProfile = readerProfileRepository.findByUser(userCredentials.getUser())

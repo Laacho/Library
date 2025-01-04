@@ -29,6 +29,7 @@ public class PromoteUserProcessor extends BaseProcessor implements PromoteUserOp
     public Either<Exception, PromoteUserOutputModel> process(PromoteUserInputModel input) {
         return Try.of(()->{
                     log.info("Started promoting user");
+                    validate(input);
                     UserCredentials userCredentials = input.getUserCredentials();
                     userCredentials.setAdmin(true);
                     userCredentialsRepository.update(userCredentials);

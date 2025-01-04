@@ -4,6 +4,9 @@ import bg.tu_varna.sit.library.models.base.OperationInput;
 
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter
@@ -13,5 +16,9 @@ import java.util.List;
 @Builder
 @ToString
 public class UpdateNotificationsToReadInputModel implements OperationInput {
-    private List<String> notifications;
+    @NotNull(message = "Notifications list must not be null")
+    @Size(min = 1, message = "Notifications list must contain at least one notification")
+    private List<
+            @NotBlank(message = "Each notification must not be blank")
+            String> notifications;
 }

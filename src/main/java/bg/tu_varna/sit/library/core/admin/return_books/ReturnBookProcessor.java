@@ -37,6 +37,7 @@ public class ReturnBookProcessor extends BaseProcessor implements ReturnBooksOpe
     public Either<Exception, ReturnBooksOutputModel> process(ReturnBooksInputModel input) {
         return Try.of(() -> {
                     log.info("Started returning books");
+                    validate(input);
                     UserCredentials userCredentials = userCredentialsRepository.findByUsername(input.getUsername())
                             .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +input.getUsername()+" has not been found"));
                     User user = userCredentials.getUser();

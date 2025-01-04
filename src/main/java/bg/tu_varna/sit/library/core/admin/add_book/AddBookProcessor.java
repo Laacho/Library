@@ -38,6 +38,7 @@ public class AddBookProcessor extends BaseProcessor implements AddBookOperationM
     public Either<Exception, AddBookOutputModel> process(AddBookInputModel input) {
         return Try.of(()->{
                     log.info("Started adding a book");
+                    validate(input);
                     Book.BookBuilder builder = conversionService.convert(input, Book.class).toBuilder();
                     List<Author> all = authorRepository.findAll();
                     if (!all.isEmpty()) {

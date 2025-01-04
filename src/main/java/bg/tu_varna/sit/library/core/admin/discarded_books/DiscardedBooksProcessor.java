@@ -30,6 +30,7 @@ public class DiscardedBooksProcessor extends BaseProcessor implements DiscardedB
     public Either<Exception, DiscardedBooksOutputModel> process(DiscardedBooksInputModel input) {
         return Try.of(() -> {
                     log.info("Started discarded books");
+                    validate(input);
                     List<DiscardedBooks> books = discardedBooksRepository.findAll();
                     List<BooksData> booksData = getBooksDataList(books);
                     DiscardedBooksOutputModel output = DiscardedBooksOutputModel.builder().booksData(booksData).build();

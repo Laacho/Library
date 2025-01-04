@@ -36,6 +36,7 @@ public class FindAllNotificationsForUserProcessor extends BaseProcessor implemen
     public Either<Exception, FindAllNotificationsForUserOutputModel> process(FindAllNotificationsForUserInputModel input) {
         return Try.of(()->{
                     log.info("Started getting all notifications for user");
+                    validate(input);
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     UserCredentials loggedUser = userCredentialsRepository.findByUsername(userSession.getUsername())
                             .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +userSession.getUsername()+" has not been found"));

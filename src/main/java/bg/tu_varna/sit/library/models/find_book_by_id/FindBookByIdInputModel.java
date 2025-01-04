@@ -3,6 +3,9 @@ package bg.tu_varna.sit.library.models.find_book_by_id;
 import bg.tu_varna.sit.library.models.base.OperationInput;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -10,5 +13,7 @@ import lombok.*;
 @Builder(toBuilder = true)
 @ToString
 public class FindBookByIdInputModel implements OperationInput {
+    @NotNull(message = "ID must not be null")
+    @Positive(message = "ID must be a positive number")
     private Long id;
 }

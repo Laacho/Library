@@ -41,6 +41,7 @@ public class AddToReadProcessor extends BaseProcessor implements AddToReadOperat
     public Either<Exception, AddToReadOutputModel> process(AddToReadInputModel input) {
         return Try.of(() -> {
                     log.info("Started adding book to read");
+                    validate(input);
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     UserCredentials loggedUser = userCredentialsRepository.findByUsername(userSession.getUsername()).get();
                     ReaderProfile readerProfile = readerProfileRepository.

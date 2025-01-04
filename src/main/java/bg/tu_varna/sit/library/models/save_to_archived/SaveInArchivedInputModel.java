@@ -4,6 +4,8 @@ import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.models.base.OperationInput;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
 @ToString
@@ -11,5 +13,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SaveInArchivedInputModel implements OperationInput {
+    @NotNull(message = "Book must not be null")
     private Book book;
 }

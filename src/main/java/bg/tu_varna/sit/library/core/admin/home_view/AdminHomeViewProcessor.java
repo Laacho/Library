@@ -37,6 +37,7 @@ public class AdminHomeViewProcessor extends BaseProcessor implements AdminHomeVi
     public Either<Exception, AdminHomeViewOutputModel> process(AdminHomeViewInputModel input) {
         return Try.of(() -> {
                     log.info("Started loading admin home view");
+                    validate(input);
                     int countDiscardedBooks = discardedBooksRepository.findAll().size();
                     int countAllBooks = bookRepository.findAll().size();
                     int countArchivedBooks = archivedRepository.findAll().size();

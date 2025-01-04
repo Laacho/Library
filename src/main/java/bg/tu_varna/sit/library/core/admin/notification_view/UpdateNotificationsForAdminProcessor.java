@@ -27,6 +27,7 @@ public class UpdateNotificationsForAdminProcessor extends BaseProcessor implemen
     public Either<Exception, UpdateNotificationsForAdminOutputModel> process(UpdateNotificationsForAdminInputModel input) {
         return Try.of(()->{
                 log.info("Started processing update notifications for admin");
+                    validate(input);
                     List<String> notifications = input.getMessages();
                     for (String notification : notifications) {
                         notificationRepository.updateNotificationsToBeReadForAdmin(notification);

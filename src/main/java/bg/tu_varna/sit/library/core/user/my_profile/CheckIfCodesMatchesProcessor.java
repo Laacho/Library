@@ -29,6 +29,7 @@ public class CheckIfCodesMatchesProcessor extends BaseProcessor implements Check
     public Either<Exception, CheckIfCodesMatchesOutputModel> process(CheckIfCodesMatchesInputModel input) {
         return Try.of(() -> {
                     log.info("Started checking if codes match!");
+                    validate(input);
                     String inputVerificationCode = input.getInputVerificationCode();
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     if (!userSession.getNewEmailVerificationCode().equals(inputVerificationCode)) {

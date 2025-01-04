@@ -28,6 +28,7 @@ public class GetAllGenresProcessor extends BaseProcessor implements GetAllGenres
     public Either<Exception, GetAllGenresOutputModel> process(GetAllGenresInputModel input) {
         return Try.of(()->{
                 log.info("Started getting all genres");
+                    validate(input);
                     List<Genre> all = genreRepository.findAll();
                     GetAllGenresOutputModel output = GetAllGenresOutputModel.builder()
                             .genres(all)

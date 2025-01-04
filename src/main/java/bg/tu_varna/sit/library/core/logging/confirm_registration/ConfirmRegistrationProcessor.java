@@ -31,6 +31,7 @@ public class ConfirmRegistrationProcessor extends BaseProcessor implements Confi
     public Either<Exception, ConfirmRegistrationOutputModel> process(ConfirmRegistrationInputModel input) {
         return Try.of(() -> {
                     log.info("Started confirm registration");
+                    validate(input);
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     String verificationCode = input.getVerificationCode();
                     UserCredentials userCredentials = userCredentialsRepository.findByUsername(userSession.getUsername())

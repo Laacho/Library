@@ -47,6 +47,7 @@ public class BorrowBooksProcessor extends BaseProcessor implements BorrowBooksOp
     public Either<Exception, BorrowBooksOutputModel> process(BorrowBooksInputModel input) {
         return Try.of(() -> {
                     log.info("Started borrowing book process");
+                    validate(input);
                     User user = userRepository.findByUsername(input.getUsername())
                             .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +input.getUsername()+" has not been found"))
                             .getUser();

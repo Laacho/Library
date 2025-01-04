@@ -12,6 +12,7 @@ import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.annotations.Processor;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.List;
 @Processor
 public class ReaderProfileTableViewProcessor extends BaseProcessor implements ReaderProfileTableViewOperationModel {
     private final ReaderProfileRepository readerProfileRepository;
-
+    private static final Logger log= Logger.getLogger(ReaderProfileTableViewProcessor.class);
     private ReaderProfileTableViewProcessor() {
         readerProfileRepository = SingletonFactory.getSingletonInstance(ReaderProfileRepositoryImp.class);
     }
@@ -28,9 +29,15 @@ public class ReaderProfileTableViewProcessor extends BaseProcessor implements Re
     @Override
     public Either<Exception, ReaderProfileTableViewOutputModel> process(ReaderProfileTableViewInputModel input) {
         return Try.of(() -> {
+                log.info("Started reader profile table view");
+                    validate(input);
                     List<ReaderProfile> all = readerProfileRepository.findAll();
                     List<ReaderProfileData> readerProfileData = getReaderProfileData(all);
-                    return ReaderProfileTableViewOutputModel.builder().readerProfileData(readerProfileData).build();
+                    ReaderProfileTableViewOutputModel output = ReaderProfileTableViewOutputModel.builder()
+                            .readerProfileData(readerProfileData)
+                            .build();
+                    log.info("Finished reader profile table view");
+                  return output;
                 }).toEither()
                 .mapLeft(exceptionManager::handle);
     }

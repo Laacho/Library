@@ -5,10 +5,8 @@ import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.data.entities.Genre;
 import bg.tu_varna.sit.library.data.repositories.implementations.BookRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.implementations.GenreRepositoryImpl;
-import bg.tu_varna.sit.library.data.repositories.implementations.LocationRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.interfaces.BookRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.GenreRepository;
-import bg.tu_varna.sit.library.data.repositories.interfaces.LocationRepository;
 import bg.tu_varna.sit.library.models.add_genre.CheckGenreInputModel;
 import bg.tu_varna.sit.library.models.add_genre.CheckGenreOperationModel;
 import bg.tu_varna.sit.library.models.add_genre.CheckGenreOutputModel;
@@ -36,6 +34,7 @@ public class CheckGenreProcessor extends BaseProcessor implements CheckGenreOper
     public Either<Exception, CheckGenreOutputModel> process(CheckGenreInputModel input) {
         return Try.of(() -> {
                     log.info("Started checking genre");
+                    validate(input);
                     Optional<Genre> byName = genreRepository.findByName(input.getGenre().toLowerCase());
                     if (byName.isPresent()) {
                         //ima go i trqbva da se vurnat vsichki knigi

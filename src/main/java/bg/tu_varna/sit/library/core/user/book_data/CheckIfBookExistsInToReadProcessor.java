@@ -40,6 +40,8 @@ public class CheckIfBookExistsInToReadProcessor extends BaseProcessor implements
     @Override
     public Either<Exception, CheckIfBookExistsInToReadOutputModel> process(CheckIfBookExistsInToReadInputModel input) {
         return Try.of(() -> {
+                    log.info("Started check if book exists in to read");
+                    validate(input);
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     UserCredentials userCredentials = userCredentialsRepository.findByUsername(userSession.getUsername()).get();
                     ReaderProfile readerProfile = readerProfileRepository.findByUser(userCredentials.getUser())
@@ -55,7 +57,6 @@ public class CheckIfBookExistsInToReadProcessor extends BaseProcessor implements
                         }
                     }
                     CheckIfBookExistsInToReadOutputModel output = outputBuilder(found);
-                    ;
                     log.info("Finished check if book exists in favorites");
                     return output;
                 }).toEither()

@@ -29,6 +29,7 @@ public class DeleteUserProcessor extends BaseProcessor implements DeleteUserOper
     public Either<Exception, DeleteUserOutputModel> process(DeleteUserInputModel input) {
         return Try.of(() -> {
                     log.info("Started deleting user");
+                    validate(input);
                     userCredentialsRepository.deleteById(input.getUserId()).orElseThrow(() -> new UserWithIdDoesNotExist("User Not Found", "User with " + input.getUserId() + " does not exist"));
                     CompletableFuture.runAsync(() -> EmailService.sendContactMail(input.getEmail(), "Your profile was deleted!", "Deleted profile!"));
                     DeleteUserOutputModel outputModel = outputBuilder();

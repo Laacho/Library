@@ -36,6 +36,7 @@ public class ApproveBooksProcessor extends BaseProcessor implements ApproveBooks
     public Either<Exception, ApproveBooksOutputModel> process(ApproveBooksInputModel input) {
         return Try.of(() -> {
                     log.info("Started approving books");
+                    validate(input);
                     List<BorrowedBooks> borrowedBooks = borrowedBooksRepository.findAll();
                     if (borrowedBooks.isEmpty())
                         throw new BorrowBooksEmpty("No Book Borrowing Requests","There are no users who have requested to borrow books.");

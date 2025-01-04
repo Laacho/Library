@@ -33,6 +33,7 @@ public class LogoutProcessor extends BaseProcessor implements LogoutOperationMod
     public Either<Exception, LogoutOutputModel> process(LogoutInputModel input) {
         return Try.of(()->{
                     log.info("Started logging out process");
+                    validate(input);
                     UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
                     if(!userSession.getAdmin()) {
                         saveCartBookToDB(userSession);
@@ -55,7 +56,7 @@ public class LogoutProcessor extends BaseProcessor implements LogoutOperationMod
     private void saveCartBookToDB(UserSession userSession) throws UsernameDoesNotExist {
         Set<Book> cartBooks = userSession.getCartBooks();
         UserCredentials user = userCredentialsRepository.findByUsername(userSession.getUsername())
-                .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +userSession.getUsername()+" has not been found"));;
+                .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +userSession.getUsername()+" has not been found"));
         user.setCartForBooks(cartBooks);
         userCredentialsRepository.update(user);
     }
