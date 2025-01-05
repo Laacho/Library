@@ -61,25 +61,23 @@ public class ArchivedBooksTableViewController extends AdminController implements
 
     private void initializeColumns() {
         title = new TableColumn<>("Заглавие");
+        title.setPrefWidth(100);
         title.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getTitle()));
-//        quantity = new TableColumn<>("Количество");
-//        quantity.setCellValueFactory(cell ->
-//                new SimpleObjectProperty<>(cell.getValue().getQuantity().toString()));
         shelfName = new TableColumn<>("Рафт");
-       // shelfName.setPrefWidth(50);
+        shelfName.setPrefWidth(154);
         shelfName.setCellValueFactory(cell ->
                 new SimpleStringProperty(cell.getValue().getLocation().getShelf()));
         rowNum = new TableColumn<>("Ред");
-       // rowNum.setPrefWidth(50);
+        rowNum.setPrefWidth(100);
         rowNum.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getLocation().getRowNum().toString()));
         archivedDate = new TableColumn<>("Дата");
-        //archivedDate.setPrefWidth(50);
+        archivedDate.setPrefWidth(130);
         archivedDate.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getArchivedDate().toString()));
         authors = new TableColumn<>("Автор");
-      //  authors.setPrefWidth(150);
+      authors.setPrefWidth(170);
         authors.setCellValueFactory(cell -> {
             Set<Author> authors = cell.getValue().getAuthors();
             String authorsText = authors.stream()
@@ -87,6 +85,11 @@ public class ArchivedBooksTableViewController extends AdminController implements
                     .collect(Collectors.joining(", "));
             return new SimpleStringProperty(authorsText);
         });
+        title.getStyleClass().add("table-column-header");
+        shelfName.getStyleClass().add("table-column-header");
+        rowNum.getStyleClass().add("table-column-header");
+        authors.getStyleClass().add("table-column-header");
+        archivedDate.getStyleClass().add("table-column-header");
     }
 
 

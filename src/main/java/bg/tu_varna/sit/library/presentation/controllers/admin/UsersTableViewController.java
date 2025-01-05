@@ -57,31 +57,39 @@ public class UsersTableViewController extends AdminController implements Initial
         lastName = new TableColumn<>("Фамилия");
         lastName.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getLastName()));
+        lastName.setPrefWidth(100);
         username = new TableColumn<>("Потр. име");
         username.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getUsername()));
+        username.setPrefWidth(110);
         rating = new TableColumn<>("Рейтинг");
         rating.setCellValueFactory(cell -> {
             if(cell.getValue().getRating() == null)
                 return new SimpleObjectProperty<>("No reader profile");
             return new SimpleObjectProperty<>(cell.getValue().getRating().toString());
         });
-        // price.setPrefWidth(35);
         email = new TableColumn<>("Email");
         email.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getEmail()));
         birthdate = new TableColumn<>("Дата на раждане");
-        //birthdate.setPrefWidth(50);
+        birthdate.setPrefWidth(150);
         birthdate.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getBirthdate()));
         dateOfVerification = new TableColumn<>("Верифициран");
-        // dateOfVerification.setPrefWidth(50);
+        dateOfVerification.setPrefWidth(130);
         dateOfVerification.setCellValueFactory(cell -> {
             if (cell.getValue().getDateOfVerification() == null) {
                 return new SimpleObjectProperty<>("Not verified yet!");
             }
             return new SimpleObjectProperty<>(cell.getValue().getDateOfVerification().toString());
         });
+        firstName.getStyleClass().add("table-column-header");
+        lastName.getStyleClass().add("table-column-header");
+        username.getStyleClass().add("table-column-header");
+        rating.getStyleClass().add("table-column-header");
+        email.getStyleClass().add("table-column-header");
+        birthdate.getStyleClass().add("table-column-header");
+        dateOfVerification.getStyleClass().add("table-column-header");
     }
 
 }

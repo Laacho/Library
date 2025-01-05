@@ -70,17 +70,21 @@ public class ReturnBookController extends AdminController implements Initializab
 
     private void setTableData(String id, List<BooksForReturn> booksForReturns) {
         user = new TableColumn<>("Потребителско име");
+        user.setPrefWidth(150);
         user.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(id));
         borrowedDate = new TableColumn<>("Дата на вземане");
+        borrowedDate.setPrefWidth(150);
         borrowedDate.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getBorrowingDate().toString()));
         returnDate = new TableColumn<>("Дата на връщане");
+        returnDate.setPrefWidth(150);
         returnDate.setCellValueFactory(cell ->
                 new SimpleStringProperty(cell.getValue().getReturnDate().toString()));
         returnDeadline = new TableColumn<>("Краен срок");
         returnDeadline.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getDeadline().toString()));
+        returnDeadline.setPrefWidth(150);
         booksColumn = new TableColumn<>("Книги");
         booksColumn.setCellValueFactory(cell -> {
             Set<Book> books = cell.getValue().getBooks();
@@ -99,6 +103,12 @@ public class ReturnBookController extends AdminController implements Initializab
         tableView.getColumns().remove(0);
         ObservableList<BooksForReturn> observableList = FXCollections.observableList(booksForReturns);
         tableView.setItems(observableList);
+        user.getStyleClass().add("table-column-header");
+        borrowedDate.getStyleClass().add("table-column-header");
+        returnDate.getStyleClass().add("table-column-header");
+        returnDeadline.getStyleClass().add("table-column-header");
+        booksColumn.getStyleClass().add("table-column-header");
+        returnButton.getStyleClass().add("table-column-header");
     }
 
     private void setActivity(String id, List<BooksForReturn> booksForReturns, TableColumn.CellDataFeatures<BooksForReturn, Button> cell) {

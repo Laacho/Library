@@ -54,9 +54,9 @@ public class ReaderProfileTableViewController extends AdminController implements
         username = new TableColumn<>("Username");
         username.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getUsername()));
-        // username.setPrefWidth(200);
+        username.setPrefWidth(169.25);
         createdAt = new TableColumn<>("Created At");
-        //createdAt.setPrefWidth(50);
+        createdAt.setPrefWidth(169.25);
         createdAt.setCellValueFactory(cell -> {
             String result = (cell.getValue().getCreatedAt() != null)
                     ? cell.getValue().getCreatedAt().toString()
@@ -64,13 +64,16 @@ public class ReaderProfileTableViewController extends AdminController implements
             return new SimpleObjectProperty<>(result);
         });
         updatedAt = new TableColumn<>("Updated At");
+        updatedAt.setPrefWidth(169.25);
         updatedAt.setCellValueFactory(cell -> {
             String result = (cell.getValue().getUpdatedAt() != null)
                     ? cell.getValue().getUpdatedAt().toString()
-                    : "Only requested";;
+                    : "Only requested";
+            ;
             return new SimpleObjectProperty<>(result);
         });
         approve = new TableColumn<>("Approve");
+        approve.setPrefWidth(146);
         approve.setCellValueFactory(cell -> {
             boolean approved = cell.getValue().isApproved();
             if (!approved) {
@@ -82,6 +85,10 @@ public class ReaderProfileTableViewController extends AdminController implements
             }
             return new SimpleObjectProperty<>();
         });
+        username.getStyleClass().add("table-column-header");
+        createdAt.getStyleClass().add("table-column-header");
+        updatedAt.getStyleClass().add("table-column-header");
+        approve.getStyleClass().add("table-column-header");
     }
 
     private void setFunctionality(TableColumn.CellDataFeatures<ReaderProfileData, Button> cell, ActionEvent event) {

@@ -88,6 +88,12 @@ public class OverdueBooksController extends AdminController implements Initializ
         tableView.getColumns().remove(0);
         ObservableList<OverdueBooks> observableList = FXCollections.observableList(overdueBooks);
         tableView.setItems(observableList);
+        user.getStyleClass().add("table-column-header");
+        borrowedDate.getStyleClass().add("table-column-header");
+        returnDate.getStyleClass().add("table-column-header");
+        returnDeadline.getStyleClass().add("table-column-header");
+        booksColumn.getStyleClass().add("table-column-header");
+        returnButton.getStyleClass().add("table-column-header");
     }
 
     @NotNull

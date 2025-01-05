@@ -3,10 +3,8 @@ package bg.tu_varna.sit.library.models.return_books;
 import bg.tu_varna.sit.library.data.entities.Book;
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+
 import java.time.LocalDate;
 import java.util.Set;
 

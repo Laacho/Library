@@ -33,6 +33,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -229,8 +230,10 @@ public class MyProfileController extends UserController implements Initializable
 
     private double computeTextWidth(Label label, String text) {
         Text tempText = new Text(text);
-        tempText.setFont(label.getFont());
-        return tempText.getLayoutBounds().getWidth();
+        Font font = label.getFont();
+        tempText.setFont(font);
+        new javafx.scene.Group(tempText);
+        return Math.ceil(tempText.getLayoutBounds().getWidth()) + 5;
     }
 
     private void clearFields() {

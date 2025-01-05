@@ -3,8 +3,7 @@ package bg.tu_varna.sit.library.models.add_book;
 import bg.tu_varna.sit.library.data.entities.Author;
 import bg.tu_varna.sit.library.models.base.OperationInput;
 import lombok.*;
-
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Set;
 

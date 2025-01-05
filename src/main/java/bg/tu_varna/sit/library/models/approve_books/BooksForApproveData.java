@@ -3,8 +3,7 @@ package bg.tu_varna.sit.library.models.approve_books;
 import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.data.entities.User;
 import lombok.*;
-
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Set;
 @Getter

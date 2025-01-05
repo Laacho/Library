@@ -2,9 +2,8 @@ package bg.tu_varna.sit.library.models.get_reader_profile;
 
 import bg.tu_varna.sit.library.models.base.OperationInput;
 import lombok.*;
+import jakarta.validation.constraints.*;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 @Getter
 @Setter

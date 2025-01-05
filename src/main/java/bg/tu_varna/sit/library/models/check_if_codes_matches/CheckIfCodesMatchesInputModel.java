@@ -3,8 +3,7 @@ package bg.tu_varna.sit.library.models.check_if_codes_matches;
 import bg.tu_varna.sit.library.models.base.OperationInput;
 import lombok.*;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 
 @Getter
 @Setter

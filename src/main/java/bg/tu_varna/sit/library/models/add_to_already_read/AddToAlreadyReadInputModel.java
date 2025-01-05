@@ -2,10 +2,9 @@ package bg.tu_varna.sit.library.models.add_to_already_read;
 
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.models.base.OperationInput;
+import jakarta.validation.Valid;
 import lombok.*;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 @Getter
 @Setter

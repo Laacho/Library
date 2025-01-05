@@ -1,9 +1,9 @@
 package bg.tu_varna.sit.library.data.entities;
 
 import lombok.*;
+import jakarta.validation.constraints.*;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.Min;
 
 @Table(name = "locations")
 @Entity

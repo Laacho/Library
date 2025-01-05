@@ -13,7 +13,7 @@ public class Connection {
     static {
         try {
             sessionFactory = new Configuration().configure().buildSessionFactory();
-        } catch (Throwable ex) {
+        } catch (Exception ex) {
             log.error("Initial SessionFactory created failed" + ex);
         }
     }

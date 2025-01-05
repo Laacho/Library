@@ -3,7 +3,7 @@ package bg.tu_varna.sit.library.models.confirm_registration;
 import bg.tu_varna.sit.library.models.base.OperationInput;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 
 @Getter
 @Setter

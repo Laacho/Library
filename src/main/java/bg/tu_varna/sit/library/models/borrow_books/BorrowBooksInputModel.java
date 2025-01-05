@@ -2,10 +2,9 @@ package bg.tu_varna.sit.library.models.borrow_books;
 
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.models.base.OperationInput;
+import jakarta.validation.constraints.*;
+import jakarta.validation.Valid;
 import lombok.*;
-
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Set;
 @Getter

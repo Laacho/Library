@@ -2,8 +2,8 @@ package bg.tu_varna.sit.library.data.entities;
 
 import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Set;
 

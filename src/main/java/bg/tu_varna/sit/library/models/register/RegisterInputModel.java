@@ -3,7 +3,7 @@ package bg.tu_varna.sit.library.models.register;
 import bg.tu_varna.sit.library.models.base.OperationInput;
 import lombok.*;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
 @Getter

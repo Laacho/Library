@@ -3,8 +3,7 @@ package bg.tu_varna.sit.library.models.find_book_by_inventory_number;
 import bg.tu_varna.sit.library.models.base.OperationInput;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 @Getter
 @Setter

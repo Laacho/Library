@@ -2,10 +2,9 @@ package bg.tu_varna.sit.library.data.entities;
 
 import bg.tu_varna.sit.library.data.enums.BookStatus;
 import lombok.*;
-import javax.persistence.*;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Digits;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
+import jakarta.validation.constraints.*;
 import java.util.Set;
 
 @Table(name = "books")

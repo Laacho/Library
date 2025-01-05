@@ -4,7 +4,7 @@ import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.models.base.OperationInput;
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 @Getter
 @Setter

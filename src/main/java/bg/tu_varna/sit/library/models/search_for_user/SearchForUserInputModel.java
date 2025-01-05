@@ -3,8 +3,8 @@ package bg.tu_varna.sit.library.models.search_for_user;
 import bg.tu_varna.sit.library.models.base.OperationInput;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+
 
 @Getter
 @Setter

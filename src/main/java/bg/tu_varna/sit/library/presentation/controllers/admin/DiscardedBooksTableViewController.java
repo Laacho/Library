@@ -63,13 +63,13 @@ public class DiscardedBooksTableViewController extends AdminController implement
         title = new TableColumn<>("Заглавие");
         title.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getTitle()));
-        title.setPrefWidth(200);
-//        quantity = new TableColumn<>("Количество");
-        reason = new TableColumn<>("Рафт");
-        reason.setPrefWidth(400);
+        title.setPrefWidth(150);
+        reason = new TableColumn<>("Причина");
+        reason.setPrefWidth(200);
         reason.setCellValueFactory(cell ->
                 new SimpleStringProperty(cell.getValue().getReason()));
-        discardingDate = new TableColumn<>("Ред");
+        discardingDate = new TableColumn<>("Дата");
+        discardingDate.setPrefWidth(120);
         discardingDate.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getDiscardingDate()));
         authors = new TableColumn<>("Автор");
@@ -81,6 +81,10 @@ public class DiscardedBooksTableViewController extends AdminController implement
                     .collect(Collectors.joining(", "));
             return new SimpleStringProperty(authorsText);
         });
+        title.getStyleClass().add("table-column-header");
+        discardingDate.getStyleClass().add("table-column-header");
+        authors.getStyleClass().add("table-column-header");
+        reason.getStyleClass().add("table-column-header");
     }
 
 

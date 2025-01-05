@@ -70,62 +70,57 @@ public class UpdateStatusController extends AdminController implements Initializ
     private final SaveInArchivedOperationModel saveInArchivedProcessor;
     private final SaveToDiscardOperationModel saveToDiscardProcessor;
 
-    public UpdateStatusController( ) {
+    public UpdateStatusController() {
         this.saveInArchivedProcessor = SingletonFactory.getSingletonInstance(SaveInArchivedProcessor.class);
         this.findBookByInventoryNumberOperationModel = SingletonFactory.getSingletonInstance(FindBookByInventoryNumberProcessor.class);
-        this.saveToDiscardProcessor=SingletonFactory.getSingletonInstance(SaveInDiscardProcessor.class);
+        this.saveToDiscardProcessor = SingletonFactory.getSingletonInstance(SaveInDiscardProcessor.class);
         foundBook = false;
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-            disableFocusOnButtons();
+        disableFocusOnButtons();
     }
 
 
     @FXML
     public void searchByInventoryNumber(ActionEvent actionEvent) {
-        if(!inventoryNumberField.getText().isEmpty()) {
-            FindBookByInventoryNumberInputModel input = FindBookByInventoryNumberInputModel.builder()
-                    .inventoryNumber(inventoryNumberField.getText())
-                    .build();
-            Either<Exception, FindBookByInventoryNumberOutputModel> process = findBookByInventoryNumberOperationModel.process(input);
-            if(process.isRight()) {
-                Book book = process.get().getBook();
-                lblTitle.setText("Title: " + book.getTitle());
-                lblInventoryNumber.setText("Inventory Number: " + book.getInventoryNumber());
-                lblGenre.setText("Genre: " + book.getGenre().getName());
-                lblPublisher.setText("Publisher: " + book.getPublisher().getName());
-                lblStatusBefore.setText("Status before\nborrowing: "+book.getBookStatusBeforeBorrow());
-                lblStatusAfter.setText("Status after\nborrowing: "+book.getBookStatusAfterBorrow());
-                StringBuilder sb=new StringBuilder();
-                Set<Author> authors = book.getAuthors();
-                for (Author author : authors) {
-                    sb.append(author.toString()).append("\n");
-                }
-                lblAuthors.setText("Authors:\n"+sb);
-                File file = new File(book.getPath());
-                imageView.setImage(new Image(file.toURI().toString()));
-                foundBook = true;
-                this.book=book;
+        FindBookByInventoryNumberInputModel input = FindBookByInventoryNumberInputModel.builder()
+                .inventoryNumber(inventoryNumberField.getText())
+                .build();
+        Either<Exception, FindBookByInventoryNumberOutputModel> process = findBookByInventoryNumberOperationModel.process(input);
+        if (process.isRight()) {
+            Book book = process.get().getBook();
+            lblTitle.setText("Title: " + book.getTitle());
+            lblInventoryNumber.setText("Inventory Number: " + book.getInventoryNumber());
+            lblGenre.setText("Genre: " + book.getGenre().getName());
+            lblPublisher.setText("Publisher: " + book.getPublisher().getName());
+            lblStatusBefore.setText("Status before\nborrowing: " + book.getBookStatusBeforeBorrow());
+            lblStatusAfter.setText("Status after\nborrowing: " + book.getBookStatusAfterBorrow());
+            StringBuilder sb = new StringBuilder();
+            Set<Author> authors = book.getAuthors();
+            for (Author author : authors) {
+                sb.append(author.toString()).append("\n");
             }
-            else{
-                foundBook = false;
-                AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","Error while processing entity",ButtonType.OK);
-            }
+            lblAuthors.setText("Authors:\n" + sb);
+            File file = new File(book.getPath());
+            imageView.setImage(new Image(file.toURI().toString()));
+            foundBook = true;
+            this.book = book;
+            return;
         }
-        else{
-            foundBook=false;
-            AlertManager.showAlert(Alert.AlertType.ERROR,"Empty field!","Enter an inventory number", ButtonType.OK);
-        }
+        foundBook = false;
     }
+
     @FXML
     public void disableArchive(ActionEvent actionEvent) {
-      addToArchivedDB.setDisable(true);
-      addToDiscardDB.setDisable(false);
-      archiveRadioButton.setSelected(false);
-      reasonTextArea.setDisable(false);
+        addToArchivedDB.setDisable(true);
+        addToDiscardDB.setDisable(false);
+        archiveRadioButton.setSelected(false);
+        reasonTextArea.setDisable(false);
 
     }
+
     @FXML
     public void disableDiscard(ActionEvent actionEvent) {
         addToDiscardDB.setDisable(true);
@@ -133,48 +128,44 @@ public class UpdateStatusController extends AdminController implements Initializ
         addToArchivedDB.setDisable(false);
         discardRadioButton.setSelected(false);
     }
+
     @FXML
     public void addToArchiveTable(ActionEvent actionEvent) {
-        if(foundBook && archiveRadioButton.isSelected()) {
+        if (foundBook && archiveRadioButton.isSelected()) {
             SaveInArchivedInputModel input = SaveInArchivedInputModel.builder()
                     .book(this.book)
                     .build();
             Either<Exception, SaveToArchivedOutputModel> process = saveInArchivedProcessor.process(input);
             if (process.isRight()) {
-                AlertManager.showAlert(Alert.AlertType.INFORMATION,"Congrats!","Successfully saved book!",ButtonType.OK);
+                AlertManager.showAlert(Alert.AlertType.INFORMATION, "Congrats!", "Successfully saved book!", ButtonType.OK);
+            } else {
+                AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "Error while saving book!", ButtonType.OK);
             }
-            else{
-                AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","Error while saving book!", ButtonType.OK);
-            }
-        }
-        else{
-           AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","Please select a book!", ButtonType.OK);
+        } else {
+            AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "Please select a book!", ButtonType.OK);
         }
     }
 
 
     @FXML
     public void addToDiscardTable(ActionEvent actionEvent) {
-        if(foundBook && discardRadioButton.isSelected() && !reasonTextArea.getText().isBlank()) {
+        if (foundBook && discardRadioButton.isSelected() && !reasonTextArea.getText().isBlank()) {
             SaveToDiscardInputModel input = SaveToDiscardInputModel.builder()
                     .book(this.book)
+                    .reason(reasonTextArea.getText())
                     .build();
             Either<Exception, SaveToDiscardOutputModel> process = saveToDiscardProcessor.process(input);
-            if (process.isRight()){
-               AlertManager.showAlert(Alert.AlertType.INFORMATION,"Congrats!","Successfully saved book!",ButtonType.OK);
-            }
-            else{
-                AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","Error while saving book!", ButtonType.OK);
+            if (process.isRight()) {
+                AlertManager.showAlert(Alert.AlertType.INFORMATION, "Congrats!", "Successfully saved book!", ButtonType.OK);
             }
         }
-        else{
-            AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","Please select a book!", ButtonType.OK);
-        }
+
     }
+
     @FXML
     public void searchWithEnter(KeyEvent keyEvent) {
-          if(keyEvent.getCode()== KeyCode.ENTER) {
-              searchButton.fire();
-          }
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            searchButton.fire();
+        }
     }
 }

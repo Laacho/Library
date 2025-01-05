@@ -2,10 +2,8 @@ package bg.tu_varna.sit.library.models.update_notifications_for_admin;
 
 import bg.tu_varna.sit.library.models.base.OperationInput;
 import lombok.*;
+import jakarta.validation.constraints.*;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter

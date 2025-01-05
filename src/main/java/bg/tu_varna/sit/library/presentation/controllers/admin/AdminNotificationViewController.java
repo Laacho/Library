@@ -15,9 +15,13 @@ import io.vavr.control.Either;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.*;
@@ -29,6 +33,7 @@ public class AdminNotificationViewController extends AdminController implements 
     private GridPane gridPane;
     private final AdminNotificationViewOperationModel adminNotificationViewProcessor;
     private final UpdateNotificationsForAdminOperationModel updateNotificationsForAdminOperationModel;
+
     public AdminNotificationViewController() {
         adminNotificationViewProcessor = SingletonFactory.getSingletonInstance(AdminNotificationViewProcessor.class);
         this.updateNotificationsForAdminOperationModel = SingletonFactory.getSingletonInstance(UpdateNotificationsForAdminProcessor.class);
@@ -37,7 +42,7 @@ public class AdminNotificationViewController extends AdminController implements 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Either<Exception, AdminNotificationViewOutputModel> process = adminNotificationViewProcessor.process(AdminNotificationViewInputModel.builder().build());
-        if(process.isRight()  ) {
+        if (process.isRight()) {
 
             List<String> notifications = process.get().getMessages();
             if (notifications.isEmpty()) {
@@ -49,14 +54,17 @@ public class AdminNotificationViewController extends AdminController implements 
             }
         }
     }
+
     public void clearNotifications(ActionEvent event) {
         removeCheckedRows();
     }
+
     public void removeCheckedRows() {
         List<String> messagesToRemove = getCheckedRowMessages();
         removeCheckedRowsFromGrid();
         removeNotificationsFromDB(messagesToRemove);
     }
+
     private List<String> getCheckedRowMessages() {
         List<String> messages = new ArrayList<>();
         Set<Integer> rowsToCheck = getCheckedRows();
@@ -86,7 +94,6 @@ public class AdminNotificationViewController extends AdminController implements 
 
     private void removeCheckedRowsFromGrid() {
         Set<Integer> rowsToRemove = getCheckedRows();
-
         for (Integer rowIndex : rowsToRemove) {
             gridPane.getChildren().removeIf(child -> isInRow(child, rowIndex));
         }
@@ -98,7 +105,7 @@ public class AdminNotificationViewController extends AdminController implements 
         UpdateNotificationsForAdminInputModel input = UpdateNotificationsForAdminInputModel.builder().messages(messages).build();
         Either<Exception, UpdateNotificationsForAdminOutputModel> process = updateNotificationsForAdminOperationModel.process(input);
         if (process.isRight()) {
-            AlertManager.showAlert(Alert.AlertType.INFORMATION,"Success",process.get().getMessage(), ButtonType.OK);
+            AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success", process.get().getMessage(), ButtonType.OK);
         }
     }
 
@@ -126,12 +133,19 @@ public class AdminNotificationViewController extends AdminController implements 
     }
 
     private void fillGridPane(List<String> notifications) {
-        int red = 0;
+        int row = 0;
+        gridPane.getColumnConstraints().get(0).setFillWidth(true);
         for (String notification : notifications) {
             Label label = new Label(notification);
-            gridPane.add(label, 0, red);
-            gridPane.add(new CheckBox(), 1, red);
-            red++;
+            label.setMaxWidth(Double.MAX_VALUE);
+            label.setWrapText(true);
+            gridPane.add(label, 0, row);
+            CheckBox checkBox = new CheckBox();
+            StackPane box = new StackPane();
+            checkBox.setGraphic(box);
+            gridPane.add(checkBox, 1, row);
+            GridPane.setHalignment(checkBox, HPos.RIGHT);
+            row++;
         }
     }
 

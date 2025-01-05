@@ -23,6 +23,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextBoundsType;
 import javafx.stage.FileChooser;
 import org.jetbrains.annotations.NotNull;
 
@@ -127,6 +130,7 @@ public class AddBookController extends AdminController implements Initializable 
     @FXML
     public void addGenre(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER && !genre.getText().isEmpty()) {
+            shelfLabel.setText("Shelf: ");
             CheckGenreInputModel input = CheckGenreInputModel.builder()
                     .genre(genre.getText())
                     .build();
@@ -148,13 +152,19 @@ public class AddBookController extends AdminController implements Initializable 
                                 ButtonType.CLOSE);
                     }
                 }
-                shelfLabel.setText(shelfLabel.getText()+" "+genre.getText().toUpperCase());
-            } else {
-                AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "Error occurred while processing genre");
+                String newText = shelfLabel.getText()+genre.getText().toUpperCase();
+                shelfLabel.setText(newText);
+                shelfLabel.setPrefWidth(computeTextWidth(shelfLabel,newText));
             }
         }
     }
-
+    private double computeTextWidth(Label label, String text) {
+        Text tempText = new Text(text);
+        Font font = label.getFont();
+        tempText.setFont(font);
+        new javafx.scene.Group(tempText);
+        return Math.ceil(tempText.getLayoutBounds().getWidth()) + 5;
+    }
     @FXML
     public void addBookInDB(ActionEvent event) {
         validateInput();

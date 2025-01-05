@@ -42,14 +42,15 @@ public class SearchController extends AdminController implements Initializable {
     private ListView<String> listView;
     private List<Book> foundBooks;
     private final ConversionService conversionService;
-    public SearchController( ) {
+
+    public SearchController() {
         this.conversionService = SingletonFactory.getSingletonInstance(ConversionService.class);
         this.searchProcessor = SingletonFactory.getSingletonInstance(SearchProcessor.class);
     }
 
     @FXML
     public void onKeyPressed(KeyEvent event) {
-        if(!searchBar.getText().isBlank() ) {
+        if (!searchBar.getText().isBlank()) {
             SearchInputModel input = SearchInputModel.builder()
                     .text(searchBar.getText())
                     .build();
@@ -57,13 +58,12 @@ public class SearchController extends AdminController implements Initializable {
             if (process.isRight()) {
                 listView.getItems().clear();
                 listView.setVisible(true);
-                listView.setPrefHeight(process.get().getBooks().size()*35);
-                process.get().getBooks().forEach(book -> listView.getItems().add(book.getTitle()+" by "+
-                            book.getAuthors().stream().map(Author::toString).collect(Collectors.joining(", "))                  ));
+                listView.setPrefHeight(process.get().getBooks().size() * 60);
+                process.get().getBooks().forEach(book -> listView.getItems().add(book.getTitle() + " by " +
+                        book.getAuthors().stream().map(Author::toString).collect(Collectors.joining(", "))));
                 foundBooks = process.get().getBooks();
             }
-        }
-        else {
+        } else {
             listView.setVisible(false);
             listView.getItems().clear();
         }
@@ -71,17 +71,17 @@ public class SearchController extends AdminController implements Initializable {
 
     @FXML
     public void changeToBookView(MouseEvent mouseEvent) throws IOException {
-        if(mouseEvent.getClickCount()==2){
-             setPath("/bg/tu_varna/sit/library/presentation.views/admin/book_data_view/pages/book-data-view.fxml");
+        if (mouseEvent.getClickCount() == 2) {
+            setPath("/bg/tu_varna/sit/library/presentation.views/admin/book_data_view/pages/book-data-view.fxml");
             FXMLLoader loader = changeScene((Stage) listView.getScene().getWindow());
             BookDataViewController controller = loader.getController();
             String selectedItem = listView.getSelectionModel().getSelectedItem();
-            Book foundBook=findBook(selectedItem);
-            if(foundBook==null){
+            Book foundBook = findBook(selectedItem);
+            if (foundBook == null) {
                 AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "Book not found", ButtonType.OK);
                 return;
             }
-            controller.setBooksData(conversionService.convert(foundBook,CommonBooksProperties.class));
+            controller.setBooksData(conversionService.convert(foundBook, CommonBooksProperties.class));
             controller.change();
         }
     }
@@ -94,8 +94,8 @@ public class SearchController extends AdminController implements Initializable {
         for (Book foundBook : foundBooks) {
             String currentTitle = foundBook.getTitle().trim();
             Set<Author> currentAuthors = foundBook.getAuthors();
-            if(currentTitle.equals(title)) {
-                if(checkAuthors(currentAuthors,authors)){
+            if (currentTitle.equals(title)) {
+                if (checkAuthors(currentAuthors, authors)) {
                     return foundBook;
                 }
             }
@@ -104,7 +104,7 @@ public class SearchController extends AdminController implements Initializable {
     }
 
     private boolean checkAuthors(Set<Author> currentAuthors, String[] authors) {
-        if( currentAuthors.size() != authors.length){
+        if (currentAuthors.size() != authors.length) {
             return false;
         }
         Set<String> authorNamesFromSet = new HashSet<>();

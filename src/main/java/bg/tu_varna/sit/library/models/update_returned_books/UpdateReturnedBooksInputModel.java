@@ -2,11 +2,10 @@ package bg.tu_varna.sit.library.models.update_returned_books;
 
 import bg.tu_varna.sit.library.models.base.OperationInput;
 import bg.tu_varna.sit.library.models.return_books.BooksForReturn;
+import jakarta.validation.Valid;
 import lombok.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 
 @Getter
 @Setter

@@ -1,11 +1,7 @@
 package bg.tu_varna.sit.library.models;
 
 import lombok.*;
-
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import java.util.Set;
 
 @Getter

@@ -65,14 +65,12 @@ public class AllBooksTableController extends AdminController implements Initiali
         title.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getTitle()));
         title.setPrefWidth(200);
-//        quantity = new TableColumn<>("Количество");
-//        quantity.setCellValueFactory(cell ->
-//                new SimpleObjectProperty<>(cell.getValue().getQuantity()));
         shelfName = new TableColumn<>("Рафт");
-        shelfName.setPrefWidth(50);
+        shelfName.setPrefWidth(154);
         shelfName.setCellValueFactory(cell ->
                 new SimpleStringProperty(cell.getValue().getLocation().getShelf()));
         rowNum = new TableColumn<>("Ред");
+        rowNum.setPrefWidth(100);
         rowNum.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getLocation().getRowNum()));
         authors = new TableColumn<>("Автор");
@@ -84,6 +82,11 @@ public class AllBooksTableController extends AdminController implements Initiali
                     .collect(Collectors.joining(", "));
             return new SimpleStringProperty(authorsText);
         });
+        title.getStyleClass().add("table-column-header");
+        shelfName.getStyleClass().add("table-column-header");
+        rowNum.getStyleClass().add("table-column-header");
+        authors.getStyleClass().add("table-column-header");
+
     }
 
 

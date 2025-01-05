@@ -3,8 +3,8 @@ package bg.tu_varna.sit.library.models.create_reader_profile;
 import bg.tu_varna.sit.library.models.base.OperationInput;
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
+
 
 @Getter
 @Setter

@@ -2,9 +2,9 @@ package bg.tu_varna.sit.library.data.entities;
 
 import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.PastOrPresent;
+import jakarta.persistence.*;
 import java.time.LocalDate;
+import jakarta.validation.constraints.*;
 import java.util.Set;
 
 @Table(name = "borrowed_books")
