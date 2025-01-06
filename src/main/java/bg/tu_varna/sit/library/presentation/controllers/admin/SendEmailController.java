@@ -10,10 +10,12 @@ import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
 import bg.tu_varna.sit.library.utils.session.EmailSession;
 import io.vavr.control.Either;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -38,7 +40,7 @@ public class SendEmailController extends AdminController implements Initializabl
     }
 
     @FXML
-    public void sendEmailWithButton() {
+    public void sendEmailWithButton(ActionEvent actionEvent) throws IOException {
         if (fromTextField.getText().isBlank() ||
                 titleTextField.getText().isBlank() ||
                 emailTextField.getText().isBlank() ||
@@ -53,11 +55,9 @@ public class SendEmailController extends AdminController implements Initializabl
                         message,
                         "Email was sent successfully to " + emailTextField.getText(),
                         ButtonType.OK);
-            } else {
-                AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "Email wasn't sent!", ButtonType.OK);
             }
         }
-
+        sendEmail(actionEvent);
     }
 
     private SendEmailOperationInput buildInput() {

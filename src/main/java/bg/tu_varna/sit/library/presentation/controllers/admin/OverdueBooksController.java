@@ -54,24 +54,30 @@ public class OverdueBooksController extends AdminController implements Initializ
 
     private void setTableData(List<OverdueBooks> overdueBooks) {
         user = new TableColumn<>("Потребител No");
+        user.setPrefWidth(200);
         user.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getUser().getId()));
         borrowedDate = new TableColumn<>("Дата на вземане");
+        borrowedDate.setPrefWidth(130);
         borrowedDate.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getBorrowingDate().toString()));
         returnDate = new TableColumn<>("Дата на връщане");
+        returnDate.setPrefWidth(130);
         returnDate.setCellValueFactory(cell ->
                 new SimpleStringProperty(cell.getValue().getReturnDate().toString()));
         returnDeadline = new TableColumn<>("Краен срок");
+        returnDeadline.setPrefWidth(130);
         returnDeadline.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getDeadline().toString()));
         booksColumn = new TableColumn<>("Книги");
+        booksColumn.setPrefWidth(130);
         booksColumn.setCellValueFactory(cell -> {
             Set<Book> books = cell.getValue().getBooks();
             String booksText = getBooksText(books);
             return new SimpleStringProperty(booksText);
         });
-        returnButton = new TableColumn<>("Send Email");
+        returnButton = new TableColumn<>("Изпрати имейл");
+        returnButton.setPrefWidth(130);
         returnButton.setCellValueFactory(cell -> {
             Button button = new Button("Send");
             button.setOnAction(event -> {

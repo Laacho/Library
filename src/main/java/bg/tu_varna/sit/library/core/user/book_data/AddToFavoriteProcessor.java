@@ -66,7 +66,14 @@ public class AddToFavoriteProcessor extends BaseProcessor implements AddToFavori
                                         .getGenre()));
                     } else {
                         favoriteBooks.add(book);
-                        recommendedGenres.add(book.getGenre());
+                        boolean forGenre = true;
+                        for (Genre recommendedGenre : recommendedGenres) {
+                            if (recommendedGenre.getName().equals(book.getGenre().getName())) {
+                                forGenre = false;
+                            }
+                        }
+                        if (forGenre)
+                            recommendedGenres.add(book.getGenre());
                     }
                     readerProfile.setFavoriteBooks(favoriteBooks);
                     readerProfileRepository.update(readerProfile);

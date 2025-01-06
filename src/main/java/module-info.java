@@ -50,6 +50,7 @@ module bg.tu_varna.sit.library {
     opens bg.tu_varna.sit.library.models.get_reader_profile to org.hibernate.validator;
     opens bg.tu_varna.sit.library.models.login to org.hibernate.validator;
     opens bg.tu_varna.sit.library.models.promote_user to org.hibernate.validator;
+    opens bg.tu_varna.sit.library.models.demote_user to org.hibernate.validator;
     opens bg.tu_varna.sit.library.models.register to org.hibernate.validator;
     opens bg.tu_varna.sit.library.models.remove_notifications to org.hibernate.validator;
     opens bg.tu_varna.sit.library.models.request_reader_profile to org.hibernate.validator;

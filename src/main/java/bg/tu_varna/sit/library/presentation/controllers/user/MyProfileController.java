@@ -32,6 +32,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -115,7 +116,6 @@ public class MyProfileController extends UserController implements Initializable
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Verification Code");
         Label instructionLabel = new Label("Enter the code:");
-
         TextField[] codeFields = new TextField[6];
         HBox codeBox = setUpTextFields(codeFields);
         Button checkButton = new Button("Check Code");
@@ -218,7 +218,6 @@ public class MyProfileController extends UserController implements Initializable
         usernameValue.setText(userSession.getUsername());
         String email = userSession.getEmail();
         emailValue.setText(email);
-        emailValue.setPrefWidth(computeTextWidth(emailValue, email));
         isVerifiedValue.setText(userSession.getVerified() ? "Verified" : "Not Verified");
         Double rating = userSession.getRating();
         if (rating == null) {
@@ -228,13 +227,6 @@ public class MyProfileController extends UserController implements Initializable
         clearFields();
     }
 
-    private double computeTextWidth(Label label, String text) {
-        Text tempText = new Text(text);
-        Font font = label.getFont();
-        tempText.setFont(font);
-        new javafx.scene.Group(tempText);
-        return Math.ceil(tempText.getLayoutBounds().getWidth()) + 5;
-    }
 
     private void clearFields() {
         oldPasswordField.clear();

@@ -68,7 +68,8 @@ public class SettingsController extends AdminController implements Initializable
     private final DemoteUserOperationModel demoteUserOperationModel;
     private final ResetPasswordForUserOperationModel resetPasswordForUserOperationModel;
     private final DeleteUserOperationModel deleteUserOperationModel;
-    public SettingsController( ) {
+
+    public SettingsController() {
         super();
         this.deleteUserOperationModel = SingletonFactory.getSingletonInstance(DeleteUserProcessor.class);
         this.resetPasswordForUserOperationModel = SingletonFactory.getSingletonInstance(ResetPasswordForUserProcessor.class);
@@ -80,16 +81,15 @@ public class SettingsController extends AdminController implements Initializable
 
     @FXML
     public void searchUser() {
-        if(searchTextField.getText().isBlank()){
-            AlertManager.showAlert(Alert.AlertType.ERROR,"Empty field!","Please enter a username!", ButtonType.OK);
+        if (searchTextField.getText().isBlank()) {
+            AlertManager.showAlert(Alert.AlertType.ERROR, "Empty field!", "Please enter a username!", ButtonType.OK);
             return;
-        }
-        else{
+        } else {
             SearchUserByUsernameInputModel input = SearchUserByUsernameInputModel.builder()
                     .username(searchTextField.getText())
                     .build();
             Either<Exception, SearchUserByUsernameOutputModel> process = searchUserByUsernameOperationModel.process(input);
-            if(process.isRight()){
+            if (process.isRight()) {
                 UserCredentials userCredentials = process.get().getUserCredentials();
                 this.userCredentials = userCredentials;
                 firstNameResult.setText(userCredentials.getUser().getFirstName());
@@ -99,111 +99,109 @@ public class SettingsController extends AdminController implements Initializable
                 verifiedResult.setText(userCredentials.getVerified() ? String.valueOf(userCredentials.getDateOfVerification()) : "Not verified yet");
                 roleResult.setText(userCredentials.getAdmin() ? "Admin" : "User");
                 foundUser = true;
-            }
-            else{
+            } else {
                 foundUser = false;
-                AlertManager.showAlert(Alert.AlertType.ERROR,"Error!",process.getLeft().getMessage(),ButtonType.OK);
+                AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", process.getLeft().getMessage(), ButtonType.OK);
             }
-            
+
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       disableFocusOnButtons();
-            searchTextField.requestFocus();
+        disableFocusOnButtons();
+        searchTextField.requestFocus();
     }
+
     @FXML
-    public void searchWithEnter(KeyEvent keyEvent){
-        if(keyEvent.getCode()== KeyCode.ENTER){
+    public void searchWithEnter(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
             searchButton.fire();
         }
     }
+
     @FXML
     public void promoteAction(ActionEvent actionEvent) {
-        if(foundUser){
+        if (foundUser) {
             UserSession singletonInstance = SingletonFactory.getSingletonInstance(UserSession.class);
-            if(singletonInstance.getUsername().equals(this.userCredentials.getUsername())){
-                AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","You can't promote yourself!", ButtonType.OK);
+            if (singletonInstance.getUsername().equals(this.userCredentials.getUsername())) {
+                AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "You can't promote yourself!", ButtonType.OK);
                 return;
             }
             Boolean isAdmin = userCredentials.getAdmin();
-                if(isAdmin){
-                    AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","User is already admin!", ButtonType.OK);
+            if (isAdmin) {
+                AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "User is already admin!", ButtonType.OK);
+            } else {
+                PromoteUserInputModel input =
+                        PromoteUserInputModel.builder()
+                                .userCredentials(userCredentials)
+                                .build();
+                Either<Exception, PromoteUserOutputModel> process = promoteUserOperationModel.process(input);
+                if (process.isRight()) {
+                    roleResult.setText("Admin");
+                    AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "User was promoted to admin!", ButtonType.OK);
+                } else {
+                    AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "User wasn't promoted!", ButtonType.OK);
                 }
-                else{
-                    PromoteUserInputModel input =
-                            PromoteUserInputModel.builder()
-                            .userCredentials(userCredentials)
-                            .build();
-                    Either<Exception, PromoteUserOutputModel> process = promoteUserOperationModel.process(input);
-                    if(process.isRight()){
-                        roleResult.setText("Admin");
-                        AlertManager.showAlert(Alert.AlertType.INFORMATION,"Success!","User was promoted to admin!", ButtonType.OK);
-                    }
-                    else{
-                        AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","User wasn't promoted!", ButtonType.OK);
-                    }
-                }
-        }
-        else{
-            AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","User not found!", ButtonType.OK);
+            }
+        } else {
+            AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "User not found!", ButtonType.OK);
         }
     }
+
     @FXML
     public void demoteAction(ActionEvent actionEvent) {
-        if(foundUser){
+        if (foundUser) {
             UserSession singletonInstance = SingletonFactory.getSingletonInstance(UserSession.class);
-            if(singletonInstance.getUsername().equals(this.userCredentials.getUsername())){
-                AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","You can't demote yourself!", ButtonType.OK);
+            if (singletonInstance.getUsername().equals(this.userCredentials.getUsername())) {
+                AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "You can't demote yourself!", ButtonType.OK);
                 return;
             }
             Boolean isAdmin = userCredentials.getAdmin();
-            if(!isAdmin){
-                AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","User is already user!", ButtonType.OK);
-            }
-            else{
+            if (!isAdmin) {
+                AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "User is already user!", ButtonType.OK);
+            } else {
                 DemoteUserInputModel input = DemoteUserInputModel.builder().userCredentials(userCredentials).build();
                 Either<Exception, DemoteUserOutputModel> process = demoteUserOperationModel.process(input);
-                if(process.isRight()){
+                if (process.isRight()) {
                     roleResult.setText("User");
-                    AlertManager.showAlert(Alert.AlertType.INFORMATION,"Success!","User was demoted to user!", ButtonType.OK);
-                }
-                else{
-                    AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","User wasn't demoted!", ButtonType.OK);
+                    AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "User was demoted to user!", ButtonType.OK);
+                } else {
+                    AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "User wasn't demoted!", ButtonType.OK);
                 }
             }
-        }
-        else{
-            AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","User not found!", ButtonType.OK);
+        } else {
+            AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "User not found!", ButtonType.OK);
         }
     }
+
     @FXML
     public void resetPasswordAction(ActionEvent actionEvent) {
-        if(foundUser){
+        if (foundUser) {
             UserSession singletonInstance = SingletonFactory.getSingletonInstance(UserSession.class);
-            if(singletonInstance.getUsername().equals(this.userCredentials.getUsername())){
-                AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","You can't reset your own password!", ButtonType.OK);
+            if (singletonInstance.getUsername().equals(this.userCredentials.getUsername())) {
+                AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "You can't reset your own password!", ButtonType.OK);
                 return;
             }
             Alert alert = AlertManager.showAlert(Alert.AlertType.CONFIRMATION, "Reset password?", "Are you sure you want to reset password for user " + userCredentials.getUsername() + "?", ButtonType.YES, ButtonType.NO);
             if (alert.getResult() == ButtonType.YES) {
                 ResetPasswordForUserInputModel build = ResetPasswordForUserInputModel.builder().userCredentials(userCredentials).build();
                 Either<Exception, ResetPasswordForUserOutputModel> process = resetPasswordForUserOperationModel.process(build);
-                if(process.isRight()){
-                    AlertManager.showAlert(Alert.AlertType.INFORMATION,"Success!","Password was reset!", ButtonType.OK);
+                if (process.isRight()) {
+                    AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Password was reset!", ButtonType.OK);
                 }
             }
-        }
-        else{
-            AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","User not found!", ButtonType.OK);
+        } else {
+            AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "User not found!", ButtonType.OK);
         }
     }
+
     @FXML
     public void deleteUserAction(ActionEvent actionEvent) {
-        if(foundUser){
+        if (foundUser) {
             UserSession singletonInstance = SingletonFactory.getSingletonInstance(UserSession.class);
-            if(singletonInstance.getUsername().equals(this.userCredentials.getUsername())){
-                AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","You can't delete yourself!", ButtonType.OK);
+            if (singletonInstance.getUsername().equals(this.userCredentials.getUsername())) {
+                AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "You can't delete yourself!", ButtonType.OK);
                 return;
             }
             Alert alert = AlertManager.showAlert(Alert.AlertType.CONFIRMATION, "Delete user?", "Are you sure you want to delete user " + userCredentials.getUsername() + "?", ButtonType.YES, ButtonType.NO);
@@ -213,16 +211,15 @@ public class SettingsController extends AdminController implements Initializable
                         .email(userCredentials.getEmail())
                         .build();
                 Either<Exception, DeleteUserOutputModel> process = deleteUserOperationModel.process(input);
-                if(process.isRight()){
+                if (process.isRight()) {
                     resetLabels();
-                     searchTextField.setText("");
-                     foundUser = false;
-                    AlertManager.showAlert(Alert.AlertType.INFORMATION,"Success!","User was deleted!", ButtonType.OK);
+                    searchTextField.setText("");
+                    foundUser = false;
+                    AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "User was deleted!", ButtonType.OK);
                 }
             }
-        }
-        else{
-            AlertManager.showAlert(Alert.AlertType.ERROR,"Error!","User not found!", ButtonType.OK);
+        } else {
+            AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "User not found!", ButtonType.OK);
         }
     }
 

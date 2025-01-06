@@ -47,6 +47,14 @@ import java.util.concurrent.CompletableFuture;
 public class BookDataController extends UserController implements Initializable {
     public static CommonBooksProperties booksData;
     @FXML
+    public ImageView imageViewAlreadyRead;
+    @FXML
+    public ImageView imageViewWantToRead;
+    @FXML
+    public ImageView imageViewFavourite;
+    @FXML
+    public ImageView imageViewCart;
+    @FXML
     private Label title;
     @FXML
     private Label publisher;
@@ -75,7 +83,8 @@ public class BookDataController extends UserController implements Initializable 
     private final AddToReadOperationModel addToReadOperationModel;
     private final AddToAlreadyReadOperationModel addToAlreadyReadOperationModel;
     private final CheckIfBookExistsInAlreadyReadOperationModel checkIfBookExistsInAlreadyReadOperationModel;
-    public BookDataController( ) {
+
+    public BookDataController() {
         this.checkIfBookExistsInToReadOperationModel = SingletonFactory.getSingletonInstance(CheckIfBookExistsInToReadProcessor.class);
         this.addToFavoriteOperationModel = SingletonFactory.getSingletonInstance(AddToFavoriteProcessor.class);
         this.checkIfBookExistsInFavoritesOperationModel = SingletonFactory.getSingletonInstance(CheckIfBookExistsInFavoritesProcessor.class);
@@ -101,19 +110,20 @@ public class BookDataController extends UserController implements Initializable 
     @FXML
     public void addToCart(ActionEvent actionEvent) {
         BorrowCartController.addBookInSet(booksData);
+
     }
+
     @FXML
     public void addToFavorites(ActionEvent event) {
-        if(!alreadyExitsInFavorites) {
+        if (!alreadyExitsInFavorites) {
             AddToFavoriteInputModel input = AddToFavoriteInputModel.builder()
                     .commonBooksProperties(booksData)
                     .wantsToDelete(false)
                     .build();
             processInputForFavorite(input);
             alreadyExitsInFavorites = true;
-            
-        }
-        else{
+
+        } else {
             AddToFavoriteInputModel input = AddToFavoriteInputModel.builder()
                     .commonBooksProperties(booksData)
                     .wantsToDelete(true)
@@ -123,17 +133,19 @@ public class BookDataController extends UserController implements Initializable 
         }
         updateFavoriteButtonState();
     }
+
     private void processInputForFavorite(AddToFavoriteInputModel input) {
         Either<Exception, AddToFavoriteOutputModel> process = addToFavoriteOperationModel.process(input);
-        if (process.isRight()) {
-            AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", process.get().getMessage(), ButtonType.OK);
-        } else {
-            AlertManager.showAlert(Alert.AlertType.ERROR, "Error", process.getLeft().getMessage(), ButtonType.OK);
+        if (process.isRight() && alreadyExitsInFavorites) {
+            AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Successfully removed from favourite", ButtonType.OK);
+        }else if(process.isRight() && !alreadyExitsInFavorites){
+            AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Successfully added in favourite", ButtonType.OK);
         }
     }
+
     @FXML
     public void addToRead(ActionEvent event) {
-        if(!alreadyExitsInRead) {
+        if (!alreadyExitsInRead) {
             AddToReadInputModel input = AddToReadInputModel
                     .builder()
                     .commonBooksProperties(booksData)
@@ -141,8 +153,7 @@ public class BookDataController extends UserController implements Initializable 
                     .build();
             processInputForToRead(input);
             alreadyExitsInRead = true;
-        }
-        else{
+        } else {
             AddToReadInputModel input = AddToReadInputModel
                     .builder()
                     .commonBooksProperties(booksData)
@@ -156,25 +167,24 @@ public class BookDataController extends UserController implements Initializable 
 
     private void processInputForToRead(AddToReadInputModel input) {
         Either<Exception, AddToReadOutputModel> process = addToReadOperationModel.process(input);
-        if(process.isRight()) {
-            AlertManager.showAlert(Alert.AlertType.INFORMATION,"Success!",process.get().getMessage(), ButtonType.OK);
+        if (process.isRight() && alreadyExitsInRead) {
+            AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Successfully removed from wants to read", ButtonType.OK);
+        }else if(process.isRight() && !alreadyExitsInRead){
+            AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Successfully added in wants to read", ButtonType.OK);
         }
-        else{
-            AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "Failed to add to read", ButtonType.OK);
-        }
+
     }
 
     @FXML
     public void addToAlreadyRead(ActionEvent event) {
-        if(!alreadyExistsInAlreadyRead){
+        if (!alreadyExistsInAlreadyRead) {
             AddToAlreadyReadInputModel input = AddToAlreadyReadInputModel.builder()
                     .commonBooksProperties(booksData)
                     .wantToDelete(false)
                     .build();
             processInputForAlreadyRead(input);
             alreadyExistsInAlreadyRead = true;
-        }
-        else{
+        } else {
             AddToAlreadyReadInputModel input = AddToAlreadyReadInputModel.builder()
                     .commonBooksProperties(booksData)
                     .wantToDelete(true)
@@ -188,73 +198,77 @@ public class BookDataController extends UserController implements Initializable 
 
     private void processInputForAlreadyRead(AddToAlreadyReadInputModel input) {
         Either<Exception, AddToAlreadyReadOutputModel> process = addToAlreadyReadOperationModel.process(input);
-        if(process.isRight()) {
-            AlertManager.showAlert(Alert.AlertType.INFORMATION,"Success!",process.get().getMessage(), ButtonType.OK);
-        }
-        else{
-            AlertManager.showAlert(Alert.AlertType.ERROR, "Error", process.getLeft().getMessage(), ButtonType.OK);
+        if (process.isRight() && alreadyExistsInAlreadyRead) {
+            AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Successfully removed from already read", ButtonType.OK);
+        } else if (process.isRight() && !alreadyExistsInAlreadyRead) {
+            AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Successfully added to already read", ButtonType.OK);
         }
     }
 
     private void updateAddToAlreadyReadButtonState() {
-        if(alreadyExistsInAlreadyRead){
-            addToAlreadyRead.setText("Remove from\n already read");
-        }
-        else{
-            addToAlreadyRead.setText("Add to\n already read");
+        if (alreadyExistsInAlreadyRead) {
+            File file = new File("src/main/resources/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/images/to-already-read-.png");
+            imageViewAlreadyRead.setImage(new Image(file.toURI().toString()));
+        } else {
+            File file = new File("src/main/resources/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/images/remove-already-read-.png");
+            imageViewAlreadyRead.setImage(new Image(file.toURI().toString()));
         }
     }
 
     private void updateToReadButtonState() {
-        if(alreadyExitsInRead) {
-            addToRead.setText("Remove from \nwant to read");
-        }
-        else{
-            addToRead.setText("Add to read");
+        if (alreadyExitsInRead) {
+            File file = new File("src/main/resources/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/images/want-to-read.png");
+            imageViewWantToRead.setImage(new Image(file.toURI().toString()));
+        } else {
+            File file = new File("src/main/resources/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/images/remove-wishlist-.png");
+            imageViewWantToRead.setImage(new Image(file.toURI().toString()));
         }
     }
+
     private void updateFavoriteButtonState() {
         if (alreadyExitsInFavorites) {
-            favorite.setText("Remove from \nFavorites");
+            File file = new File("src/main/resources/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/images/to-heart.png");
+            imageViewFavourite.setImage(new Image(file.toURI().toString()));
         } else {
-            favorite.setText("Add to Favorites");
+            File file = new File("src/main/resources/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/images/remove-heart-png.png");
+            imageViewFavourite.setImage(new Image(file.toURI().toString()));
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-           CompletableFuture.runAsync(()->{
-               CheckIfBookExistsInFavoritesInputModel input = CheckIfBookExistsInFavoritesInputModel.builder()
-                       .commonBooksProperties(booksData)
-                       .build();
-               Either<Exception, CheckIfBookExistsInFavoritesOutputModel> process = checkIfBookExistsInFavoritesOperationModel.process(input);
-               if (process.isRight()) {
-                   this.alreadyExitsInFavorites = process.get().getFoundIfExists();
-                   Platform.runLater(this::updateFavoriteButtonState);
-               }
-           }) ;
+        CompletableFuture.runAsync(() -> {
+            CheckIfBookExistsInFavoritesInputModel input = CheckIfBookExistsInFavoritesInputModel.builder()
+                    .commonBooksProperties(booksData)
+                    .build();
+            Either<Exception, CheckIfBookExistsInFavoritesOutputModel> process = checkIfBookExistsInFavoritesOperationModel.process(input);
+            if (process.isRight()) {
+                this.alreadyExitsInFavorites = process.get().getFoundIfExists();
+                Platform.runLater(this::updateFavoriteButtonState);
+            }
+        });
 
-           CompletableFuture.runAsync(()->{
-               CheckIfBookExistsInToReadInputModel input2 = CheckIfBookExistsInToReadInputModel.builder()
-                       .commonBooksProperties(booksData)
-                       .build();
-               Either<Exception, CheckIfBookExistsInToReadOutputModel> process1 = checkIfBookExistsInToReadOperationModel.process(input2);
-               if(process1.isRight()) {
-                   this.alreadyExitsInRead = process1.get().getFoundIfExists();
-                   Platform.runLater(this::updateToReadButtonState);
-               }
-           });
+        CompletableFuture.runAsync(() -> {
+            CheckIfBookExistsInToReadInputModel input2 = CheckIfBookExistsInToReadInputModel.builder()
+                    .commonBooksProperties(booksData)
+                    .build();
+            Either<Exception, CheckIfBookExistsInToReadOutputModel> process1 = checkIfBookExistsInToReadOperationModel.process(input2);
+            if (process1.isRight()) {
+                this.alreadyExitsInRead = process1.get().getFoundIfExists();
+                Platform.runLater(this::updateToReadButtonState);
+            }
+        });
 
-            CompletableFuture.runAsync(()->{
-                CheckIfBookExistsInAlreadyReadInputModel input3 = CheckIfBookExistsInAlreadyReadInputModel.builder()
-                        .commonBooksProperties(booksData)
-                        .build();
-                Either<Exception, CheckIfBookExistsInAlreadyReadOutputModel> process2 = checkIfBookExistsInAlreadyReadOperationModel.process(input3);
-                if(process2.isRight()) {
-                    this.alreadyExistsInAlreadyRead = process2.get().getFoundIfExists();
-                    Platform.runLater(this::updateAddToAlreadyReadButtonState);
-                }
-            });
+        CompletableFuture.runAsync(() -> {
+            CheckIfBookExistsInAlreadyReadInputModel input3 = CheckIfBookExistsInAlreadyReadInputModel.builder()
+                    .commonBooksProperties(booksData)
+                    .build();
+            Either<Exception, CheckIfBookExistsInAlreadyReadOutputModel> process2 = checkIfBookExistsInAlreadyReadOperationModel.process(input3);
+            if (process2.isRight()) {
+                this.alreadyExistsInAlreadyRead = process2.get().getFoundIfExists();
+                Platform.runLater(this::updateAddToAlreadyReadButtonState);
+            }
+        });
 
     }
 }

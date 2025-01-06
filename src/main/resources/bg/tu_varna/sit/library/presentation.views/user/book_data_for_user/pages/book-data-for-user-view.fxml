@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(23,132,245,0.58);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.user.BookDataController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(23,132,245,0.58);" stylesheets="@../../../css/CSS.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.user.BookDataController">
     <children>
         <AnchorPane layoutX="-7.0" layoutY="-9.0" prefHeight="611.0" prefWidth="143.0" style="-fx-background-color: rgb(252,252,252);">
             <children>
@@ -14,35 +14,90 @@
                         <Image url="@../../../logging/login/images/logo.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="homeButton" layoutX="26.0" layoutY="85.0" mnemonicParsing="false" onAction="#homeUser" prefHeight="46.0" prefWidth="91.0" text="Home" />
-                <Button fx:id="search" layoutX="26.0" layoutY="260.0" mnemonicParsing="false" onAction="#search" prefHeight="46.0" prefWidth="91.0" text="Search" />
-                <Button fx:id="borrowBooks" layoutX="26.0" layoutY="320.0" mnemonicParsing="false" onAction="#borrowBooks" prefHeight="46.0" prefWidth="91.0" text="Borrow books" />
-                <Button fx:id="readerProfile" layoutX="26.0" layoutY="142.0" mnemonicParsing="false" onAction="#readerProfile" prefHeight="46.0" prefWidth="91.0" text="Reader&#10;Profile" textAlignment="CENTER" />
-                <Button fx:id="allBooks" layoutX="26.0" layoutY="203.0" mnemonicParsing="false" onAction="#allBooks" prefHeight="46.0" prefWidth="91.0" text="All&#10;Books" textAlignment="CENTER" />
-                <Button fx:id="aboutUs" layoutX="26.0" layoutY="375.0" mnemonicParsing="false" onAction="#aboutUs" prefHeight="46.0" prefWidth="91.0" text="About us" />
-                <Button fx:id="logout" layoutX="26.0" layoutY="551.0" mnemonicParsing="false" onAction="#logout" prefHeight="46.0" prefWidth="91.0" text="Logout" textAlignment="CENTER" />
+                <Button fx:id="homeButton" layoutX="13.0" layoutY="87.0" mnemonicParsing="false" onAction="#homeUser" prefHeight="46.0" prefWidth="125.0" text="Home" />
+                <Button fx:id="search" layoutX="13.0" layoutY="302.0" mnemonicParsing="false" onAction="#search" prefHeight="46.0" prefWidth="125.0" text="Search" />
+                <Button fx:id="readerProfile" layoutX="13.0" layoutY="158.0" mnemonicParsing="false" onAction="#readerProfile" prefHeight="46.0" prefWidth="125.0" text="Reader&#10;Profile" textAlignment="CENTER" />
+                <Button fx:id="allBooks" layoutX="13.0" layoutY="229.0" mnemonicParsing="false" onAction="#allBooks" prefHeight="46.0" prefWidth="125.0" text="All&#10;Books" textAlignment="CENTER" />
+                <Button fx:id="aboutUs" layoutX="13.0" layoutY="375.0" mnemonicParsing="false" onAction="#aboutUs" prefHeight="46.0" prefWidth="125.0" text="About us" />
+                <Button fx:id="logout" layoutX="13.0" layoutY="551.0" mnemonicParsing="false" onAction="#logout" prefHeight="46.0" prefWidth="125.0" text="Logout" textAlignment="CENTER" />
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="133.0" layoutY="-8.0" prefHeight="85.0" prefWidth="643.0">
+        <AnchorPane layoutX="133.0" layoutY="-8.0" prefHeight="85.0" prefWidth="794.0">
             <children>
-                <Button fx:id="myProfile" layoutX="339.0" layoutY="20.0" mnemonicParsing="false" onAction="#myProfile" prefHeight="46.0" prefWidth="91.0" text="My&#10;profile&#10;&#10;" textAlignment="CENTER" />
-                <Button fx:id="notification" layoutX="431.0" layoutY="20.0" mnemonicParsing="false" onAction="#notifications" prefHeight="46.0" prefWidth="91.0" text="Notifications&#10;&#10;&#10;" textAlignment="CENTER" />
-                <Button fx:id="shoppingCart" layoutX="522.0" layoutY="20.0" mnemonicParsing="false" onAction="#shoppingCart" prefHeight="46.0" prefWidth="91.0" text="Shopping&#10;Cart" textAlignment="CENTER" />
+                <Button fx:id="myProfile" layoutX="603.0" layoutY="20.0" mnemonicParsing="false" onAction="#myProfile" prefHeight="46.0" prefWidth="46.0" styleClass="transparent-button" textAlignment="CENTER">
+                    <graphic>
+                        <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="433.0" layoutY="46.0">
+                            <image>
+                                <Image url="@../images/user.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="notification" layoutX="648.0" layoutY="20.0" mnemonicParsing="false" onAction="#notifications" prefHeight="46.0" prefWidth="53.0" styleClass="transparent-button" textAlignment="CENTER">
+                    <graphic>
+                        <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="433.0" layoutY="46.0">
+                            <image>
+                                <Image url="@../images/notification.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="shoppingCart" layoutX="705.0" layoutY="20.0" mnemonicParsing="false" onAction="#shoppingCart" prefHeight="46.0" prefWidth="36.0" styleClass="transparent-button" textAlignment="CENTER">
+                    <graphic>
+                        <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="433.0" layoutY="46.0">
+                            <image>
+                                <Image url="@../images/cart.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </children>
         </AnchorPane>
-        <Label fx:id="welcomeText" layoutX="365.0" layoutY="89.0" prefHeight="38.0" prefWidth="292.0" text="Нови книги">
+        <Label fx:id="welcomeText" layoutX="309.0" layoutY="69.0" prefHeight="38.0" prefWidth="292.0" text="Данни">
             <font>
                 <Font size="26.0" />
             </font>
         </Label>
-        <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="153.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true" />
-        <Label fx:id="authors" layoutX="513.0" layoutY="169.0" text="Автори:" />
-        <Label fx:id="title" layoutX="511.0" layoutY="137.0" text="Заглавие:" />
-        <Label fx:id="genre" layoutX="514.0" layoutY="201.0" text="Жанр:" />
-        <Label fx:id="publisher" layoutX="515.0" layoutY="236.0" text="Издателство" />
-      <Button fx:id="addToCart" layoutX="511.0" layoutY="342.0" mnemonicParsing="false" onAction="#addToCart" prefHeight="46.0" prefWidth="118.0" text="Add To Cart" />
-      <Button fx:id="favorite" layoutX="512.0" layoutY="401.0" mnemonicParsing="false" onAction="#addToFavorites" prefHeight="46.0" prefWidth="118.0" text="Favourite" />
-      <Button fx:id="addToRead" layoutX="668.0" layoutY="342.0" mnemonicParsing="false" onAction="#addToRead" prefHeight="46.0" prefWidth="118.0" text="Add to Read" />
-      <Button fx:id="addToAlreadyRead" layoutX="668.0" layoutY="401.0" mnemonicParsing="false" onAction="#addToAlreadyRead" prefHeight="46.0" prefWidth="118.0" text=" I have already&#10; read this book" />
+        <ImageView styleClass="test-imageBook" fx:id="imageView" fitHeight="246.0" fitWidth="259.0" layoutX="179.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true" />
+        <Label fx:id="authors" layoutX="513.0" layoutY="169.0" styleClass="smaller-text-left" text="Автори:" />
+        <Label fx:id="title" layoutX="511.0" layoutY="137.0" styleClass="smaller-text-left" text="Заглавие:" />
+        <Label fx:id="genre" layoutX="514.0" layoutY="201.0" styleClass="smaller-text-left" text="Жанр:" />
+        <Label fx:id="publisher" layoutX="515.0" layoutY="236.0" styleClass="smaller-text-left" text="Издателство" />
+      <Button fx:id="addToCart" layoutX="623.0" layoutY="342.0" mnemonicParsing="false" onAction="#addToCart" prefHeight="46.0" prefWidth="60.0" styleClass="transparent-button">
+          <graphic>
+              <ImageView fx:id="imageViewCart" fitHeight="37.0" fitWidth="38.0" layoutX="433.0" layoutY="46.0">
+                  <image>
+                      <Image url="@../images/remove-from-cart.png" />
+                  </image>
+              </ImageView>
+          </graphic>
+      </Button>
+      <Button fx:id="favorite" layoutX="563.0" layoutY="341.0" mnemonicParsing="false" onAction="#addToFavorites" prefHeight="46.0" prefWidth="60.0" styleClass="transparent-button">
+          <graphic>
+              <ImageView fx:id="imageViewFavourite" fitHeight="37.0" fitWidth="38.0" layoutX="433.0" layoutY="46.0">
+                  <image>
+                      <Image url="@../images/remove-heart-png.png" />
+                  </image>
+              </ImageView>
+          </graphic>
+      </Button>
+      <Button fx:id="addToRead" layoutX="693.0" layoutY="344.0" mnemonicParsing="false" onAction="#addToRead" prefHeight="46.0" prefWidth="39.0" styleClass="transparent-button">
+          <graphic>
+              <ImageView fx:id="imageViewWantToRead" fitHeight="37.0" fitWidth="38.0" layoutX="433.0" layoutY="46.0">
+                  <image>
+                      <Image url="@../images/remove-wishlist-.png" />
+                  </image>
+              </ImageView>
+          </graphic>
+      </Button>
+      <Button fx:id="addToAlreadyRead" layoutX="742.0" layoutY="344.0" mnemonicParsing="false" onAction="#addToAlreadyRead" prefHeight="46.0" prefWidth="60.0" styleClass="transparent-button">
+          <graphic>
+              <ImageView fx:id="imageViewAlreadyRead" fitHeight="37.0" fitWidth="38.0" layoutX="433.0" layoutY="46.0">
+                  <image>
+                      <Image url="@../images/remove-already-read-.png" />
+                  </image>
+              </ImageView>
+          </graphic>
+      </Button>
     </children>
 </AnchorPane>

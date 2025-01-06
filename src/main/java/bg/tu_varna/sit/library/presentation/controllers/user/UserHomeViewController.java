@@ -79,8 +79,10 @@ public class UserHomeViewController extends UserController implements Initializa
                         throw new RuntimeException(ex);
                     }
                 });
+                Label label = new Label(iterBook.getTitle());
+                        label.getStyleClass().add("smaller-text");
                 vBox.getChildren().addAll(
-                        new Label(iterBook.getTitle()),
+                        label,
                         imageView,
                         button
                 );

@@ -102,28 +102,11 @@ public class SearchForUserController extends UserController implements Initializ
                 resultListView.setVisible(true);
                 resultListView.setItems(FXCollections.observableList(List.of("No books found")));
             } else {
+                resultListView.setPrefHeight(formattedResult.size() * 60);
                 resultListView.setItems(FXCollections.observableArrayList(formattedResult));
-                resultListView.setPrefHeight(formattedResult.size() * 30);
-                adjustListViewWidth();
             }
         }
     }
-
-    private void adjustListViewWidth() {
-        double maxWidth = 0;
-        Text text = new Text();
-        for (String item : resultListView.getItems()) {
-            text.setText(item);
-            double itemWidth = text.getLayoutBounds().getWidth();
-            if (itemWidth > maxWidth) {
-                maxWidth = itemWidth;
-            }
-        }
-        double padding = 20;
-        resultListView.setPrefWidth(maxWidth + padding);
-    }
-
-
     private String formatBook(Book book) {
         return book.getTitle() +
                 " by " +
