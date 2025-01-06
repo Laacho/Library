@@ -2,6 +2,7 @@ package bg.tu_varna.sit.library.data.repositories.implementations;
 
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.BorrowedBooksRepository;
+import bg.tu_varna.sit.library.exceptions.UserWithIdDoesNotExist;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.BorrowedBooks;
@@ -103,8 +104,7 @@ public class BorrowedBooksRepositoryImpl implements BorrowedBooksRepository {
             if (result.isPresent())
                 session.delete(result.get());
             else {
-                //todo replace with better exception
-                throw new RuntimeException();
+                throw new UserWithIdDoesNotExist("Borrowed Books Not Found!","Borrowed Books with id " + id + " does not exist");
             }
             transaction.commit();
             log.info("Successfully deleted entity by id: " + id);

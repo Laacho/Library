@@ -4,6 +4,8 @@ import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
+import bg.tu_varna.sit.library.exceptions.UserNotFound;
+import bg.tu_varna.sit.library.exceptions.UserWithIdDoesNotExist;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -103,8 +105,7 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
             if (result.isPresent())
                 session.delete(result.get());
             else {
-                //todo replace with better exception
-                throw new RuntimeException();
+                throw new UserWithIdDoesNotExist("User Credentials Not Found!","User Credentials with id " + id + " does not exist");
             }
             log.info("Successfully deleted entity: " + result);
             transaction.commit();
@@ -128,7 +129,7 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
                     .getSingleResult());
             transaction.commit();
         } catch (Exception ex) {
-
+            log.error("Error finding entity with username: " + username);
         } finally {
             session.close();
         }
@@ -147,7 +148,7 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
                     .getSingleResult());
             transaction.commit();
         } catch (Exception ex) {
-
+            log.error("Error finding entity by email: " + email);
         } finally {
             session.close();
         }
@@ -162,7 +163,7 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
             session.update(userCredentials);
             transaction.commit();
         } catch (Exception ex) {
-
+            log.error("Error updating entity");
         } finally {
             session.close();
         }
@@ -198,7 +199,7 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
                     .getSingleResult());
             transaction.commit();
         } catch (Exception ex) {
-
+            log.error("Error finding user credentials by given user");
         } finally {
             session.close();
         }

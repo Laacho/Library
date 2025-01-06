@@ -12,6 +12,8 @@ import lombok.Setter;
 
 import java.io.IOException;
 
+import static bg.tu_varna.sit.library.utils.ConstantsPaths.LIBRARY_HOME_VIEW;
+
 @Setter
 @Getter
 public class Controller {
@@ -48,7 +50,8 @@ public class Controller {
 
     @FXML
     protected void changeToHomeView(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/library_home_view/pages/library-home-view.fxml");
+        //setPath("/bg/tu_varna/sit/library/presentation.views/library_home_view/pages/library-home-view.fxml");
+        setPath(LIBRARY_HOME_VIEW);
         changeScene(actionEvent);
     }
 

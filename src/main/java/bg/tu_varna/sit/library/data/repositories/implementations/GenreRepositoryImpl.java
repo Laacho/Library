@@ -3,6 +3,7 @@ package bg.tu_varna.sit.library.data.repositories.implementations;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Genre;
 import bg.tu_varna.sit.library.data.repositories.interfaces.GenreRepository;
+import bg.tu_varna.sit.library.exceptions.UserWithIdDoesNotExist;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -97,8 +98,7 @@ public class GenreRepositoryImpl implements GenreRepository {
             if (result.isPresent())
                 session.delete(result.get());
             else {
-                //todo replace with better exception
-                throw new RuntimeException();
+                throw new UserWithIdDoesNotExist("Genre Not Found!","Genre with id " + id + " does not exist");
             }
             transaction.commit();
 

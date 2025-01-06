@@ -1,5 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
+import bg.tu_varna.sit.library.exceptions.UserWithIdDoesNotExist;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.DiscardedBooks;
@@ -96,8 +97,7 @@ public class DiscardedBooksRepositoryImpl implements DiscardedBooksRepository {
             if (result.isPresent())
                 session.delete(result.get());
             else {
-                //todo replace with better exception
-                throw new RuntimeException();
+                throw new UserWithIdDoesNotExist("Discarded Books Not Found!","Discarded Books with id " + id + " does not exist");
             }
             transaction.commit();
             log.info("Successfully deleted entity by id" + id);

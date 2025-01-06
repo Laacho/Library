@@ -104,22 +104,14 @@ public class OverdueBooksController extends AdminController implements Initializ
 
     @NotNull
     private static String getBooksText(Set<Book> books) {
-        String booksText = books.stream()
+        return books.stream()
                 .map(book -> String.format("Заглавие: %s, Инв. №: %s, Статус: %s",
                         book.getTitle(),
                         book.getInventoryNumber(),
                         book.getBookStatusBeforeBorrow()))
                 .reduce((b1, b2) -> b1 + "\n" + b2)
                 .orElse("");
-        return booksText;
     }
 
-    private boolean checkForValidId(String id) {
-        try {
-            Long.parseLong(id);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
+
 }

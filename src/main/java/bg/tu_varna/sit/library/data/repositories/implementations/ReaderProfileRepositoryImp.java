@@ -4,6 +4,7 @@ import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.ReaderProfile;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.repositories.interfaces.ReaderProfileRepository;
+import bg.tu_varna.sit.library.exceptions.UserWithIdDoesNotExist;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -98,8 +99,7 @@ public class ReaderProfileRepositoryImp implements ReaderProfileRepository {
             if (result.isPresent())
                 session.delete(result.get());
             else {
-                //todo replace with better exception
-                throw new RuntimeException();
+                throw new UserWithIdDoesNotExist("Reader Profile Not Found!","Reader Profile with id " + id + " does not exist");
             }
             transaction.commit();
             log.info("Successfully deleted reader profile with id "+id);
@@ -124,7 +124,7 @@ public class ReaderProfileRepositoryImp implements ReaderProfileRepository {
             transaction.commit();
             log.info("Successfully find reader profile with username "+user.getUserCredentials().getUsername());
         } catch (Exception ex) {
-            log.error("Error finding reader profile with username "+user.getUserCredentials().getUsername());
+            log.error("Error finding reader profile for user with id: "+user.getId());
         } finally {
             session.close();
         }

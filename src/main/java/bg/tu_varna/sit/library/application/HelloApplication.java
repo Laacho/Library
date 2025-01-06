@@ -10,12 +10,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static bg.tu_varna.sit.library.utils.ConstantsPaths.LIBRARY_HOME_VIEW;
+
 public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class
-                .getResource("/bg/tu_varna/sit/library/presentation.views/library_home_view/pages/library-home-view.fxml"));
+             // .getResource("/bg/tu_varna/sit/library/presentation.views/library_home_view/pages/library-home-view.fxml"));
+                .getResource(LIBRARY_HOME_VIEW));
         stage.setResizable(false);
         stage.setMaxHeight(640);
         stage.setMaxWidth(900);

@@ -11,7 +11,6 @@ module bg.tu_varna.sit.library {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires org.hibernate.orm.core;
-    // requires java.persistence;
     requires static lombok;
     requires annotations;
     requires jakarta.validation;
@@ -26,8 +25,9 @@ module bg.tu_varna.sit.library {
     requires java.naming;
     requires org.hibernate.validator;
     requires jakarta.persistence;
+    requires javafx.swing;
 
-
+    opens bg.tu_varna.sit.library.presentation.controllers;
     opens bg.tu_varna.sit.library.models.add_book to org.hibernate.validator;
     opens bg.tu_varna.sit.library.models.add_genre to org.hibernate.validator;
     opens bg.tu_varna.sit.library.models.add_to_already_read to org.hibernate.validator;
@@ -67,15 +67,16 @@ module bg.tu_varna.sit.library {
     opens bg.tu_varna.sit.library.models.update_borrowed_books to org.hibernate.validator;
     opens bg.tu_varna.sit.library.models.update_notifications_for_admin to org.hibernate.validator;
     opens bg.tu_varna.sit.library.models.update_returned_books to org.hibernate.validator;
-
+    exports bg.tu_varna.sit.library.models;
+    exports bg.tu_varna.sit.library.models.base;
+    exports bg.tu_varna.sit.library.exceptions;
+    exports bg.tu_varna.sit.library.utils.converters.base;
     exports bg.tu_varna.sit.library.core;
     opens bg.tu_varna.sit.library.core to javafx.fxml;
-
+    exports bg.tu_varna.sit.library.presentation.controllers;
     exports bg.tu_varna.sit.library.application;
     opens bg.tu_varna.sit.library.application to javafx.fxml;
 
-    exports bg.tu_varna.sit.library.presentation.controllers;
-    opens bg.tu_varna.sit.library.presentation.controllers to javafx.fxml;
 
     opens bg.tu_varna.sit.library.data.access to org.hibernate.orm.core;
     exports bg.tu_varna.sit.library.data.access;
