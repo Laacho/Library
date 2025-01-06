@@ -1,6 +1,8 @@
 package bg.tu_varna.sit.library.presentation.controllers.user;
 
+import bg.tu_varna.sit.library.core.user.all_books.AllBooksProcessor;
 import bg.tu_varna.sit.library.core.user.book_data.*;
+import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.models.add_to_already_read.AddToAlreadyReadInputModel;
 import bg.tu_varna.sit.library.models.add_to_already_read.AddToAlreadyReadOperationModel;
@@ -11,6 +13,10 @@ import bg.tu_varna.sit.library.models.add_to_favorites.AddToFavoriteOutputModel;
 import bg.tu_varna.sit.library.models.add_to_read.AddToReadInputModel;
 import bg.tu_varna.sit.library.models.add_to_read.AddToReadOperationModel;
 import bg.tu_varna.sit.library.models.add_to_read.AddToReadOutputModel;
+import bg.tu_varna.sit.library.models.all_books.AllBooksInputModel;
+import bg.tu_varna.sit.library.models.all_books.AllBooksOperationModel;
+import bg.tu_varna.sit.library.models.all_books.AllBooksOutputModel;
+import bg.tu_varna.sit.library.models.all_books.BooksData;
 import bg.tu_varna.sit.library.models.check_if_book_exists_in_already_read.CheckIfBookExistsInAlreadyReadInputModel;
 import bg.tu_varna.sit.library.models.check_if_book_exists_in_already_read.CheckIfBookExistsInAlreadyReadOperationModel;
 import bg.tu_varna.sit.library.models.check_if_book_exists_in_already_read.CheckIfBookExistsInAlreadyReadOutputModel;
@@ -23,6 +29,8 @@ import bg.tu_varna.sit.library.models.check_if_book_exists_in_to_read.CheckIfBoo
 import bg.tu_varna.sit.library.presentation.controllers.base.UserController;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
+import bg.tu_varna.sit.library.utils.converters.base.ConversionService;
+import bg.tu_varna.sit.library.utils.session.UserSession;
 import io.vavr.control.Either;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -39,6 +47,7 @@ import lombok.Setter;
 
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
@@ -83,6 +92,8 @@ public class BookDataController extends UserController implements Initializable 
     private final AddToReadOperationModel addToReadOperationModel;
     private final AddToAlreadyReadOperationModel addToAlreadyReadOperationModel;
     private final CheckIfBookExistsInAlreadyReadOperationModel checkIfBookExistsInAlreadyReadOperationModel;
+    private final AllBooksOperationModel allBooksProcessor;
+    private final ConversionService conversionService;
 
     public BookDataController() {
         this.checkIfBookExistsInToReadOperationModel = SingletonFactory.getSingletonInstance(CheckIfBookExistsInToReadProcessor.class);
@@ -94,6 +105,8 @@ public class BookDataController extends UserController implements Initializable 
         alreadyExitsInFavorites = false;
         alreadyExitsInRead = false;
         alreadyExistsInAlreadyRead = false;
+        allBooksProcessor = SingletonFactory.getSingletonInstance(AllBooksProcessor.class);
+        conversionService = SingletonFactory.getSingletonInstance(ConversionService.class);
     }
 
     public void change() {
@@ -109,7 +122,34 @@ public class BookDataController extends UserController implements Initializable 
 
     @FXML
     public void addToCart(ActionEvent actionEvent) {
-        BorrowCartController.addBookInSet(booksData);
+        Either<Exception, AllBooksOutputModel> process = allBooksProcessor.process(AllBooksInputModel.builder().build());
+        boolean toAdd = true;
+        if (process.isRight()) {
+            UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
+            List<BooksData> allBooks = process.get().getBooksData();
+            BooksData saved = null;
+            for (BooksData allBook : allBooks) {
+                for (Book cartBook : userSession.getCartBooks()) {
+                    if (cartBook.getInventoryNumber().equals(allBook.getInventoryNumber())
+                            && cartBook.getInventoryNumber().equals(booksData.getInventoryNumber())) {
+                        toAdd = false;
+                    }
+                }
+                if(allBook.getInventoryNumber().equals(booksData.getInventoryNumber())){
+                    saved = allBook;
+                }
+            }
+            if (toAdd && saved!=null)
+                userSession.getCartBooks().add(conversionService.convert(saved, Book.class));
+            toAdd = false;
+            for (CommonBooksProperties borrowedBook : BorrowCartController.getBorrowedBooks()) {
+                if (borrowedBook.getInventoryNumber().equals(booksData.getInventoryNumber())) {
+                    toAdd = false;
+                }
+            }
+            if (toAdd)
+                BorrowCartController.addBookInSet(booksData);
+        }
 
     }
 
@@ -138,7 +178,7 @@ public class BookDataController extends UserController implements Initializable 
         Either<Exception, AddToFavoriteOutputModel> process = addToFavoriteOperationModel.process(input);
         if (process.isRight() && alreadyExitsInFavorites) {
             AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Successfully removed from favourite", ButtonType.OK);
-        }else if(process.isRight() && !alreadyExitsInFavorites){
+        } else if (process.isRight() && !alreadyExitsInFavorites) {
             AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Successfully added in favourite", ButtonType.OK);
         }
     }
@@ -169,7 +209,7 @@ public class BookDataController extends UserController implements Initializable 
         Either<Exception, AddToReadOutputModel> process = addToReadOperationModel.process(input);
         if (process.isRight() && alreadyExitsInRead) {
             AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Successfully removed from wants to read", ButtonType.OK);
-        }else if(process.isRight() && !alreadyExitsInRead){
+        } else if (process.isRight() && !alreadyExitsInRead) {
             AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Successfully added in wants to read", ButtonType.OK);
         }
 

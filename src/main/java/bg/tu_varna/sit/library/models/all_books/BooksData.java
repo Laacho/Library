@@ -15,6 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class BooksData {
+    private Long id;
     private String isbn;
     private String title;
     private String inventoryNumber;

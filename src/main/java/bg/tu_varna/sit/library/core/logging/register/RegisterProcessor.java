@@ -8,6 +8,7 @@ import bg.tu_varna.sit.library.data.repositories.implementations.UserRepositoryI
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserRepository;
 import bg.tu_varna.sit.library.exceptions.EmailIsPresent;
+import bg.tu_varna.sit.library.exceptions.UsernameAlreadyExists;
 import bg.tu_varna.sit.library.exceptions.UsernameDoesNotExist;
 import bg.tu_varna.sit.library.models.register.RegisterInputModel;
 import bg.tu_varna.sit.library.models.register.RegisterOperationModel;
@@ -85,9 +86,11 @@ public class RegisterProcessor extends BaseProcessor implements RegisterOperatio
                 build();
     }
 
-    private void checkForExistingUsername(RegisterInputModel input) throws UsernameDoesNotExist {
-        UserCredentials searchedForExistingUsername = userCredentialsRepository.findByUsername(input.getUsername())
-                .orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","User with username: " +input.getUsername()+" has not been found"));
+    private void checkForExistingUsername(RegisterInputModel input) throws UsernameAlreadyExists {
+        Optional<UserCredentials> byUsername = userCredentialsRepository.findByUsername(input.getUsername());
+        if(byUsername.isPresent()){
+            throw new UsernameAlreadyExists("Username Found","User with username: " +input.getUsername()+" already exist");
+        }
     }
 
     private void checkForExistingEmail(RegisterInputModel input) throws EmailIsPresent {

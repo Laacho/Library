@@ -5,11 +5,11 @@ import bg.tu_varna.sit.library.models.all_books.BooksData;
 import bg.tu_varna.sit.library.utils.annotations.Mapper;
 import bg.tu_varna.sit.library.utils.converters.base.Converter;
 
-@Mapper(from = Book.class , to = BooksData.class)
-public class FromBooksToBooksData implements Converter<Book, BooksData> {
+@Mapper(from = BooksData.class, to = Book.class)
+public class FromBooksDataToBook implements Converter<BooksData, Book> {
     @Override
-    public BooksData convert(Book source) {
-        return BooksData.builder()
+    public Book convert(BooksData source) {
+        return Book.builder()
                 .id(source.getId())
                 .price(source.getPrice())
                 .inventoryNumber(source.getInventoryNumber())

@@ -1,6 +1,7 @@
 package bg.tu_varna.sit.library.presentation.controllers.user;
 
 import bg.tu_varna.sit.library.core.user.borrow_cart.BorrowBooksProcessor;
+import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.models.CommonBooksProperties;
 import bg.tu_varna.sit.library.models.borrow_books.BorrowBooksInputModel;
 import bg.tu_varna.sit.library.models.borrow_books.BorrowBooksOperationModel;
@@ -8,6 +9,7 @@ import bg.tu_varna.sit.library.models.borrow_books.BorrowBooksOutputModel;
 import bg.tu_varna.sit.library.presentation.controllers.base.UserController;
 import bg.tu_varna.sit.library.utils.SingletonFactory;
 import bg.tu_varna.sit.library.utils.alerts.AlertManager;
+import bg.tu_varna.sit.library.utils.converters.base.ConversionService;
 import bg.tu_varna.sit.library.utils.session.UserSession;
 import io.vavr.control.Either;
 import javafx.event.ActionEvent;
@@ -23,6 +25,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import lombok.Getter;
 import org.controlsfx.control.spreadsheet.Grid;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,13 +42,16 @@ public class BorrowCartController extends UserController implements Initializabl
     private DatePicker borrowDate;
     @FXML
     private GridPane gridPaneLayout;
+    private final ConversionService conversionService;
 
     private static int rows = 0;
+    @Getter
     private static Set<CommonBooksProperties> borrowedBooks = new HashSet<>();
     private final BorrowBooksOperationModel borrowBooksProcessor;
 
     public BorrowCartController() {
         borrowBooksProcessor = SingletonFactory.getSingletonInstance(BorrowBooksProcessor.class);
+        conversionService = SingletonFactory.getSingletonInstance(ConversionService.class);
     }
 
 
@@ -59,10 +65,10 @@ public class BorrowCartController extends UserController implements Initializabl
 
     @FXML
     public void borrowAllBooks() {
-        if (!borrowedBooks.isEmpty() && returnDate.valueProperty().getValue().isAfter(LocalDate.now()) && borrowDate.getValue() !=null) {
+        if (!borrowedBooks.isEmpty() && returnDate.valueProperty().getValue().isAfter(LocalDate.now()) && borrowDate.getValue() != null) {
             UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
             if (!userSession.getVerified().booleanValue()) {
-                AlertManager.showAlert(Alert.AlertType.ERROR,"Error","You should be verified before borrowing books",ButtonType.OK);
+                AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "You should be verified before borrowing books", ButtonType.OK);
                 return;
             }
             BorrowBooksInputModel inputModel = BorrowBooksInputModel.builder()
@@ -72,10 +78,10 @@ public class BorrowCartController extends UserController implements Initializabl
                     .username(userSession.getUsername())
                     .build();
             Either<Exception, BorrowBooksOutputModel> process = borrowBooksProcessor.process(inputModel);
-            if(process.isRight()){
-                AlertManager.showAlert(Alert.AlertType.INFORMATION,"Success",process.get().getMessage(), ButtonType.OK);
-            }else {
-                AlertManager.showAlert(Alert.AlertType.ERROR,"Error","Error while request to borrow books",ButtonType.OK);
+            if (process.isRight()) {
+                AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success", process.get().getMessage(), ButtonType.OK);
+            } else {
+                AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "Error while request to borrow books", ButtonType.OK);
             }
         }
     }
@@ -85,8 +91,18 @@ public class BorrowCartController extends UserController implements Initializabl
         if (borrowedBooks.isEmpty()) {
             rows = 0;
         }
-        gridPaneLayout.setVgap(20);
-        gridPaneLayout.setHgap(20);
+
+        UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
+        for (Book cartBook : userSession.getCartBooks()) {
+            boolean toAdd = true;
+            for (CommonBooksProperties borrowedBook : borrowedBooks) {
+                if (cartBook.getInventoryNumber().equals(borrowedBook.getInventoryNumber())) {
+                    toAdd = false;
+                }
+            }
+            if (toAdd)
+                borrowedBooks.add(conversionService.convert(cartBook, CommonBooksProperties.class));
+        }
         for (CommonBooksProperties book : borrowedBooks) {
             ImageView imageView = getImageView(book);
             gridPaneLayout.add(imageView, 0, rows);
@@ -116,33 +132,48 @@ public class BorrowCartController extends UserController implements Initializabl
         for (Node node : gridPaneLayout.getChildren()) {
             Integer nodeRowIndex = GridPane.getRowIndex(node);
             if (nodeRowIndex != null && nodeRowIndex.equals(rowIndex)) {
-                if (node instanceof Label) {
-                    saved = (Label) node;
+                if (node instanceof Pane) {
+                    Pane pane = (Pane) node;
+                    for (Node child : pane.getChildren()) {
+                        if (child instanceof Label) {
+                            saved = (Label) child;
+                        }
+                    }
                 }
                 nodesToRemove.add(node);
             }
         }
         gridPaneLayout.getChildren().removeAll(nodesToRemove);
         String labelFromSelectedRow = saved.getText();
-        String title = labelFromSelectedRow.substring(0, labelFromSelectedRow.indexOf(" "));
-        String authors = labelFromSelectedRow.substring(labelFromSelectedRow.indexOf(" ") + 1);
+        String inventoryNumber = labelFromSelectedRow.substring(0, labelFromSelectedRow.indexOf(" "));
         CommonBooksProperties toDelete = null;
         for (CommonBooksProperties borrowedBook : borrowedBooks) {
-            if (checkIfItIsTheSameBook(borrowedBook, title, authors)) {
+            if (checkIfItIsTheSameBook(borrowedBook, inventoryNumber)) {
                 toDelete = borrowedBook;
             }
         }
+        UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
+        boolean toRemove = false;
+        Book book = null;
+        for (Book cartBook : userSession.getCartBooks()) {
+            if (cartBook.getInventoryNumber().equals(toDelete.getInventoryNumber())) {
+                toRemove = true;
+                book = cartBook;
+                break;
+            }
+        }
+        if (toRemove)
+            userSession.getCartBooks().remove(book);
         removeBookInSet(toDelete);
     }
 
-    private boolean checkIfItIsTheSameBook(CommonBooksProperties borrowedBook, String title, String authors) {
-        return borrowedBook.getTitle().equals(title)
-                && borrowedBook.getAuthors().stream().collect(Collectors.joining(", ")).equals(authors);
+    private boolean checkIfItIsTheSameBook(CommonBooksProperties borrowedBook, String inventoryNumber) {
+        return borrowedBook.getInventoryNumber().equals(inventoryNumber);
     }
 
     @NotNull
     private Label getText(CommonBooksProperties book) {
-        String text = book.getTitle() + " " + book.getAuthors().stream().collect(Collectors.joining(", "));
+        String text = book.getInventoryNumber() + " title: " + book.getTitle() + "\n authors: " + book.getAuthors().stream().collect(Collectors.joining(", "));
         Label label = new Label(text);
         return label;
     }

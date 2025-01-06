@@ -34,8 +34,8 @@ public class OverdueBooksProcessor extends BaseProcessor implements OverdueBooks
                     log.info("Started overdue books");
                     validate(input);
                     List<BorrowedBooks> all = borrowedBooksRepository.findAll();
-                    if (all.isEmpty()) throw new NoBooksPresent("Not Found Borrowed Books","Does not have borrowed books in the database");
                     List<OverdueBooks> overdueBooks = getOverdueBooks(all);
+                    if (overdueBooks.isEmpty()) throw new NoBooksPresent("Not Found Borrowed Books","Does not have borrowed books in the database");
                     OverdueBooksOutputModel output = OverdueBooksOutputModel.builder().overdueBooks(overdueBooks).build();
                     log.info("Finished overdue books");
                     return output;

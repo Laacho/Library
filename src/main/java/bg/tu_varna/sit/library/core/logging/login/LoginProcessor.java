@@ -60,6 +60,7 @@ public class LoginProcessor extends BaseProcessor implements LoginOperationModel
         userSession.setDateOfVerification(userCredentials.getDateOfVerification());
         userSession.setVerificationCode(userCredentials.getVerificationCode());
         userSession.setWantsToLogout(false);
+        userSession.setCartBooks(userCredentials.getCartForBooks());
         return userSession;
     }
 
