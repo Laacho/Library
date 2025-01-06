@@ -43,7 +43,6 @@ public class AdminNotificationViewController extends AdminController implements 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Either<Exception, AdminNotificationViewOutputModel> process = adminNotificationViewProcessor.process(AdminNotificationViewInputModel.builder().build());
         if (process.isRight()) {
-
             List<String> notifications = process.get().getMessages();
             if (notifications.isEmpty()) {
                 gridPane.add(new Label("No notifications"), 0, 0);

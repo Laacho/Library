@@ -26,10 +26,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -70,6 +67,7 @@ public class ReaderProfileController extends UserController implements Initializ
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        gridPane.setAlignment(Pos.CENTER);
         UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
         Either<Exception, CheckIfReaderProfileExistsOutputModel> process = checkIfReaderProfileExistsProcessor.process(CheckIfReaderProfileExistsInputModel.builder().username(userSession.getUsername()).build());
         if (process.isRight()) {
@@ -124,7 +122,7 @@ public class ReaderProfileController extends UserController implements Initializ
             showBooks(favouriteBooks);
             return;
         }
-        gridPane.add(new Label("No favourite books"),0,0);
+        gridPane.add(new Label("No favourite books"), 0, 0);
     }
 
     @FXML
@@ -142,14 +140,14 @@ public class ReaderProfileController extends UserController implements Initializ
                 Button rightArrow = new Button(">");
                 setActionOnLeftArrow(leftArrow, j, forGenre, genreName, books, mainBox, rightArrow);
                 setActionOnRightArrow(rightArrow, j, books, forGenre, genreName, mainBox, leftArrow);
-                mapButtonsAndVbox(forGenre,genreName,books, j, mainBox, leftArrow, rightArrow);
-                gridPane.add(forGenre,0,index);
+                mapButtonsAndVbox(forGenre, genreName, books, j, mainBox, leftArrow, rightArrow);
+                gridPane.add(forGenre, 0, index);
                 index++;
 
             }
             return;
         }
-        gridPane.add(new Label("Don't have recommended genres"),0,0);
+        gridPane.add(new Label("Don't have recommended genres"), 0, 0);
     }
 
     private void setActionOnRightArrow(Button rightArrow, AtomicInteger j, List<BookDataForReader> books, VBox forGenre, String genreName, HBox mainBox, Button leftArrow) {
@@ -172,28 +170,41 @@ public class ReaderProfileController extends UserController implements Initializ
         });
     }
 
-    private void mapButtonsAndVbox(VBox forGenre,String genreName,List<BookDataForReader> books, AtomicInteger j, HBox mainBox, Button leftArrow, Button rightArrow) {
+    private void mapButtonsAndVbox(VBox forGenre, String genreName, List<BookDataForReader> books, AtomicInteger j, HBox mainBox, Button leftArrow, Button rightArrow) {
         mainBox.getChildren().clear();
         forGenre.getChildren().clear();
         BookDataForReader data = books.get(j.get());
         VBox vBox = getBookData(data);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(10);
+        mainBox.setAlignment(Pos.CENTER);
+        mainBox.setSpacing(10);
         mainBox.getChildren().addAll(
-                leftArrow,vBox, rightArrow
-                );
+                leftArrow, vBox, rightArrow
+        );
+        forGenre.setSpacing(10);
+        Label label = new Label(genreName);
+        label.setAlignment(Pos.CENTER);
+        //  forGenre.setAlignment(Pos.CENTER);
         forGenre.getChildren().addAll(
-                new Label(genreName),
-                mainBox
+                label,
+                mainBox,
+                new Separator()
         );
     }
 
     @NotNull
     private VBox getBookData(BookDataForReader data) {
         VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(10);
         File file = new File(data.getPathToImage());
         ImageView imageView = new ImageView(new Image(file.toURI().toString()));
         imageView.setFitHeight(200);
         imageView.setFitWidth(200);
         Button button = new Button("Go");
+        Label label = new Label(data.getTitle());
+        label.setAlignment(Pos.TOP_CENTER);
         button.setOnAction(e -> {
             try {
                 setButtonFunctionality(data);
@@ -202,7 +213,7 @@ public class ReaderProfileController extends UserController implements Initializ
             }
         });
         vBox.getChildren().addAll(
-                new Label(data.getTitle()),
+                label,
                 imageView,
                 button
         );
@@ -216,8 +227,8 @@ public class ReaderProfileController extends UserController implements Initializ
             showBooks(wantsToRead);
             return;
         }
-        gridPane.add(new Label("No to books"),0,0);
-       // AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "You don't have books in wants to read", ButtonType.OK);
+        gridPane.add(new Label("No books in wants to read"), 0, 0);
+        // AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "You don't have books in wants to read", ButtonType.OK);
 
     }
 
@@ -228,8 +239,8 @@ public class ReaderProfileController extends UserController implements Initializ
             showBooks(readBooks);
             return;
         }
-        gridPane.add(new Label("No read books"),0,0);
-       // AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "You don't have books in already read books", ButtonType.OK);
+        gridPane.add(new Label("No read books"), 0, 0);
+        // AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "You don't have books in already read books", ButtonType.OK);
     }
 
     private void showBooks(List<BookDataForReader> books) {
@@ -249,6 +260,8 @@ public class ReaderProfileController extends UserController implements Initializ
                 imageView.setFitWidth(200);
                 Button button = new Button("Go");
                 int finalI = index;
+                Label label = new Label(data.getTitle());
+                label.setAlignment(Pos.CENTER);
                 button.setOnAction(e -> {
                     try {
                         setButtonFunctionality(books, finalI);
@@ -257,7 +270,7 @@ public class ReaderProfileController extends UserController implements Initializ
                     }
                 });
                 vBox.getChildren().addAll(
-                        new Label(data.getTitle()),
+                        label,
                         imageView,
                         button
                 );
@@ -278,15 +291,16 @@ public class ReaderProfileController extends UserController implements Initializ
 
     private void setButtonFunctionality(List<BookDataForReader> booksData, int finalI) throws IOException {
         BookDataForReader book = booksData.get(finalI);
-        BookDataController.booksData= conversionService.convert(book, CommonBooksProperties.class);
+        BookDataController.booksData = conversionService.convert(book, CommonBooksProperties.class);
         setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book-data-for-user-view.fxml");
         FXMLLoader loader = changeScene((Stage) gridPane.getScene().getWindow());
         BookDataController controller = loader.getController();
         controller.change();
     }
+
     private void setButtonFunctionality(BookDataForReader book) throws IOException {
         setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book-data-for-user-view.fxml");
-        BookDataController.booksData= conversionService.convert(book, CommonBooksProperties.class);
+        BookDataController.booksData = conversionService.convert(book, CommonBooksProperties.class);
         FXMLLoader loader = changeScene((Stage) gridPane.getScene().getWindow());
         BookDataController controller = loader.getController();
         controller.change();

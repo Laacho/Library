@@ -1,0 +1,765 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom, #87CEFA, #B0E0E6);
+}
+
+.label {
+    -fx-font-size: 26px;
+    -fx-text-fill: #2C3E50;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 10px;
+}
+
+.smaller-text {
+    -fx-font-size: 16px;
+    -fx-text-fill: #2C3E50;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 2px;
+}
+.smaller-text-left {
+    -fx-font-size: 16px;
+    -fx-text-fill: #2C3E50;
+    -fx-font-weight: bold;
+    -fx-alignment: BASELINE_LEFT;
+    -fx-padding: 2px;
+}
+
+.button {
+    -fx-padding: 1px 40px;
+    -fx-border-color: #0cbcfd;
+    -fx-background-color: white;
+    -fx-background-radius: 50px;
+    -fx-border-radius: 42px;
+    -fx-border-width: 0.5px;
+    -fx-text-fill: black;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-transform: up;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 8, 0, 0, 0);
+    -fx-transition: all 0.5s ease;
+    -fx-cursor: hand;
+    /* -fx-wrap-text: true; /* Позволява текстът да се пренася при нужда */
+    -fx-alignment: center; /* Центрираме текста */
+}
+
+.bigButton {
+    -fx-font-size: 14px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+.button:hover {
+    -fx-background-color: rgba(40, 132, 225, 0.58);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(48, 16, 147, 0.58), 29, 0, 0, 7);
+}
+
+.button:pressed {
+    -fx-background-color: rgba(40, 132, 225, 0.58);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(48, 16, 147, 0.58), 29, 0, 0, 7);
+    -fx-translate-y: 10px;
+}
+
+.transparent-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-text-fill: inherit;
+    -fx-effect: null;
+}
+
+.transparent-button:hover {
+    -fx-cursor: hand;
+}
+
+#gridPane Label {
+    -fx-margin-left: 20px;
+    -fx-font-size: 15px;
+    -fx-wrap-text: true;
+    -fx-max-width: Infinity;
+    -fx-alignment: TOP-LEFT;
+    -fx-padding: 2;
+}
+
+/* Стилове за самия CheckBox */
+.check-box {
+    -fx-alignment: center;
+    -fx-background-color: transparent; /* Прозрачен фон на самия чекбокс */
+    -fx-padding: 0; /* Без padding около чекбокса */
+    -fx-pref-width: 40px; /* Фиксирана ширина */
+    -fx-pref-height: 40px; /* Фиксирана височина */
+}
+
+/* Стилове за графика на чекбокса */
+.check-box .box {
+    -fx-background-color: transparent; /* Син фон */
+    -fx-pref-width: 30px; /* Вътрешният елемент е по-малък */
+    -fx-pref-height: 30px; /* Вътрешният елемент е по-малък */
+    -fx-border-color: #1d85c8; /* Синя рамка */
+    -fx-border-width: 2px; /* Тънка рамка */
+}
+
+/* При избран чекбокс */
+.check-box:selected .box {
+    -fx-background-color: #1d85c8; /* Променяме цвета при избор */
+    -fx-border-color: #0b76ef; /* Синя рамка */
+}
+
+/* Стилове при ховър на чекбокса */
+.check-box:hover .box {
+    -fx-background-color: #0b76ef; /* Променяме фона при ховър */
+}
+
+
+/* Стил за ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent; /* Светъл фон */
+    -fx-border-color: #ddd; /* Лека сива рамка */
+    -fx-border-width: 1px; /* Тънка рамка */
+    -fx-border-radius: 5px; /* Закръглени ъгли на рамката */
+    -fx-padding: 5px; /* Падинг около съдържанието */
+}
+
+/* Стил за съдържанието на ScrollPane (вътрешния панел) */
+.scroll-pane .viewport {
+    -fx-background-color: rgba(255, 255, 255, 0.18);
+    -fx-padding: 5px; /* Падинг за вътрешното съдържание */
+}
+
+/* Промяна на цветовете на скролерите */
+.scroll-pane .scroll-bar {
+    -fx-background-color: transparent; /* Светлосив фон на скролерите */
+    -fx-background-insets: 0; /* Премахваме отстояния от фона */
+}
+
+/* При ховър на скролер */
+.scroll-pane .scroll-bar:hover {
+    -fx-background-color: transparent; /* Потъмняваме фона на скролера при ховър */
+}
+
+/* Стил за GridPane */
+.grid-pane {
+    -fx-background-color: rgba(0, 123, 255, 0.2); /* Прозрачен син фон на GridPane */
+    -fx-border-color: rgba(0, 123, 255, 0.6); /* Прозрачна синя рамка */
+    -fx-border-width: 1px; /* Тънка рамка */
+    -fx-border-radius: 10px; /* Закръглени ъгли */
+    -fx-padding: 15px; /* Падинг около клетките */
+    -fx-hgap: 10px; /* Разстояние между клетките по хоризонтала */
+    -fx-vgap: 10px; /* Разстояние между клетките по вертикала */
+}
+
+/* Стил за клетките на GridPane с бял фон */
+.grid-pane .cell {
+    -fx-background-color: #ffffff; /* Бял фон за клетките */
+    -fx-border-color: rgba(0, 123, 255, 0.4); /* Прозрачна синя рамка около клетките */
+    -fx-border-width: 1px; /* Тънка рамка */
+    -fx-padding: 10px; /* Падинг в клетките */
+    -fx-text-fill: #333; /* Тъмен текст */
+    -fx-font-size: 14px; /* Размер на шрифта */
+}
+
+/* Стил при ховър върху клетките на GridPane */
+.grid-pane .cell:hover {
+    -fx-background-color: rgba(0, 123, 255, 0.1); /* Леко потъмняване при ховър */
+    -fx-border-color: rgba(0, 123, 255, 0.7); /* Потъмняване на рамката при ховър */
+}
+
+/* Промяна на фона на ScrollBar трака */
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent; /* Прозрачен син фон за трака */
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(0, 123, 255, 0.8); /* Тъмен син фон за самия скролер */
+    -fx-background-radius: 5px; /* Заоблени ъгли на скролера */
+}
+
+/* Промяна на фона на ScrollBar за хоризонтален скролер */
+.scroll-bar:horizontal .track {
+    -fx-background-color: transparent; /* Прозрачен син фон за трака */
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: rgba(0, 123, 255, 0.8); /* Тъмен син фон за самия скролер */
+    -fx-background-radius: 5px; /* Заоблени ъгли на скролера */
+}
+
+/* Стилизация на TableView */
+.table-view {
+    -fx-font-size: 9px;
+    -fx-background-color: rgba(0, 123, 255, 0.2); /* Светло син фон за TableView */
+    -fx-border-color: #ddd; /* Светлосива рамка */
+    -fx-border-width: 1px; /* Тънка рамка */
+    -fx-border-radius: 5px; /* Закръглени ъгли */
+    /*-fx-padding: 10px; !* Падинг около таблицата *!*/
+}
+
+/* Стилизация на редовете */
+.table-view .table-row-cell {
+    -fx-background-color: transparent; /* Прозрачен фон за редовете */
+    -fx-text-fill: #333; /* Тъмен текст за редовете */
+}
+
+/* Стилизация на селектирани редове */
+.table-view .table-row-cell:filled:selected {
+    -fx-background-color: #28a3f4; /* Син фон за селектирани редове */
+    -fx-text-fill: white; /* Бял текст за селектираните редове */
+}
+
+/* Стилизация на колоните при ховър */
+.table-view .table-column-header:hover {
+    -fx-background-color: #007bff; /* По-тъмен син при ховър върху колоната */
+}
+
+/* Промяна на фона на клетките */
+.table-view .table-cell {
+    -fx-background-color: #62a1ff; /* Прозрачен фон за клетките */
+    /*-fx-padding: 2px 3px; !* Падинг за клетките *!*/
+    /*-fx-pref-height: -1; !* Автоматично изчисляване на височината *!*/
+    /*-fx-min-height: -1; !* Позволява минималната височина да се коригира *!*/
+    -fx-pref-height: use-compute-size;
+
+}
+
+/* Промяна на фона на клетките при ховър */
+.table-view .table-cell:hover {
+    -fx-text-fill: black;
+    -fx-background-color: #f0f8ff; /* Леко синьо подцветяване при ховър върху клетка */
+}
+
+.table-column-header {
+    -fx-font-size: 3px; /* Може да увеличите шрифта за заглавията */
+    -fx-background-color: #28a3f4; /* Син фон за заглавията на колоните */
+}
+
+/* За всички заглавия на колоните в TableView */
+.table-view .table-column-header-background {
+    -fx-background-color: #28a3f4; /* Син фон за заглавията на колоните */
+    -fx-font-size: 14px; /* Размер на шрифта */
+    -fx-text-fill: white; /* Бял текст за заглавията */
+    -fx-font-weight: bold; /* Удебелен текст */
+    -fx-alignment: center; /* Центриране на текста */
+    /*-fx-padding: 10px 15px; !* Падинг около текста *!*/
+    -fx-min-height: 10px; /* Минимална височина */
+    -fx-pref-height: 10px; /* Предпочитана височина */
+}
+
+/* Размер на шрифта за заглавията на колоните */
+.table-view .table-column-header {
+    -fx-font-size: 10px; /* Намаляване на размера на шрифта */
+    -fx-text-fill: white; /* Бял текст */
+    -fx-background-color: #28a3f4; /* Син фон за заглавията на колоните */
+    -fx-font-weight: bold; /* Удебелен текст */
+    -fx-alignment: center; /* Центриране на текста */
+    /*-fx-padding: 5px 10px; !* Падинг около текста *!*/
+    -fx-min-height: 10px; /* Минимална височина */
+    -fx-pref-height: 35px; /* Предпочитана височина */
+}
+
+.table-view .table-column .label {
+    -fx-font-size: 12px; /* Намаляване на шрифта */
+    -fx-font-weight: bold; /* Премахване на удебеляване, ако има */
+    -fx-text-fill: black; /* Цвят на текста */
+    -fx-alignment: center; /* Центриране на текста */
+    /*-fx-padding: 2px 5px; !* Padding около текста *!*/
+}
+
+/* Основен стил за TextField */
+.text-field {
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, #021760, 5, 0.5, 0, 0);
+    -fx-border-width: 0.5;
+    -fx-border-color: #021760;
+    -fx-padding: 10px 1rem;
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+    -fx-outline-color: #021760;
+    -fx-outline-width: 2px;
+    -fx-text-fill:  white;
+    -fx-font-weight: bold;
+    -fx-outline-offset: 3px;
+    -fx-font-family: "Segoe UI", Roboto, "Open Sans", "Helvetica Neue", sans-serif;
+    -fx-transition: all 0.25s ease-in-out;
+}
+
+/* Фокусирано TextField */
+.text-field:focused {
+    -fx-background-color: #fff;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow(gaussian, #021760, 5, 0.5, 0, 0);
+}
+
+.list-view {
+    -fx-font-size: 15px;
+    -fx-background-color: rgba(0, 123, 255, 0.2); /* Светло син фон за TableView */
+    -fx-border-color: #ddd; /* Светлосива рамка */
+    -fx-border-width: 1px; /* Тънка рамка */
+    -fx-border-radius: 5px; /* Закръглени ъгли */
+    -fx-padding: 10px; /* Падинг около таблицата */
+}
+
+/* Стил за елементите в ListView (клетките) */
+.list-view .list-cell {
+    -fx-background-color: transparent; /* Бял фон за всяка клетка */
+    -fx-border-color: #e0e0e0; /* Лека рамка между елементите */
+    -fx-border-width: 0 0 1px 0; /* Рамка само отдолу */
+    -fx-padding: 8px 12px; /* Padding вътре в клетката */
+    -fx-font-size: 14px; /* Размер на шрифта */
+    -fx-font-family: "Segoe UI", Roboto, sans-serif;
+    -fx-text-fill: #333; /* Цвят на текста */
+}
+
+/* Стил за избрана клетка */
+.list-view .list-cell:selected {
+    -fx-background-color: #0078D7; /* Син фон при селекция */
+    -fx-text-fill: #ffffff; /* Бял текст при селекция */
+    -fx-font-weight: bold;
+}
+
+/* Стил за клетка при ховър */
+.list-view .list-cell:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #f0f8ff; /* Светлосин фон при ховър */
+    -fx-text-fill: #000000; /* Черен текст при ховър */
+}
+
+/* Стил за празните клетки (ако няма данни) */
+.list-view .list-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.combo-box {
+    -fx-background-color: rgba(0, 123, 255, 0.2);
+    -fx-border-color: rgba(199, 226, 255, 0.77);
+    -fx-font-size: 9px;
+    -fx-font-family: "Segoe UI", Roboto, sans-serif;
+    -fx-text-fill: white; /* Тъмен текст */
+}
+.text-area{
+    -fx-background-color: transparent; /* Бял фон за всяка клетка */
+    -fx-border-color: #e0e0e0; /* Лека рамка между елементите */
+    -fx-border-width: 0 0 1px 0; /* Рамка само отдолу */
+    -fx-padding: 8px 12px; /* Padding вътре в клетката */
+    -fx-font-size: 14px; /* Размер на шрифта */
+    -fx-font-family: "Segoe UI", Roboto, sans-serif;
+    -fx-text-fill: #333; /* Цвят на текста */
+}
+
+/* Общ стил за RadioButton */
+.radio-button {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C3E50; /* Цвят на текста */
+    -fx-padding: 5px 10px; /* Вътрешен отстъп */
+}
+
+/* Стил за неизбран RadioButton */
+.radio-button .radio {
+    -fx-background-color: #FFFFFF; /* Фон на кръгчето */
+    -fx-border-color: #3498DB; /* Цвят на рамката */
+    -fx-border-width: 1px; /* Дебелина на рамката */
+    -fx-border-radius: 50%; /* Заоблени ъгли */
+    -fx-pref-width: 20px; /* Ширина на бутона */
+    -fx-pref-height: 19px; /* Височина на бутона */
+}
+
+/* Стил за избран RadioButton */
+.radio-button:selected .radio {
+    -fx-background-color: #3498DB; /* Син фон за избрано състояние */
+    -fx-border-color: #1A5276; /* По-тъмен син за рамката */
+}
+
+/* Стил за маркировката в избран RadioButton */
+.radio-button:selected .dot {
+    -fx-background-color: #000000; /* Цвят на маркировката (точката) */
+    /*-fx-background-radius: 50%; !* Заобленост на точката *!*/
+}
+
+/* Стил при ховър */
+.radio-button:hover .radio {
+    -fx-border-color: #5DADE2; /* По-светъл син при ховър */
+}
+
+/* Стил за деактивиран RadioButton */
+.radio-button:disabled {
+    -fx-opacity: 0.5; /* Прозрачен вид */
+}
+
+/* styles.css */
+.test-imageBook {
+    -fx-effect: dropshadow(gaussian, rgb(248, 0, 0), 10, 0.5, 0, 0);
+    -fx-background-color: linear-gradient(to bottom, #b0e0e6, #1da9e3);
+    -fx-border-color: #87ceeb;
+    -fx-border-width: 2;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 5;
+}
+.test-imageBook .image{
+    -fx-border-radius: 15px;
+}
+
+.root {
+    -fx-background-color: linear-gradient(to bottom, #87CEFA, #B0E0E6);
+}
+
+.label {
+    -fx-font-size: 26px;
+    -fx-text-fill: #2C3E50;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 10px;
+}
+
+.smaller-text {
+    -fx-font-size: 16px;
+    -fx-text-fill: #2C3E50;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 2px;
+}
+.smaller-text-left {
+    -fx-font-size: 16px;
+    -fx-text-fill: #2C3E50;
+    -fx-font-weight: bold;
+    -fx-alignment: BASELINE_LEFT;
+    -fx-padding: 2px;
+}
+
+.button {
+    -fx-padding: 1px 40px;
+    -fx-border-color: #0cbcfd;
+    -fx-background-color: white;
+    -fx-background-radius: 50px;
+    -fx-border-radius: 42px;
+    -fx-border-width: 0.5px;
+    -fx-text-fill: black;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-transform: up;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 8, 0, 0, 0);
+    -fx-transition: all 0.5s ease;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+}
+
+.bigButton {
+    -fx-font-size: 14px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+.button:hover {
+    -fx-background-color: rgba(40, 132, 225, 0.58);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(48, 16, 147, 0.58), 29, 0, 0, 7);
+}
+
+.button:pressed {
+    -fx-background-color: rgba(40, 132, 225, 0.58);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(48, 16, 147, 0.58), 29, 0, 0, 7);
+    -fx-translate-y: 10px;
+}
+
+.transparent-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-text-fill: inherit;
+    -fx-effect: null;
+}
+
+.transparent-button:hover {
+    -fx-cursor: hand;
+}
+
+#gridPane Label {
+    -fx-margin-left: 20px;
+    -fx-font-size: 15px;
+    -fx-wrap-text: true;
+    -fx-max-width: Infinity;
+    -fx-alignment: TOP-LEFT;
+    -fx-padding: 2;
+}
+
+.check-box {
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+}
+
+.check-box .box {
+    -fx-background-color: transparent;
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+    -fx-border-color: #1d85c8;
+    -fx-border-width: 2px;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #1d85c8;
+    -fx-border-color: #0b76ef;
+}
+
+.check-box:hover .box {
+    -fx-background-color: #0b76ef;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: rgba(255, 255, 255, 0.18);
+    -fx-padding: 5px;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.scroll-pane .scroll-bar:hover {
+    -fx-background-color: transparent;
+}
+
+.grid-pane {
+    -fx-background-color: rgba(0, 123, 255, 0.2);
+    -fx-border-color: rgba(0, 123, 255, 0.6);
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-padding: 15px;
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+}
+
+.grid-pane .cell {
+    -fx-background-color: #ffffff;
+    -fx-border-color: rgba(0, 123, 255, 0.4);
+    -fx-border-width: 1px;
+    -fx-padding: 10px;
+    -fx-text-fill: #333;
+    -fx-font-size: 14px;
+}
+
+.grid-pane .cell:hover {
+    -fx-background-color: rgba(0, 123, 255, 0.1);
+    -fx-border-color: rgba(0, 123, 255, 0.7);
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(0, 123, 255, 0.8);
+    -fx-background-radius: 5px;
+}
+
+.scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: rgba(0, 123, 255, 0.8);
+    -fx-background-radius: 5px;
+}
+
+.table-view {
+    -fx-font-size: 9px;
+    -fx-background-color: rgba(0, 123, 255, 0.2);
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333;
+}
+
+.table-view .table-row-cell:filled:selected {
+    -fx-background-color: #28a3f4;
+    -fx-text-fill: white;
+}
+
+.table-view .table-column-header:hover {
+    -fx-background-color: #007bff;
+}
+
+.table-view .table-cell {
+    -fx-background-color: #62a1ff;
+    -fx-pref-height: use-compute-size;
+}
+
+.table-view .table-cell:hover {
+    -fx-text-fill: black;
+    -fx-background-color: #f0f8ff;
+}
+
+.table-column-header {
+    -fx-font-size: 3px;
+    -fx-background-color: #28a3f4;
+}
+
+.table-view .table-column-header-background {
+    -fx-background-color: #28a3f4;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-min-height: 10px;
+    -fx-pref-height: 10px;
+}
+
+.table-view .table-column-header {
+    -fx-font-size: 10px;
+    -fx-text-fill: white;
+    -fx-background-color: #28a3f4;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-min-height: 10px;
+    -fx-pref-height: 35px;
+}
+
+.table-view .table-column .label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-alignment: center;
+}
+
+.text-field {
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, #021760, 5, 0.5, 0, 0);
+    -fx-border-width: 0.5;
+    -fx-border-color: #021760;
+    -fx-padding: 10px 1rem;
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+    -fx-outline-color: #021760;
+    -fx-outline-width: 2px;
+    -fx-text-fill:  white;
+    -fx-font-weight: bold;
+    -fx-outline-offset: 3px;
+    -fx-font-family: "Segoe UI", Roboto, "Open Sans", "Helvetica Neue", sans-serif;
+    -fx-transition: all 0.25s ease-in-out;
+}
+
+.text-field:focused {
+    -fx-background-color: #fff;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow(gaussian, #021760, 5, 0.5, 0, 0);
+}
+
+.list-view {
+    -fx-font-size: 15px;
+    -fx-background-color: rgba(0, 123, 255, 0.2);
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+}
+
+.list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI", Roboto, sans-serif;
+    -fx-text-fill: #333;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: #0078D7;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.list-view .list-cell:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #f0f8ff;
+    -fx-text-fill: #000000;
+}
+
+.list-view .list-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.combo-box {
+    -fx-background-color: rgba(0, 123, 255, 0.2);
+    -fx-border-color: rgba(199, 226, 255, 0.77);
+    -fx-font-size: 9px;
+    -fx-font-family: "Segoe UI", Roboto, sans-serif;
+    -fx-text-fill: white;
+}
+
+.text-area{
+    -fx-background-color: transparent;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI", Roboto, sans-serif;
+    -fx-text-fill: #333;
+}
+
+.radio-button {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C3E50;
+    -fx-padding: 5px 10px;
+}
+
+.radio-button .radio {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #3498DB;
+    -fx-border-width: 1px;
+    -fx-border-radius: 50%;
+    -fx-pref-width: 20px;
+    -fx-pref-height: 19px;
+}
+
+.radio-button:selected .radio {
+    -fx-background-color: #3498DB;
+    -fx-border-color: #3498DB;
+}
+.radio-button:selected .dot {
+    -fx-background-color: #000000;
+}
+.radio-button:hover .radio {
+    -fx-border-color: #5DADE2;
+}
+.radio-button:disabled {
+    -fx-opacity: 0.5;
+}
+.test-imageBook {
+    -fx-effect: dropshadow(gaussian, rgb(248, 0, 0), 10, 0.5, 0, 0);
+    -fx-background-color: linear-gradient(to bottom, #b0e0e6, #1da9e3);
+    -fx-border-color: #87ceeb;
+    -fx-border-width: 2;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 5;
+}
+.test-imageBook .image{
+    -fx-border-radius: 15px;
+}

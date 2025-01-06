@@ -74,7 +74,7 @@ public class AllBooksTableController extends AdminController implements Initiali
         rowNum.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getLocation().getRowNum()));
         authors = new TableColumn<>("Автор");
-        authors.setPrefWidth(200);
+        authors.setPrefWidth(220);
         authors.setCellValueFactory(cell -> {
             Set<Author> authors = cell.getValue().getAuthors();
             String authorsText = authors.stream()

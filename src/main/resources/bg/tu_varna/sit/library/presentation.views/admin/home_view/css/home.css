@@ -1,0 +1,64 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom, #87CEFA, #B0E0E6);
+}
+
+.label {
+    -fx-font-size: 26px;
+    -fx-text-fill: #2C3E50;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 10px;
+}
+
+.button {
+    -fx-padding: 1px 40px;
+    -fx-border-color: #0cbcfd;
+    -fx-background-color: white;
+    -fx-background-radius: 50px;
+    -fx-border-radius: 42px;
+    -fx-border-width: 0.5px;
+    -fx-text-fill: black;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-transform: up;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 8, 0, 0, 0);
+    -fx-transition: all 0.5s ease;
+    -fx-cursor: hand;
+    /* -fx-wrap-text: true; /* Позволява текстът да се пренася при нужда */
+    -fx-alignment: center; /* Центрираме текста */
+}
+
+.bigButton {
+    -fx-font-size: 14px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+.button:hover {
+    -fx-background-color: rgba(40, 132, 225, 0.58);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(48, 16, 147, 0.58), 29, 0, 0, 7);
+}
+
+.button:pressed {
+    -fx-background-color: rgba(40, 132, 225, 0.58);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(48, 16, 147, 0.58), 29, 0, 0, 7);
+    -fx-translate-y: 10px;
+}
+
+.transparent-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-text-fill: inherit;
+    -fx-effect: null;
+}
+
+.transparent-button:hover {
+    -fx-cursor: hand;
+}

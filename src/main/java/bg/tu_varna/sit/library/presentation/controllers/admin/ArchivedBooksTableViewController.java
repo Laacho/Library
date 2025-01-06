@@ -61,7 +61,7 @@ public class ArchivedBooksTableViewController extends AdminController implements
 
     private void initializeColumns() {
         title = new TableColumn<>("Заглавие");
-        title.setPrefWidth(100);
+        title.setPrefWidth(120);
         title.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getTitle()));
         shelfName = new TableColumn<>("Рафт");

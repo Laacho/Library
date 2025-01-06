@@ -73,7 +73,7 @@ public class ReaderProfileTableViewController extends AdminController implements
             return new SimpleObjectProperty<>(result);
         });
         approve = new TableColumn<>("Approve");
-        approve.setPrefWidth(146);
+        approve.setPrefWidth(169.25);
         approve.setCellValueFactory(cell -> {
             boolean approved = cell.getValue().isApproved();
             if (!approved) {

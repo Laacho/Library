@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane onKeyPressed="#searchWithEnter" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="752.0" style="-fx-background-color: rgba(23,132,245,0.58);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.admin.ApproveProfilesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#searchWithEnter" prefHeight="640.0" prefWidth="900.0" style="-fx-background-color: rgba(23,132,245,0.58);" stylesheets="@../../../css/CSS.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.admin.ApproveProfilesController">
     <children>
         <AnchorPane layoutX="-7.0" layoutY="-9.0" prefHeight="611.0" prefWidth="143.0" style="-fx-background-color: rgb(252,252,252);">
             <children>
@@ -14,34 +14,38 @@
                         <Image url="@../../../logging/login/images/logo.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="homeButton" layoutX="26.0" layoutY="85.0" mnemonicParsing="false" onAction="#homeAdmin" prefHeight="46.0" prefWidth="91.0" text="Home" />
-                <Button fx:id="search" layoutX="25.0" layoutY="148.0" mnemonicParsing="false" onAction="#search" prefHeight="46.0" prefWidth="91.0" text="Search" />
-                <Button fx:id="addBook" layoutX="26.0" layoutY="207.0" mnemonicParsing="false" onAction="#addBook" prefHeight="46.0" prefWidth="91.0" text="Add Book" />
-                <Button fx:id="updateStatus" layoutX="26.0" layoutY="265.0" mnemonicParsing="false" onAction="#updateStatus" prefHeight="46.0" prefWidth="91.0" text="Update&#10;Status&#10;&#10;" textAlignment="CENTER" />
-                <Button fx:id="approveBooks" layoutX="26.0" layoutY="322.0" mnemonicParsing="false" onAction="#approveBooks" prefHeight="46.0" prefWidth="91.0" text="Approve&#10;Books&#10;&#10;" textAlignment="CENTER" />
-                <Button fx:id="approveProfiles" layoutX="26.0" layoutY="380.0" mnemonicParsing="false" onAction="#approveProfiles" prefHeight="46.0" prefWidth="91.0" text="Approve&#10;Profiles&#10;&#10;" textAlignment="CENTER" />
-                <Button fx:id="overdueBooks" layoutX="26.0" layoutY="492.0" mnemonicParsing="false" onAction="#overdueBooks" prefHeight="46.0" prefWidth="91.0" text="Overdue&#10;Books&#10;&#10;" textAlignment="CENTER" />
-                <Button fx:id="returnBooks" layoutX="26.0" layoutY="435.0" mnemonicParsing="false" onAction="#returnBooks" prefHeight="46.0" prefWidth="91.0" text="Return&#10;Books&#10;&#10;" textAlignment="CENTER" />
-                <Button fx:id="sendEmail" layoutX="26.0" layoutY="551.0" mnemonicParsing="false" onAction="#sendEmail" prefHeight="46.0" prefWidth="91.0" text="Send&#10;Email&#10;&#10;" textAlignment="CENTER" />
+                <Button fx:id="homeButton" layoutX="13.0" layoutY="87.0" mnemonicParsing="false" onAction="#homeAdmin" prefHeight="46.0" prefWidth="125.0" text="Home" />
+                <Button fx:id="search" layoutX="13.0" layoutY="147.0" mnemonicParsing="false" onAction="#search" prefHeight="46.0" prefWidth="125.0" text="Search" />
+                <Button fx:id="addBook" layoutX="13.0" layoutY="207.0" mnemonicParsing="false" onAction="#addBook" prefHeight="46.0" prefWidth="125.0" text="Add&#10;Book" />
+                <Button fx:id="updateStatus" layoutX="13.0" layoutY="265.0" mnemonicParsing="false" onAction="#updateStatus" prefHeight="46.0" prefWidth="125.0" text="Update&#10;Status" textAlignment="CENTER" />
+                <Button fx:id="approveBooks" layoutX="13.0" layoutY="322.0" mnemonicParsing="false" onAction="#approveBooks" prefHeight="46.0" prefWidth="125.0" text="Approve&#10;Books" textAlignment="CENTER" />
+                <Button fx:id="approveProfiles" layoutX="13.0" layoutY="380.0" mnemonicParsing="false" onAction="#approveProfiles" prefHeight="46.0" prefWidth="125.0" text="Approve&#10;Profiles" textAlignment="CENTER" />
+                <Button fx:id="overdueBooks" layoutX="13.0" layoutY="492.0" mnemonicParsing="false" onAction="#overdueBooks" prefHeight="46.0" prefWidth="125.0" text="Overdue&#10;Books" textAlignment="CENTER" />
+                <Button fx:id="returnBooks" layoutX="13.0" layoutY="435.0" mnemonicParsing="false" onAction="#returnBooks" prefHeight="46.0" prefWidth="125.0" text="Return&#10;Books" textAlignment="CENTER" />
+                <Button fx:id="sendEmail" layoutX="13.0" layoutY="551.0" mnemonicParsing="false" onAction="#sendEmail" prefHeight="46.0" prefWidth="125.0" text="Send&#10;Email" textAlignment="CENTER" />
             </children>
         </AnchorPane>
-        <Label fx:id="welcomeText" layoutX="208.0" layoutY="23.0" prefHeight="82.0" prefWidth="339.0" text="Търси потребител по &#10;  потребителско име">
-            <font>
-                <Font size="26.0" />
-            </font>
-        </Label>
-      <TextField fx:id="searchTextField" layoutX="255.0" layoutY="113.0" prefHeight="25.0" prefWidth="194.0" />
-      <Button fx:id="searchButton" layoutX="463.0" layoutY="113.0" mnemonicParsing="false" onAction="#searchUser" prefHeight="25.0" prefWidth="60.0" text="Search" />
-      <Label fx:id="firstName" layoutX="239.0" layoutY="265.0" prefHeight="38.0" prefWidth="171.0" text="Име">
+        <Label fx:id="welcomeText" layoutX="230.0" layoutY="27.0" prefHeight="82.0" prefWidth="565.0" text="Търси потребител по потребителско име" />
+      <TextField fx:id="searchTextField" layoutX="337.0" layoutY="113.0" prefHeight="25.0" prefWidth="315.0" />
+      <Button fx:id="searchButton" layoutX="673.0" layoutY="109.0" mnemonicParsing="false" onAction="#searchUser" prefHeight="25.0" prefWidth="60.0" styleClass="transparent-button">
+          <graphic>
+              <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="433.0" layoutY="46.0">
+                  <image>
+                      <Image url="@../images/search.png" />
+                  </image>
+              </ImageView>
+          </graphic>
+      </Button>
+      <Label fx:id="firstName" layoutX="242.0" layoutY="291.0" prefHeight="38.0" prefWidth="493.0" styleClass="smaller-text-left" text="Име">
          <font>
             <Font size="26.0" />
          </font>
       </Label>
-      <Label fx:id="lastName" layoutX="239.0" layoutY="324.0" prefHeight="26.0" prefWidth="228.0" text="Фамилия" />
-      <Label fx:id="id" layoutX="239.0" layoutY="139.0" prefHeight="46.0" prefWidth="126.0" text="Потребителско ID" />
-      <Label fx:id="birthdate" layoutX="239.0" layoutY="370.0" prefHeight="18.0" prefWidth="280.0" text="Рожден ден" />
-      <Label fx:id="username" layoutX="239.0" layoutY="197.0" prefHeight="18.0" prefWidth="292.0" text="Потребителско име" />
-      <Label fx:id="email" layoutX="239.0" layoutY="233.0" prefHeight="18.0" prefWidth="280.0" text="Имейл" />
-      <Button fx:id="approve" layoutX="342.0" layoutY="448.0" mnemonicParsing="false" onAction="#approve" prefHeight="72.0" prefWidth="171.0" text="Одобри" />
+      <Label fx:id="lastName" layoutX="242.0" layoutY="342.0" prefHeight="29.0" prefWidth="504.0" styleClass="smaller-text-left" text="Фамилия" />
+      <Label fx:id="id" layoutX="242.0" layoutY="157.0" prefHeight="46.0" prefWidth="504.0" styleClass="smaller-text-left" text="Потребителско ID" />
+      <Label fx:id="birthdate" layoutX="242.0" layoutY="388.0" prefHeight="29.0" prefWidth="504.0" styleClass="smaller-text-left" text="Рожден ден" />
+      <Label fx:id="username" layoutX="242.0" layoutY="215.0" prefHeight="29.0" prefWidth="504.0" styleClass="smaller-text-left" text="Потребителско име" />
+      <Label fx:id="email" layoutX="242.0" layoutY="251.0" prefHeight="29.0" prefWidth="493.0" styleClass="smaller-text-left" text="Имейл" />
+      <Button fx:id="approve" layoutX="409.0" layoutY="456.0" mnemonicParsing="false" onAction="#approve" prefHeight="72.0" prefWidth="171.0" text="Одобри" />
     </children>
 </AnchorPane>

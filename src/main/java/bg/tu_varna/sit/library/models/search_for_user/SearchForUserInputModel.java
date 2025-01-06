@@ -14,18 +14,9 @@ import jakarta.validation.constraints.*;
 @ToString
 public class SearchForUserInputModel implements OperationInput {
     @NotBlank(message = "Title must not be blank")
-    @Size(min = 1,message = "Size must be min 1")
+    @Size(min = 1, message = "Size must be min 1")
     private String title;
-
-    @NotBlank(message = "Author filter must not be blank")
-    @Size(min = 2, max = 50, message = "Author filter must be between 2 and 50 characters")
     private String filterAuthor;
-
-    @NotBlank(message = "Publisher filter must not be blank")
-    @Size(min = 2, max = 50, message = "Publisher filter must be between 2 and 50 characters")
     private String filterPublisher;
-
-    @NotBlank(message = "Genre filter must not be blank")
-    @Size(min = 2, max = 50, message = "Genre filter must be between 2 and 50 characters")
     private String filterGenre;
 }

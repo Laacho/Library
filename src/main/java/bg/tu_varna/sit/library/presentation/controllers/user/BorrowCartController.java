@@ -13,13 +13,17 @@ import io.vavr.control.Either;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import org.controlsfx.control.spreadsheet.Grid;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -81,12 +85,19 @@ public class BorrowCartController extends UserController implements Initializabl
         if (borrowedBooks.isEmpty()) {
             rows = 0;
         }
+        gridPaneLayout.setVgap(20);
+        gridPaneLayout.setHgap(20);
         for (CommonBooksProperties book : borrowedBooks) {
             ImageView imageView = getImageView(book);
             gridPaneLayout.add(imageView, 0, rows);
             Label label = getText(book);
-            gridPaneLayout.add(label, 1, rows);
-            Button button = new Button("X");
+            Pane pane = new Pane(label);
+            gridPaneLayout.add(pane, 1, rows);
+            Button button = new Button();
+            button.getStyleClass().add("transparent-button");
+            File file = new File("src/main/resources/bg/tu_varna/sit/library/presentation.views/admin/approve_books/images/x.png");
+            ImageView forButton = new ImageView(new Image(file.toURI().toString()));
+            button.setGraphic(forButton);
             HBox hBox = new HBox(button);
             hBox.setAlignment(Pos.CENTER_RIGHT);
             gridPaneLayout.add(hBox, 2, rows);

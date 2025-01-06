@@ -69,7 +69,7 @@ public class DiscardedBooksTableViewController extends AdminController implement
         reason.setCellValueFactory(cell ->
                 new SimpleStringProperty(cell.getValue().getReason()));
         discardingDate = new TableColumn<>("Дата");
-        discardingDate.setPrefWidth(120);
+        discardingDate.setPrefWidth(125);
         discardingDate.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getDiscardingDate()));
         authors = new TableColumn<>("Автор");

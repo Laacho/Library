@@ -15,12 +15,15 @@ import io.vavr.control.Either;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.*;
@@ -51,10 +54,16 @@ public class NotificationsController extends UserController implements Initializ
 
     private void fillGridPane(List<String> notifications) {
         int red = 0;
+        gridPane.getColumnConstraints().get(0).setPercentWidth(80);
         for (String notification : notifications) {
             Label label = new Label(notification);
-            gridPane.add(label, 0, red);
-            gridPane.add(new CheckBox(), 1, red);
+            Pane pane = new Pane(label);
+            gridPane.add(pane, 0, red);
+            CheckBox checkBox = new CheckBox();
+            StackPane box = new StackPane();
+            checkBox.setGraphic(box);
+            gridPane.add(checkBox, 1, red);
+            GridPane.setHalignment(checkBox, HPos.RIGHT);
             red++;
         }
     }

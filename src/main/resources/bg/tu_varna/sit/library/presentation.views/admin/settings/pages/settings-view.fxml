@@ -4,7 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane  onKeyPressed="#searchWithEnter" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="752.0" style="-fx-background-color: rgba(23,132,245,0.58);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.admin.SettingsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#searchWithEnter" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: rgba(23,132,245,0.58);" stylesheets="@../../../css/CSS.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bg.tu_varna.sit.library.presentation.controllers.admin.SettingsController">
     <children>
         <AnchorPane layoutX="-7.0" layoutY="-9.0" prefHeight="611.0" prefWidth="143.0" style="-fx-background-color: rgb(252,252,252);">
             <children>
@@ -13,35 +13,43 @@
                         <Image url="@../../../logging/login/images/logo.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="homeButton" layoutX="26.0" layoutY="85.0" mnemonicParsing="false" onAction="#homeAdmin" prefHeight="46.0" prefWidth="91.0" text="Home" />
-                <Button fx:id="search" layoutX="25.0" layoutY="148.0" mnemonicParsing="false" onAction="#search" prefHeight="46.0" prefWidth="91.0" text="Search" />
-                <Button fx:id="addBook" layoutX="26.0" layoutY="207.0" mnemonicParsing="false" onAction="#addBook" prefHeight="46.0" prefWidth="91.0" text="Add Book" />
-                <Button fx:id="updateStatus" layoutX="26.0" layoutY="265.0" mnemonicParsing="false" onAction="#updateStatus" prefHeight="46.0" prefWidth="91.0" text="Update&#10;Status&#10;&#10;" textAlignment="CENTER" />
-                <Button fx:id="approveBooks" layoutX="26.0" layoutY="322.0" mnemonicParsing="false" onAction="#approveBooks" prefHeight="46.0" prefWidth="91.0" text="Approve&#10;Books&#10;&#10;" textAlignment="CENTER" />
-                <Button fx:id="approveProfiles" layoutX="26.0" layoutY="380.0" mnemonicParsing="false" onAction="#approveProfiles" prefHeight="46.0" prefWidth="91.0" text="Approve&#10;Profiles&#10;&#10;" textAlignment="CENTER" />
-                <Button fx:id="overdueBooks" layoutX="26.0" layoutY="492.0" mnemonicParsing="false" onAction="#overdueBooks" prefHeight="46.0" prefWidth="91.0" text="Overdue&#10;Books&#10;&#10;" textAlignment="CENTER" />
-                <Button fx:id="returnBooks" layoutX="26.0" layoutY="435.0" mnemonicParsing="false" onAction="#returnBooks" prefHeight="46.0" prefWidth="91.0" text="Return&#10;Books&#10;&#10;" textAlignment="CENTER" />
-                <Button fx:id="sendEmail" layoutX="26.0" layoutY="551.0" mnemonicParsing="false" onAction="#sendEmail" prefHeight="46.0" prefWidth="91.0" text="Send&#10;Email&#10;&#10;" textAlignment="CENTER" />
+                <Button fx:id="homeButton" layoutX="13.0" layoutY="87.0" mnemonicParsing="false" onAction="#homeAdmin" prefHeight="46.0" prefWidth="125.0" text="Home" />
+                <Button fx:id="search" layoutX="13.0" layoutY="147.0" mnemonicParsing="false" onAction="#search" prefHeight="46.0" prefWidth="125.0" text="Search" />
+                <Button fx:id="addBook" layoutX="13.0" layoutY="207.0" mnemonicParsing="false" onAction="#addBook" prefHeight="46.0" prefWidth="125.0" text="Add&#10;Book" />
+                <Button fx:id="updateStatus" layoutX="13.0" layoutY="265.0" mnemonicParsing="false" onAction="#updateStatus" prefHeight="46.0" prefWidth="125.0" text="Update&#10;Status" textAlignment="CENTER" />
+                <Button fx:id="approveBooks" layoutX="13.0" layoutY="322.0" mnemonicParsing="false" onAction="#approveBooks" prefHeight="46.0" prefWidth="125.0" text="Approve&#10;Books" textAlignment="CENTER" />
+                <Button fx:id="approveProfiles" layoutX="13.0" layoutY="380.0" mnemonicParsing="false" onAction="#approveProfiles" prefHeight="46.0" prefWidth="125.0" text="Approve&#10;Profiles" textAlignment="CENTER" />
+                <Button fx:id="overdueBooks" layoutX="13.0" layoutY="492.0" mnemonicParsing="false" onAction="#overdueBooks" prefHeight="46.0" prefWidth="125.0" text="Overdue&#10;Books" textAlignment="CENTER" />
+                <Button fx:id="returnBooks" layoutX="13.0" layoutY="435.0" mnemonicParsing="false" onAction="#returnBooks" prefHeight="46.0" prefWidth="125.0" text="Return&#10;Books" textAlignment="CENTER" />
+                <Button fx:id="sendEmail" layoutX="13.0" layoutY="551.0" mnemonicParsing="false" onAction="#sendEmail" prefHeight="46.0" prefWidth="125.0" text="Send&#10;Email" textAlignment="CENTER" />
             </children>
         </AnchorPane>
-        <TextField fx:id="searchTextField" layoutX="226.0" layoutY="61.0" promptText="search" />
-        <Button fx:id="searchButton" layoutX="397.0" layoutY="61.0" mnemonicParsing="false" onAction="#searchUser" text="Search" />
-        <Label layoutX="173.0" layoutY="127.0" prefHeight="26.0" prefWidth="106.0" text="First name" />
-        <Label layoutX="173.0" layoutY="161.0" prefHeight="26.0" prefWidth="106.0" text="Last Name" />
-        <Label layoutX="173.0" layoutY="199.0" prefHeight="26.0" prefWidth="106.0" text="Role" />
-        <Label layoutX="173.0" layoutY="236.0" prefHeight="26.0" prefWidth="106.0" text="Verified" />
-        <Label layoutX="173.0" layoutY="273.0" prefHeight="26.0" prefWidth="106.0" text="Rating" />
-        <Label layoutX="173.0" layoutY="300.0" prefHeight="26.0" prefWidth="106.0" text="Email" />
-        <Button fx:id="promoteButton" onAction="#promoteAction" layoutX="513.0" layoutY="101.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="106.0" text="Promote" />
-        <Button fx:id="demoteButton" layoutX="513.0" onAction="#demoteAction" layoutY="187.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="106.0" text="Demote" />
-        <Button fx:id="deleteUserButton" layoutX="513.0" onAction="#deleteUserAction" layoutY="348.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="106.0" text="Delete User" />
-        <Button fx:id="resetPasswordButton" layoutX="513.0" layoutY="267.0" onAction="#resetPasswordAction" mnemonicParsing="false" prefHeight="60.0" prefWidth="106.0" text="   Reset &#10;Password" />
-        <Label fx:id="firstNameResult" layoutX="272.0" layoutY="127.0" prefHeight="26.0" prefWidth="118.0" text="Label" />
-        <Label fx:id="lastNameResult" layoutX="272.0" layoutY="161.0" prefHeight="26.0" prefWidth="118.0" text="Label" />
-        <Label fx:id="roleResult" layoutX="272.0" layoutY="199.0" prefHeight="26.0" prefWidth="118.0" text="Label" />
-        <Label fx:id="verifiedResult" layoutX="272.0" layoutY="236.0" prefHeight="26.0" prefWidth="118.0" text="Label" />
-        <Label fx:id="ratingResult" layoutX="272.0" layoutY="272.0" prefHeight="26.0" prefWidth="118.0" text="Label" />
-        <Label fx:id="EmailResult" layoutX="272.0" layoutY="300.0" prefHeight="46.0" prefWidth="184.0" text="Label" />
+        <TextField fx:id="searchTextField" layoutX="210.0" layoutY="57.0" prefHeight="29.0" prefWidth="207.0" promptText="search" />
+        <Button fx:id="searchButton" layoutX="443.0" layoutY="52.0" mnemonicParsing="false" onAction="#searchUser" styleClass="transparent-button">
+            <graphic>
+                <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="433.0" layoutY="46.0">
+                    <image>
+                        <Image url="@../images/search.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Label layoutX="173.0" layoutY="146.0" prefHeight="26.0" prefWidth="106.0" styleClass="smaller-text-left" text="First name" />
+        <Label layoutX="173.0" layoutY="180.0" prefHeight="26.0" prefWidth="106.0" styleClass="smaller-text-left" text="Last Name" />
+        <Label layoutX="173.0" layoutY="218.0" prefHeight="26.0" prefWidth="106.0" styleClass="smaller-text-left" text="Role" />
+        <Label layoutX="173.0" layoutY="257.0" prefHeight="26.0" prefWidth="106.0" styleClass="smaller-text-left" text="Verified" />
+        <Label layoutX="173.0" layoutY="292.0" prefHeight="26.0" prefWidth="106.0" styleClass="smaller-text-left" text="Rating" />
+        <Label layoutX="173.0" layoutY="327.0" prefHeight="26.0" prefWidth="106.0" styleClass="smaller-text-left" text="Email" />
+        <Button fx:id="promoteButton" layoutX="597.0" layoutY="101.0" mnemonicParsing="false" onAction="#promoteAction" prefHeight="80.0" prefWidth="170.0" text="Promote" />
+        <Button fx:id="demoteButton" layoutX="597.0" layoutY="196.0" mnemonicParsing="false" onAction="#demoteAction" prefHeight="80.0" prefWidth="170.0" text="Demote" />
+        <Button fx:id="deleteUserButton" layoutX="597.0" layoutY="406.0" mnemonicParsing="false" onAction="#deleteUserAction" prefHeight="80.0" prefWidth="170.0" text="Delete User" />
+        <Button fx:id="resetPasswordButton" layoutX="597.0" layoutY="291.0" mnemonicParsing="false" onAction="#resetPasswordAction" prefHeight="80.0" prefWidth="170.0" text="   Reset &#10;Password" />
+        <Label fx:id="firstNameResult" layoutX="304.0" layoutY="147.0" prefHeight="29.0" prefWidth="155.0" styleClass="smaller-text-left" text="Search to display" />
+        <Label fx:id="lastNameResult" layoutX="304.0" layoutY="181.0" prefHeight="29.0" prefWidth="155.0" styleClass="smaller-text-left" text="Search to display" />
+        <Label fx:id="roleResult" layoutX="304.0" layoutY="219.0" prefHeight="29.0" prefWidth="155.0" styleClass="smaller-text-left" text="Search to display" />
+        <Label fx:id="verifiedResult" layoutX="304.0" layoutY="256.0" prefHeight="29.0" prefWidth="155.0" styleClass="smaller-text-left" text="Search to display" />
+        <Label fx:id="ratingResult" layoutX="304.0" layoutY="292.0" prefHeight="29.0" prefWidth="170.0" styleClass="smaller-text-left" text="Search to display" />
+        <Label fx:id="EmailResult" layoutX="304.0" layoutY="320.0" prefHeight="46.0" prefWidth="291.0" styleClass="smaller-text-left" text="Search to display" />
 
     </children>
 </AnchorPane>
