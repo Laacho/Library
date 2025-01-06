@@ -1,5 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
+import bg.tu_varna.sit.library.data.entities.ArchivedBooks;
 import bg.tu_varna.sit.library.exceptions.UserWithIdDoesNotExist;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
@@ -23,8 +24,8 @@ AuthorRepositoryImpl implements AuthorRepository {
         Transaction transaction = session.beginTransaction();
         Long result = null;
         try {
-            result = (Long) session.save(entity);
-            transaction.commit();
+            Author merge = session.merge(entity);
+            result = merge.getId();
             log.info("Author saved successfully");
         } catch (Exception ex){
             log.error("Error while saving author ", ex);

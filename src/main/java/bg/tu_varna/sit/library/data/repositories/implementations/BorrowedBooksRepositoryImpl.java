@@ -28,8 +28,10 @@ public class BorrowedBooksRepositoryImpl implements BorrowedBooksRepository {
         Transaction transaction = session.beginTransaction();
         Long result = null;
         try {
-            result = (Long) session.save(entity);
-            transaction.commit();
+           // result = (Long) session.save(entity);
+            BorrowedBooks merge = session.merge(entity);
+            result = merge.getId();
+          //  transaction.commit();
             log.info("Successfully saved entity: " + entity);
         } catch (Exception ex) {
             log.error("Error while saving entity" + entity, ex);

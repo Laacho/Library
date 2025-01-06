@@ -4,6 +4,9 @@ import bg.tu_varna.sit.library.data.entities.BorrowedBooks;
 import bg.tu_varna.sit.library.models.approve_books.BooksForApproveData;
 import bg.tu_varna.sit.library.utils.annotations.Mapper;
 import bg.tu_varna.sit.library.utils.converters.base.Converter;
+
+import java.time.LocalDate;
+
 @Mapper(from = BorrowedBooks.class,to = BooksForApproveData.class)
 public class FromBorrowedBooksToBooksForApproveData implements Converter<BorrowedBooks, BooksForApproveData> {
     @Override

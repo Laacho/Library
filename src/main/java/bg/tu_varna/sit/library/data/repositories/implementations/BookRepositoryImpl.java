@@ -1,6 +1,7 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
 import bg.tu_varna.sit.library.data.access.Connection;
+import bg.tu_varna.sit.library.data.entities.ArchivedBooks;
 import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.data.entities.Genre;
 import bg.tu_varna.sit.library.data.enums.BookStatus;
@@ -30,8 +31,8 @@ public class BookRepositoryImpl implements BookRepository {
         Transaction transaction = session.beginTransaction();
         Long result = null;
         try {
-            result = (Long) session.save(entity);
-            transaction.commit();
+            Book merge = session.merge(entity);
+            result = merge.getId();
             log.info("Book saved: " + entity);
         } catch (Exception ex) {
             log.error("Error while saving book: " + entity, ex);

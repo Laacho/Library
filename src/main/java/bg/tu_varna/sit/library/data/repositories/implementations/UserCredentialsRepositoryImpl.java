@@ -1,6 +1,7 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
 import bg.tu_varna.sit.library.data.access.Connection;
+import bg.tu_varna.sit.library.data.entities.DiscardedBooks;
 import bg.tu_varna.sit.library.data.entities.User;
 import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
@@ -30,8 +31,8 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
         Transaction transaction = session.beginTransaction();
         Long result = null;
         try {
-            result = (Long) session.save(entity);
-            transaction.commit();
+            UserCredentials merge = session.merge(entity);
+            result = merge.getId();
             log.info("Successfully saved entity: " + entity);
         } catch (Exception ex) {
             log.error("Error saving entity: " + entity);
