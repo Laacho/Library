@@ -8,8 +8,8 @@ public class ConstantsPaths {
     public static final String ADMIN_USERS_TABLE_VIEW = "/bg/tu_varna/sit/library/presentation.views/admin/users_table_view/pages/users-table-view.fxml";
     public static final String ADMIN_NOTIFICATIONS="/bg/tu_varna/sit/library/presentation.views/admin/notification_view/pages/notification-view.fxml";
     public static final String ADMIN_READERS_TABLE_VIEW="/bg/tu_varna/sit/library/presentation.views/admin/reader_profile_view/pages/reader-profile-view.fxml";
-    public static final String ADMIN_PATH_TO_SAVE_IMAGES="src/main/resources/bg/tu_varna/sit/library/presentation.views/admin/addBook/images/book_images";
-    public static final String ADMIN_DOUBLE_CLICK_FOR_BOOK_VIEW="/bg/tu_varna/sit/library/presentation.views/admin/book_data_view/pages/book-data-view.fxml";
+    public static final String ADMIN_PATH_TO_SAVE_IMAGES="src/main/resources/bg/tu_varna/sit/library/presentation.views/admin/add_book/images/book_images";
+    public static final String ADMIN_DOUBLE_CLICK_FOR_BOOK_VIEW="src/main/resources/bg/tu_varna/sit/library/presentation.views/admin/add_book/images/book_images";
     public static final String ADMIN_RETURN_TO_HOME_VIEW_AFTER_APPROVING_BOOKS ="/bg/tu_varna/sit/library/presentation.views/admin/home_view/pages/admin-home-view.fxml";
 
 
