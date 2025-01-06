@@ -45,7 +45,8 @@ public class BorrowedBooksRepositoryImpl implements BorrowedBooksRepository {
         Transaction transaction = session.beginTransaction();
         try {
             for (BorrowedBooks entity : entities) {
-                session.save(entity);
+                session.merge(entity);
+
             }
             transaction.commit();
             log.info("Successfully saved entities: " + entities);

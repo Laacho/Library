@@ -104,7 +104,7 @@ public class SearchForUserController extends UserController implements Initializ
                 resultListView.setVisible(true);
                 resultListView.setItems(FXCollections.observableList(List.of("No books found")));
             } else {
-                resultListView.setPrefHeight(formattedResult.size() * 60);
+                resultListView.setPrefHeight(formattedResult.size() * 100);
                 resultListView.setItems(FXCollections.observableArrayList(formattedResult));
             }
         }

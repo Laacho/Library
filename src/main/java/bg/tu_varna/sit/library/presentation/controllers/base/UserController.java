@@ -15,8 +15,6 @@ public class UserController extends Controller {
     @FXML
     private Button search;
     @FXML
-    private Button borrowBooks;
-    @FXML
     private Button readerProfile;
     @FXML
     private Button allBooks;
@@ -28,7 +26,6 @@ public class UserController extends Controller {
     public void disableFocusOnButtons(){
         homeButton.setFocusTraversable(false);
         search.setFocusTraversable(false);
-        borrowBooks.setFocusTraversable(false);
         readerProfile.setFocusTraversable(false);
         allBooks.setFocusTraversable(false);
         aboutUs.setFocusTraversable(false);
@@ -43,15 +40,11 @@ public class UserController extends Controller {
 
     @FXML
     public void search(ActionEvent actionEvent) throws IOException {
-       // setPath("/bg/tu_varna/sit/library/presentation.views/user/search_for_user/pages/search-for-user-view.fxml");
-        setPath(USER_SEARCH_FOR_USER_VIEW);
+        setPath("/bg/tu_varna/sit/library/presentation.views/user/search_for_user/pages/search-for-user-view.fxml");
+        //setPath(USER_SEARCH_FOR_USER_VIEW);
         changeScene(actionEvent);
     }
 
-    @FXML
-    public void borrowBooks(ActionEvent actionEvent) throws IOException {
-
-    }
 
     @FXML
     public void readerProfile(ActionEvent actionEvent) throws IOException {
@@ -62,7 +55,7 @@ public class UserController extends Controller {
 
     @FXML
     public void allBooks(ActionEvent actionEvent) throws IOException {
-      //  setPath("/bg/tu_varna/sit/library/presentation.views/user/user_all_books_view/pages/user-all-books-view.fxml");
+       //setPath("/bg/tu_varna/sit/library/presentation.views/user/user_all_books_view/pages/user-all-books-view.fxml");
         setPath(USER_ALL_BOOKS_VIEW);
         changeScene(actionEvent);
     }
