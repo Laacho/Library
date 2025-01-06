@@ -1,5 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
+import bg.tu_varna.sit.library.exceptions.UserWithIdDoesNotExist;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.Publisher;
@@ -97,8 +98,7 @@ public class PublisherRepositoryImpl implements PublisherRepository {
             if (result.isPresent())
                 session.delete(result.get());
             else {
-                //todo replace with better exception
-                throw new RuntimeException();
+                throw new UserWithIdDoesNotExist("Publisher Not Found!","Publisher with id " + id + " does not exist");
             }
             transaction.commit();
             log.info("Successfully deleted publisher with id "+id);

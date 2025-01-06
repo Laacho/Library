@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
 import javafx.stage.StageStyle;
+import lombok.Getter;
 import org.apache.log4j.Logger;
 
 @Singleton
@@ -12,7 +13,8 @@ public final class AlertManager {
     private static final Logger log = Logger.getLogger(AlertManager.class);
 
     private AlertManager(){}
-
+    @Getter
+    private static Alert lastAlert;
     public static Alert showAlert(Alert.AlertType type, String header, String message, ButtonType... buttons) {
         log.info("Started creating alert");
         Alert alert = new Alert(type);
@@ -22,6 +24,7 @@ public final class AlertManager {
         alert.initStyle(StageStyle.UNDECORATED);
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.getButtonTypes().setAll(buttons);
+        lastAlert = alert;
         alert.showAndWait();
         log.info("Finished creating alert");
         return alert;

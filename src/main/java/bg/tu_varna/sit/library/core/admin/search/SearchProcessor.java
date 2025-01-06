@@ -19,12 +19,10 @@ import java.util.List;
 @Processor
 public class SearchProcessor extends BaseProcessor implements SearchOperationModel {
     private final BookRepository bookRepository;
-    private final ExceptionManager exceptionManager;
     private static final Logger log = Logger.getLogger(SearchProcessor.class);
 
 
     private SearchProcessor() {
-        this.exceptionManager = SingletonFactory.getSingletonInstance(ExceptionManager.class);
         this.bookRepository = SingletonFactory.getSingletonInstance(BookRepositoryImpl.class);
     }
 

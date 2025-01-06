@@ -47,6 +47,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import static bg.tu_varna.sit.library.utils.ConstantsPaths.USER_BOOK_DATA_FOR_USER;
+
 public class SearchForUserController extends UserController implements Initializable {
     @FXML
     private ComboBox<String> authorComboBox;
@@ -180,7 +182,8 @@ public class SearchForUserController extends UserController implements Initializ
 
     public void changeToBookView(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getClickCount() == 2) {
-            setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book-data-for-user-view.fxml");
+            //setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book-data-for-user-view.fxml");
+            setPath(USER_BOOK_DATA_FOR_USER);
             int selectedIndex = resultListView.getSelectionModel().getSelectedIndex();
             Book book = result.get(selectedIndex);
             BookDataController.booksData= conversionService.convert(book, CommonBooksProperties.class);

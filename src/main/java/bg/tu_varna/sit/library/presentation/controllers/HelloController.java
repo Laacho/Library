@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static bg.tu_varna.sit.library.utils.ConstantsPaths.LOGGING_CHANGE_TO_LOGIN_VIEW;
+import static bg.tu_varna.sit.library.utils.ConstantsPaths.LOGGING_CHANGE_TO_REGISTER_VIEW;
+
 public class HelloController extends Controller implements Initializable {
     private final LogoutOperationModel logoutOperationModel;
 
@@ -28,12 +31,14 @@ public class HelloController extends Controller implements Initializable {
 
     @FXML
     protected void changeHomeViewToLoginView(ActionEvent actionEvent) throws IOException {
-        super.setPath("/bg/tu_varna/sit/library/presentation.views/logging/login/pages/login-view.fxml");
+        //setPath("/bg/tu_varna/sit/library/presentation.views/logging/login/pages/login-view.fxml");
+        setPath(LOGGING_CHANGE_TO_LOGIN_VIEW);
         changeScene(actionEvent);
     }
     @FXML
     protected void changeHomeViewToRegisterView(ActionEvent actionEvent) throws IOException {
-        super.setPath("/bg/tu_varna/sit/library/presentation.views/logging/register/pages/register-view.fxml");
+        //setPath("/bg/tu_varna/sit/library/presentation.views/logging/register/pages/register-view.fxml");
+        setPath(LOGGING_CHANGE_TO_REGISTER_VIEW);
         changeScene(actionEvent);
     }
 
@@ -48,7 +53,6 @@ public class HelloController extends Controller implements Initializable {
                 } else {
                     AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", process.get().getMessage(), ButtonType.OK);
                 }
-
         }
     }
 }

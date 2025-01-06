@@ -42,6 +42,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static bg.tu_varna.sit.library.utils.ConstantsPaths.USER_BOOK_DATA_FOR_USER;
+
 public class UserHomeViewController extends UserController implements Initializable {
     @FXML
     private GridPane newBooks;
@@ -154,7 +156,8 @@ public class UserHomeViewController extends UserController implements Initializa
 
     private void changeToBookInfo(Either<Exception, FindBookByIdOutputModel> process) throws IOException {
         CommonBooksProperties result = process.get().getBook();
-        setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book-data-for-user-view.fxml");
+       // setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book-data-for-user-view.fxml");
+        setPath(USER_BOOK_DATA_FOR_USER);
         BookDataController.booksData=result;
         FXMLLoader loader = changeScene((Stage) newBooks.getScene().getWindow());
         BookDataController controller = loader.getController();

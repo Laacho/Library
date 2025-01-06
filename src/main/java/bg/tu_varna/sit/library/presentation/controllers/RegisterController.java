@@ -18,6 +18,8 @@ import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 
+import static bg.tu_varna.sit.library.utils.ConstantsPaths.LOGGING_CHANGE_TO_CONFIRM_REGISTRATION_VIEW;
+
 public class RegisterController extends Controller {
 
     private final RegisterOperationModel registerProcessor;
@@ -52,7 +54,8 @@ public class RegisterController extends Controller {
                 .build();
         Either<Exception, RegisterOutputModel> process = registerProcessor.process(build);
         if(process.isRight()){
-            setPath("/bg/tu_varna/sit/library/presentation.views/logging/confirm_registration/pages/confirm-registration.fxml");
+          //  setPath("/bg/tu_varna/sit/library/presentation.views/logging/confirm_registration/pages/confirm-registration.fxml");
+            setPath(LOGGING_CHANGE_TO_CONFIRM_REGISTRATION_VIEW);
             changeScene(actionEvent);
         }
     }

@@ -1,5 +1,6 @@
 package bg.tu_varna.sit.library.data.repositories.implementations;
 
+import bg.tu_varna.sit.library.exceptions.UserWithIdDoesNotExist;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import bg.tu_varna.sit.library.data.access.Connection;
 import bg.tu_varna.sit.library.data.entities.ArchivedBooks;
@@ -98,8 +99,7 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
             if (archived.isPresent())
                 session.delete(archived.get());
             else {
-                //todo replace with better exception
-                throw new RuntimeException();
+                throw new UserWithIdDoesNotExist("Archive Books Not Found!","Archive Books with id " + id + " does not exist");
             }
             transaction.commit();
             log.info("Deleted successfully");

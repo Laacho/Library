@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static bg.tu_varna.sit.library.utils.ConstantsPaths.*;
+
 public class AdminHomeViewController extends AdminController implements Initializable {
     @FXML
     private Label welcomeText;
@@ -58,36 +60,42 @@ public class AdminHomeViewController extends AdminController implements Initiali
 
     @FXML
     public void allBooks(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin/all_books_view/pages/all-books-view.fxml");
+       // setPath("/bg/tu_varna/sit/library/presentation.views/admin/all_books_view/pages/all-books-view.fxml");
+        setPath(ADMIN_ALL_BOOKS_VIEW);
         changeScene(actionEvent);
     }
 
     @FXML
     public void discardedBooks(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin/discarded_books_view/pages/discarded-books-view.fxml");
+       // setPath("/bg/tu_varna/sit/library/presentation.views/admin/discarded_books_view/pages/discarded-books-view.fxml");
+        setPath(ADMIN_DISCARDED_BOOKS);
         changeScene(actionEvent);
     }
 
     @FXML
     public void archivedBooks(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin/archived_books_view/pages/archived-books-view.fxml");
+        //setPath("/bg/tu_varna/sit/library/presentation.views/admin/archived_books_view/pages/archived-books-view.fxml");
+        setPath(ADMIN_ARCHIVED_BOOKS);
         changeScene(actionEvent);
     }
 
     @FXML
     public void usersTableView(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin/users_table_view/pages/users-table-view.fxml");
+      //  setPath("/bg/tu_varna/sit/library/presentation.views/admin/users_table_view/pages/users-table-view.fxml");
+        setPath(ADMIN_USERS_TABLE_VIEW);
         changeScene(actionEvent);
     }
 
     @FXML
     public void notification(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin/notification_view/pages/notification-view.fxml");
+       // setPath("/bg/tu_varna/sit/library/presentation.views/admin/notification_view/pages/notification-view.fxml");
+        setPath(ADMIN_NOTIFICATIONS);
         changeScene(actionEvent);
     }
     @FXML
     public void readersTableView(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin/reader_profile_view/pages/reader-profile-view.fxml");
+        //setPath("/bg/tu_varna/sit/library/presentation.views/admin/reader_profile_view/pages/reader-profile-view.fxml");
+        setPath(ADMIN_READERS_TABLE_VIEW);
         changeScene(actionEvent);
     }
 }

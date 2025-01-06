@@ -16,6 +16,9 @@ import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 
+import static bg.tu_varna.sit.library.utils.ConstantsPaths.ADMIN_HOME_VIEW;
+import static bg.tu_varna.sit.library.utils.ConstantsPaths.USER_HOME_VIEW;
+
 public class LoginController extends Controller {
         private final LoginOperationModel processor;
 
@@ -40,12 +43,14 @@ public class LoginController extends Controller {
             LoginOutputModel outputModel = process.get();
             if(outputModel.getUserSession().getAdmin()){
                 //open admin scene
-                setPath("/bg/tu_varna/sit/library/presentation.views/admin/home_view/pages/admin-home-view.fxml");
+                //setPath("/bg/tu_varna/sit/library/presentation.views/admin/home_view/pages/admin-home-view.fxml");
+                setPath(ADMIN_HOME_VIEW);
                 changeScene(actionEvent);
             }
             else{
                 //open user scene
-                setPath("/bg/tu_varna/sit/library/presentation.views/user/user_home_view/pages/user-home-view.fxml");
+               // setPath("/bg/tu_varna/sit/library/presentation.views/user/user_home_view/pages/user-home-view.fxml");
+                setPath(USER_HOME_VIEW);
                 changeScene(actionEvent);
             }
         }

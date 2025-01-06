@@ -30,6 +30,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
 
+import static bg.tu_varna.sit.library.utils.ConstantsPaths.ADMIN_RETURN_TO_HOME_VIEW_AFTER_APPROVING_BOOKS;
+
 public class ApproveBookController extends AdminController implements Initializable {
     @FXML
     private Label userData;
@@ -92,7 +94,8 @@ public class ApproveBookController extends AdminController implements Initializa
         }
         Platform.runLater(() -> {
             Stage curStage = (Stage) (title.getScene().getWindow());
-            setPath("/bg/tu_varna/sit/library/presentation.views/admin/home_view/pages/admin-home-view.fxml");
+           // setPath("/bg/tu_varna/sit/library/presentation.views/admin/home_view/pages/admin-home-view.fxml");
+            setPath(ADMIN_RETURN_TO_HOME_VIEW_AFTER_APPROVING_BOOKS);
             try {
                 changeScene(curStage);
             } catch (IOException e) {
@@ -112,7 +115,6 @@ public class ApproveBookController extends AdminController implements Initializa
                 setToSetInTheSet = new HashSet<>();
                 indexForRequest++;
                 if (indexForRequest < books.size()) {
-                    List<Book> tempList = new ArrayList<>(books.get(indexForRequest).getBooks());
                     indexForBook = 0;
                     accept();
                 } else {
@@ -139,7 +141,6 @@ public class ApproveBookController extends AdminController implements Initializa
                 setToSetInTheSet = new HashSet<>();
                 indexForRequest++;
                 if (indexForRequest < books.size()) {
-                    List<Book> tempList = new ArrayList<>(books.get(indexForRequest).getBooks());
                     indexForBook = 0;
                     decline();
                 } else {

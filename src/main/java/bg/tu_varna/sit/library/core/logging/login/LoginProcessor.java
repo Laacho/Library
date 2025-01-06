@@ -22,13 +22,11 @@ import org.jetbrains.annotations.NotNull;
 @Processor
 public class LoginProcessor extends BaseProcessor implements LoginOperationModel {
     private final UserCredentialsRepository userCredentialsRepository;
-    private final ExceptionManager exceptionManager;
     private static final Logger log = Logger.getLogger(LoginProcessor.class);
 
     private LoginProcessor() {
         super();
         this.userCredentialsRepository = SingletonFactory.getSingletonInstance(UserCredentialsRepositoryImpl.class);
-        this.exceptionManager = SingletonFactory.getSingletonInstance(ExceptionManager.class);
     }
 
     @Override

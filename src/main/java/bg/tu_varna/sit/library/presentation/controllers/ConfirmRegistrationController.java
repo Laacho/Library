@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static bg.tu_varna.sit.library.utils.ConstantsPaths.USER_HOME_VIEW;
+
 public class ConfirmRegistrationController extends Controller implements Initializable {
 
 
@@ -97,13 +99,15 @@ public class ConfirmRegistrationController extends Controller implements Initial
                 .build();
         Either<Exception, ConfirmRegistrationOutputModel> process = confirmRegistrationProcessor.process(build);
         if(process.isRight()){
-            setPath("/bg/tu_varna/sit/library/presentation.views/user/user_home_view/pages/user-home-view.fxml");
+            //setPath("/bg/tu_varna/sit/library/presentation.views/user/user_home_view/pages/user-home-view.fxml");
+            setPath(USER_HOME_VIEW);
             changeScene(actionEvent);
         }
     }
     @FXML
     public void skip(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/user/user_home_view/pages/user-home-view.fxml");
+       // setPath("/bg/tu_varna/sit/library/presentation.views/user/user_home_view/pages/user-home-view.fxml");
+        setPath(USER_HOME_VIEW);
         changeScene(actionEvent);
     }
 }

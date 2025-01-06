@@ -4,7 +4,6 @@ import bg.tu_varna.sit.library.utils.annotations.Processor;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import org.jetbrains.annotations.Nullable;
 import org.reflections.Reflections;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;

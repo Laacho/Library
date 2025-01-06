@@ -5,6 +5,7 @@ import bg.tu_varna.sit.library.data.entities.Book;
 import bg.tu_varna.sit.library.data.entities.Genre;
 import bg.tu_varna.sit.library.data.enums.BookStatus;
 import bg.tu_varna.sit.library.data.repositories.interfaces.BookRepository;
+import bg.tu_varna.sit.library.exceptions.UserWithIdDoesNotExist;
 import bg.tu_varna.sit.library.utils.annotations.Singleton;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -105,8 +106,7 @@ public class BookRepositoryImpl implements BookRepository {
             if (result.isPresent())
                 session.delete(result.get());
             else {
-                //todo replace with better exception
-                throw new RuntimeException();
+                throw new UserWithIdDoesNotExist("Book Not Found!","Book with id " + id + " does not exist");
             }
             transaction.commit();
             log.info("Book deleted: " + result);

@@ -1,6 +1,5 @@
 package bg.tu_varna.sit.library.models.archived_books;
 
-import bg.tu_varna.sit.library.models.archived_books.BooksData;
 import bg.tu_varna.sit.library.models.base.OperationOutput;
 import lombok.*;
 

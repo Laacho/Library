@@ -44,6 +44,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static bg.tu_varna.sit.library.utils.ConstantsPaths.USER_BOOK_DATA_FOR_USER;
+
 public class ReaderProfileController extends UserController implements Initializable {
     @FXML
     private GridPane gridPane;
@@ -292,14 +294,16 @@ public class ReaderProfileController extends UserController implements Initializ
     private void setButtonFunctionality(List<BookDataForReader> booksData, int finalI) throws IOException {
         BookDataForReader book = booksData.get(finalI);
         BookDataController.booksData = conversionService.convert(book, CommonBooksProperties.class);
-        setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book-data-for-user-view.fxml");
+        //setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book-data-for-user-view.fxml");
+        setPath(USER_BOOK_DATA_FOR_USER);
         FXMLLoader loader = changeScene((Stage) gridPane.getScene().getWindow());
         BookDataController controller = loader.getController();
         controller.change();
     }
 
     private void setButtonFunctionality(BookDataForReader book) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book-data-for-user-view.fxml");
+       // setPath("/bg/tu_varna/sit/library/presentation.views/user/book_data_for_user/pages/book-data-for-user-view.fxml");
+        setPath(USER_BOOK_DATA_FOR_USER);
         BookDataController.booksData = conversionService.convert(book, CommonBooksProperties.class);
         FXMLLoader loader = changeScene((Stage) gridPane.getScene().getWindow());
         BookDataController controller = loader.getController();

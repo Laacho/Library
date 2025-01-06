@@ -25,7 +25,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextBoundsType;
 import javafx.stage.FileChooser;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,6 +38,8 @@ import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
+
+import static bg.tu_varna.sit.library.utils.ConstantsPaths.ADMIN_PATH_TO_SAVE_IMAGES;
 
 public class AddBookController extends AdminController implements Initializable {
 
@@ -252,22 +253,18 @@ public class AddBookController extends AdminController implements Initializable 
         File selectedFile = fileChooser.showOpenDialog(addButton.getScene().getWindow());
         if (selectedFile!=null) {
             try {
-                Path path = Path.of("src/main/resources/bg/tu_varna/sit/library/presentation.views/admin/addBook/images/book_images");
+                Path path = Path.of(ADMIN_PATH_TO_SAVE_IMAGES);
                 Path targetPath = path.resolve(selectedFile.getName());
                 Files.copy(selectedFile.toPath(),targetPath, StandardCopyOption.REPLACE_EXISTING);
                 pathFromUser=targetPath.toString();
                 imageView.setImage(new Image(selectedFile.toURI().toString()));
             } catch (IOException e) {
-                AlertManager.showAlert(Alert.AlertType.INFORMATION, "Error!", "Error occurred while processing image");
+                AlertManager.showAlert(Alert.AlertType.INFORMATION, "Error!", "Error occurred while processing image",ButtonType.OK);
             }
         }
 
     }
-    @FXML
-    public void addBookReset(ActionEvent actionEvent) throws IOException {
-        setPath("/bg/tu_varna/sit/library/presentation.views/admin/add_book/pages/add-book-view.fxml");
-        changeScene(actionEvent);
-    }
+
 
 
 }
