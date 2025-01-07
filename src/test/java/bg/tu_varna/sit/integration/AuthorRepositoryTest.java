@@ -49,8 +49,8 @@ public class AuthorRepositoryTest {
         assertEquals(1L, byId.get().getId());
         Author author = byId.get();
         assertNotNull(author);
-        assertEquals("Ivan", author.getFirstName());
-        assertEquals("Petrov", author.getLastName());
+        assertEquals("Sun", author.getFirstName());
+        assertEquals("Tzu", author.getLastName());
     }
     @Test
     void testGetByIdFail(){

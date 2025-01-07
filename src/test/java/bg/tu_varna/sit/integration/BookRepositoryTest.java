@@ -57,9 +57,9 @@ public class BookRepositoryTest {
         Book book = byId.get();
         assertEquals(2L, book.getId());
         assertEquals("Harry Potter", book.getTitle());
-        assertEquals(98.00,book.getPrice().doubleValue());
+        assertEquals(15.99,book.getPrice().doubleValue());
         assertEquals("Fantasy",book.getGenre().getName());
-        assertEquals("Harper Collins",book.getPublisher().getName());
+        assertEquals("Orange",book.getPublisher().getName());
     }
     @Test
     void testBookContainingText(){
@@ -76,13 +76,13 @@ public class BookRepositoryTest {
     }
     @Test
     void testFindByGenreSuccess(){
-        String name="Fantasy";
+        String name="Psychology";
         Optional<Genre> byName = genreRepository.findByName(name);
         assertNotNull(byName);
         assertTrue(byName.isPresent());
         Genre genre = byName.get();
         List<Book> byGenre = bookRepository.findByGenre(genre);
-        assertEquals(3, byGenre.size());
+        assertEquals(1, byGenre.size());
     }
     @Test
     void findByInventoryNumber(){
@@ -90,10 +90,10 @@ public class BookRepositoryTest {
         assertNotNull(byInventoryNumber);
         assertTrue(byInventoryNumber.isPresent());
         Book book = byInventoryNumber.get();
-        assertEquals("Harry Potter", book.getTitle());
-        assertEquals(98.00,book.getPrice().doubleValue());
-        assertEquals("Fantasy",book.getGenre().getName());
-        assertEquals("Harper Collins",book.getPublisher().getName());
+        assertEquals("The art of war", book.getTitle());
+        assertEquals(12.99,book.getPrice().doubleValue());
+        assertEquals("Psychology",book.getGenre().getName());
+        assertEquals("Ozon",book.getPublisher().getName());
     }
     @Test
     void findByInventoryNumberError(){

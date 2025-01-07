@@ -43,11 +43,11 @@ public class ReaderProfileRepositoryTest {
     }
     @Test
     void testFindByIdSuccess(){
-        Optional<ReaderProfile> byId = readerProfileRepository.findById(2L);
+        Optional<ReaderProfile> byId = readerProfileRepository.findById(1L);
         assertTrue(byId.isPresent());
         ReaderProfile readerProfile = byId.get();
         assertNotNull(readerProfile);
-        assertEquals(2L, readerProfile.getId());
+        assertEquals(1L, readerProfile.getId());
     }
     @Test
     void testFindByIdFail(){

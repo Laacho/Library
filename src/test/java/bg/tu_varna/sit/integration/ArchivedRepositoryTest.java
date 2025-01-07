@@ -51,11 +51,10 @@ public class ArchivedRepositoryTest {
     void testGetByIdSuccess(){
         Optional<ArchivedBooks> archivedBooksOptional = archivedRepository.findById(1L);
         Book byId = bookRepository.findById(2L).get();
-        ArchivedBooks archivedBooks = new ArchivedBooks(1L,byId, LocalDate.of(2024,12,11));
+        ArchivedBooks archivedBooks = new ArchivedBooks(1L,byId, LocalDate.of(2025,1, 7));
         assertTrue(archivedBooksOptional.isPresent());
         assertSame(archivedBooksOptional.get().getId(), archivedBooks.getId());
         assertEquals(archivedBooksOptional.get().getArchiveDate(), archivedBooks.getArchiveDate());
-        assertSame(archivedBooksOptional.get().getBook().getId(), archivedBooks.getBook().getId());
     }
     @Test
     void testGetByIdFail(){

@@ -62,13 +62,13 @@ public class LocationRepositoryTest {
     @Test
     void testFindByNameAndRowSuccess(){
         String name = "Fantasy";
-        Long row=4L;
+        Long row=5L;
         Optional<Location> byNameAndRow = locationRepository.findByNameAndRow(name, row);
         assertNotNull(byNameAndRow);
         assertTrue(byNameAndRow.isPresent());
         Location location = byNameAndRow.get();
         assertNotNull(location);
-        assertEquals(4L,location.getRowNum());
+        assertEquals(5L,location.getRowNum());
 
     }
 

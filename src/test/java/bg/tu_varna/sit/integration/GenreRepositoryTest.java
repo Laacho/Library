@@ -47,15 +47,15 @@ class GenreRepositoryTest {
         assertEquals(Optional.empty(), genreRepository.findById(111563432313312L));
 
         Optional<Genre> genreOptional = genreRepository.findById(1L);
-        Genre expectedGenre = new Genre(1L, "Fantasy");
+        Genre expectedGenre = new Genre(1L, "Psychology");
         assertTrue(genreOptional.isPresent());
         assertEquals(expectedGenre.getName(), genreOptional.get().getName());
         assertEquals(expectedGenre.getId(), genreOptional.get().getId());
     }
     @Test
     void testFindByNameSuccess() {
-        String name = "Fantasy";
-        Genre expectedGenre = new Genre(1L, "Fantasy");
+        String name = "Psychology";
+        Genre expectedGenre = new Genre(1L, "Psychology");
         Optional<Genre> result = genreRepository.findByName(name);
         assertTrue(result.isPresent());
         assertEquals(expectedGenre.getName(), result.get().getName());

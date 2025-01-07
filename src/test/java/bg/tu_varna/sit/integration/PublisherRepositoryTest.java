@@ -44,7 +44,7 @@ public class PublisherRepositoryTest {
         Optional<Publisher> byId = publisherRepository.findById(3L);
         assertTrue(byId.isPresent());
         Publisher publisher = byId.get();
-        assertEquals("Ozon", publisher.getName());
+        assertEquals("Kolibri", publisher.getName());
     }
     @Test
     void testFindByIdFail(){
