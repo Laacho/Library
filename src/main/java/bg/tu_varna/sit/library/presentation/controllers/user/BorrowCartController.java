@@ -80,6 +80,9 @@ public class BorrowCartController extends UserController implements Initializabl
             Either<Exception, BorrowBooksOutputModel> process = borrowBooksProcessor.process(inputModel);
             if (process.isRight()) {
                 AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success", process.get().getMessage(), ButtonType.OK);
+                    gridPaneLayout.getChildren().clear();
+                    userSession.getCartBooks().clear();
+                    borrowedBooks.clear();
             } else {
                 AlertManager.showAlert(Alert.AlertType.ERROR, "Error", "Error while request to borrow books", ButtonType.OK);
             }
@@ -93,33 +96,38 @@ public class BorrowCartController extends UserController implements Initializabl
         }
 
         UserSession userSession = SingletonFactory.getSingletonInstance(UserSession.class);
-        for (Book cartBook : userSession.getCartBooks()) {
-            boolean toAdd = true;
-            for (CommonBooksProperties borrowedBook : borrowedBooks) {
-                if (cartBook.getInventoryNumber().equals(borrowedBook.getInventoryNumber())) {
-                    toAdd = false;
+        if(userSession.getCartBooks()!=null || !userSession.getCartBooks().isEmpty()) {
+            for (Book cartBook : userSession.getCartBooks()) {
+                boolean toAdd = true;
+                for (CommonBooksProperties borrowedBook : borrowedBooks) {
+                    if (cartBook.getInventoryNumber().equals(borrowedBook.getInventoryNumber())) {
+                        toAdd = false;
+                    }
                 }
+                if (toAdd)
+                    borrowedBooks.add(conversionService.convert(cartBook, CommonBooksProperties.class));
             }
-            if (toAdd)
-                borrowedBooks.add(conversionService.convert(cartBook, CommonBooksProperties.class));
         }
-        for (CommonBooksProperties book : borrowedBooks) {
-            ImageView imageView = getImageView(book);
-            gridPaneLayout.add(imageView, 0, rows);
-            Label label = getText(book);
-            Pane pane = new Pane(label);
-            gridPaneLayout.add(pane, 1, rows);
-            Button button = new Button();
-            button.getStyleClass().add("transparent-button");
-            File file = new File("src/main/resources/bg/tu_varna/sit/library/presentation.views/admin/approve_books/images/x.png");
-            ImageView forButton = new ImageView(new Image(file.toURI().toString()));
-            button.setGraphic(forButton);
-            HBox hBox = new HBox(button);
-            hBox.setAlignment(Pos.CENTER_RIGHT);
-            gridPaneLayout.add(hBox, 2, rows);
-            button.setOnAction(e -> setButtonFunctionality(e));
-            gridPaneLayout.setHgap(200);
-            rows++;
+        if(borrowedBooks!=null && !borrowedBooks.isEmpty()) {
+            for (CommonBooksProperties book : borrowedBooks) {
+                ImageView imageView = getImageView(book);
+                gridPaneLayout.add(imageView, 0, rows);
+                Label label = getText(book);
+                label.getStyleClass().add("smaller-text");
+                Pane pane = new Pane(label);
+                gridPaneLayout.add(pane, 1, rows);
+                Button button = new Button();
+                button.getStyleClass().add("transparent-button");
+                File file = new File("src/main/resources/bg/tu_varna/sit/library/presentation.views/admin/approve_books/images/x.png");
+                ImageView forButton = new ImageView(new Image(file.toURI().toString()));
+                button.setGraphic(forButton);
+                HBox hBox = new HBox(button);
+                hBox.setAlignment(Pos.CENTER_RIGHT);
+                gridPaneLayout.add(hBox, 2, rows);
+                button.setOnAction(e -> setButtonFunctionality(e));
+                gridPaneLayout.setHgap(150);
+                rows++;
+            }
         }
     }
 

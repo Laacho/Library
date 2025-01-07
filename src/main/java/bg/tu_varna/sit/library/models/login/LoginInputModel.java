@@ -16,7 +16,7 @@ public class LoginInputModel implements OperationInput {
     @Size(min = 1, max = 30, message = "Username must be between 1 and 30 characters")
     private String username;
 
-    @NotBlank(message = "New password must not be blank")
-    @Size(min = 1, max = 30, message = "New password must be between 1 and 30 characters")
+    @NotBlank(message = "Password must not be blank")
+    @Size(min = 1, max = 30, message = "Password must be between 1 and 30 characters")
     private String password;
 }

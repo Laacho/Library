@@ -25,13 +25,14 @@ public class BorrowedBooksRepositoryImpl implements BorrowedBooksRepository {
     @Override
     public Long save(BorrowedBooks entity) {
         Session session = Connection.openSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = null;
         Long result = null;
         try {
+            transaction = session.beginTransaction();
            // result = (Long) session.save(entity);
             BorrowedBooks merge = session.merge(entity);
             result = merge.getId();
-          //  transaction.commit();
+            transaction.commit();
             log.info("Successfully saved entity: " + entity);
         } catch (Exception ex) {
             log.error("Error while saving entity" + entity, ex);

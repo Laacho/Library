@@ -66,7 +66,12 @@ public class UserHomeViewController extends UserController implements Initializa
             int i = 0;
             List<NewBooksData> newBooksData = process.get().getNewBooksData();
             newBooksData.sort(Comparator.comparing(NewBooksData::getBookId).reversed());
+            int maxBooksToBeDisplay=5,currentIteration=0;
             for (NewBooksData iterBook : newBooksData) {
+                if (currentIteration==maxBooksToBeDisplay) {
+                    break;
+                }
+                currentIteration++;
                 VBox vBox = new VBox();
                 File file = new File(iterBook.getPathToImage());
                 ImageView imageView = new ImageView(new Image(file.toURI().toString()));

@@ -24,7 +24,7 @@ public class ConstantsPaths {
     public static final String ADMIN_SETTINGS_VIEW = "/bg/tu_varna/sit/library/presentation.views/admin/settings/pages/settings-view.fxml";
     public static final String ADMIN_SEARCH_VIEW = "/bg/tu_varna/sit/library/presentation.views/admin/search/pages/search-view.fxml";
     public static final String LIBRARY_HOME_VIEW = "/bg/tu_varna/sit/library/presentation.views/library_home_view/pages/library-home-view.fxml";
-
+    public static final String ADMIN_CHANGE_TO_BOOK_VIEW=        "/bg/tu_varna/sit/library/presentation.views/admin/book_data_view/pages/book-data-view.fxml";
     public static final String USER_HOME_VIEW = "/bg/tu_varna/sit/library/presentation.views/user/user_home_view/pages/user-home-view.fxml";
     public static final String USER_SEARCH_FOR_USER_VIEW = "/bg/tu_varna/sit/library/presentation.views/user/search_for_user/pages/search-for-user-view.fxml";
     public static final String USER_READER_PROFILE_VIEW = "/bg/tu_varna/sit/library/presentation.views/user/reader_profile/pages/reader-profile-view.fxml";

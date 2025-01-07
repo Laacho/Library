@@ -130,26 +130,35 @@ public class ApproveBookController extends AdminController implements Initializa
 
     @FXML
     public void decline() {
-        Book book = books.get(indexForRequest).getBooks().stream().toList().get(indexForBook);
-        books.get(indexForRequest).getBooks().remove(book);
-        if (books != null && indexForRequest < books.size()) {
-            if (indexForBook < books.get(indexForRequest).getBooks().size()) {
-                setDataForBook();
-            } else {
-                getDeadline();
-                books.get(indexForRequest).setBooks(setToSetInTheSet);
-                setToSetInTheSet = new HashSet<>();
-                indexForRequest++;
-                if (indexForRequest < books.size()) {
-                    indexForBook = 0;
-                    decline();
+        if(indexForRequest<books.size() && indexForBook < books.get(indexForRequest).getBooks().size()) {
+            Book book = books.get(indexForRequest).getBooks().stream().toList().get(indexForBook);
+            books.get(indexForRequest).getBooks().remove(book);
+            if (books != null && indexForRequest < books.size()) {
+                if (indexForBook < books.get(indexForRequest).getBooks().size()) {
+                    setDataForBook();
                 } else {
-                    AlertManager.showAlert(Alert.AlertType.INFORMATION, "All done", "There's no more requests", ButtonType.OK);
-                    Either<Exception, UpdateBorrowedBooksOutputModel> process = updateBorrowedBooksProcessor.process(UpdateBorrowedBooksInputModel.builder().books(books).build());
-                    if (process.isRight()) {
-                        AlertManager.showAlert(Alert.AlertType.INFORMATION, "Successful", process.get().getMeesage(), ButtonType.OK);
+                    getDeadline();
+                    books.get(indexForRequest).setBooks(setToSetInTheSet);
+                    setToSetInTheSet = new HashSet<>();
+                    indexForRequest++;
+                    if (indexForRequest < books.size()) {
+                        indexForBook = 0;
+                        decline();
+                    } else {
+                        AlertManager.showAlert(Alert.AlertType.INFORMATION, "All done", "There's no more requests", ButtonType.OK);
+                        Either<Exception, UpdateBorrowedBooksOutputModel> process = updateBorrowedBooksProcessor.process(UpdateBorrowedBooksInputModel.builder().books(books).build());
+                        if (process.isRight()) {
+                            AlertManager.showAlert(Alert.AlertType.INFORMATION, "Successful", process.get().getMeesage(), ButtonType.OK);
+                        }
                     }
                 }
+            }
+        }else{
+            books.get(indexForRequest).getBooks().clear();
+            AlertManager.showAlert(Alert.AlertType.INFORMATION, "All done", "There's no more requests", ButtonType.OK);
+            Either<Exception, UpdateBorrowedBooksOutputModel> process = updateBorrowedBooksProcessor.process(UpdateBorrowedBooksInputModel.builder().books(books).build());
+            if (process.isRight()) {
+                AlertManager.showAlert(Alert.AlertType.INFORMATION, "Successful", process.get().getMeesage(), ButtonType.OK);
             }
         }
     }
@@ -207,6 +216,8 @@ public class ApproveBookController extends AdminController implements Initializa
         alert.getDialogPane().setContent(content);
         alert.showAndWait().ifPresent(response -> {
             LocalDate deadline = datePicker.getValue();
+            if(deadline == null)
+                getDeadline();
             books.get(indexForRequest).setDeadline(deadline);
         });
     }

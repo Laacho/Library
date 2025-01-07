@@ -28,11 +28,13 @@ public class UserCredentialsRepositoryImpl implements UserCredentialsRepository 
     @Override
     public Long save(UserCredentials entity) {
         Session session = Connection.openSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = null;
         Long result = null;
         try {
+            transaction = session.beginTransaction();
             UserCredentials merge = session.merge(entity);
             result = merge.getId();
+            transaction.commit();
             log.info("Successfully saved entity: " + entity);
         } catch (Exception ex) {
             log.error("Error saving entity: " + entity);

@@ -29,6 +29,7 @@ public class ApproveProfilesProcessor extends BaseProcessor implements ApprovePr
                     validate(input);
                     String username = input.getUsername();
                     UserCredentials userCredentials = userCredentialsRepository.findByUsername(username).orElseThrow(() -> new UsernameDoesNotExist("Username Not Found","The username you provided does not exist in our records."));
+
                     ApproveProfilesOutputModel output = conversionService.convert(userCredentials.getUser(), ApproveProfilesOutputModel.class);
                     log.info("Finished approving profiles");
                     return output;

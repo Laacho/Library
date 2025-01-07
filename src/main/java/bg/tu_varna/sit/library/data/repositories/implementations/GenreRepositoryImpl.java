@@ -25,6 +25,7 @@ public class GenreRepositoryImpl implements GenreRepository {
         try {
             Genre merge = session.merge(entity);
             result = merge.getId();
+            transaction.commit();
             log.info("Successfully saved entity");
         }catch (Exception ex){
             log.error("Error saving entity", ex);

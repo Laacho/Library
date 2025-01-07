@@ -26,6 +26,7 @@ public class UserRepositoryImpl implements UserRepository {
         try {
             User merge = session.merge(entity);
             result = merge.getId();
+            transaction.commit();
             log.info("User saved");
         }catch (Exception ex){
             log.error("Error while saving entity: "+entity,ex);
