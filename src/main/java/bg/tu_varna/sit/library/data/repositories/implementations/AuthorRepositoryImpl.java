@@ -26,6 +26,7 @@ AuthorRepositoryImpl implements AuthorRepository {
         try {
             Author merge = session.merge(entity);
             result = merge.getId();
+            transaction.commit();
             log.info("Author saved successfully");
         } catch (Exception ex){
             log.error("Error while saving author ", ex);

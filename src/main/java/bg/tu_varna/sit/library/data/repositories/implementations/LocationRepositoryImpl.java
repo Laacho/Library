@@ -31,6 +31,7 @@ public class LocationRepositoryImpl implements LocationRepository {
         try {
             Location merge = session.merge(entity);
             result = merge.getId();
+            transaction.commit();
             log.info("Successfully added entity");
         } catch (Exception ex) {
             log.error("Error while saving entity", ex);

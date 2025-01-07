@@ -15,6 +15,7 @@ public class FromBookToCommonBooksProperties implements Converter<Book, CommonBo
                 .pathImage(source.getPath())
                 .isbn(source.getIsbn())
                 .title(source.getTitle())
+                .price(source.getPrice().doubleValue())
                 .inventoryNumber(source.getInventoryNumber())
                 .genre(source.getGenre().getName())
                 .authors(source.getAuthors().stream()

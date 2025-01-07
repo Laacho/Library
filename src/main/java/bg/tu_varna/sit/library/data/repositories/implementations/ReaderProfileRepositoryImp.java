@@ -137,7 +137,8 @@ public class ReaderProfileRepositoryImp implements ReaderProfileRepository {
         Session session = Connection.openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.update(readerProfile);
+            //session.update(readerProfile);
+            session.merge(readerProfile);
             transaction.commit();
         } catch (Exception ex) {
             log.error("Error updating readers profile with id "+readerProfile.getId(), ex);

@@ -5,6 +5,7 @@ import bg.tu_varna.sit.library.data.entities.UserCredentials;
 import bg.tu_varna.sit.library.data.repositories.implementations.UserCredentialsRepositoryImpl;
 import bg.tu_varna.sit.library.data.repositories.interfaces.UserCredentialsRepository;
 import bg.tu_varna.sit.library.exceptions.PasswordDoesNotMatch;
+import bg.tu_varna.sit.library.exceptions.UserNotFound;
 import bg.tu_varna.sit.library.exceptions.UsernameDoesNotExist;
 import bg.tu_varna.sit.library.models.ExceptionManager;
 import bg.tu_varna.sit.library.models.login.LoginInputModel;
@@ -16,6 +17,8 @@ import bg.tu_varna.sit.library.utils.annotations.Processor;
 import bg.tu_varna.sit.library.utils.session.UserSession;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,12 +40,19 @@ public class LoginProcessor extends BaseProcessor implements LoginOperationModel
                     validate(input);
                     UserCredentials userCredentials = checkIfUsernameExists(input.getUsername());
                     checkIfPasswordMatches(userCredentials.getPassword(), input.getPassword());
+                    checkIfUsernameMatches(input.getUsername(),userCredentials.getUsername());
                     UserSession userSession = buildUserSession(userCredentials);
                     userSession.setCartBooks(userCredentials.getCartForBooks());
                     log.info("Successfully logged in user with username: " + input.getUsername() + " and password: " + input.getPassword());
                     return conversionService.convert(userSession, LoginOutputModel.class);
                 }).toEither()
                 .mapLeft(exceptionManager::handle);
+    }
+
+    private void checkIfUsernameMatches( String inputUsername, String usernameFromDb) throws UserNotFound {
+        if(!inputUsername.equals(usernameFromDb)) {
+            throw new UserNotFound("User not found!","Wrong username!");
+        }
     }
 
     @NotNull

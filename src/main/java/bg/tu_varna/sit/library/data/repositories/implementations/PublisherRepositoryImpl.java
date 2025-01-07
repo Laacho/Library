@@ -25,6 +25,7 @@ public class PublisherRepositoryImpl implements PublisherRepository {
         try {
             Publisher merge = session.merge(entity);
             result = merge.getId();
+            transaction.commit();
             log.info("Successfully saved entity "+entity);
         }catch (Exception ex){
             log.error("Error saving entity "+entity, ex);

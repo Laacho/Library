@@ -36,6 +36,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -167,14 +168,15 @@ public class AddBookController extends AdminController implements Initializable 
         return Math.ceil(tempText.getLayoutBounds().getWidth()) + 5;
     }
     @FXML
-    public void addBookInDB(ActionEvent event) {
+    public void addBookInDB(ActionEvent event) throws IOException {
         validateInput();
         Set<Author> authors = getAuthors();
         AddBookInputModel inputModel = buildInput(authors);
         Either<Exception, AddBookOutputModel> process = addBookOperation.process(inputModel);
         if (process.isRight()) {
              AlertManager.showAlert(Alert.AlertType.INFORMATION, "Congrats!", "You added a book!", ButtonType.CLOSE);
-             clearScene();
+             //clearScene();
+             addBook(event);
         } else {
             AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", "Error occurred while processing saving book",ButtonType.CLOSE);
         }
@@ -185,27 +187,28 @@ public class AddBookController extends AdminController implements Initializable 
             || genre.getText().isEmpty() || publisher.getText().isEmpty()
             || inventoryNumber.getText().isEmpty() || price.getText().isEmpty()
             || pathFromUser == null || pathFromUser.isEmpty()
-            || locationRow.getValue() == null)
-        {
+            || locationRow.getValue() == null
+        ) {
             AlertManager.showAlert(Alert.AlertType.ERROR, "Validation Error!", "All fields must be filled, a location must be selected, and an image must be uploaded!", ButtonType.CLOSE);
+
         }
+//        ObservableList<String> items = listView.getItems();
+//        boolean allCorrect = false;
+//        for (String item : items) {
+//            if (item.isBlank()) {
+//                allCorrect = true;
+//                break;
+//            }
+//        }
+//        if (!allCorrect) {
+//            AlertManager.showAlert(Alert.AlertType.ERROR, "Validation Error!", "All fields must be filled, a location must be selected, and an image must be uploaded!", ButtonType.CLOSE);
+//        }
     }
 
 
 
 
 
-    private void clearScene() {
-        imageView.setImage(null);
-        listView.getItems().clear();
-        locationRow.getItems().clear();
-        isbn.setText("");
-        title.setText("");
-        genre.setText("");
-        publisher.setText("");
-        inventoryNumber.setText("");
-        price.setText("");
-    }
 
     @NotNull
     private Set<Author> getAuthors() {
@@ -216,6 +219,7 @@ public class AddBookController extends AdminController implements Initializable 
             if (split.length == 1) {
                 Author build = Author.builder()
                         .firstName(split[0])
+                        .lastName("")
                         .build();
                 authors.add(build);
             } else if (split.length == 2) {

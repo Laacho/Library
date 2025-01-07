@@ -161,7 +161,6 @@ public class BookDataController extends UserController implements Initializable 
                     .wantsToDelete(false)
                     .build();
             processInputForFavorite(input);
-            alreadyExitsInFavorites = true;
 
         } else {
             AddToFavoriteInputModel input = AddToFavoriteInputModel.builder()
@@ -169,7 +168,6 @@ public class BookDataController extends UserController implements Initializable 
                     .wantsToDelete(true)
                     .build();
             processInputForFavorite(input);
-            alreadyExitsInFavorites = false;
         }
         updateFavoriteButtonState();
     }
@@ -178,8 +176,12 @@ public class BookDataController extends UserController implements Initializable 
         Either<Exception, AddToFavoriteOutputModel> process = addToFavoriteOperationModel.process(input);
         if (process.isRight() && alreadyExitsInFavorites) {
             AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Successfully removed from favourite", ButtonType.OK);
+            alreadyExitsInFavorites = false;
         } else if (process.isRight() && !alreadyExitsInFavorites) {
+            alreadyExitsInFavorites = true;
             AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Successfully added in favourite", ButtonType.OK);
+        }else if (process.isLeft()) {
+            alreadyExitsInFavorites = false;
         }
     }
 
@@ -192,7 +194,6 @@ public class BookDataController extends UserController implements Initializable 
                     .wantsToDelete(false)
                     .build();
             processInputForToRead(input);
-            alreadyExitsInRead = true;
         } else {
             AddToReadInputModel input = AddToReadInputModel
                     .builder()
@@ -200,7 +201,6 @@ public class BookDataController extends UserController implements Initializable 
                     .wantsToDelete(true)
                     .build();
             processInputForToRead(input);
-            alreadyExitsInRead = false;
         }
         updateToReadButtonState();
     }
@@ -208,9 +208,13 @@ public class BookDataController extends UserController implements Initializable 
     private void processInputForToRead(AddToReadInputModel input) {
         Either<Exception, AddToReadOutputModel> process = addToReadOperationModel.process(input);
         if (process.isRight() && alreadyExitsInRead) {
+            alreadyExitsInRead = false;
             AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Successfully removed from wants to read", ButtonType.OK);
         } else if (process.isRight() && !alreadyExitsInRead) {
+            alreadyExitsInRead = true;
             AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Successfully added in wants to read", ButtonType.OK);
+        }else if (process.isLeft()) {
+            alreadyExitsInRead = false;
         }
 
     }
@@ -223,14 +227,12 @@ public class BookDataController extends UserController implements Initializable 
                     .wantToDelete(false)
                     .build();
             processInputForAlreadyRead(input);
-            alreadyExistsInAlreadyRead = true;
         } else {
             AddToAlreadyReadInputModel input = AddToAlreadyReadInputModel.builder()
                     .commonBooksProperties(booksData)
                     .wantToDelete(true)
                     .build();
             processInputForAlreadyRead(input);
-            alreadyExistsInAlreadyRead = false;
         }
         updateAddToAlreadyReadButtonState();
 
@@ -239,9 +241,13 @@ public class BookDataController extends UserController implements Initializable 
     private void processInputForAlreadyRead(AddToAlreadyReadInputModel input) {
         Either<Exception, AddToAlreadyReadOutputModel> process = addToAlreadyReadOperationModel.process(input);
         if (process.isRight() && alreadyExistsInAlreadyRead) {
+            alreadyExistsInAlreadyRead = false;
             AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Successfully removed from already read", ButtonType.OK);
         } else if (process.isRight() && !alreadyExistsInAlreadyRead) {
+            alreadyExistsInAlreadyRead = true;
             AlertManager.showAlert(Alert.AlertType.INFORMATION, "Success!", "Successfully added to already read", ButtonType.OK);
+        }else if (process.isLeft()) {
+            alreadyExistsInAlreadyRead = false;
         }
     }
 

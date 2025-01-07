@@ -28,7 +28,7 @@ public class NotificationRepositoryImpl implements NotificationRepository {
         try {
             Notification merge = session.merge(entity);
             result = merge.getId();
-
+            transaction.commit();
             log.info("Successfully saved " + entity);
         } catch (Exception ex) {
             log.error("Notification add error: " + ex.getMessage());

@@ -25,6 +25,7 @@ public class ArchivedRepositoryImpl implements ArchivedRepository {
         try {
             ArchivedBooks merge = session.merge(entity);
             result = merge.getId();
+            transaction.commit();
             log.info("Successfully saved " + entity);
         } catch (Exception ex) {
            log.error("Archive add error: "+ex.getMessage());
