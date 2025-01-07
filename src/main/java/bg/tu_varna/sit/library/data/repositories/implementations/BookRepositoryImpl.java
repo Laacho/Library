@@ -28,11 +28,13 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public Long save(Book entity) {
         Session session = Connection.openSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction =null;
         Long result = null;
         try {
+            transaction = session.beginTransaction();
             Book merge = session.merge(entity);
             result = merge.getId();
+            transaction.commit();
             log.info("Book saved: " + entity);
         } catch (Exception ex) {
             log.error("Error while saving book: " + entity, ex);

@@ -83,7 +83,6 @@ public class SettingsController extends AdminController implements Initializable
     public void searchUser() {
         if (searchTextField.getText().isBlank()) {
             AlertManager.showAlert(Alert.AlertType.ERROR, "Empty field!", "Please enter a username!", ButtonType.OK);
-            return;
         } else {
             SearchUserByUsernameInputModel input = SearchUserByUsernameInputModel.builder()
                     .username(searchTextField.getText())
@@ -95,13 +94,12 @@ public class SettingsController extends AdminController implements Initializable
                 firstNameResult.setText(userCredentials.getUser().getFirstName());
                 lastNameResult.setText(userCredentials.getUser().getLastName());
                 EmailResult.setText(userCredentials.getEmail());
-                ratingResult.setText(String.valueOf(userCredentials.getRating()));
+                ratingResult.setText(userCredentials.getRating()==null ? "0" : String.valueOf(userCredentials.getRating()));
                 verifiedResult.setText(userCredentials.getVerified() ? String.valueOf(userCredentials.getDateOfVerification()) : "Not verified yet");
                 roleResult.setText(userCredentials.getAdmin() ? "Admin" : "User");
                 foundUser = true;
             } else {
                 foundUser = false;
-                AlertManager.showAlert(Alert.AlertType.ERROR, "Error!", process.getLeft().getMessage(), ButtonType.OK);
             }
 
         }

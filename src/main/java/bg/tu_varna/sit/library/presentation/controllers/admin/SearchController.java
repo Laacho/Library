@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static bg.tu_varna.sit.library.utils.ConstantsPaths.ADMIN_DOUBLE_CLICK_FOR_BOOK_VIEW;
+import static bg.tu_varna.sit.library.utils.ConstantsPaths.ADMIN_CHANGE_TO_BOOK_VIEW;
 
 
 public class SearchController extends AdminController implements Initializable {
@@ -75,7 +75,7 @@ public class SearchController extends AdminController implements Initializable {
     public void changeToBookView(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getClickCount() == 2) {
             //setPath("/bg/tu_varna/sit/library/presentation.views/admin/book_data_view/pages/book-data-view.fxml");
-            setPath(ADMIN_DOUBLE_CLICK_FOR_BOOK_VIEW);
+            setPath(ADMIN_CHANGE_TO_BOOK_VIEW);
             FXMLLoader loader = changeScene((Stage) listView.getScene().getWindow());
             BookDataViewController controller = loader.getController();
             String selectedItem = listView.getSelectionModel().getSelectedItem();
